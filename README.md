@@ -2,9 +2,7 @@
 
 # 🪐 Orion - The Halo API Wrapper
 
-_Your one-stop-shop for the official undocumented Halo API_
-
-Welcome to **Den.Dev.Orion API** - the unofficial way to use official undocumented Halo APIs. Here be **a lot of dragons** and this is not yet ready to be a standalone package, since the changes will be frequent and large. That said, you can use it as a test pad for your own explorations.
+Welcome to **Den.Dev.Orion API** - the unofficial way to use official undocumented Halo APIs. Here be **a lot of dragons**. I mostly created this project for my own stat tracking and it will never be public.
 
 This API enables you to:
 
