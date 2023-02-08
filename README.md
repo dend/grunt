@@ -53,7 +53,7 @@ I'll say it again - this token is not long-lived and if you see calls failing wi
 
 Some API calls are also requiring you include another header - `343-clearance`. This token is obtained through a separate API call, but you can also grab it from the Halo Waypoint site. If you look for it in the network inspector, you will get the `343-clearance` header as well.
 
-Once you have the Spartan and clearance tokens, you are good to go, and can now [call the API endpoints from Den.Dev.Orion](https://docs.Den.Dev.Orionapi.com/dotnet/api/Den.Dev.Orion.core/Den.Dev.Orion.core.haloinfiniteclient).
+Once you have the Spartan and clearance tokens, you are good to go, and can now call the API endpoints from `Den.Dev.Orion`:
 
 ```csharp
 HaloInfiniteClient client = new(<YOUR_SPARTAN_TOKEN>, <YOUR_CLEARANCE_TOKEN>, <YOUR_XUID_REQUIRED_ONLY_FOR_SOME_CALLS>);

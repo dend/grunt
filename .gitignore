@@ -349,17 +349,9 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+# *****************************
 # Custom for Den.Dev.Orion
-
-## Contains token information for the registered client.
-client.json
-
-## Contains information about the Halo Waypoint communication tokens.
-Den.Dev.Orion.json
-
-## Contains token information
-tokens.json
-
+# *****************************
 ## Misc
 .vscode/
 .DS_Store
