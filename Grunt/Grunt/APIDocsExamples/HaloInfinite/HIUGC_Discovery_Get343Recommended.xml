@@ -1,0 +1,153 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 11/8/2022:
+	<code>
+    {
+        "CustomData": {},
+        "MapLinks": [
+            {
+                "AssetId": "d39600e2-3c35-4a3a-bdf5-7b3cbdde98e1",
+                "VersionId": "002c3ef4-f042-4076-b3a5-022a60d57167",
+                "PublicName": "Detachment",
+                "Description": "No complex riddle, just stick to the middle.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/map/d39600e2-3c35-4a3a-bdf5-7b3cbdde98e1/002c3ef4-f042-4076-b3a5-022a60d57167/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/screenshot1.jpg",
+                        "images/thumbnail.jpg"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/map/d39600e2-3c35-4a3a-bdf5-7b3cbdde98e1/002c3ef4-f042-4076-b3a5-022a60d57167/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [
+                    "xuid(2814623166671675)",
+                    "xuid(2814660312652330)",
+                    "xuid(2814674010818653)",
+                    "xuid(2814680997777799)",
+                    "xuid(2814637171030598)",
+                    "xuid(2814658030103965)",
+                    "xuid(2814654855941658)",
+                    "xuid(2814679096108359)",
+                    "xuid(2814670609540011)",
+                    "xuid(2814660122751469)",
+                    "xuid(2814631097707926)"
+                ],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 8043,
+                    "PlaysAllTime": 8043,
+                    "Favorites": 163,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 20,
+                    "AverageRating": 4.170731707317073,
+                    "NumberOfRatings": 41
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 0,
+                "Order": 0
+            },
+            {
+                "AssetId": "dd600260-d91c-4d77-9990-3f35873c90a1",
+                "VersionId": "2e70358c-7e0f-42fa-bc54-51f9c2a9245d",
+                "PublicName": "Argyle",
+                "Description": "An incredible feat of engineering.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/map/dd600260-d91c-4d77-9990-3f35873c90a1/2e70358c-7e0f-42fa-bc54-51f9c2a9245d/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/screenshot1.jpg",
+                        "images/thumbnail.jpg"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/map/dd600260-d91c-4d77-9990-3f35873c90a1/2e70358c-7e0f-42fa-bc54-51f9c2a9245d/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [
+                    "xuid(2814623166671675)",
+                    "xuid(2814680997777799)",
+                    "xuid(2814660122751469)",
+                    "xuid(2814679096108359)",
+                    "xuid(2814637171030598)",
+                    "xuid(2814660312652330)",
+                    "xuid(2814658030103965)",
+                    "xuid(2814631097707926)"
+                ],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 9648,
+                    "PlaysAllTime": 9648,
+                    "Favorites": 156,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 22,
+                    "AverageRating": 3.533333333333333,
+                    "NumberOfRatings": 45
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 0,
+                "Order": 0
+            }
+        ],
+        "PlaylistLinks": [],
+        "PrefabLinks": [],
+        "UgcGameVariantLinks": [],
+        "MapModePairLinks": [],
+        "Tags": [],
+        "AssetId": "712add52-f989-48e1-b3bb-ac7cd8a1c17a",
+        "VersionId": "260b973d-6179-4667-a35e-2c4b17cddf8a",
+        "PublicName": "343 Recommended",
+        "Description": "A few things you might enjoy.",
+        "Files": {
+            "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/project/712add52-f989-48e1-b3bb-ac7cd8a1c17a/260b973d-6179-4667-a35e-2c4b17cddf8a/",
+            "FileRelativePaths": [],
+            "PrefixEndpoint": {
+                "AuthorityId": "iUgcFiles",
+                "Path": "/ugcstorage/project/712add52-f989-48e1-b3bb-ac7cd8a1c17a/260b973d-6179-4667-a35e-2c4b17cddf8a/",
+                "QueryString": null,
+                "RetryPolicyId": "linearretry",
+                "TopicName": "",
+                "AcknowledgementTypeId": 0,
+                "AuthenticationLifetimeExtensionSupported": false,
+                "ClearanceAware": false
+            }
+        },
+        "Contributors": [
+            "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+        ],
+        "AssetHome": 1,
+        "AssetStats": {
+            "PlaysRecent": 0,
+            "PlaysAllTime": 0,
+            "Favorites": 0,
+            "Likes": 0,
+            "Bookmarks": 0,
+            "ParentAssetCount": 0,
+            "AverageRating": 0.0,
+            "NumberOfRatings": 0
+        },
+        "InspectionResult": 0,
+        "CloneBehavior": 0,
+        "Order": 0
+    }
+	</code>
+	To use this function in your code:
+	<code>
+	var result = (await client.HIUGCDiscoveryGet343Recommended());
+	</code>
+</example>

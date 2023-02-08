@@ -1,0 +1,397 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 11/8/2022:
+	<code>
+    {
+        "CustomData": {},
+        "MapLinks": [
+            {
+                "AssetId": "d9a66014-3822-421a-9605-51bea8e2268e",
+                "VersionId": "0735a5e0-f5aa-4673-b75b-4d9e3bd0964d",
+                "PublicName": "Arid",
+                "Description": "The secrets of this ring outnumber the sands of its dunes.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/map/d9a66014-3822-421a-9605-51bea8e2268e/0735a5e0-f5aa-4673-b75b-4d9e3bd0964d/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/hero.png",
+                        "images/screenshot1.jpg",
+                        "images/screenshot1.png",
+                        "images/thumbnail.jpg",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/map/d9a66014-3822-421a-9605-51bea8e2268e/0735a5e0-f5aa-4673-b75b-4d9e3bd0964d/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 993,
+                    "PlaysAllTime": 994,
+                    "Favorites": 100,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 6,
+                    "AverageRating": 4.142857142857143,
+                    "NumberOfRatings": 7
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 0,
+                "Order": 0
+            },
+            {
+                "AssetId": "3eea5b62-d0ec-4282-9818-2827a3067ebd",
+                "VersionId": "3e8855ee-09e6-47b9-a930-cf456330bef6",
+                "PublicName": "Seafloor",
+                "Description": "Beneath the waves and beyond the Schorr.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/map/3eea5b62-d0ec-4282-9818-2827a3067ebd/3e8855ee-09e6-47b9-a930-cf456330bef6/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/hero.png",
+                        "images/screenshot1.jpg",
+                        "images/thumbnail.jpg",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/map/3eea5b62-d0ec-4282-9818-2827a3067ebd/3e8855ee-09e6-47b9-a930-cf456330bef6/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 489,
+                    "PlaysAllTime": 490,
+                    "Favorites": 75,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 6,
+                    "AverageRating": 4.166666666666667,
+                    "NumberOfRatings": 6
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 0,
+                "Order": 0
+            },
+            {
+                "AssetId": "1a7eb428-e374-43c4-ae23-bc409bbd0f77",
+                "VersionId": "e753344b-0007-4181-a7e4-7eacc800435f",
+                "PublicName": "Mires",
+                "Description": "You might want to pack better boots.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/map/1a7eb428-e374-43c4-ae23-bc409bbd0f77/e753344b-0007-4181-a7e4-7eacc800435f/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/hero.png",
+                        "images/screenshot1.jpg",
+                        "images/thumbnail.jpg",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/map/1a7eb428-e374-43c4-ae23-bc409bbd0f77/e753344b-0007-4181-a7e4-7eacc800435f/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 394,
+                    "PlaysAllTime": 394,
+                    "Favorites": 54,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 6,
+                    "AverageRating": 2.6666666666666665,
+                    "NumberOfRatings": 3
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 0
+            },
+            {
+                "AssetId": "47349830-7e98-4a1f-b5cd-013e12478e23",
+                "VersionId": "14074f84-ad86-47af-aa94-954b43904313",
+                "PublicName": "Void",
+                "Description": "A vast expanse of infinite possibilities.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/map/47349830-7e98-4a1f-b5cd-013e12478e23/14074f84-ad86-47af-aa94-954b43904313/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/hero.png",
+                        "images/screenshot1.jpg",
+                        "images/screenshot1.png",
+                        "images/thumbnail.jpg",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/map/47349830-7e98-4a1f-b5cd-013e12478e23/14074f84-ad86-47af-aa94-954b43904313/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 29,
+                    "PlaysAllTime": 33,
+                    "Favorites": 20,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 5,
+                    "AverageRating": 3.5714285714285716,
+                    "NumberOfRatings": 7
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 0
+            },
+            {
+                "AssetId": "dd600260-d91c-4d77-9990-3f35873c90a1",
+                "VersionId": "2e70358c-7e0f-42fa-bc54-51f9c2a9245d",
+                "PublicName": "Argyle",
+                "Description": "An incredible feat of engineering.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/map/dd600260-d91c-4d77-9990-3f35873c90a1/2e70358c-7e0f-42fa-bc54-51f9c2a9245d/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/screenshot1.jpg",
+                        "images/thumbnail.jpg"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/map/dd600260-d91c-4d77-9990-3f35873c90a1/2e70358c-7e0f-42fa-bc54-51f9c2a9245d/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [
+                    "xuid(2814623166671675)",
+                    "xuid(2814680997777799)",
+                    "xuid(2814660122751469)",
+                    "xuid(2814679096108359)",
+                    "xuid(2814637171030598)",
+                    "xuid(2814660312652330)",
+                    "xuid(2814658030103965)",
+                    "xuid(2814631097707926)"
+                ],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 11303,
+                    "PlaysAllTime": 11303,
+                    "Favorites": 167,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 22,
+                    "AverageRating": 3.607843137254902,
+                    "NumberOfRatings": 51
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 0,
+                "Order": 0
+            },
+            {
+                "AssetId": "d39600e2-3c35-4a3a-bdf5-7b3cbdde98e1",
+                "VersionId": "002c3ef4-f042-4076-b3a5-022a60d57167",
+                "PublicName": "Detachment",
+                "Description": "No complex riddle, just stick to the middle.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/map/d39600e2-3c35-4a3a-bdf5-7b3cbdde98e1/002c3ef4-f042-4076-b3a5-022a60d57167/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/screenshot1.jpg",
+                        "images/thumbnail.jpg"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/map/d39600e2-3c35-4a3a-bdf5-7b3cbdde98e1/002c3ef4-f042-4076-b3a5-022a60d57167/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [
+                    "xuid(2814623166671675)",
+                    "xuid(2814660312652330)",
+                    "xuid(2814674010818653)",
+                    "xuid(2814680997777799)",
+                    "xuid(2814637171030598)",
+                    "xuid(2814658030103965)",
+                    "xuid(2814654855941658)",
+                    "xuid(2814679096108359)",
+                    "xuid(2814670609540011)",
+                    "xuid(2814660122751469)",
+                    "xuid(2814631097707926)"
+                ],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 9525,
+                    "PlaysAllTime": 9525,
+                    "Favorites": 185,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 20,
+                    "AverageRating": 4.12,
+                    "NumberOfRatings": 50
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 0,
+                "Order": 0
+            },
+            {
+                "AssetId": "45b41765-ee9a-453d-b76f-0665384bfb73",
+                "VersionId": "dc93c901-dff4-44ed-ae9b-bc6474f4f132",
+                "PublicName": "Ecliptic",
+                "Description": "For all our vast knowledge, so many worlds remain uncharted.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/map/45b41765-ee9a-453d-b76f-0665384bfb73/dc93c901-dff4-44ed-ae9b-bc6474f4f132/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/screenshot1.jpg",
+                        "images/thumbnail.jpg"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/map/45b41765-ee9a-453d-b76f-0665384bfb73/dc93c901-dff4-44ed-ae9b-bc6474f4f132/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 485,
+                    "PlaysAllTime": 485,
+                    "Favorites": 70,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 5,
+                    "AverageRating": 3.3333333333333335,
+                    "NumberOfRatings": 3
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 0
+            },
+            {
+                "AssetId": "16aff7ea-2a8c-4ee7-89f4-39f1fe03bab7",
+                "VersionId": "9ca44679-6a78-419f-8520-18355121a389",
+                "PublicName": "Institute",
+                "Description": "Beyond the safety of these walls…",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/map/16aff7ea-2a8c-4ee7-89f4-39f1fe03bab7/9ca44679-6a78-419f-8520-18355121a389/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/screenshot1.jpg",
+                        "images/thumbnail.jpg"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/map/16aff7ea-2a8c-4ee7-89f4-39f1fe03bab7/9ca44679-6a78-419f-8520-18355121a389/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 161,
+                    "PlaysAllTime": 161,
+                    "Favorites": 43,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 4,
+                    "AverageRating": 4.4,
+                    "NumberOfRatings": 5
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 0
+            }
+        ],
+        "PlaylistLinks": [],
+        "PrefabLinks": [],
+        "UgcGameVariantLinks": [],
+        "MapModePairLinks": [],
+        "Tags": [],
+        "AssetId": "bf0e9bab-6fed-47a4-8bf7-bfd4422ee552",
+        "VersionId": "4d90a66d-0fc9-4bef-856f-e4cfc0405792",
+        "PublicName": "Forge Templates",
+        "Description": "Suggested maps from which to start when making a new map in Forge",
+        "Files": {
+            "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/project/bf0e9bab-6fed-47a4-8bf7-bfd4422ee552/4d90a66d-0fc9-4bef-856f-e4cfc0405792/",
+            "FileRelativePaths": [],
+            "PrefixEndpoint": {
+                "AuthorityId": "iUgcFiles",
+                "Path": "/ugcstorage/project/bf0e9bab-6fed-47a4-8bf7-bfd4422ee552/4d90a66d-0fc9-4bef-856f-e4cfc0405792/",
+                "QueryString": null,
+                "RetryPolicyId": "linearretry",
+                "TopicName": "",
+                "AcknowledgementTypeId": 0,
+                "AuthenticationLifetimeExtensionSupported": false,
+                "ClearanceAware": false
+            }
+        },
+        "Contributors": [
+            "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+        ],
+        "AssetHome": 1,
+        "AssetStats": {
+            "PlaysRecent": 0,
+            "PlaysAllTime": 0,
+            "Favorites": 0,
+            "Likes": 0,
+            "Bookmarks": 0,
+            "ParentAssetCount": 0,
+            "AverageRating": 0.0,
+            "NumberOfRatings": 0
+        },
+        "InspectionResult": 0,
+        "CloneBehavior": 0,
+        "Order": 0
+    }
+	</code>
+	To use this function in your code:
+	<code>
+	var result = (await client.HIUGCDiscoveryGetForgeTemplates());
+	</code>
+</example>

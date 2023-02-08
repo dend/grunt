@@ -1,0 +1,38 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 11/8/2022:
+	<code>
+    {
+        "Links": {},
+        "Name": "",
+        "Description": "",
+        "AssetId": "d3e2a6fb-4b5a-4144-b999-a3bb5d534639",
+        "AssetVersionId": "e9964bd1-54a0-4776-9148-a59eecaac307",
+        "CustomData": {},
+        "VersionRatings": null,
+        "AssetKind": 1,
+        "SearchableData": {
+            "PublicName": "New Film",
+            "Description": "",
+            "Tags": [],
+            "HasNodeGraph": false,
+            "CloneBehavior": 0,
+            "PublishedVersion": "e9964bd1-54a0-4776-9148-a59eecaac307",
+            "IsBanned": false,
+            "FavoritesCount": 0,
+            "RatingScore": 0.0,
+            "RatingCount": 0,
+            "AssetState": 1,
+            "AssetCreatedDate": {
+                "ISO8601Date": "2022-11-08T21:14:59.003Z"
+            },
+            "AssetLastModified": {
+                "ISO8601Date": "2022-11-08T21:28:23.276Z"
+            }
+        }
+    }
+	</code>
+	To use this function in your code:
+	<code>
+	var result = (await client.HIUGCFavoriteAFilmByMatchId("xuid(YOUR_XUID)", "b6135d03-7c55-4113-b033-19cfe24b8249"));
+	</code>
+</example>

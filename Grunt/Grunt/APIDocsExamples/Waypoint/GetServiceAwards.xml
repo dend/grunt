@@ -1,0 +1,37 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 11/7/2022:
+	<code>
+    {
+        "xuid": "2533274855333605",
+        "haloGamerscore": 4332,
+        "featuredAwards": [
+            "hi-event-ritualEagleStrike",
+            "h5-csr-tier1"
+        ],
+        "awards": [
+            "halo-gamerscore-tier1",
+            "odst-campaign-tier2",
+            "odst-campaign-tier3",
+            "odst-campaign-tier4",
+            "h4-campaign-tier2",
+            "h4-campaign-tier3",
+            "h4-campaign-tier4",
+            "hmcc-h1-campaign-tier1",
+            "hmcc-h1-campaign-tier2",
+            "hmcc-h1-campaign-tier3",
+            "hmcc-h1-campaign-tier4",
+            "hmcc-reach-campaign-tier1",
+            "hmcc-reach-campaign-tier2",
+            "hmcc-reach-campaign-tier3",
+            "hmcc-reach-campaign-tier4",
+            "h5-campaign-tier2",
+            "h5-campaign-tier3",
+            "h5-campaign-tier4",
+            "h5-csr-tier1",
+            "halo-multiplayer-tier1",
+            "halo-multiplayer-tier2",
+            "hi-event-ritualEagleStrike"
+        ]
+    }
+	</code>
+</example>

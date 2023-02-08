@@ -1,0 +1,87 @@
+﻿<example>
+    Here is an example response from the API, as snapshotted on 11/7/2022:
+    <code>
+    [
+        {
+            "id": 73,
+            "name": "Canon Fodder",
+            "description": "",
+            "slug": "canon-fodder",
+            "count": 38,
+            "parent": 70
+        },
+        {
+            "id": 70,
+            "name": "Community",
+            "description": "",
+            "slug": "community",
+            "count": 81,
+            "parent": 0
+        },
+        {
+            "id": 75,
+            "name": "Community Spotlight",
+            "description": "",
+            "slug": "community-spotlight",
+            "count": 16,
+            "parent": 70
+        },
+        {
+            "id": 74,
+            "name": "Community Update",
+            "description": "",
+            "slug": "community-update",
+            "count": 22,
+            "parent": 70
+        },
+        {
+            "id": 69,
+            "name": "Esports",
+            "description": "",
+            "slug": "esports",
+            "count": 42,
+            "parent": 0
+        },
+        {
+            "id": 55,
+            "name": "Games",
+            "description": "",
+            "slug": "games",
+            "count": 98,
+            "parent": 0
+        },
+        {
+            "id": 76,
+            "name": "Grassroots",
+            "description": "",
+            "slug": "grassroots",
+            "count": 6,
+            "parent": 69
+        },
+        {
+            "id": 78,
+            "name": "Halo Infinite",
+            "description": "",
+            "slug": "halo-infinite",
+            "count": 81,
+            "parent": 55
+        },
+        {
+            "id": 207,
+            "name": "Halo TV Series",
+            "description": "",
+            "slug": "halo-tv-series",
+            "count": 15,
+            "parent": 0
+        },
+        {
+            "id": 79,
+            "name": "Halo: The Master Chief Collection",
+            "description": "",
+            "slug": "halo-the-master-chief-collection",
+            "count": 23,
+            "parent": 55
+        }
+    ]
+    </code>
+</example>

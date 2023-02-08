@@ -1,0 +1,13 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 11/7/2022:
+	<code>
+    {
+        "id": 73,
+        "name": "Canon Fodder",
+        "description": "",
+        "slug": "canon-fodder",
+        "count": 38,
+        "parent": 70
+    }
+	</code>
+</example>

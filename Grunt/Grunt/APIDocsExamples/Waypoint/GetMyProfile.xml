@@ -1,0 +1,15 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 10/11/2022:
+	<code>
+    {
+        "xuid": "2533274855333605",
+        "gamertag": "ZeBond",
+        "gamerpic": {
+            "small": "https://images-eds-ssl.xboxlive.com/image?url=8Oaj9Ryq1G1_p3lLnXlsaZgGzAie6Mnu24_PawYuDYIoH77pJ.X5Z.MqQPibUVTcS9jr0n8i7LY1tL3U7AiafQoCsmqDRwQavrdh0pW4uBGK0dwLfUtXJmRlog5sQmaF&amp;format=png&amp;w=64&amp;h=64",
+            "medium": "https://images-eds-ssl.xboxlive.com/image?url=8Oaj9Ryq1G1_p3lLnXlsaZgGzAie6Mnu24_PawYuDYIoH77pJ.X5Z.MqQPibUVTcS9jr0n8i7LY1tL3U7AiafQoCsmqDRwQavrdh0pW4uBGK0dwLfUtXJmRlog5sQmaF&amp;format=png&amp;w=208&amp;h=208",
+            "large": "https://images-eds-ssl.xboxlive.com/image?url=8Oaj9Ryq1G1_p3lLnXlsaZgGzAie6Mnu24_PawYuDYIoH77pJ.X5Z.MqQPibUVTcS9jr0n8i7LY1tL3U7AiafQoCsmqDRwQavrdh0pW4uBGK0dwLfUtXJmRlog5sQmaF&amp;format=png&amp;w=424&amp;h=424",
+            "xlarge": "https://images-eds-ssl.xboxlive.com/image?url=8Oaj9Ryq1G1_p3lLnXlsaZgGzAie6Mnu24_PawYuDYIoH77pJ.X5Z.MqQPibUVTcS9jr0n8i7LY1tL3U7AiafQoCsmqDRwQavrdh0pW4uBGK0dwLfUtXJmRlog5sQmaF&amp;format=png"
+        }
+    }
+	</code>
+</example>

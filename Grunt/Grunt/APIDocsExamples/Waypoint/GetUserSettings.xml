@@ -1,0 +1,15 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 10/11/2022:
+	<code>
+    {
+        "xuid": "0000000000000000",
+        "email": {
+            "emailAddress": "example@example.com",
+            "verified": true
+        },
+        "notifications": {
+            "insider": false
+        }
+    }
+	</code>
+</example>

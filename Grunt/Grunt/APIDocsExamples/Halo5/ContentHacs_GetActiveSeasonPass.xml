@@ -1,0 +1,79 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 11/8/2022:
+	<code>
+    {
+        "Id": 114167,
+        "Type": "REQSeasonPass",
+        "View": {
+            "Status": "Published",
+            "Common": {
+                "Owner": "jehil",
+                "CreatedUtc": "2015-06-25T21:15:15Z",
+                "ModifiedUtc": "2016-12-13T01:20:05Z",
+                "PublishedUtc": "2016-12-13T01:20:05Z",
+                "Container": -1
+            },
+            "Identity": "3bb4a66ff4514d5b8466a3f82918720a",
+            "Title": "Halo 5 Console Active Season Pass",
+            "REQSeasonPass": {
+                "Image": {
+                    "Id": 198733,
+                    "Type": "Image",
+                    "View": {
+                        "Status": "Published",
+                        "Common": {
+                            "Owner": "jehil",
+                            "CreatedUtc": "2016-09-26T18:35:25Z",
+                            "ModifiedUtc": "2016-12-08T00:24:54Z",
+                            "PublishedUtc": "2016-12-08T00:24:54Z",
+                            "Container": -1
+                        },
+                        "Media": {
+                            "MediaUrl": "https://content.halocdn.com/media/Default/Requisition/Generated/objects/multi/warzone/requisition/packs/core/core_vo_gold_pack-8f9448b5c7a744cc834d51ce3a00a9dc.png",
+                            "MimeType": "image/png",
+                            "Caption": "",
+                            "AlternateText": "",
+                            "FolderPath": "Requisition/Generated/objects/multi/warzone/requisition/packs/core",
+                            "FileName": "core_vo_gold_pack-8f9448b5c7a744cc834d51ce3a00a9dc.png"
+                        },
+                        "Image": {
+                            "Width": 300,
+                            "Height": 300
+                        },
+                        "Title": "core_vo_gold_pack-8f9448b5c7a744cc834d51ce3a00a9dc",
+                        "Identity": "3b423262c7fb4843a5d96962064f235e"
+                    }
+                },
+                "Entitlement": {
+                    "Id": 200538,
+                    "Type": "Entitlement",
+                    "Identity": "7241ef254dae4b43b310b64a3d89d0f1"
+                },
+                "XboxLiveMarketplaceID": "88ec0745-8d80-4924-90a9-3035b6b2ab4d",
+                "GrantProgram": {
+                    "Id": 200532,
+                    "Type": "REQGrantProgram",
+                    "Identity": "08ae15b04ac24508b34ace84361812a2"
+                }
+            }
+        },
+        "Links": [
+            {
+                "Absolute": false,
+                "Relation": "Self",
+                "URI": "/content/114167"
+            }
+        ],
+        "ChildrenCount": 0
+    }
+	</code>
+	To use this function in your code:
+	<code>
+    Halo5Client h5client = new(haloToken.Token, extendedTicket.DisplayClaims.Xui[0].XUID);
+    Task.Run(async () =>
+    {
+        var seasonPass = (await h5client.ContentHacsGetActiveSeasonPass()).Result;
+        Console.WriteLine("Got season pass manifest.");
+    }).GetAwaiter().GetResult();
+	</code>
+</example>

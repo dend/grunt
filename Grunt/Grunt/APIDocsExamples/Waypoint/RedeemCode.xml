@@ -1,0 +1,9 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 9/6/2022:
+	<code>
+	{
+		"code": "submitted",
+		"offerName": "Xbox Game Pass Ultimate Perks - Pass Tense Rocket Warthog Bundle"
+	}
+	</code>
+</example>

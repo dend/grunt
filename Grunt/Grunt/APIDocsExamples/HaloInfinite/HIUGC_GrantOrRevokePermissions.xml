@@ -1,0 +1,22 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 11/8/2022:
+	<code>
+	{
+		"CanonicalToken": "xuid(2533274837773602)",
+		"AuthoringRole": 1,
+		"GrantedBy": "xuid(2533274855333605)",
+		"GrantedOnDateUtc": {
+			"ISO8601Date": "2022-11-08T23:43:04.975Z"
+		}
+	}
+	</code>
+	To use this function in your code:
+	<code>
+	Permission permission = new()
+	{
+	    AuthoringRole = 1
+	};
+	
+	var result = (await client.HIUGCGrantOrRevokePermissions("hi", "ugcGameVariants", "3895f3d4-2493-4b84-ae18-876ad3ab344d", "xuid(YOUR_XUID)", permission));
+	</code>
+</example>
