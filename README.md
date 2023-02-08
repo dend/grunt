@@ -24,12 +24,6 @@ And more!
 - [FAQ](#faq)
 - [Contributions](#contributions)
 
-## Platform Support
-
-### .NET
-
-[![NuGet download link for Den.Dev.Orion](https://img.shields.io/nuget/v/Den.Dev.Orion?label=NuGet)](https://www.nuget.org/packages/Den.Dev.Orion) [![NuGet download link for Den.Dev.Orion with download counter](https://img.shields.io/nuget/dt/Den.Dev.Orion)](https://www.nuget.org/packages/Den.Dev.Orion)
-
 ## Components
 
 | Component | Description |
@@ -42,10 +36,6 @@ And more!
 
 The core requirement to use the endpoints in the library is to have a Spartan token, that is provided by the Halo Infinite service.
 
->**⚠️ WARNING**
->
->The Spartan token is associated with _your identity_ and _your account_. **Do not share it** with anyone, under any circumstances. The API wrapper does not explicitly store it anywhere. It's your responsibility to make sure that it's secure and not available to anyone else.
-
 There are two ways to experiment with the library:
 
 1. **Bring your own Spartan token**. That means that you can obtain it on your own through man-in-the-middle inspection of the app/game traffic (what Julia Evans described [in her blog post](https://jvns.ca/blog/2022/03/10/how-to-use-undocumented-web-apis/)), or by grabbing it from the [Halo Waypoint](https://halowaypoint.com) site. Read more on that in the [section below](#bring-your-own-token).
@@ -57,7 +47,7 @@ If you want to bring your own token, you carry the responsibility of acquiring a
 
 Look for API calls that return JSON data, and in some of the request headers you will notice a particularly interesting one - `x-343-authorization-spartan`. That's what you need.
 
-![Acquiring the Spartan token from the Halo Waypoint website](https://raw.githubusercontent.com/OpenSpartan/Den.Dev.Orion/main/media/spartan-token.png) 
+![Acquiring the Spartan token from the Halo Waypoint website](../media/spartan-token.png) 
 
 I'll say it again - this token is not long-lived and if you see calls failing with `401 Unauthorized`, that means you need a new token.
 
