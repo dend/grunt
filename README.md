@@ -1,4 +1,4 @@
-![Den.Dev.Orion logo](https://raw.githubusercontent.com/OpenSpartan/Den.Dev.Orion/main/media/Den.Dev.Orion-logo.png)
+![Den.Dev.Orion logo](../media/orion-logo.png)
 
 # 🪐 Orion - The Halo API Wrapper
 
@@ -24,7 +24,6 @@ This API enables you to:
 - Get stats on matches you played.
 - Get your personal player stats.
 - Track your campaign progress.
-- Track map and game mode popularity (see - [`openspartan-data-snapshots`](https://github.com/OpenSpartan/openspartan-data-snapshots)).
 
 And more!
 
