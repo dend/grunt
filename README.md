@@ -1,6 +1,6 @@
 ![Grunt logo](https://raw.githubusercontent.com/OpenSpartan/grunt/main/media/grunt-logo.png)
 
-# 🪐 Grunt API - The Halo API Wrapper
+# 🪐 Orion - The Halo API Wrapper
 
 _Your one-stop-shop for the official undocumented Halo API_
 
@@ -45,14 +45,6 @@ And more!
 ### .NET
 
 [![NuGet download link for OpenSpartan.Grunt](https://img.shields.io/nuget/v/OpenSpartan.Grunt?label=NuGet)](https://www.nuget.org/packages/OpenSpartan.Grunt) [![NuGet download link for OpenSpartan.Grunt with download counter](https://img.shields.io/nuget/dt/OpenSpartan.Grunt)](https://www.nuget.org/packages/OpenSpartan.Grunt)
-
-### Python
-
-_In development_
-
-### Node.js
-
-_In development_
 
 ## Components
 
