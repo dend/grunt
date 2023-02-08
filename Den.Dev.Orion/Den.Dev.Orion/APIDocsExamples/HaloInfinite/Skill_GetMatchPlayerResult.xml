@@ -1,0 +1,98 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 8/1/2022 by <a href="https://github.com/seth-skocelas">Seth Skocelas</a>. The API details were covered in a <a href="https://github.com/OpenSpartan/Den.Dev.Orion/issues/43">related GitHub issue</a> in the <a href="https://github.com/openspartan/Den.Dev.Orion">Den.Dev.Orion repository</a>.
+	<code>
+    {
+      "Value": [
+        {
+          "Id": "xuid(2533274812928115)",
+          "ResultCode": 0,
+          "Result": {
+            "TeamMmr": 951.7909212574757,
+            "RankRecap": {
+              "PreMatchCsr": {
+                "Value": -1,
+                "MeasurementMatchesRemaining": 1,
+                "Tier": "",
+                "TierStart": 0,
+                "SubTier": 0,
+                "NextTier": "",
+                "NextTierStart": 0,
+                "NextSubTier": 0,
+                "InitialMeasurementMatches": 10
+              },
+              "PostMatchCsr": {
+                "Value": 951,
+                "MeasurementMatchesRemaining": 0,
+                "Tier": "Platinum",
+                "TierStart": 950,
+                "SubTier": 1,
+                "NextTier": "Platinum",
+                "NextTierStart": 1000,
+                "NextSubTier": 2,
+                "InitialMeasurementMatches": 10
+              }
+            },
+            "StatPerformances": {
+              "Kills": {
+                "Count": 22,
+                "Expected": 17.316735753022105,
+                "StdDev": 5.666658201736102
+              },
+              "Deaths": {
+                "Count": 12,
+                "Expected": 12.669535104837909,
+                "StdDev": 5.179321822119035
+              }
+            },
+            "TeamId": 0,
+            "TeamMmrs": {
+              "0": 951.7909212574757,
+              "1": 982.3275898356925
+            },
+            "RankedRewards": {
+              "RewardId": "414aac66-869a-4bfd-898e-875a52852edd",
+              "AwardedRewards": {
+                "Bronze": "773dda9c-9f76-42a3-b14f-9fbc12e9293a",
+                "Silver": "02acad45-1e95-4be9-afe3-24a77cf9a9fc",
+                "Gold": "90ffa5ab-939b-4c9c-8699-0a760052d367",
+                "Platinum": "141d871c-808a-4bf5-b05b-9f95ed67477c"
+              }
+            },
+            "Counterfactuals": {
+              "SelfCounterfactuals": {
+                "Kills": 17.316735753022105,
+                "Deaths": 12.669535104837909
+              },
+              "TierCounterfactuals": {
+                "Bronze": {
+                  "Kills": 4.060369871365983,
+                  "Deaths": 16.855165791050347
+                },
+                "Silver": {
+                  "Kills": 7.241016297952784,
+                  "Deaths": 15.697940188357357
+                },
+                "Gold": {
+                  "Kills": 10.93777932076268,
+                  "Deaths": 14.5459950572691
+                },
+                "Platinum": {
+                  "Kills": 14.518649996441745,
+                  "Deaths": 13.486288856780025
+                },
+                "Diamond": {
+                  "Kills": 17.931213932737514,
+                  "Deaths": 12.490822053647523
+                },
+                "Onyx": {
+                  "Kills": 21.593884452973548,
+                  "Deaths": 11.4296568017179
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+	</code>
+</example>
