@@ -4,20 +4,7 @@
 
 _Your one-stop-shop for the official undocumented Halo API_
 
-[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://den.dev/ukraine) [![Publish API Documentation](https://github.com/dend/Den.Dev.Orion/actions/workflows/publish-api-docs.yml/badge.svg)](https://github.com/dend/Den.Dev.Orion/actions/workflows/publish-api-docs.yml) [![Publish NuGet Package](https://github.com/dend/Den.Dev.Orion/actions/workflows/publish-nuget-package.yml/badge.svg?branch=v0.1.4)](https://github.com/dend/Den.Dev.Orion/actions/workflows/publish-nuget-package.yml)
-
 Welcome to **Den.Dev.Orion API** - the unofficial way to use official undocumented Halo APIs. Here be **a lot of dragons** and this is not yet ready to be a standalone package, since the changes will be frequent and large. That said, you can use it as a test pad for your own explorations.
-
-> **Note**
->
-> In case you are wondering, this API is simply a wrapper over the Halo Waypoint API requests that the game executes while running. Nothing here required looking at anything more complex than a [Fiddler trace](https://www.telerik.com/fiddler/fiddler-classic) to see what calls the game makes. To use this API, you will need to go through the authentication flow with your very own credentials.
->
->This projects **does not circumvent** and has **no goals of circumventing** any of the existing authentication mechanisms or in-game protections.
-
-> **Warning**
->
-> This project wraps the undocumented Halo Waypoint APIs and requires use of your account credentials/tokens. While 343 Industries has not yet raised any concerns over the use of these APIs, **I cannot guarantee 343 Industries won't change their position** (e.g., ban your account). Use at your own risk.
-
 
 This API enables you to:
 
