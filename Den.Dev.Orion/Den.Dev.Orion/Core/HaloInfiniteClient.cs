@@ -2589,7 +2589,6 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/Stats_GetMatchStats.xml' path='//example'/>
         /// <param name="matchId">Match ID in GUID format.</param>
-        /// <param name="includeRawResponse">Determines whether the raw response JSON will be returned with the successful response.</param>
         /// <returns>An instance of MatchStats containing match metadata if request was successful. Return value is null otherwise.</returns>
         public async Task<HaloApiResultContainer<MatchStats, RawResponseContainer>> StatsGetMatchStats(string matchId)
         {
