@@ -11,18 +11,18 @@ namespace Den.Dev.Orion.Models
     /// Container class that encapsulates the result from a Halo API call.
     /// </summary>
     /// <typeparam name="T">The type of result to fetch.</typeparam>
-    /// <typeparam name="THaloApiErrorContainer">Error container, available if an error occurred.</typeparam>
-    public class HaloApiResultContainer<T, THaloApiErrorContainer>
+    /// <typeparam name="TRawResponseContainer">Error container, available if an error occurred.</typeparam>
+    public class HaloApiResultContainer<T, TRawResponseContainer>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HaloApiResultContainer{T, THaloApiErrorContainer}"/> class.
         /// </summary>
         /// <param name="result">Result from the Halo API request.</param>
         /// <param name="container">Error information for the Halo API request.</param>
-        public HaloApiResultContainer(T result, THaloApiErrorContainer container)
+        public HaloApiResultContainer(T result, TRawResponseContainer container)
         {
             this.Result = result;
-            this.Error = container;
+            this.Response = container;
         }
 
         /// <summary>
@@ -33,6 +33,6 @@ namespace Den.Dev.Orion.Models
         /// <summary>
         /// Gets or sets the Halo API request error information.
         /// </summary>
-        public THaloApiErrorContainer? Error { get; set; }
+        public TRawResponseContainer? Response { get; set; }
     }
 }

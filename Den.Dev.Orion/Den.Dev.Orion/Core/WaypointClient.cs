@@ -52,7 +52,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/Waypoint/RedeemCode.xml' path='//example'/>
         /// <param name="code">Code to be redeemed.</param>
         /// <returns>If call is successful, returns an instance of <see cref="CodeRedemptionResult"/> that contains information about the redeemed code. Otherwise, returns a null object and error details.</returns>
-        public async Task<HaloApiResultContainer<CodeRedemptionResult, HaloApiErrorContainer>> RedeemCode(string code)
+        public async Task<HaloApiResultContainer<CodeRedemptionResult, RawResponseContainer>> RedeemCode(string code)
         {
             RedeemableCode container = new()
             {
@@ -76,7 +76,7 @@ namespace Den.Dev.Orion.Core
         /// </remarks>
         /// <include file='../APIDocsExamples/Waypoint/GetUserSettings.xml' path='//example'/>
         /// <returns>If successful, returns an instance of <see cref="UserSettings"/> containing user configuration information. Otherwise, returns a null object and error details.</returns>
-        public async Task<HaloApiResultContainer<UserSettings, HaloApiErrorContainer>> GetUserSettings()
+        public async Task<HaloApiResultContainer<UserSettings, RawResponseContainer>> GetUserSettings()
         {
             return await this.ExecuteAPIRequest<UserSettings>(
                 $"https://{WaypointEndpoints.ProfileEndpoint}.{WaypointEndpoints.ServiceDomain}/users/me/settings",
@@ -94,7 +94,7 @@ namespace Den.Dev.Orion.Core
         /// </remarks>
         /// <include file='../APIDocsExamples/Waypoint/GetMyProfile.xml' path='//example'/>
         /// <returns>If successful, returns an instance of <see cref="UserProfile"/> containing profile information. Otherwise, returns a null object and error details.</returns>
-        public async Task<HaloApiResultContainer<UserProfile, HaloApiErrorContainer>> GetMyProfile()
+        public async Task<HaloApiResultContainer<UserProfile, RawResponseContainer>> GetMyProfile()
         {
             return await this.ExecuteAPIRequest<UserProfile>(
                 $"https://{WaypointEndpoints.ProfileEndpoint}.{WaypointEndpoints.ServiceDomain}/users/me",
@@ -111,7 +111,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="userId">User identifier. Can be a XUID or Gamertag. If XUID is used, then <paramref name="isXuid"/> should be set to true.</param>
         /// <param name="isXuid">Determines whether the user ID specified in <paramref name="userId"/> is a XUID or not.</param>
         /// <returns>If successful, returns an instance of <see cref="UserProfile"/> containing profile information. Otherwise, returns a null object and error details.</returns>
-        public async Task<HaloApiResultContainer<UserProfile, HaloApiErrorContainer>> GetUserProfile(string userId, bool isXuid)
+        public async Task<HaloApiResultContainer<UserProfile, RawResponseContainer>> GetUserProfile(string userId, bool isXuid)
         {
             string composedId = isXuid ? $"xuid({userId})" : $"gt({userId})";
 
@@ -133,7 +133,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="order">Order in which articles are returned. Example values are "asc" or "desc".</param>
         /// <param name="categories">List of categories for which to return the articles.</param>
         /// <returns>If successful, returns the list of articles, each represented as <see cref="Article"/>. Otherwise, returns the details about the error.</returns>
-        public async Task<HaloApiResultContainer<List<Article>, HaloApiErrorContainer>> GetArticles(string language = "", int offset = -1, int count = -1, string order = "", List<int>? categories = null)
+        public async Task<HaloApiResultContainer<List<Article>, RawResponseContainer>> GetArticles(string language = "", int offset = -1, int count = -1, string order = "", List<int>? categories = null)
         {
             string urlBase = $"https://{WaypointEndpoints.WPContentEndpoint}.{WaypointEndpoints.ServiceDomain}/articles?";
 
@@ -176,7 +176,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/Waypoint/GetArticle.xml' path='//example'/>
         /// <param name="slug">Slug associated with the article. Example value is "halo-waypoint-content-browser".</param>
         /// <returns>If successful, returns an instance of <see cref="Article"/>. Otherwise, returns a null object and error details.</returns>
-        public async Task<HaloApiResultContainer<Article, HaloApiErrorContainer>> GetArticle(string slug)
+        public async Task<HaloApiResultContainer<Article, RawResponseContainer>> GetArticle(string slug)
         {
             return await this.ExecuteAPIRequest<Article>(
                 $"https://{WaypointEndpoints.WPContentEndpoint}.{WaypointEndpoints.ServiceDomain}/articles/{slug}",
@@ -192,7 +192,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/Waypoint/GetArticleCategories.xml' path='//example'/>
         /// <param name="language">Language in which the categories should be displayed. Example value is "en".</param>
         /// <returns>If successful, returns a list of <see cref="ArticleCategory"/> containing publishing categories. Otherwise, returns a null object and the error details.</returns>
-        public async Task<HaloApiResultContainer<List<ArticleCategory>, HaloApiErrorContainer>> GetArticleCategories(string language = "")
+        public async Task<HaloApiResultContainer<List<ArticleCategory>, RawResponseContainer>> GetArticleCategories(string language = "")
         {
             return await this.ExecuteAPIRequest<List<ArticleCategory>>(
                 $"https://{WaypointEndpoints.WPContentEndpoint}.{WaypointEndpoints.ServiceDomain}/taxonomy/article_category?" + (!string.IsNullOrEmpty(language) ? $"lang={language}" : string.Empty),
@@ -212,7 +212,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="id">ID of the category. Must be an integer.</param>
         /// <param name="language">Language in which the category should be displayed. Example value is "en".</param>
         /// <returns>If successful, returns an instance of <see cref="ArticleCategory"/> containing category information. Otherwise, returns a null object and the error details.</returns>
-        public async Task<HaloApiResultContainer<ArticleCategory, HaloApiErrorContainer>> GetArticleCategory(int id, string language = "")
+        public async Task<HaloApiResultContainer<ArticleCategory, RawResponseContainer>> GetArticleCategory(int id, string language = "")
         {
             return await this.ExecuteAPIRequest<ArticleCategory>(
                 $"https://{WaypointEndpoints.WPContentEndpoint}.{WaypointEndpoints.ServiceDomain}/taxonomy/article_category/{id}?" + (!string.IsNullOrEmpty(language) ? $"lang={language}" : string.Empty),
@@ -227,7 +227,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/Waypoint/GetServiceAwards.xml' path='//example'/>
         /// <returns>If successful, returns an instance of <see cref="ServiceAwardSnapshot"/> containing service award information. Otherwise, returns a null object and the error details.</returns>
-        public async Task<HaloApiResultContainer<ServiceAwardSnapshot, HaloApiErrorContainer>> GetServiceAwards()
+        public async Task<HaloApiResultContainer<ServiceAwardSnapshot, RawResponseContainer>> GetServiceAwards()
         {
             return await this.ExecuteAPIRequest<ServiceAwardSnapshot>(
                 $"https://{WaypointEndpoints.ProfileEndpoint}.{WaypointEndpoints.ServiceDomain}/users/me/service-awards",
@@ -246,7 +246,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/Waypoint/PutFeaturedServiceAwards.xml' path='//example'/>
         /// <param name="awards">Instance of <see cref="ServiceAwardSnapshot"/> containing the list of service awards to feature.</param>
         /// <returns>If successful, returns an instance of <see cref="ServiceAwardSnapshot"/> confirming the setting. Otherwise, returns a null object and the error details.</returns>
-        public async Task<HaloApiResultContainer<ServiceAwardSnapshot, HaloApiErrorContainer>> PutFeaturedServiceAwards(ServiceAwardSnapshot awards)
+        public async Task<HaloApiResultContainer<ServiceAwardSnapshot, RawResponseContainer>> PutFeaturedServiceAwards(ServiceAwardSnapshot awards)
         {
             string requestBody = JsonSerializer.Serialize(awards);
 
@@ -266,7 +266,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/Waypoint/GetServiceAward.xml' path='//example'/>
         /// <param name="slug">Service award slug.</param>
         /// <returns>If successful, returns an instance of <see cref="ServiceAward"/>. Otherwise, returns a null object and the error details.</returns>
-        public async Task<HaloApiResultContainer<ServiceAward, HaloApiErrorContainer>> GetServiceAward(string slug)
+        public async Task<HaloApiResultContainer<ServiceAward, RawResponseContainer>> GetServiceAward(string slug)
         {
             return await this.ExecuteAPIRequest<ServiceAward>(
                 $"https://{WaypointEndpoints.WPContentEndpoint}.{WaypointEndpoints.ServiceDomain}/service-awards/{slug}",

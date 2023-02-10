@@ -54,7 +54,7 @@ namespace Den.Dev.Orion.Core
         /// </remarks>
         /// <include file='../APIDocsExamples/HaloInfinite/GetApiSettingsContainer.xml' path='//example'/>
         /// <returns>An instance of <see cref="Configuration"/> if the call is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Configuration, HaloApiErrorContainer>> GetApiSettingsContainer()
+        public async Task<HaloApiResultContainer<Configuration, RawResponseContainer>> GetApiSettingsContainer()
         {
             return await this.ExecuteAPIRequest<Configuration>(
                 HaloCoreEndpoints.HaloInfiniteEndpointsEndpoint,
@@ -79,7 +79,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="targetlist">A list of targets that need to be checked. Authenticated devices can be included as "Authenticated(Device)". Individual players can be specified as "xuid(XUID_VALUE)".</param>
         /// <returns>An instance of BanSummary containing applicable ban information if request was successful. Return value is null otherwise.</returns>
         /// <remarks>In some quick tests, it seems that including Authenticated(Device) in the request results in 401 Unauthorized if called outside the game. Additional work might be required to understand how to validate the device.</remarks>
-        public async Task<HaloApiResultContainer<BansSummaryQueryResult, HaloApiErrorContainer>> BanProcessorBanSummary(List<string> targetlist)
+        public async Task<HaloApiResultContainer<BansSummaryQueryResult, RawResponseContainer>> BanProcessorBanSummary(List<string> targetlist)
         {
             var formattedTargetList = string.Join(",", targetlist);
             return await this.ExecuteAPIRequest<BansSummaryQueryResult>(
@@ -101,7 +101,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Academy_GetBotCustomization.xml' path='//example'/>
         /// <param name="flightId">ID of the flight/clearance associated with the request.</param>
         /// <returns>If successful, returns an instance of BotCustomizationData that contains bot customization information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<BotCustomizationData, HaloApiErrorContainer>> AcademyGetBotCustomization(string flightId)
+        public async Task<HaloApiResultContainer<BotCustomizationData, RawResponseContainer>> AcademyGetBotCustomization(string flightId)
         {
             return await this.ExecuteAPIRequest<BotCustomizationData>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/multiplayer/file/Academy/BotCustomizationData.json?flight={flightId}",
@@ -117,7 +117,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/Academy_GetContent.xml' path='//example'/>
         /// <returns>If successful, returns an instance of AcademyClientManifest that contains the definition of drills available in the Academy. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AcademyClientManifest, HaloApiErrorContainer>> AcademyGetContent()
+        public async Task<HaloApiResultContainer<AcademyClientManifest, RawResponseContainer>> AcademyGetContent()
         {
             return await this.ExecuteAPIRequest<AcademyClientManifest>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/multiplayer/file/Academy/AcademyClientManifest.json",
@@ -134,7 +134,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Academy_GetContentTest.xml' path='//example'/>
         /// <param name="clearanceId">ID of the flight/clearance associated with the request.</param>
         /// <returns>If successful, returns an instance of TestAcademyClientManifest that contains the definition of drills available in the Academy. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<TestAcademyClientManifest, HaloApiErrorContainer>> AcademyGetContentTest(string clearanceId)
+        public async Task<HaloApiResultContainer<TestAcademyClientManifest, RawResponseContainer>> AcademyGetContentTest(string clearanceId)
         {
             return await this.ExecuteAPIRequest<TestAcademyClientManifest>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/multiplayer/file/Academy/AcademyClientManifest_Test.json?flight={clearanceId}",
@@ -150,7 +150,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/Academy_GetStarDefinitions.xml' path='//example'/>
         /// <returns>If successful, returns an instance of AcademyStarDefinitions that contains definitions for stars awarded in the Academy. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AcademyStarDefinitions, HaloApiErrorContainer>> AcademyGetStarDefinitions()
+        public async Task<HaloApiResultContainer<AcademyStarDefinitions, RawResponseContainer>> AcademyGetStarDefinitions()
         {
             return await this.ExecuteAPIRequest<AcademyStarDefinitions>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/multiplayer/file/Academy/AcademyStarGUIDDefinitions.json",
@@ -172,7 +172,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The player identifier in the format "xuid(XUID_VALUE)".</param>
         /// <param name="coreId">Unique AI Core ID. Example ID is "304-100-ai-core-debb20e3".</param>
         /// <returns>If successful, returns an instance of Core containing AI core customization metadata if request was successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AiCore, HaloApiErrorContainer>> EconomyAiCoreCustomization(string player, string coreId)
+        public async Task<HaloApiResultContainer<AiCore, RawResponseContainer>> EconomyAiCoreCustomization(string player, string coreId)
         {
             return await this.ExecuteAPIRequest<AiCore>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/customization/ais/{coreId}",
@@ -189,7 +189,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_AiCoresCustomization.xml' path='//example'/>
         /// <param name="player">The player identifier in the format "xuid(XUID_VALUE)".</param>
         /// <returns>An instance of AiCores containing AI core customization metadata if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<AiCoreContainer, HaloApiErrorContainer>> EconomyAiCoresCustomization(string player)
+        public async Task<HaloApiResultContainer<AiCoreContainer, RawResponseContainer>> EconomyAiCoresCustomization(string player)
         {
             return await this.ExecuteAPIRequest<AiCoreContainer>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/customization/ais",
@@ -206,7 +206,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_AllOwnedCoresDetails.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>An instance of PlayerCores containing player core customization metadata if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<PlayerCores, HaloApiErrorContainer>> EconomyAllOwnedCoresDetails(string player)
+        public async Task<HaloApiResultContainer<PlayerCores, RawResponseContainer>> EconomyAllOwnedCoresDetails(string player)
         {
             return await this.ExecuteAPIRequest<PlayerCores>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/cores",
@@ -224,7 +224,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <param name="coreId">The unique identifier for an armor core. An example value is "017-001-eag-c13d0b38".</param>
         /// <returns>If successful, returns an instance of ArmorCore containing customization information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<ArmorCore, HaloApiErrorContainer>> EconomyArmorCoreCustomization(string player, string coreId)
+        public async Task<HaloApiResultContainer<ArmorCore, RawResponseContainer>> EconomyArmorCoreCustomization(string player, string coreId)
         {
             return await this.ExecuteAPIRequest<ArmorCore>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/customization/armors/{coreId}",
@@ -241,7 +241,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_ArmorCoresCustomization.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of ArmorCoreCollection that contains the list of armor cores. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<ArmorCoreCollection, HaloApiErrorContainer>> EconomyArmorCoresCustomization(string player)
+        public async Task<HaloApiResultContainer<ArmorCoreCollection, RawResponseContainer>> EconomyArmorCoresCustomization(string player)
         {
             return await this.ExecuteAPIRequest<ArmorCoreCollection>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/customization/armors",
@@ -258,7 +258,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetActiveBoosts.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of ActiveBoostsContainer that contains the list of active boosts. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<ActiveBoostsContainer, HaloApiErrorContainer>> EconomyGetActiveBoosts(string player)
+        public async Task<HaloApiResultContainer<ActiveBoostsContainer, RawResponseContainer>> EconomyGetActiveBoosts(string player)
         {
             return await this.ExecuteAPIRequest<ActiveBoostsContainer>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/boosts",
@@ -276,7 +276,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <param name="rewardId">The unique ID for the reward given to a player. Example value is "Challenges-35a86ae3-017c-4b5a-b633-b2802a770e0a".</param>
         /// <returns>If successful, returns an instance of RewardSnapshot that contains the list of awarded rewards. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<RewardSnapshot, HaloApiErrorContainer>> EconomyGetAwardedRewards(string player, string rewardId)
+        public async Task<HaloApiResultContainer<RewardSnapshot, RawResponseContainer>> EconomyGetAwardedRewards(string player, string rewardId)
         {
             return await this.ExecuteAPIRequest<RewardSnapshot>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/rewards/{rewardId}",
@@ -293,7 +293,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetBoostsStore.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of StoreItem containing boost information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<StoreItem, HaloApiErrorContainer>> EconomyGetBoostsStore(string player)
+        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyGetBoostsStore(string player)
         {
             return await this.ExecuteAPIRequest<StoreItem>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/stores/boosts",
@@ -310,7 +310,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetGiveawayRewards.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of PlayerGiveaways containing available giveaways. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<PlayerGiveaways, HaloApiErrorContainer>> EconomyGetGiveawayRewards(string player)
+        public async Task<HaloApiResultContainer<PlayerGiveaways, RawResponseContainer>> EconomyGetGiveawayRewards(string player)
         {
             return await this.ExecuteAPIRequest<PlayerGiveaways>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/giveaways",
@@ -327,7 +327,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetHCSStore.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, an instance of StoreItem containing store offerings. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<StoreItem, HaloApiErrorContainer>> EconomyGetHCSStore(string player)
+        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyGetHCSStore(string player)
         {
             return await this.ExecuteAPIRequest<StoreItem>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/stores/hcs",
@@ -344,7 +344,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetInventoryItems.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of PlayerInventory that contains a list of items in the player's inventory. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<PlayerInventory, HaloApiErrorContainer>> EconomyGetInventoryItems(string player)
+        public async Task<HaloApiResultContainer<PlayerInventory, RawResponseContainer>> EconomyGetInventoryItems(string player)
         {
             return await this.ExecuteAPIRequest<PlayerInventory>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/inventory",
@@ -361,7 +361,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetMainStore.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of StoreItem that contains information about items available in the main store. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<StoreItem, HaloApiErrorContainer>> EconomyGetMainStore(string player)
+        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyGetMainStore(string player)
         {
             return await this.ExecuteAPIRequest<StoreItem>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/stores/main",
@@ -378,7 +378,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetMultiplePlayersCustomization.xml' path='//example'/>
         /// <param name="playerIds">Array of player IDs. Each ID string should be in the format of "xuid(XUID_VALUE)."</param>
         /// <returns>If successful, returns an instance of PlayerCustomizationCollection that contains player customizations. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<PlayerCustomizationCollection, HaloApiErrorContainer>> EconomyGetMultiplePlayersCustomization(List<string> playerIds)
+        public async Task<HaloApiResultContainer<PlayerCustomizationCollection, RawResponseContainer>> EconomyGetMultiplePlayersCustomization(List<string> playerIds)
         {
             var formattedPlayerList = string.Join(",", playerIds);
             return await this.ExecuteAPIRequest<PlayerCustomizationCollection>(
@@ -396,7 +396,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetOperationRewardLevelsStore.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of StoreItem that contains information about items available in the operations reward levels store. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<StoreItem, HaloApiErrorContainer>> EconomyGetOperationRewardLevelsStore(string player)
+        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyGetOperationRewardLevelsStore(string player)
         {
             return await this.ExecuteAPIRequest<StoreItem>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/stores/operationrewardlevels",
@@ -413,7 +413,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetOperationsStore.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of StoreItem that contains information about items available in the operations store. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<StoreItem, HaloApiErrorContainer>> EconomyGetOperationsStore(string player)
+        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyGetOperationsStore(string player)
         {
             return await this.ExecuteAPIRequest<StoreItem>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/stores/operations",
@@ -432,7 +432,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="rewardTrackType">Type of reward track. For seasons, this is usually "operation". This parameter is a singular noun, and is pluralized automatically in the function (the "s" character is appended).</param>
         /// <param name="trackId">Unique identifier for the reward track. An example value is "battlepass-noblesacrifice.json".</param>
         /// <returns>If successful, returns an instance of RewardTrack containing information for reward track tiers. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<RewardTrackMetadata, HaloApiErrorContainer>> EconomyGetRewardTrack(string player, string rewardTrackType, string trackId)
+        public async Task<HaloApiResultContainer<RewardTrackMetadata, RawResponseContainer>> EconomyGetRewardTrack(string player, string rewardTrackType, string trackId)
         {
             return await this.ExecuteAPIRequest<RewardTrackMetadata>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/rewardtracks/{rewardTrackType}s/{trackId}",
@@ -449,7 +449,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetVirtualCurrencyBalances.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of CurrencySnapshot that contains the balances. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<CurrencySnapshot, HaloApiErrorContainer>> EconomyGetVirtualCurrencyBalances(string player)
+        public async Task<HaloApiResultContainer<CurrencySnapshot, RawResponseContainer>> EconomyGetVirtualCurrencyBalances(string player)
         {
             return await this.ExecuteAPIRequest<CurrencySnapshot>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/currencies",
@@ -466,7 +466,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetXpGrantsStore.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of StoreItem that contains information about items in the store. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<StoreItem, HaloApiErrorContainer>> EconomyGetXpGrantsStore(string player)
+        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyGetXpGrantsStore(string player)
         {
             return await this.ExecuteAPIRequest<StoreItem>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/stores/xpgrants",
@@ -484,7 +484,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <param name="coreId">The unque core ID. An example is "017-001-eag-c13d0b38".</param>
         /// <returns>If successful, returns an instance of Core containing core information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<GenericCore, HaloApiErrorContainer>> EconomyOwnedCoreDetails(string player, string coreId)
+        public async Task<HaloApiResultContainer<GenericCore, RawResponseContainer>> EconomyOwnedCoreDetails(string player, string coreId)
         {
             return await this.ExecuteAPIRequest<GenericCore>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/cores/{coreId}",
@@ -501,7 +501,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_PlayerAppearanceCustomization.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of AppearanceCustomization containing customization information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AppearanceCustomization, HaloApiErrorContainer>> EconomyPlayerAppearanceCustomization(string player)
+        public async Task<HaloApiResultContainer<AppearanceCustomization, RawResponseContainer>> EconomyPlayerAppearanceCustomization(string player)
         {
             return await this.ExecuteAPIRequest<AppearanceCustomization>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/customization/appearance",
@@ -519,7 +519,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <param name="viewType">Determines which view into customizations is shown. Available values are "public" and "private". The private view enables showing all available cores, while the public view only shows equipped cores.</param>
         /// <returns>If successful, returns an instance of CustomizationData containing player customizations. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<CustomizationData, HaloApiErrorContainer>> EconomyPlayerCustomization(string player, string viewType)
+        public async Task<HaloApiResultContainer<CustomizationData, RawResponseContainer>> EconomyPlayerCustomization(string player, string viewType)
         {
             return await this.ExecuteAPIRequest<CustomizationData>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/customization?view={viewType}",
@@ -536,7 +536,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_PlayerOperations.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of OperationRewardTrackSnapshot containing battle pass information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<OperationRewardTrackSnapshot, HaloApiErrorContainer>> EconomyPlayerOperations(string player)
+        public async Task<HaloApiResultContainer<OperationRewardTrackSnapshot, RawResponseContainer>> EconomyPlayerOperations(string player)
         {
             return await this.ExecuteAPIRequest<OperationRewardTrackSnapshot>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/rewardtracks/operations",
@@ -557,7 +557,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <param name="currencyId">The unique identifier for the currency. Valid values include "cr", "rerollcurrency", "xpboost", and "xpgrant".</param>
         /// <returns>If successful, returns an instance of TransactionSnapshot listing all existing transactions. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<TransactionSnapshot, HaloApiErrorContainer>> EconomyPostCurrencyTransaction(string player, string currencyId)
+        public async Task<HaloApiResultContainer<TransactionSnapshot, RawResponseContainer>> EconomyPostCurrencyTransaction(string player, string currencyId)
         {
             return await this.ExecuteAPIRequest<TransactionSnapshot>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/currencies/{currencyId}/transactions",
@@ -575,7 +575,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <param name="storeId">The unique store identifier. An example value is "hcs".</param>
         /// <returns>If successful, returns an instance of StoreItem containing offerings. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<StoreItem, HaloApiErrorContainer>> EconomyScheduledStorefrontOfferings(string player, string storeId)
+        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyScheduledStorefrontOfferings(string player, string storeId)
         {
             return await this.ExecuteAPIRequest<StoreItem>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/stores/{storeId}",
@@ -592,7 +592,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_SpartanBodyCustomization.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of SpartanBody containing the customization information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<SpartanBody, HaloApiErrorContainer>> EconomySpartanBodyCustomization(string player)
+        public async Task<HaloApiResultContainer<SpartanBody, RawResponseContainer>> EconomySpartanBodyCustomization(string player)
         {
             return await this.ExecuteAPIRequest<SpartanBody>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/customization/spartanbody",
@@ -610,7 +610,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <param name="coreId">Unique vehicle core ID. Example value is "409-304-olympus-e8b8a8b3".</param>
         /// <returns>If successful, returns an instance of VehicleCore. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<VehicleCore, HaloApiErrorContainer>> EconomyVehicleCoreCustomization(string player, string coreId)
+        public async Task<HaloApiResultContainer<VehicleCore, RawResponseContainer>> EconomyVehicleCoreCustomization(string player, string coreId)
         {
             return await this.ExecuteAPIRequest<VehicleCore>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/customization/vehicles/{coreId}",
@@ -627,7 +627,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_VehicleCoresCustomization.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of VehicleCoreCollection containing a list of available vehicle cores. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<VehicleCoreCollection, HaloApiErrorContainer>> EconomyVehicleCoresCustomization(string player)
+        public async Task<HaloApiResultContainer<VehicleCoreCollection, RawResponseContainer>> EconomyVehicleCoresCustomization(string player)
         {
             return await this.ExecuteAPIRequest<VehicleCoreCollection>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/customization/vehicles",
@@ -645,7 +645,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <param name="coreId">The unique ID of the weapon core.</param>
         /// <returns>If successful, returns an instance of WeaponCore containing information about the weapon core. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<WeaponCore, HaloApiErrorContainer>> EconomyWeaponCoreCustomization(string player, string coreId)
+        public async Task<HaloApiResultContainer<WeaponCore, RawResponseContainer>> EconomyWeaponCoreCustomization(string player, string coreId)
         {
             return await this.ExecuteAPIRequest<WeaponCore>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/customization/weapons/{coreId}",
@@ -662,7 +662,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_WeaponCoresCustomization.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of WeaponCoreCollection. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<WeaponCoreCollection, HaloApiErrorContainer>> EconomyWeaponCoresCustomization(string player)
+        public async Task<HaloApiResultContainer<WeaponCoreCollection, RawResponseContainer>> EconomyWeaponCoresCustomization(string player)
         {
             return await this.ExecuteAPIRequest<WeaponCoreCollection>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/customization/weapons",
@@ -685,7 +685,7 @@ namespace Den.Dev.Orion.Core
         /// </remarks>
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetAchievements.xml' path='//example'/>
         /// <returns>If successful, returns an instance of AchievementCollection that contains the list of available achievements. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AchievementCollection, HaloApiErrorContainer>> GameCmsGetAchievements()
+        public async Task<HaloApiResultContainer<AchievementCollection, RawResponseContainer>> GameCmsGetAchievements()
         {
             return await this.ExecuteAPIRequest<AchievementCollection>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Multiplayer/file/Live/Achievements.json",
@@ -701,7 +701,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetAsyncComputeOverrides.xml' path='//example'/>
         /// <returns>If successful, returns an instance of AsyncComputeOverrides containing override metadata. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AsyncComputeOverrides, HaloApiErrorContainer>> GameCmsGetAsyncComputeOverrides()
+        public async Task<HaloApiResultContainer<AsyncComputeOverrides, RawResponseContainer>> GameCmsGetAsyncComputeOverrides()
         {
             return await this.ExecuteAPIRequest<AsyncComputeOverrides>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Specs/file/graphics/AsyncComputeOverrides.json",
@@ -719,7 +719,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="challengePath">Path to the challenge file. Example is "ChallengeContent/ClientChallengeDefinitions/S1RotationalSet1Challenges/Normal/NTeamSlayerPlay.json".</param>
         /// <param name="flightId">The unique ID for the currently active flight.</param>
         /// <returns>If successful, returns an instance of Challenge containing challenge information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Challenge, HaloApiErrorContainer>> GameCmsGetChallenge(string challengePath, string flightId)
+        public async Task<HaloApiResultContainer<Challenge, RawResponseContainer>> GameCmsGetChallenge(string challengePath, string flightId)
         {
             return await this.ExecuteAPIRequest<Challenge>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/{challengePath}?flight={flightId}",
@@ -737,7 +737,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="challengeDeckPath">Path to the challenge deck. An example value is "ChallengeContent/ClientChallengeDeckDefinitions/S2EntrenchedWeeklyDeck2.json".</param>
         /// <param name="flightId">Unique identifier for the currently active flight.</param>
         /// <returns>If successful, returns an instance of ChallengeDeckDefinition containing challenge deck metadata. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<ChallengeDeckDefinition, HaloApiErrorContainer>> GameCmsGetChallengeDeck(string challengeDeckPath, string flightId)
+        public async Task<HaloApiResultContainer<ChallengeDeckDefinition, RawResponseContainer>> GameCmsGetChallengeDeck(string challengeDeckPath, string flightId)
         {
             return await this.ExecuteAPIRequest<ChallengeDeckDefinition>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/{challengeDeckPath}?flight={flightId}",
@@ -755,7 +755,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="currencyPath">Path to the currency. An example is "currency/currencies/cr.json".</param>
         /// <param name="flightId">Unique identifier for the currently active flight.</param>
         /// <returns>If successful, returns an instance of CurrencyDefinition containing information about the specified currency. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<CurrencyDefinition, HaloApiErrorContainer>> GameCmsGetCurrency(string currencyPath, string flightId)
+        public async Task<HaloApiResultContainer<CurrencyDefinition, RawResponseContainer>> GameCmsGetCurrency(string currencyPath, string flightId)
         {
             return await this.ExecuteAPIRequest<CurrencyDefinition>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/{currencyPath}?flight={flightId}",
@@ -776,7 +776,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetClawAccess.xml' path='//example'/>
         /// <param name="flightId">Unique identifier for the currently active flight.</param>
         /// <returns>If successful, returns an instance of ClawAccessSnapshot containing relevant XUID lists. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<ClawAccessSnapshot, HaloApiErrorContainer>> GameCmsGetClawAccess(string flightId)
+        public async Task<HaloApiResultContainer<ClawAccessSnapshot, RawResponseContainer>> GameCmsGetClawAccess(string flightId)
         {
             return await this.ExecuteAPIRequest<ClawAccessSnapshot>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/TitleAuthorization/file/claw/access.json?flight={flightId}",
@@ -792,7 +792,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetCPUPresets.xml' path='//example'/>
         /// <returns>If successful, returns an instance of CPUPresetSnapshot containing preset information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<CPUPresetSnapshot, HaloApiErrorContainer>> GameCmsGetCpuPresets()
+        public async Task<HaloApiResultContainer<CPUPresetSnapshot, RawResponseContainer>> GameCmsGetCpuPresets()
         {
             return await this.ExecuteAPIRequest<CPUPresetSnapshot>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Specs/file/cpu/presets.json",
@@ -808,7 +808,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetCustomGameDefaults.xml' path='//example'/>
         /// <returns>If successful, returns an instance of CustomGameDefinition containing game parameters. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<CustomGameDefinition, HaloApiErrorContainer>> GameCmsGetCustomGameDefaults()
+        public async Task<HaloApiResultContainer<CustomGameDefinition, RawResponseContainer>> GameCmsGetCustomGameDefaults()
         {
             return await this.ExecuteAPIRequest<CustomGameDefinition>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Multiplayer/file/NonMatchmaking/customgame.json",
@@ -825,7 +825,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetCustomizationCatalog.xml' path='//example'/>
         /// <param name="flightId">Unique identifier for the currently active flight.</param>
         /// <returns>If successful, returns an instance of InventoryDefinition containing the full list of available items. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<InventoryDefinition, HaloApiErrorContainer>> GameCmsGetCustomizationCatalog(string flightId)
+        public async Task<HaloApiResultContainer<InventoryDefinition, RawResponseContainer>> GameCmsGetCustomizationCatalog(string flightId)
         {
             return await this.ExecuteAPIRequest<InventoryDefinition>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/inventory/catalog/inventory_catalog.json?flight={flightId}",
@@ -844,7 +844,7 @@ namespace Den.Dev.Orion.Core
         /// The exact purpose of this function is unknown at this time, and requires additional investigation.
         /// </remarks>
         /// <returns>If successful, an instance of DevicePresetOverrides. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<DevicePresetOverrides, HaloApiErrorContainer>> GameCmsGetDevicePresetOverrides()
+        public async Task<HaloApiResultContainer<DevicePresetOverrides, RawResponseContainer>> GameCmsGetDevicePresetOverrides()
         {
             return await this.ExecuteAPIRequest<DevicePresetOverrides>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Specs/file/graphics/DevicePresetOverrides.json",
@@ -862,7 +862,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="eventPath">The path to the event file. An example value is "RewardTracks/Events/Rituals/ritualEagleStrike.json".</param>
         /// <param name="flightId">Unique identifier for the currently active flight.</param>
         /// <returns>If successful, an instance of RewardTrackMetadata is returned. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<RewardTrackMetadata, HaloApiErrorContainer>> GameCmsGetEvent(string eventPath, string flightId)
+        public async Task<HaloApiResultContainer<RewardTrackMetadata, RawResponseContainer>> GameCmsGetEvent(string eventPath, string flightId)
         {
             return await this.ExecuteAPIRequest<RewardTrackMetadata>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/{eventPath}?flight={flightId}",
@@ -878,7 +878,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetGraphicsSpecControlOverrides.xml' path='//example'/>
         /// <returns>If successful, returns an instance of OverrideQueryDefinition containing query definitions. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<OverrideQueryDefinition, HaloApiErrorContainer>> GameCmsGetGraphicsSpecControlOverrides()
+        public async Task<HaloApiResultContainer<OverrideQueryDefinition, RawResponseContainer>> GameCmsGetGraphicsSpecControlOverrides()
         {
             return await this.ExecuteAPIRequest<OverrideQueryDefinition>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Specs/file/graphics/GraphicsSpecControlOverrides.json",
@@ -896,7 +896,7 @@ namespace Den.Dev.Orion.Core
         /// TODO: Need to figure out what the API response here is. Haven't seen this actually activated in-game. For the time being, the API call will return a raw response. For details, see <see href="https://github.com/OpenSpartan/Den.Dev.Orion/issues/18">GitHub issue</see>.
         /// </remarks>
         /// <returns>Returns a string containing the response.</returns>
-        public async Task<HaloApiResultContainer<string, HaloApiErrorContainer>> GameCmsGetGraphicSpecs()
+        public async Task<HaloApiResultContainer<string, RawResponseContainer>> GameCmsGetGraphicSpecs()
         {
             return await this.ExecuteAPIRequest<string>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Specs/file/graphics/overrides.json",
@@ -912,7 +912,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <param name="filePath">Path to the CMS image.</param>
         /// <returns>If successful, returns the byte array for the requested image. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<byte[], HaloApiErrorContainer>> GameCmsGetImage(string filePath)
+        public async Task<HaloApiResultContainer<byte[], RawResponseContainer>> GameCmsGetImage(string filePath)
         {
             return await this.ExecuteAPIRequest<byte[]>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/images/file/{filePath}",
@@ -933,7 +933,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="itemPath">Path to the item to be obtained. Example is "/inventory/armor/emblems/013-001-363f4a25.json".</param>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of InGameItem. Otherwise, null.</returns>
-        public async Task<HaloApiResultContainer<InGameItem, HaloApiErrorContainer>> GameCmsGetItem(string itemPath, string flightId)
+        public async Task<HaloApiResultContainer<InGameItem, RawResponseContainer>> GameCmsGetItem(string itemPath, string flightId)
         {
             return await this.ExecuteAPIRequest<InGameItem>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/{itemPath}?flight={flightId}",
@@ -950,7 +950,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetLobbyErrorMessages.xml' path='//example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, returns an instance of LobbyHopperErrorMessageList that contains possible errors. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<LobbyHopperErrorMessageList, HaloApiErrorContainer>> GameCmsGetLobbyErrorMessages(string flightId)
+        public async Task<HaloApiResultContainer<LobbyHopperErrorMessageList, RawResponseContainer>> GameCmsGetLobbyErrorMessages(string flightId)
         {
             return await this.ExecuteAPIRequest<LobbyHopperErrorMessageList>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Multiplayer/file/gameStartErrorMessages/LobbyHoppperErrorMessageList.json?flight={flightId}",
@@ -967,7 +967,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetMetadata.xml' path='//example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of Metadata containing the information about in-game manufacturers and currencies. Otherwise, null.</returns>
-        public async Task<HaloApiResultContainer<Metadata, HaloApiErrorContainer>> GameCmsGetMetadata(string flightId)
+        public async Task<HaloApiResultContainer<Metadata, RawResponseContainer>> GameCmsGetMetadata(string flightId)
         {
             return await this.ExecuteAPIRequest<Metadata>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/metadata/metadata.json?flight={flightId}",
@@ -984,7 +984,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetNetworkConfiguration.xml' path='//example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, returns an instance of NetworkConfiguration. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<NetworkConfiguration, HaloApiErrorContainer>> GameCmsGetNetworkConfiguration(string flightId)
+        public async Task<HaloApiResultContainer<NetworkConfiguration, RawResponseContainer>> GameCmsGetNetworkConfiguration(string flightId)
         {
             return await this.ExecuteAPIRequest<NetworkConfiguration>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Multiplayer/file/network/config.json?flight={flightId}",
@@ -1001,7 +1001,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetNews.xml' path='//example'/>
         /// <param name="filePath">Path to the news collection. Example is "/articles/articles.json".</param>
         /// <returns>If successful, returns a News instance containing the currently active news. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<News, HaloApiErrorContainer>> GameCmsGetNews(string filePath)
+        public async Task<HaloApiResultContainer<News, RawResponseContainer>> GameCmsGetNews(string filePath)
         {
             return await this.ExecuteAPIRequest<News>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/news/file/{filePath}",
@@ -1018,7 +1018,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetNotAllowedInTitleMessage.xml' path='//example'/>
         /// <remarks>It's unclear where this is actually used because the sample response is a test one, without any relevant context.</remarks>
         /// <returns>If successful, an instance of OEConfiguration containing the message. Otherwise, null.</returns>
-        public async Task<HaloApiResultContainer<OEConfiguration, HaloApiErrorContainer>> GameCmsGetNotAllowedInTitleMessage()
+        public async Task<HaloApiResultContainer<OEConfiguration, RawResponseContainer>> GameCmsGetNotAllowedInTitleMessage()
         {
             return await this.ExecuteAPIRequest<OEConfiguration>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/branches/hi/OEConfiguration/data/authfail/Default.json",
@@ -1035,7 +1035,7 @@ namespace Den.Dev.Orion.Core
         /// <typeparam name="T">Type of progression file to be obtained.</typeparam>
         /// <param name="filePath">Path to the progression file.</param>
         /// <returns>If successful, returns an instance of T, where T is the type of the progression file. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<T, HaloApiErrorContainer>> GameCmsGetProgressionFile<T>(string filePath)
+        public async Task<HaloApiResultContainer<T, RawResponseContainer>> GameCmsGetProgressionFile<T>(string filePath)
         {
             return await this.ExecuteAPIRequest<T>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/{filePath}",
@@ -1051,7 +1051,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetRecommendedDrivers.xml' path='//example'/>
         /// <returns>If successful, returns an instance of DriverManifest that contains details on supported drivers. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<DriverManifest, HaloApiErrorContainer>> GameCmsGetRecommendedDrivers()
+        public async Task<HaloApiResultContainer<DriverManifest, RawResponseContainer>> GameCmsGetRecommendedDrivers()
         {
             return await this.ExecuteAPIRequest<DriverManifest>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Specs/file/graphics/RecommendedDrivers.json",
@@ -1072,7 +1072,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="seasonPath">The path to the season. Typical example is "Seasons/Season7.json" for the Lone Wolves season.</param>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of SeasonRewardTrack containing season information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<SeasonRewardTrack, HaloApiErrorContainer>> GameCmsGetSeasonRewardTrack(string seasonPath, string flightId)
+        public async Task<HaloApiResultContainer<SeasonRewardTrack, RawResponseContainer>> GameCmsGetSeasonRewardTrack(string seasonPath, string flightId)
         {
             return await this.ExecuteAPIRequest<SeasonRewardTrack>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/{seasonPath}?flight={flightId}",
@@ -1093,7 +1093,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetGuide_Images.xml' path='//example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of GuideContainer containing file information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<GuideContainer, HaloApiErrorContainer>> GameCmsGetGuideImages(string flightId)
+        public async Task<HaloApiResultContainer<GuideContainer, RawResponseContainer>> GameCmsGetGuideImages(string flightId)
         {
             return await this.ExecuteAPIRequest<GuideContainer>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/images/guide/xo?flight={flightId}",
@@ -1110,7 +1110,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetGuide_Multiplayer.xml' path='//example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of GuideContainer containing file information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<GuideContainer, HaloApiErrorContainer>> GameCmsGetGuideMultiplayer(string flightId)
+        public async Task<HaloApiResultContainer<GuideContainer, RawResponseContainer>> GameCmsGetGuideMultiplayer(string flightId)
         {
             return await this.ExecuteAPIRequest<GuideContainer>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Multiplayer/guide/xo?flight={flightId}",
@@ -1127,7 +1127,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetGuide_News.xml' path='//example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of GuideContainer containing file information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<GuideContainer, HaloApiErrorContainer>> GameCmsGetGuideNews(string flightId)
+        public async Task<HaloApiResultContainer<GuideContainer, RawResponseContainer>> GameCmsGetGuideNews(string flightId)
         {
             return await this.ExecuteAPIRequest<GuideContainer>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/News/guide/xo?flight={flightId}",
@@ -1144,7 +1144,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetGuide_Progression.xml' path='//example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of GuideContainer containing file information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<GuideContainer, HaloApiErrorContainer>> GameCmsGetGuideProgression(string flightId)
+        public async Task<HaloApiResultContainer<GuideContainer, RawResponseContainer>> GameCmsGetGuideProgression(string flightId)
         {
             return await this.ExecuteAPIRequest<GuideContainer>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/guide/xo?flight={flightId}",
@@ -1161,7 +1161,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetGuide_Specs.xml' path='//example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of GuideContainer containing file information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<GuideContainer, HaloApiErrorContainer>> GameCmsGetGuideSpecs(string flightId)
+        public async Task<HaloApiResultContainer<GuideContainer, RawResponseContainer>> GameCmsGetGuideSpecs(string flightId)
         {
             return await this.ExecuteAPIRequest<GuideContainer>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Specs/guide/xo?flight={flightId}",
@@ -1178,7 +1178,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetGuide_TitleAuthorization.xml' path='//example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of GuideContainer containing file information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<GuideContainer, HaloApiErrorContainer>> GameCmsGetGuideTitleAuthorization(string flightId)
+        public async Task<HaloApiResultContainer<GuideContainer, RawResponseContainer>> GameCmsGetGuideTitleAuthorization(string flightId)
         {
             return await this.ExecuteAPIRequest<GuideContainer>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/TitleAuthorization/guide/xo?flight={flightId}",
@@ -1194,7 +1194,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetMedalMetadata.xml' path='//example'/>
         /// <returns>If successful, an instance of <see cref="MedalMetadata"/> containing medal information. Otherwise, returns null and error details.</returns>
-        public async Task<HaloApiResultContainer<MedalMetadata, HaloApiErrorContainer>> GameCmsGetMedalMetadata()
+        public async Task<HaloApiResultContainer<MedalMetadata, RawResponseContainer>> GameCmsGetMedalMetadata()
         {
             return await this.ExecuteAPIRequest<MedalMetadata>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Waypoint/file/medals/metadata.json",
@@ -1211,7 +1211,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetMultiplayerPlaylistConfiguration.xml' path='//example'/>
         /// <param name="playlistFile">JSON file associated with a playlist. Example is "a446725e-b281-414c-a21e-31b8700e95a1.json".</param>
         /// <returns>If successful, an instance of <see cref="PlaylistConfiguration"/> containing playlist configuration. Otherwise, returns null and error details.</returns>
-        public async Task<HaloApiResultContainer<PlaylistConfiguration, HaloApiErrorContainer>> GameCmsGetMultiplayerPlaylistConfiguration(string playlistFile)
+        public async Task<HaloApiResultContainer<PlaylistConfiguration, RawResponseContainer>> GameCmsGetMultiplayerPlaylistConfiguration(string playlistFile)
         {
             return await this.ExecuteAPIRequest<PlaylistConfiguration>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Multiplayer/file/playlists/assets/{playlistFile}",
@@ -1227,7 +1227,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetEmblemMapping.xml' path='//example'/>
         /// <returns>If successful, an instance of <see cref="Dictionary{String, List}"/> with emblem mapping. Otherwise, returns null and error details.</returns>
-        public async Task<HaloApiResultContainer<Dictionary<string, Dictionary<string, EmblemMapping>>, HaloApiErrorContainer>> GameCmsGetEmblemMapping()
+        public async Task<HaloApiResultContainer<Dictionary<string, Dictionary<string, EmblemMapping>>, RawResponseContainer>> GameCmsGetEmblemMapping()
         {
             return await this.ExecuteAPIRequest<Dictionary<string, Dictionary<string, EmblemMapping>>>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Waypoint/file/images/emblems/mapping.json",
@@ -1243,7 +1243,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <param name="filePath">Path to the file to be retrieved.</param>
         /// <returns>If successful, a byte array containing the file contents. Otherwise, returns null and error details.</returns>
-        public async Task<HaloApiResultContainer<byte[], HaloApiErrorContainer>> GameCmsGetGenericWaypointFile(string filePath)
+        public async Task<HaloApiResultContainer<byte[], RawResponseContainer>> GameCmsGetGenericWaypointFile(string filePath)
         {
             return await this.ExecuteAPIRequest<byte[]>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Waypoint/file/{filePath}",
@@ -1268,7 +1268,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <param name="permission">A <see cref="Permission"/> object with the <see cref="Permission.AuthoringRole"/> set to the desired permission level. Ensure that no other properties other than <see cref="Permission.AuthoringRole"/> are set.</param>
         /// <returns>If successful, returns an instance of <see cref="Permission"/> with permission details. Otherwise, returns a null result object with attached error details.</returns>
-        public async Task<HaloApiResultContainer<Permission, HaloApiErrorContainer>> HIUGCGrantOrRevokePermissions(string title, string assetType, string assetId, string player, Permission permission)
+        public async Task<HaloApiResultContainer<Permission, RawResponseContainer>> HIUGCGrantOrRevokePermissions(string title, string assetType, string assetId, string player, Permission permission)
         {
             return await this.ExecuteAPIRequest<Permission>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/permissions/{player}",
@@ -1287,7 +1287,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <param name="matchId">Unique match ID.</param>
         /// <returns>If successful, returns an instance of <see cref="AssetActionResult"/> representing the favorited film. Otherwise, returns a null result object with attached error details.</returns>
-        public async Task<HaloApiResultContainer<AssetActionResult, HaloApiErrorContainer>> HIUGCFavoriteAFilmByMatchId(string player, string matchId)
+        public async Task<HaloApiResultContainer<AssetActionResult, RawResponseContainer>> HIUGCFavoriteAFilmByMatchId(string player, string matchId)
         {
             return await this.ExecuteAPIRequest<AssetActionResult>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/favorites/films/matches/{matchId}",
@@ -1307,7 +1307,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "373f3d27-cb4c-4d7b-b6c9-7757de3c1133" for "Arena:King of the Hill".</param>
         /// <returns>If successful, returns an instance of FavoriteAsset containing asset information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<FavoriteAsset, HaloApiErrorContainer>> HIUGCCheckAssetPlayerBookmark(string title, string player, string assetType, string assetId)
+        public async Task<HaloApiResultContainer<FavoriteAsset, RawResponseContainer>> HIUGCCheckAssetPlayerBookmark(string title, string player, string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<FavoriteAsset>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/players/{player}/favorites/{assetType}/{assetId}",
@@ -1327,7 +1327,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="starter">Container for the session descriptor that starts the new version. Example value should contain an existing session ID for SourceId and value of 1 for Source.</param>
         /// <returns>If version creation is successful, returns an instance of AuthoringAssetVersion. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersion, HaloApiErrorContainer>> HIUGCCreateAssetVersionAgnostic(string title, string assetType, string assetId, AuthoringSessionSourceStarter starter)
+        public async Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> HIUGCCreateAssetVersionAgnostic(string title, string assetType, string assetId, AuthoringSessionSourceStarter starter)
         {
             return await this.ExecuteAPIRequest<AuthoringAssetVersion>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions",
@@ -1346,7 +1346,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If deletion is successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, HaloApiErrorContainer>> HIUGCDeleteAllVersions(string title, string assetType, string assetId)
+        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> HIUGCDeleteAllVersions(string title, string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<bool>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions",
@@ -1364,7 +1364,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If deletion is successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, HaloApiErrorContainer>> HIUGCDeleteAsset(string title, string assetType, string assetId)
+        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> HIUGCDeleteAsset(string title, string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<bool>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}",
@@ -1383,7 +1383,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="versionId">Unique ID for the version of the asset. Example value is "2674c887-7aa1-42ab-a6cd-4a2c60611d0e" for the "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" asset.</param>
         /// <returns>If deletion is successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, HaloApiErrorContainer>> HIUGCDeleteVersion(string title, string assetType, string assetId, string versionId)
+        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> HIUGCDeleteVersion(string title, string assetType, string assetId, string versionId)
         {
             return await this.ExecuteAPIRequest<bool>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions/{versionId}",
@@ -1401,7 +1401,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If session termination is successful, return true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, HaloApiErrorContainer>> HIUGCEndSession(string title, string assetType, string assetId)
+        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> HIUGCEndSession(string title, string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<bool>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/sessions/active",
@@ -1423,7 +1423,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If successful, returns an instance of FavoriteAsset confirming the addition of the asset to favorites. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<FavoriteAsset, HaloApiErrorContainer>> HIUGCFavoriteAnAsset(string player, string assetType, string assetId)
+        public async Task<HaloApiResultContainer<FavoriteAsset, RawResponseContainer>> HIUGCFavoriteAnAsset(string player, string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<FavoriteAsset>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/favorites/{assetType}/{assetId}",
@@ -1443,7 +1443,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If successful, returns an instance of AuthoringAsset containing authoring metadata. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAsset, HaloApiErrorContainer>> HIUGCGetAsset(string title, string assetType, string assetId)
+        public async Task<HaloApiResultContainer<AuthoringAsset, RawResponseContainer>> HIUGCGetAsset(string title, string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<AuthoringAsset>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}",
@@ -1459,7 +1459,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <param name="blobPath">Path to the blob to be obtained.</param>
         /// <returns>If successful, returns a binary blob containing file data. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<byte[], HaloApiErrorContainer>> HIUGCGetBlob(string blobPath)
+        public async Task<HaloApiResultContainer<byte[], RawResponseContainer>> HIUGCGetBlob(string blobPath)
         {
             return await this.ExecuteAPIRequest<byte[]>(
                 $"https://blobs-infiniteugc.{HaloCoreEndpoints.ServiceDomain}/{blobPath}",
@@ -1480,7 +1480,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If successful, returns an instance of AuthoringAssetVersion containing film data in the CustomData property. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersion, HaloApiErrorContainer>> HIUGCGetLatestAssetVersionFilm(string title, string assetId)
+        public async Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> HIUGCGetLatestAssetVersionFilm(string title, string assetId)
         {
             return await this.ExecuteAPIRequest<AuthoringAssetVersion>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/films/{assetId}/versions/latest",
@@ -1502,7 +1502,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If successful, returns an instance of AuthoringAssetVersion containing version metadata for an asset. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersion, HaloApiErrorContainer>> HIUGCGetLatestAssetVersionAgnostic(string title, string assetType, string assetId)
+        public async Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> HIUGCGetLatestAssetVersionAgnostic(string title, string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<AuthoringAssetVersion>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions/latest",
@@ -1521,7 +1521,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If successful, returns an instance of AuthoringAssetVersion containing version metadata for a published asset. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersion, HaloApiErrorContainer>> HIUGCGetPublishedVersion(string title, string assetType, string assetId)
+        public async Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> HIUGCGetPublishedVersion(string title, string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<AuthoringAssetVersion>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions/published",
@@ -1541,7 +1541,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="versionId">Unique ID for the version of the asset. Example value is "2674c887-7aa1-42ab-a6cd-4a2c60611d0e" for the "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" asset.</param>
         /// <returns>If successful, returns an instance of AuthoringAssetVersion that contains asset version information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersion, HaloApiErrorContainer>> HIUGCGetSpecificAssetVersion(string title, string assetType, string assetId, string versionId)
+        public async Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> HIUGCGetSpecificAssetVersion(string title, string assetType, string assetId, string versionId)
         {
             return await this.ExecuteAPIRequest<AuthoringAssetVersion>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions/{versionId}",
@@ -1563,7 +1563,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If successful, returns an instance of AuthoringAssetVersionContainer that contains information about all available versions for an asset. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersionContainer, HaloApiErrorContainer>> HIUGCListAllVersions(string title, string assetType, string assetId)
+        public async Task<HaloApiResultContainer<AuthoringAssetVersionContainer, RawResponseContainer>> HIUGCListAllVersions(string title, string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<AuthoringAssetVersionContainer>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions",
@@ -1591,7 +1591,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="keywords">List of keywords by which to filter.</param>
         /// <param name="kind">Type of asset to return.</param>
         /// <returns>If successful, returns an instance of AuthoringAssetContainer containing information about assets a player owns. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetContainer, HaloApiErrorContainer>> HIUGCListPlayerAssets(string title, string player, int start, int count, bool includeTimes, string sort, ResultOrder order, List<string> keywords, AssetKind kind)
+        public async Task<HaloApiResultContainer<AuthoringAssetContainer, RawResponseContainer>> HIUGCListPlayerAssets(string title, string player, int start, int count, bool includeTimes, string sort, ResultOrder order, List<string> keywords, AssetKind kind)
         {
             var formattedKeywordList = string.Empty;
             if (keywords != null && keywords.Count > 0)
@@ -1618,7 +1618,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <returns>If successful, returns an instance of AuthoringFavoritesContainer containing the list of favorites. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringFavoritesContainer, HaloApiErrorContainer>> HIUGCListPlayerFavorites(string player, string assetType)
+        public async Task<HaloApiResultContainer<AuthoringFavoritesContainer, RawResponseContainer>> HIUGCListPlayerFavorites(string player, string assetType)
         {
             return await this.ExecuteAPIRequest<AuthoringFavoritesContainer>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/favorites/{assetType}",
@@ -1638,7 +1638,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_ListPlayerFavoritesAgnostic.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of AuthoringFavoritesContainer containing the list of favorites. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringFavoritesContainer, HaloApiErrorContainer>> HIUGCListPlayerFavoritesAgnostic(string player)
+        public async Task<HaloApiResultContainer<AuthoringFavoritesContainer, RawResponseContainer>> HIUGCListPlayerFavoritesAgnostic(string player)
         {
             return await this.ExecuteAPIRequest<AuthoringFavoritesContainer>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/favorites",
@@ -1659,7 +1659,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="versionId">Unique ID for the asset version to be published.</param>
         /// <param name="patchedAsset">Updated asset version with custom configuration.</param>
         /// <returns>If successful, returns an instance of HIUGCPatchAssetVersion containing the changes. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersion, HaloApiErrorContainer>> HIUGCPatchAssetVersion(string title, string assetType, string assetId, string versionId, AuthoringAssetVersion patchedAsset)
+        public async Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> HIUGCPatchAssetVersion(string title, string assetType, string assetId, string versionId, AuthoringAssetVersion patchedAsset)
         {
             return await this.ExecuteAPIRequest<AuthoringAssetVersion>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions/{versionId}",
@@ -1682,7 +1682,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="versionId">Unique ID for the asset version to be published.</param>
         /// <param name="clearanceId">ID of the currently active flight.</param>
         /// <returns>If the publishing process is successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, HaloApiErrorContainer>> HIUGCPublishAssetVersion(string assetType, string assetId, string versionId, string clearanceId)
+        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> HIUGCPublishAssetVersion(string assetType, string assetId, string versionId, string clearanceId)
         {
             return await this.ExecuteAPIRequest<bool>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/{assetType}/{assetId}/publish/{versionId}?clearanceId={clearanceId}",
@@ -1705,7 +1705,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If successful, returns an instance of AuthoringAssetRating containing rating information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetRating, HaloApiErrorContainer>> HIUGCGetAssetRatings(string player, string assetType, string assetId)
+        public async Task<HaloApiResultContainer<AuthoringAssetRating, RawResponseContainer>> HIUGCGetAssetRatings(string player, string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<AuthoringAssetRating>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/ratings/{assetType}/{assetId}",
@@ -1725,7 +1725,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="rating">An object containing asset rating information. Rating should be set in CustomData.</param>
         /// <returns>If successful, returns an instance of AuthoringAssetRating containing the updated rating. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetRating, HaloApiErrorContainer>> HIUGCRateAnAsset(string player, string assetType, string assetId, AuthoringAssetRating rating)
+        public async Task<HaloApiResultContainer<AuthoringAssetRating, RawResponseContainer>> HIUGCRateAnAsset(string player, string assetType, string assetId, AuthoringAssetRating rating)
         {
             return await this.ExecuteAPIRequest<AuthoringAssetRating>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/ratings/{assetType}/{assetId}",
@@ -1746,7 +1746,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="report">Instance of <see cref="AssetReport"/> containing the report for the asset.</param>
         /// <returns>If successful, returns an instance of AssetReport containing the report information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AssetReport, HaloApiErrorContainer>> HIUGCReportAnAsset(string player, string assetType, string assetId, AssetReport report)
+        public async Task<HaloApiResultContainer<AssetReport, RawResponseContainer>> HIUGCReportAnAsset(string player, string assetType, string assetId, AssetReport report)
         {
             return await this.ExecuteAPIRequest<AssetReport>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/reports/{assetType}/{assetId}",
@@ -1772,7 +1772,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="asset">Asset definition, containing information about the asset to be created.</param>
         /// <param name="contentType">Content type to be used for the request. Default value uses the Bond encoding.</param>
         /// <returns>If successful, returns an instance of AuthoringAsset containing asset information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAsset, HaloApiErrorContainer>> HIUGCSpawnAsset(string title, string assetType, object? asset = null, ApiContentType contentType = ApiContentType.BondCompactBinary)
+        public async Task<HaloApiResultContainer<AuthoringAsset, RawResponseContainer>> HIUGCSpawnAsset(string title, string assetType, object? asset = null, ApiContentType contentType = ApiContentType.BondCompactBinary)
         {
             if (asset is null)
             {
@@ -1810,7 +1810,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="includeContainerSas">Determines whether to include the container SAS in the response or not. Setting this value to "true" will result in a 403 Forbidden error.</param>
         /// <param name="starter">Starter object that describes who is starting the session and the previous version of the asset.</param>
         /// <returns>If successful, returns an instance of AssetAuthoringSession with details about the created session. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AssetAuthoringSession, HaloApiErrorContainer>> HIUGCStartSessionAgnostic(string title, string assetType, string assetId, bool includeContainerSas, AuthoringSessionStarter starter)
+        public async Task<HaloApiResultContainer<AssetAuthoringSession, RawResponseContainer>> HIUGCStartSessionAgnostic(string title, string assetType, string assetId, bool includeContainerSas, AuthoringSessionStarter starter)
         {
             return await this.ExecuteAPIRequest<AssetAuthoringSession>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/sessions?include-container-sas={includeContainerSas}",
@@ -1835,7 +1835,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>
         /// <param name="includeContainerSas">Determines whether to include the container SAS in the response or not. Setting this value to "true" will result in a 403 Forbidden error.</param>
         /// <returns>If successful, returns an instance of AssetAuthoringSession with details about the created session. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AssetAuthoringSession, HaloApiErrorContainer>> HIUGCExtendSessionAgnostic(string title, string assetType, string assetId, bool includeContainerSas)
+        public async Task<HaloApiResultContainer<AssetAuthoringSession, RawResponseContainer>> HIUGCExtendSessionAgnostic(string title, string assetType, string assetId, bool includeContainerSas)
         {
             return await this.ExecuteAPIRequest<AssetAuthoringSession>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/sessions?include-container-sas={includeContainerSas}",
@@ -1854,7 +1854,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>
         /// <returns>If the request to delete the session is successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, HaloApiErrorContainer>> HIUGCDeleteSessionAgnostic(string title, string assetType, string assetId)
+        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> HIUGCDeleteSessionAgnostic(string title, string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<bool>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/sessions",
@@ -1876,7 +1876,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>
         /// <returns>If the request to undelete an asset was successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, HaloApiErrorContainer>> HIUGCUndeleteAsset(string title, string assetType, string assetId)
+        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> HIUGCUndeleteAsset(string title, string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<bool>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/recover",
@@ -1895,7 +1895,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>
         /// <param name="versionId">Unique ID for the asset version to be undeleted.</param>
         /// <returns>If successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, HaloApiErrorContainer>> HIUGCUndeleteVersion(string title, string assetType, string assetId, string versionId)
+        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> HIUGCUndeleteVersion(string title, string assetType, string assetId, string versionId)
         {
             return await this.ExecuteAPIRequest<bool>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions/{versionId}/recover",
@@ -1912,7 +1912,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetType">Type of asset to unpublish. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>
         /// <returns>If successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, HaloApiErrorContainer>> HIUGCUnpublishAsset(string assetType, string assetId)
+        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> HIUGCUnpublishAsset(string assetType, string assetId)
         {
             return await this.ExecuteAPIRequest<bool>(
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/{assetType}/{assetId}/unpublish",
@@ -1933,7 +1933,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetManifestByBuildGuid.xml' path='//example'/>
         /// <param name="buildGuid">Build GUID. Example value is "5df1784f-72a9-4207-a529-2f91eb37fc1f".</param>
         /// <returns>If successful, returns an instance of <see cref="Manifest"/>. Otherwise, returns a null object along with error details.</returns>
-        public async Task<HaloApiResultContainer<Manifest, HaloApiErrorContainer>> HIUGCDiscoveryGetManifestByBuildGuid(string buildGuid)
+        public async Task<HaloApiResultContainer<Manifest, RawResponseContainer>> HIUGCDiscoveryGetManifestByBuildGuid(string buildGuid)
         {
             return await this.ExecuteAPIRequest<Manifest>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/manifests/guids/{buildGuid}/game",
@@ -1949,7 +1949,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetForgeTemplates.xml' path='//example'/>
         /// <returns>If successful, returns an instance of <see cref="Project"/> containing the maps. Otherwise, returns a null object along with error details.</returns>
-        public async Task<HaloApiResultContainer<Project, HaloApiErrorContainer>> HIUGCDiscoveryGetForgeTemplates()
+        public async Task<HaloApiResultContainer<Project, RawResponseContainer>> HIUGCDiscoveryGetForgeTemplates()
         {
             return await this.ExecuteAPIRequest<Project>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/projects/bf0e9bab-6fed-47a4-8bf7-bfd4422ee552",
@@ -1966,7 +1966,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetFilm.xml' path='//example'/>
         /// <param name="assetId">Film asset ID. This is not the same as the match ID, but can be retrieved from match details.</param>
         /// <returns>If successful, returns an instance of <see cref="Film"/> containing film metadata. Otherwise, returns a null object along with error details.</returns>
-        public async Task<HaloApiResultContainer<Film, HaloApiErrorContainer>> HIUGCDiscoveryGetFilm(string assetId)
+        public async Task<HaloApiResultContainer<Film, RawResponseContainer>> HIUGCDiscoveryGetFilm(string assetId)
         {
             return await this.ExecuteAPIRequest<Film>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/films/{assetId}",
@@ -1985,7 +1985,7 @@ namespace Den.Dev.Orion.Core
         /// </remarks>
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_Get343Recommended.xml' path='//example'/>
         /// <returns>If successful, returns an instance of <see cref="Project"/> containing the list of recommended assets. Otherwise, returns a null object along with error details.</returns>
-        public async Task<HaloApiResultContainer<Project, HaloApiErrorContainer>> HIUGCDiscoveryGet343Recommended()
+        public async Task<HaloApiResultContainer<Project, RawResponseContainer>> HIUGCDiscoveryGet343Recommended()
         {
             return await this.ExecuteAPIRequest<Project>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/projects/712add52-f989-48e1-b3bb-ac7cd8a1c17a",
@@ -2003,7 +2003,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetId">Unique asset ID for the engine game variant.</param>
         /// <param name="versionId">Unique ID for the asset version for the engine game variant.</param>
         /// <returns>If successful, returns an instance of EngineGameVariant containing appropriate metadata. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<EngineGameVariant, HaloApiErrorContainer>> HIUGCDiscoveryGetEngineGameVariant(string assetId, string versionId)
+        public async Task<HaloApiResultContainer<EngineGameVariant, RawResponseContainer>> HIUGCDiscoveryGetEngineGameVariant(string assetId, string versionId)
         {
             return await this.ExecuteAPIRequest<EngineGameVariant>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/engineGameVariants/{assetId}/versions/{versionId}",
@@ -2020,7 +2020,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetEngineGameVariantWithoutVersion.xml' path='//example'/>
         /// <param name="assetId">Unique asset ID for the engine game variant.</param>
         /// <returns>If successful, returns an instance of EngineGameVariant containing appropriate metadata. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<EngineGameVariant, HaloApiErrorContainer>> HIUGCDiscoveryGetEngineGameVariantWithoutVersion(string assetId)
+        public async Task<HaloApiResultContainer<EngineGameVariant, RawResponseContainer>> HIUGCDiscoveryGetEngineGameVariantWithoutVersion(string assetId)
         {
             return await this.ExecuteAPIRequest<EngineGameVariant>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/engineGameVariants/{assetId}",
@@ -2039,7 +2039,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="versionId">Unique version ID for the manifest. Example value is "9a348b5b-08aa-41c2-8b3a-681870c78a76".</param>
         /// <param name="clearanceId">ID of the currently active flight.</param>
         /// <returns>If successful, an instance of <see cref="Manifest"/> representing the asset details. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Manifest, HaloApiErrorContainer>> HIUGCDiscoveryGetManifest(string assetId, string versionId, string clearanceId)
+        public async Task<HaloApiResultContainer<Manifest, RawResponseContainer>> HIUGCDiscoveryGetManifest(string assetId, string versionId, string clearanceId)
         {
             return await this.ExecuteAPIRequest<Manifest>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/manifests/{assetId}/versions/{versionId}?clearanceId={clearanceId}",
@@ -2056,7 +2056,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetManifestByBuild.xml' path='//example'/>
         /// <param name="buildNumber">Build for which the manifest needs to be obtained. Maps to official Halo builds, such as 6.10022.10499.</param>
         /// <returns>An instance of Manifest containing game manifest information if request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Manifest, HaloApiErrorContainer>> HIUGCDiscoveryGetManifestByBuild(string buildNumber)
+        public async Task<HaloApiResultContainer<Manifest, RawResponseContainer>> HIUGCDiscoveryGetManifestByBuild(string buildNumber)
         {
             return await this.ExecuteAPIRequest<Manifest>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/manifests/builds/{buildNumber}/game",
@@ -2074,7 +2074,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetId">Unique map ID. For example, the ID for the Recharge map is "8420410b-044d-44d7-80b6-98a766c8c39f".</param>
         /// <param name="versionId">Unique version ID for a map. For example, for the Recharge map a version is "068c0974-f748-41ba-b457-b8fed603576e".</param>
         /// <returns>An instance of Map containing map metadata if request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Map, HaloApiErrorContainer>> HIUGCDiscoveryGetMap(string assetId, string versionId)
+        public async Task<HaloApiResultContainer<Map, RawResponseContainer>> HIUGCDiscoveryGetMap(string assetId, string versionId)
         {
             return await this.ExecuteAPIRequest<Map>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/maps/{assetId}/versions/{versionId}",
@@ -2097,7 +2097,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="versionId">Unique version ID for the map and mode combination.</param>
         /// <param name="clearanceId">ID of the currently active flight.</param>
         /// <returns>An instance of Map containing map metadata if request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<MapModePair, HaloApiErrorContainer>> HIUGCDiscoveryGetMapModePair(string assetId, string versionId, string clearanceId)
+        public async Task<HaloApiResultContainer<MapModePair, RawResponseContainer>> HIUGCDiscoveryGetMapModePair(string assetId, string versionId, string clearanceId)
         {
             return await this.ExecuteAPIRequest<MapModePair>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/mapModePairs/{assetId}/versions/{versionId}?clearanceId={clearanceId}",
@@ -2114,7 +2114,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetMapModePairWithoutVersion.xml' path='//example'/>
         /// <param name="assetId">Unique ID for the map and mode combination. Example value is "b6aca0c7-8ba7-4066-bf91-693571374c3c" for "sgh_interlock".</param>
         /// <returns>If successful, returns an instance of <see cref="Task"/> representing the map and mode combination. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<MapModePair, HaloApiErrorContainer>> HIUGCDiscoveryGetMapModePairWithoutVersion(string assetId)
+        public async Task<HaloApiResultContainer<MapModePair, RawResponseContainer>> HIUGCDiscoveryGetMapModePairWithoutVersion(string assetId)
         {
             return await this.ExecuteAPIRequest<MapModePair>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/mapModePairs/{assetId}",
@@ -2131,7 +2131,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetMapWithoutVersion.xml' path='//example'/>
         /// <param name="assetId">Unique map ID. For example, the ID for the Recharge map is "8420410b-044d-44d7-80b6-98a766c8c39f".</param>
         /// <returns>An instance of Map containing map metadata if request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Map, HaloApiErrorContainer>> HIUGCDiscoveryGetMapWithoutVersion(string assetId)
+        public async Task<HaloApiResultContainer<Map, RawResponseContainer>> HIUGCDiscoveryGetMapWithoutVersion(string assetId)
         {
             return await this.ExecuteAPIRequest<Map>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/maps/{assetId}",
@@ -2150,7 +2150,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="versionId">Unique version ID for the playlist.</param>
         /// <param name="clearanceId">ID of the currently active flight.</param>
         /// <returns>If successful, returns an instance of Playlist containing playlist information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Playlist, HaloApiErrorContainer>> HIUGCDiscoveryGetPlaylist(string assetId, string versionId, string clearanceId)
+        public async Task<HaloApiResultContainer<Playlist, RawResponseContainer>> HIUGCDiscoveryGetPlaylist(string assetId, string versionId, string clearanceId)
         {
             return await this.ExecuteAPIRequest<Playlist>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/playlists/{assetId}/versions/{versionId}?clearanceId={clearanceId}",
@@ -2167,7 +2167,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetPlaylistWithoutVersion.xml' path='//example'/>
         /// <param name="assetId">Unique asset ID for the playlist.</param>
         /// <returns>If successful, returns an instance of <see cref="Playlist"/> representing the targeted playlist. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Playlist, HaloApiErrorContainer>> HIUGCDiscoveryGetPlaylistWithoutVersion(string assetId)
+        public async Task<HaloApiResultContainer<Playlist, RawResponseContainer>> HIUGCDiscoveryGetPlaylistWithoutVersion(string assetId)
         {
             return await this.ExecuteAPIRequest<Playlist>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/playlists/{assetId}",
@@ -2185,7 +2185,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetId">Unique asset ID for the prefab.</param>
         /// <param name="versionId">Unique version ID for the prefab.</param>
         /// <returns>If successful, returns a <see cref="Prefab"/> instance representing the specific prefab. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Prefab, HaloApiErrorContainer>> HIUGCDiscoveryGetPrefab(string assetId, string versionId)
+        public async Task<HaloApiResultContainer<Prefab, RawResponseContainer>> HIUGCDiscoveryGetPrefab(string assetId, string versionId)
         {
             return await this.ExecuteAPIRequest<Prefab>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/prefabs/{assetId}/versions/{versionId}",
@@ -2202,7 +2202,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetPrefabWithoutVersion.xml' path='//example'/>
         /// <param name="assetId">Unique asset ID for the prefab.</param>
         /// <returns>If successful, returns a <see cref="Prefab"/> instance representing the specific prefab. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Prefab, HaloApiErrorContainer>> HIUGCDiscoveryGetPrefabWithoutVersion(string assetId)
+        public async Task<HaloApiResultContainer<Prefab, RawResponseContainer>> HIUGCDiscoveryGetPrefabWithoutVersion(string assetId)
         {
             return await this.ExecuteAPIRequest<Prefab>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/prefabs/{assetId}",
@@ -2220,7 +2220,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetId">Unique asset ID representing the project. Example asset ID currently active is the custom game manifest ID: "a9dc0785-2a99-4fec-ba6e-0216feaaf041".</param>
         /// <param name="versionId">Version ID for the project. As an example, a version of a production manifest is "a4e68648-f994-44bb-853e-d09ee224d799".</param>
         /// <returns>An instance of Project containing current game project information if request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Project, HaloApiErrorContainer>> HIUGCDiscoveryGetProject(string assetId, string versionId)
+        public async Task<HaloApiResultContainer<Project, RawResponseContainer>> HIUGCDiscoveryGetProject(string assetId, string versionId)
         {
             return await this.ExecuteAPIRequest<Project>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/projects/{assetId}/versions/{versionId}",
@@ -2237,7 +2237,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetProjectWithoutVersion.xml' path='//example'/>
         /// <param name="assetId">Unique asset ID representing the project. Example asset ID currently active is the custom game manifest ID: "a9dc0785-2a99-4fec-ba6e-0216feaaf041".</param>
         /// <returns>An instance of Project containing current game project information if request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Project, HaloApiErrorContainer>> HIUGCDiscoveryGetProjectWithoutVersion(string assetId)
+        public async Task<HaloApiResultContainer<Project, RawResponseContainer>> HIUGCDiscoveryGetProjectWithoutVersion(string assetId)
         {
             return await this.ExecuteAPIRequest<Project>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/projects/{assetId}",
@@ -2253,7 +2253,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetTagsInfo.xml' path='//example'/>
         /// <returns>An instance of TagInfo containing a list of tags if the request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<TagInfo, HaloApiErrorContainer>> HIUGCDiscoveryGetTagsInfo()
+        public async Task<HaloApiResultContainer<TagInfo, RawResponseContainer>> HIUGCDiscoveryGetTagsInfo()
         {
             return await this.ExecuteAPIRequest<TagInfo>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/info/tags",
@@ -2271,7 +2271,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetId">Unique ID for the game asset. For example, for "Fiesta - Slayer" game mode, the asset ID is "aca7bbf8-7a18-4aae-8785-1bd3f58275fd".</param>
         /// <param name="versionId">Version for the asset to obtain. Example value is "3685f6b2-2860-4e98-9d13-513087edb465".</param>
         /// <returns>An instance of UGCGameVariant containing game variant metadata if the request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<UGCGameVariant, HaloApiErrorContainer>> HIUGCDiscoveryGetUgcGameVariant(string assetId, string versionId)
+        public async Task<HaloApiResultContainer<UGCGameVariant, RawResponseContainer>> HIUGCDiscoveryGetUgcGameVariant(string assetId, string versionId)
         {
             return await this.ExecuteAPIRequest<UGCGameVariant>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/ugcGameVariants/{assetId}/versions/{versionId}",
@@ -2288,7 +2288,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetUgcGameVariantWithoutVersion.xml' path='//example'/>
         /// <param name="assetId">Unique ID for the game asset. For example, for "Fiesta - Slayer" game mode, the asset ID is "aca7bbf8-7a18-4aae-8785-1bd3f58275fd".</param>
         /// <returns>An instance of GameAssetVariant containing asset metadata if the request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<UGCGameVariant, HaloApiErrorContainer>> HIUGCDiscoveryGetUgcGameVariantWithoutVersion(string assetId)
+        public async Task<HaloApiResultContainer<UGCGameVariant, RawResponseContainer>> HIUGCDiscoveryGetUgcGameVariantWithoutVersion(string assetId)
         {
             return await this.ExecuteAPIRequest<UGCGameVariant>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/ugcGameVariants/{assetId}",
@@ -2311,7 +2311,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="assetKinds">List of asset kinds to be included in the search.</param>
         /// <param name="author">The unique author XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of SearchResultsContainer container assets. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<SearchResultsContainer, HaloApiErrorContainer>> HIUGCDiscoverySearch(int start = 0, int count = 12, bool includeTimes = true, string sort = "DatePublishedUtc", ResultOrder order = ResultOrder.Desc, List<AssetKind>? assetKinds = null, string? author = null)
+        public async Task<HaloApiResultContainer<SearchResultsContainer, RawResponseContainer>> HIUGCDiscoverySearch(int start = 0, int count = 12, bool includeTimes = true, string sort = "DatePublishedUtc", ResultOrder order = ResultOrder.Desc, List<AssetKind>? assetKinds = null, string? author = null)
         {
             var baseSearchString = $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/search?start={start}&count={count}&include-times={includeTimes}&sort={sort}&order={order}&";
 
@@ -2342,7 +2342,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_SpectateByMatchId.xml' path='//example'/>
         /// <param name="matchId">Unique ID for the match.</param>
         /// <returns>An instance of Film containing film metadata if the request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Film, HaloApiErrorContainer>> HIUGCDiscoverySpectateByMatchId(string matchId)
+        public async Task<HaloApiResultContainer<Film, RawResponseContainer>> HIUGCDiscoverySpectateByMatchId(string matchId)
         {
             return await this.ExecuteAPIRequest<Film>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/films/matches/{matchId}/spectate",
@@ -2362,7 +2362,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/Lobby_GetQosServers.xml' path='//example'/>
         /// <returns>A list of Server instances if the request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<List<Server>, HaloApiErrorContainer>> LobbyGetQosServers()
+        public async Task<HaloApiResultContainer<List<Server>, RawResponseContainer>> LobbyGetQosServers()
         {
             return await this.ExecuteAPIRequest<List<Server>>(
                 $"https://{HaloCoreEndpoints.HaloInfiniteLobbyOrigin}.{HaloCoreEndpoints.ServiceDomain}/titles/hi/qosservers",
@@ -2379,7 +2379,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Lobby_Presence.xml' path='//example'/>
         /// <param name="presenceRequest">Presence request, containing a list of Xuids representing Xbox Live players.</param>
         /// <returns>If successful, an instance of <see cref="LobbyPresenceContainer"/> representing the lobby details. Otherwise, null.</returns>
-        public async Task<HaloApiResultContainer<LobbyPresenceContainer, HaloApiErrorContainer>> LobbyPresence(LobbyPresenceRequestContainer presenceRequest)
+        public async Task<HaloApiResultContainer<LobbyPresenceContainer, RawResponseContainer>> LobbyPresence(LobbyPresenceRequestContainer presenceRequest)
         {
             if (presenceRequest is null)
             {
@@ -2405,7 +2405,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="handlePlatform">Platform for the join handle. Example value is "Discord".</param>
         /// <returns>An instance of LobbyJoinHandle if the request is successful. Otherwise, returns null.</returns>
         /// <remarks>It seems that this request requires a more "broad access" Spartan token that is generated by the game, and is not open to third-party apps. Additional investigation is required.</remarks>
-        public async Task<HaloApiResultContainer<LobbyJoinHandle, HaloApiErrorContainer>> LobbyThirdPartyJoinHandle(string lobbyId, string player, string handleAudience, string handlePlatform)
+        public async Task<HaloApiResultContainer<LobbyJoinHandle, RawResponseContainer>> LobbyThirdPartyJoinHandle(string lobbyId, string player, string handleAudience, string handlePlatform)
         {
             return await this.ExecuteAPIRequest<LobbyJoinHandle>(
                 $"https://{HaloCoreEndpoints.HaloInfiniteLobbyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/lobbies/{lobbyId}/players/{player}/thirdPartyJoinHandle?audience={handleAudience}&platform={handlePlatform}",
@@ -2426,7 +2426,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Setting_GetFlightedFeatureFlags.xml' path='//example'/>
         /// <param name="flightId">Clearance ID/flight that is being used.</param>
         /// <returns>An instance of FlightedFeatureFlags containing a list of enabled and disabled features if the request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<FlightedFeatureFlags, HaloApiErrorContainer>> SettingGetFlightedFeatureFlags(string flightId)
+        public async Task<HaloApiResultContainer<FlightedFeatureFlags, RawResponseContainer>> SettingGetFlightedFeatureFlags(string flightId)
         {
             return await this.ExecuteAPIRequest<FlightedFeatureFlags>(
                 $"https://{HaloCoreEndpoints.SettingsOrigin}.{HaloCoreEndpoints.ServiceDomain}/featureflags/hi?flight={flightId}",
@@ -2449,7 +2449,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
         /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>
         /// <returns>An instance of PlayerClearance if the request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<PlayerClearance, HaloApiErrorContainer>> SettingsGetClearance(string audience, string sandbox, string buildNumber)
+        public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> SettingsGetClearance(string audience, string sandbox, string buildNumber)
         {
             return await this.ExecuteAPIRequest<PlayerClearance>(
                 $"https://{HaloCoreEndpoints.SettingsOrigin}.{HaloCoreEndpoints.ServiceDomain}/oban/flight-configurations/titles/hi/audiences/{audience}/active?sandbox={sandbox}&build={buildNumber}",
@@ -2469,7 +2469,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
         /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>
         /// <returns>An instance of PlayerClearance if the request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<PlayerClearance, HaloApiErrorContainer>> SettingsGetPlayerClearance(string audience, string player, string sandbox, string buildNumber)
+        public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> SettingsGetPlayerClearance(string audience, string player, string sandbox, string buildNumber)
         {
             return await this.ExecuteAPIRequest<PlayerClearance>(
                 $"https://{HaloCoreEndpoints.SettingsOrigin}.{HaloCoreEndpoints.ServiceDomain}/oban/flight-configurations/titles/hi/audiences/{audience}/players/{player}/active?sandbox={sandbox}&build={buildNumber}",
@@ -2494,7 +2494,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="matchId">The unique match ID.</param>
         /// <param name="playerIds">Array of player IDs. Each ID string should be in the format of "xuid(XUID_VALUE)".</param>
         /// <returns>An instance of <see cref="MatchSkillInfo"/> representing player skills if the request was successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<MatchSkillInfo, HaloApiErrorContainer>> SkillGetMatchPlayerResult(string matchId, List<string> playerIds)
+        public async Task<HaloApiResultContainer<MatchSkillInfo, RawResponseContainer>> SkillGetMatchPlayerResult(string matchId, List<string> playerIds)
         {
             var formattedPlayerList = string.Join(",", playerIds);
             return await this.ExecuteAPIRequest<MatchSkillInfo>(
@@ -2514,7 +2514,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="playerIds">Array of player IDs. Each ID string should be in the format of "xuid(XUID_VALUE)".</param>
         /// <param name="seasonId">Season identifier. Example value is "CsrSeason2-3".</param>
         /// <returns>If successful, an instance of <see cref="PlaylistCsrResultContainer"/> representing player CSRs. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<PlaylistCsrResultContainer, HaloApiErrorContainer>> SkillGetPlaylistCsr(string playlistId, List<string> playerIds, string seasonId = "")
+        public async Task<HaloApiResultContainer<PlaylistCsrResultContainer, RawResponseContainer>> SkillGetPlaylistCsr(string playlistId, List<string> playerIds, string seasonId = "")
         {
             var formattedPlayerList = string.Join(",", playerIds);
             return await this.ExecuteAPIRequest<PlaylistCsrResultContainer>(
@@ -2536,7 +2536,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Stats_GetChallengeDecks.xml' path='//example'/>
         /// <param name="player">The player identifier in the format "xuid(000000)"</param>
         /// <returns>An instance of PlayerDecks containing deck information if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<ChallengeDecksResponse, HaloApiErrorContainer>> StatsGetChallengeDecks(string player)
+        public async Task<HaloApiResultContainer<ChallengeDecksResponse, RawResponseContainer>> StatsGetChallengeDecks(string player)
         {
             return await this.ExecuteAPIRequest<ChallengeDecksResponse>(
                 $"https://{HaloCoreEndpoints.StatsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/decks",
@@ -2553,7 +2553,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Stats_GetMatchCount.xml' path='//example'/>
         /// <param name="player">The player identifier in the format "xuid(000000)"</param>
         /// <returns>An instance of PlayerMatchCount containing match counts if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<PlayerMatchCount, HaloApiErrorContainer>> StatsGetMatchCount(string player)
+        public async Task<HaloApiResultContainer<PlayerMatchCount, RawResponseContainer>> StatsGetMatchCount(string player)
         {
             return await this.ExecuteAPIRequest<PlayerMatchCount>(
                 $"https://{HaloCoreEndpoints.StatsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/matches/count",
@@ -2573,7 +2573,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="count">Number of matches to return. Maximum is 25. Going beyond 25 will result in only 25 values being returned.</param>
         /// <param name="type">Type of matches to query.</param>
         /// <returns>An instance of MatchContainer containing match metadata if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<MatchHistoryResponse, HaloApiErrorContainer>> StatsGetMatchHistory(string player, int start, int count, Models.HaloInfinite.MatchType type)
+        public async Task<HaloApiResultContainer<MatchHistoryResponse, RawResponseContainer>> StatsGetMatchHistory(string player, int start, int count, Models.HaloInfinite.MatchType type)
         {
             return await this.ExecuteAPIRequest<MatchHistoryResponse>(
                 $"https://{HaloCoreEndpoints.StatsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/matches?start={start}&count={count}&type={type}",
@@ -2591,7 +2591,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="matchId">Match ID in GUID format.</param>
         /// <param name="includeRawResponse">Determines whether the raw response JSON will be returned with the successful response.</param>
         /// <returns>An instance of MatchStats containing match metadata if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<MatchStats, HaloApiErrorContainer>> StatsGetMatchStats(string matchId)
+        public async Task<HaloApiResultContainer<MatchStats, RawResponseContainer>> StatsGetMatchStats(string matchId)
         {
             return await this.ExecuteAPIRequest<MatchStats>(
                 $"https://{HaloCoreEndpoints.StatsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/matches/{matchId}/stats",
@@ -2609,7 +2609,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The player identifier in the format "xuid(000000)"</param>
         /// <param name="matchId">Match ID in GUID format.</param>
         /// <returns>An instance of MatchProgression containing match challenge progression metadata if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<MatchProgression, HaloApiErrorContainer>> StatsGetPlayerMatchProgression(string player, string matchId)
+        public async Task<HaloApiResultContainer<MatchProgression, RawResponseContainer>> StatsGetPlayerMatchProgression(string player, string matchId)
         {
             return await this.ExecuteAPIRequest<MatchProgression>(
                 $"https://{HaloCoreEndpoints.StatsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/matches/{matchId}/progression",
@@ -2626,7 +2626,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Stats_MatchPrivacy.xml' path='//example'/>
         /// <param name="player">The player identifier in the format "xuid(000000)"</param>
         /// <returns>An instance of MatchesPrivacy containing match privacy metadata if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<MatchesPrivacy, HaloApiErrorContainer>?> StatsMatchPrivacy(string player)
+        public async Task<HaloApiResultContainer<MatchesPrivacy, RawResponseContainer>?> StatsMatchPrivacy(string player)
         {
             return await this.ExecuteAPIRequest<MatchesPrivacy>(
                 $"https://{HaloCoreEndpoints.StatsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/matches-privacy",
@@ -2646,7 +2646,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="mode">Type of games for which to get the service record.</param>
         /// <param name="seasonId">The ID of the season for which additional stats are pulled. Example value is "Seasons/Season7.json"</param>
         /// <returns>If successful, an instance of <see cref="PlayerServiceRecord"/> containing service record information. Otherwise, returns null with additional details about the error.</returns>
-        public async Task<HaloApiResultContainer<PlayerServiceRecord, HaloApiErrorContainer>?> StatsGetPlayerServiceRecord(string gamerTag, LifecycleMode mode, string seasonId = "")
+        public async Task<HaloApiResultContainer<PlayerServiceRecord, RawResponseContainer>?> StatsGetPlayerServiceRecord(string gamerTag, LifecycleMode mode, string seasonId = "")
         {
             var seasonMarker = !string.IsNullOrWhiteSpace(seasonId) ? $"?seasonId={seasonId}" : seasonId;
 
@@ -2669,7 +2669,7 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/TextModeration_GetSigningKey.xml' path='//example'/>
         /// <param name="keyId">Key ID. Full list can be obtained by a call to TextModerationGetSigningKeys.</param>
         /// <returns>An instance of Key containing a single signing key data if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<Key, HaloApiErrorContainer>> TextModerationGetSigningKey(string keyId)
+        public async Task<HaloApiResultContainer<Key, RawResponseContainer>> TextModerationGetSigningKey(string keyId)
         {
             return await this.ExecuteAPIRequest<Key>(
                 $"https://{HaloCoreEndpoints.TextOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/moderation-proof-keys/{keyId}",
@@ -2685,7 +2685,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/TextModeration_GetSigningKeys.xml' path='//example'/>
         /// <returns>An instance of ModerationProofKeys containing signing key data if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<ModerationProofKeys, HaloApiErrorContainer>> TextModerationGetSigningKeys()
+        public async Task<HaloApiResultContainer<ModerationProofKeys, RawResponseContainer>> TextModerationGetSigningKeys()
         {
             return await this.ExecuteAPIRequest<ModerationProofKeys>(
                 $"https://{HaloCoreEndpoints.TextOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/moderation-proof-keys",

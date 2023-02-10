@@ -49,7 +49,7 @@ namespace Den.Dev.Orion.Core
         /// </remarks>
         /// <include file='../APIDocsExamples/Halo5/GetApiSettingsContainer.xml' path='//example'/>
         /// <returns>An instance of <see cref="Configuration"/> if the call is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Configuration, HaloApiErrorContainer>> GetApiSettingsContainer()
+        public async Task<HaloApiResultContainer<Configuration, RawResponseContainer>> GetApiSettingsContainer()
         {
             return await this.ExecuteAPIRequest<Configuration>(
                 HaloCoreEndpoints.Halo5EndpointsEndpoint,
@@ -68,7 +68,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/Halo5/ContentHacs_GetActiveSeasonPass.xml' path='//example'/>
         /// <returns>If successful, returns an instance of <see cref="SeasonPassGameContent"/> containing season pass information. Otherwise, returns a null object with an error container attached.</returns>
-        public async Task<HaloApiResultContainer<SeasonPassGameContent, HaloApiErrorContainer>> ContentHacsGetActiveSeasonPass()
+        public async Task<HaloApiResultContainer<SeasonPassGameContent, RawResponseContainer>> ContentHacsGetActiveSeasonPass()
         {
             return await this.ExecuteAPIRequest<SeasonPassGameContent>(
                 $"https://{HaloCoreEndpoints.ContentHacsOrigin}.{HaloCoreEndpoints.ServiceDomain}/content/guid-3bb4a66ff4514d5b8466a3f82918720a",
@@ -83,7 +83,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/Halo5/ContentHacs_GetActiveSpartanRankManifest.xml' path='//example'/>
         /// <returns>If successful, returns an instance of <see cref="SpartanRankManifest"/> containing spartan rank information. Otherwise, returns a null object with an error container attached.</returns>
-        public async Task<HaloApiResultContainer<SpartanRankManifest, HaloApiErrorContainer>> ContentHacsGetActiveSpartanRankManifest()
+        public async Task<HaloApiResultContainer<SpartanRankManifest, RawResponseContainer>> ContentHacsGetActiveSpartanRankManifest()
         {
             return await this.ExecuteAPIRequest<SpartanRankManifest>(
                 $"https://{HaloCoreEndpoints.ContentHacsOrigin}.{HaloCoreEndpoints.ServiceDomain}/content/guid-9d9fdd5cbd5e4540a24fa2caa59ebd8c",

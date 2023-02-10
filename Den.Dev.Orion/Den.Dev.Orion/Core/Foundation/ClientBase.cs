@@ -70,7 +70,7 @@ namespace Den.Dev.Orion.Core.Foundation
         /// <param name="includeRawResponse">Determines whether a raw response will be returned with the result. Disabled by default.</param>
         /// <typeparam name="T">Data type to return with the response metadata.</typeparam>
         /// <returns>Response string in case of a successful request. Null if request failed.</returns>
-        public async Task<HaloApiResultContainer<T, HaloApiErrorContainer>> ExecuteAPIRequest<T>(
+        public async Task<HaloApiResultContainer<T, RawResponseContainer>> ExecuteAPIRequest<T>(
             string endpoint,
             HttpMethod method,
             bool useSpartanToken,
@@ -87,7 +87,7 @@ namespace Den.Dev.Orion.Core.Foundation
                 AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli,
             });
 
-            HaloApiResultContainer<T, HaloApiErrorContainer> resultContainer = new(default!, new HaloApiErrorContainer());
+            HaloApiResultContainer<T, RawResponseContainer> resultContainer = new(default!, new RawResponseContainer());
 
             var request = new HttpRequestMessage()
             {
@@ -122,7 +122,7 @@ namespace Den.Dev.Orion.Core.Foundation
 
             var response = await client.SendAsync(request);
 
-            resultContainer.Error!.Code = Convert.ToInt32(response.StatusCode);
+            resultContainer.Response!.Code = Convert.ToInt32(response.StatusCode);
 
             if (response.IsSuccessStatusCode)
             {
@@ -154,7 +154,7 @@ namespace Den.Dev.Orion.Core.Foundation
                             resultContainer.Result = JsonSerializer.Deserialize<T>(responseString, this.serializerOptions);
                             if (includeRawResponse)
                             {
-                                resultContainer.Error.Message = responseString;
+                                resultContainer.Response.Message = responseString;
                             }
                         }
                     }
@@ -167,7 +167,7 @@ namespace Den.Dev.Orion.Core.Foundation
 
             if (response.Content != null)
             {
-                resultContainer.Error.Message = await response.Content.ReadAsStringAsync();
+                resultContainer.Response.Message = await response.Content.ReadAsStringAsync();
             }
 
             return resultContainer;
