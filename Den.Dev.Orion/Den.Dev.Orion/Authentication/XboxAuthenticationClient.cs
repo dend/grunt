@@ -24,6 +24,8 @@ namespace Den.Dev.Orion.Authentication
     /// </summary>
     public class XboxAuthenticationClient
     {
+        private readonly HttpClient client = new();
+
         /// <summary>
         /// Generates the authentication URL that can be used to produce the temporary code
         /// for subsequent Xbox Live authentication flows.
@@ -94,8 +96,7 @@ namespace Den.Dev.Orion.Authentication
                 tokenRequestContent.Add("client_secret", clientSecret);
             }
 
-            var client = new HttpClient();
-            var response = await client.PostAsync(XboxEndpoints.XboxLiveToken, new FormUrlEncodedContent(tokenRequestContent));
+            var response = await this.client.PostAsync(XboxEndpoints.XboxLiveToken, new FormUrlEncodedContent(tokenRequestContent));
 
             return response.IsSuccessStatusCode
                 ? JsonSerializer.Deserialize<OAuthToken>(response.Content.ReadAsStringAsync().Result)
@@ -134,8 +135,7 @@ namespace Den.Dev.Orion.Authentication
                 tokenRequestContent.Add("client_secret", clientSecret);
             }
 
-            var client = new HttpClient();
-            var response = await client.PostAsync(XboxEndpoints.XboxLiveToken, new FormUrlEncodedContent(tokenRequestContent));
+            var response = await this.client.PostAsync(XboxEndpoints.XboxLiveToken, new FormUrlEncodedContent(tokenRequestContent));
 
             return response.IsSuccessStatusCode
                 ? JsonSerializer.Deserialize<OAuthToken>(response.Content.ReadAsStringAsync().Result)
@@ -161,8 +161,6 @@ namespace Den.Dev.Orion.Authentication
                 },
             };
 
-            var client = new HttpClient();
-
             var request = new HttpRequestMessage()
             {
                 RequestUri = new Uri(XboxEndpoints.XboxLiveUserAuthenticate),
@@ -172,7 +170,7 @@ namespace Den.Dev.Orion.Authentication
 
             request.Headers.Add("x-xbl-contract-version", "1");
 
-            var response = await client.SendAsync(request);
+            var response = await this.client.SendAsync(request);
             var responseData = response.Content.ReadAsStringAsync().Result;
 
             return response.IsSuccessStatusCode
@@ -206,7 +204,6 @@ namespace Den.Dev.Orion.Authentication
                 SandboxId = "RETAIL",
             };
 
-            var client = new HttpClient();
             var data = JsonSerializer.Serialize(ticketData);
 
             var request = new HttpRequestMessage()
@@ -218,7 +215,7 @@ namespace Den.Dev.Orion.Authentication
 
             request.Headers.Add("x-xbl-contract-version", "1");
 
-            var response = await client.SendAsync(request);
+            var response = await this.client.SendAsync(request);
             var responseData = response.Content.ReadAsStringAsync().Result;
 
             return response.IsSuccessStatusCode

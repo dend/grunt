@@ -23,6 +23,8 @@ namespace Den.Dev.Orion.Authentication
     /// </summary>
     public class HaloAuthenticationClient
     {
+        private readonly HttpClient client = new();
+
         /// <summary>
         /// Gets the Spartan V4 token.
         /// </summary>
@@ -31,20 +33,21 @@ namespace Den.Dev.Orion.Authentication
         /// <returns>If successful, returns an instance of <see cref="SpartanToken"/> representing the authentication token. Otherwise, returns null.</returns>
         public async Task<SpartanToken?> GetSpartanToken(string xstsToken, int version = 4)
         {
-            var client = new HttpClient();
             string? data = string.Empty;
 
             if (version == 4)
             {
-                SpartanTokenRequest tokenRequest = new();
-                tokenRequest.Audience = "urn:343:s3:services";
-                tokenRequest.MinVersion = version.ToString();
-                tokenRequest.Proof = new SpartanTokenProof[]
+                SpartanTokenRequest tokenRequest = new()
                 {
-                    new SpartanTokenProof()
+                    Audience = "urn:343:s3:services",
+                    MinVersion = version.ToString(),
+                    Proof = new SpartanTokenProof[]
                     {
-                        Token = xstsToken,
-                        TokenType = "Xbox_XSTSv3",
+                        new SpartanTokenProof()
+                        {
+                            Token = xstsToken,
+                            TokenType = "Xbox_XSTSv3",
+                        },
                     },
                 };
 
@@ -66,7 +69,7 @@ namespace Den.Dev.Orion.Authentication
                 request.Headers.Add("X-343-Authorization-XBL3", $"XBL3.0 x=*;{xstsToken}");
             }
 
-            var response = await client.SendAsync(request);
+            var response = await this.client.SendAsync(request);
 
             return response.IsSuccessStatusCode
                 ? JsonSerializer.Deserialize<SpartanToken>(await response.Content.ReadAsStringAsync())

@@ -2560,7 +2560,7 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                GlobalConstants.HALO_PC_USER_AGENT,
                 includeRawResponse: this.IncludeRawResponses);
         }
 

@@ -24,6 +24,11 @@ namespace Den.Dev.Orion.Core.Foundation
     /// </summary>
     public abstract class ClientBase
     {
+        private readonly HttpClient client = new HttpClient(new HttpClientHandler
+        {
+            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli,
+        });
+
         private readonly JsonSerializerOptions serializerOptions = new()
         {
             WriteIndented = true,
@@ -82,11 +87,6 @@ namespace Den.Dev.Orion.Core.Foundation
         {
             var contentTypeAttribute = contentType.GetHeaderValue();
 
-            var client = new HttpClient(new HttpClientHandler
-            {
-                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli,
-            });
-
             HaloApiResultContainer<T, RawResponseContainer> resultContainer = new(default!, new RawResponseContainer());
 
             var request = new HttpRequestMessage()
@@ -116,9 +116,12 @@ namespace Den.Dev.Orion.Core.Foundation
                 request.Headers.Add("343-clearance", this.ClearanceToken);
             }
 
-            request.Headers.Add("User-Agent", userAgent);
-            request.Headers.Add("Accept", "application/json");
-            request.Headers.Add("Accept-Encoding", "gzip, deflate, br");
+            this.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            this.client.DefaultRequestHeaders.ConnectionClose = true;
+            this.client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", userAgent);
+            this.client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+            this.client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("deflate"));
+            this.client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("br"));
 
             var response = await client.SendAsync(request);
 

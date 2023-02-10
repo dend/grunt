@@ -59,10 +59,10 @@ namespace Den.Dev.Orion.Composer
                 IsRequired = false
             };
 
-            var lifecycleModeArgument = new Option<string>(
-                name: "--lifecycle-mode",
+            var matchTypeArgument = new Option<Models.HaloInfinite.MatchType>(
+                name: "--match-type",
                 description: "Kinds of matches to obtain. Default is all matches, but can also be set to 'matchmade' or 'custom'.",
-                getDefaultValue: () => string.Empty)
+                getDefaultValue: () => Models.HaloInfinite.MatchType.All)
             {
                 IsRequired = true
             };
@@ -76,12 +76,12 @@ namespace Den.Dev.Orion.Composer
                 xuidArgument,
                 startArgument,
                 countArgument,
-                lifecycleModeArgument,
+                matchTypeArgument,
                 domainArgument
             };
             getCommand.AddCommand(matchesCommand);
 
-            matchesCommand.SetHandler(MatchCommandHandler, isXuidFileArgument, xuidArgument, startArgument, countArgument, lifecycleModeArgument, domainArgument);
+            matchesCommand.SetHandler(MatchCommandHandler, isXuidFileArgument, xuidArgument, startArgument, countArgument, matchTypeArgument, domainArgument);
 
             return await rootCommand.InvokeAsync(args);
         }
@@ -93,9 +93,9 @@ namespace Den.Dev.Orion.Composer
         /// <param name="xuid">The player XUID or the path to the XUID file. The latter requires that <paramref name="isXuidFile"/> is set to 'true'.</param>
         /// <param name="start">Starting position from which matches should be obtained.</param>
         /// <param name="count">Count of matches to obtain.</param>
-        /// <param name="lifecycleMode">Type of matches to obtain. Can be either 'matchmade' or 'custom'. If not specified, all matches are obtained.</param>
+        /// <param name="matchType">Type of matches to obtain. Can be matchmade, custom, local, or all. If not specified, all matches are obtained.</param>
         /// <param name="domain">The path to the SQLite database.</param>
-        private static void MatchCommandHandler(bool isXuidFile, string xuid, int start, int count, string lifecycleMode, string domain)
+        private static async Task<bool> MatchCommandHandler(bool isXuidFile, string xuid, int start, int count, Models.HaloInfinite.MatchType matchType, string domain)
         {            
             if (isXuidFile)
             {
@@ -105,7 +105,10 @@ namespace Den.Dev.Orion.Composer
                     string[] playerXuids = File.ReadAllLines(xuid);
                     foreach(var playerXuid in playerXuids)
                     {
-                        string[]? rawMatchEntries = GetPlayerMatchStats(playerXuid, start, count, lifecycleMode);
+                        var rawMatchEntries = await GetPlayerMatchStats(playerXuid, start, count, matchType);
+
+                        // Need to also make sure that I capture the skill frame for each player XUID.
+                        // SkillGetMatchPlayerResult
                     }
                 }
                 else
@@ -115,11 +118,12 @@ namespace Den.Dev.Orion.Composer
             }
             else
             {
-
             }
+
+            return true;
         }
 
-        private static async Task<string[]?> GetPlayerMatchStats(string playerXuid, int start, int count, string lifecycleMode)
+        private static async Task<List<string>?> GetPlayerMatchStats(string playerXuid, int start, int count, Models.HaloInfinite.MatchType matchType)
         {
             var matchCountSnapshot = await haloInfiniteClient.StatsGetMatchCount(playerXuid);
 
@@ -127,21 +131,24 @@ namespace Den.Dev.Orion.Composer
             {
                 Console.WriteLine($"Got match stats for {playerXuid}.");
 
+                List<Guid> matchIds = new List<Guid>();
+                int queryCount = (count == -1) ? 25 : count;
+                int queryStart = start;
                 int counter = 0;
 
-                switch (lifecycleMode)
+                switch (matchType)
                 {
-                    case "matchmade":
+                    case Models.HaloInfinite.MatchType.Matchmaking:
                         {
                             counter = matchCountSnapshot.Result.MatchmadeMatchesPlayedCount;
                             break;
                         }
-                    case "custom":
+                    case Models.HaloInfinite.MatchType.Custom:
                         {
                             counter = matchCountSnapshot.Result.CustomMatchesPlayedCount;
                             break;
                         }
-                    case "local":
+                    case Models.HaloInfinite.MatchType.Local:
                         {
                             counter = matchCountSnapshot.Result.LocalMatchesPlayedCount;
                             break;
@@ -152,6 +159,25 @@ namespace Den.Dev.Orion.Composer
                             break;
                         }
                 }
+
+                // Need to make sure that the player has more than zero matches played.
+                if (counter > 0)
+                {
+                    while (counter > 0)
+                    {
+                        var matches = await haloInfiniteClient.StatsGetMatchHistory(playerXuid, queryStart, queryCount, matchType);
+                        if (matches != null && matches.Result != null && matches.Result.Results != null)
+                        {
+                            var matchIdBatch = matches.Result.Results.Select(item => item.MatchId).ToList();
+                            Console.WriteLine($"Got matches starting from {queryStart} up to {queryCount} entries. Counter at {counter} and last query yielded {matchIdBatch.Count} results.");
+                            matchIds.AddRange(matchIdBatch);
+                            counter = counter - matchIdBatch.Count;
+                            queryStart = queryStart + matchIdBatch.Count;
+                        }
+                    }
+                }
+
+                return null;
             }
             else
             {
