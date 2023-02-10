@@ -36,6 +36,7 @@ namespace Den.Dev.Orion.Core
             this.SpartanToken = spartanToken;
             this.Xuid = xuid;
             this.ClearanceToken = clearanceToken;
+            this.IncludeRawResponses = false;
         }
 
         /// <summary>
@@ -60,7 +61,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 false,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -85,7 +87,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -105,7 +108,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -120,7 +124,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -136,7 +141,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -151,7 +157,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -172,7 +179,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -188,7 +196,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -204,7 +213,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -221,7 +231,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -237,7 +248,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -253,7 +265,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -270,7 +283,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -286,7 +300,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -302,7 +317,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -318,7 +334,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -334,7 +351,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -350,7 +368,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -367,7 +386,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -383,7 +403,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -399,7 +420,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -417,7 +439,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -433,7 +456,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -449,7 +473,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -466,7 +491,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -482,7 +508,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -499,7 +526,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -515,7 +543,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -535,7 +564,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -552,7 +582,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -568,7 +599,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -585,7 +617,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -601,7 +634,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -618,7 +652,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -634,7 +669,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -656,7 +692,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -671,7 +708,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -688,7 +726,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -705,7 +744,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -722,7 +762,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -742,7 +783,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -757,7 +799,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -772,7 +815,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -788,7 +832,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -806,7 +851,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -823,7 +869,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -838,7 +885,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -855,7 +903,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -870,7 +919,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -890,7 +940,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -906,7 +957,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -922,7 +974,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -938,7 +991,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -954,7 +1008,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -970,7 +1025,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 false,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -986,7 +1042,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1001,7 +1058,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1021,7 +1079,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -1041,7 +1100,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1057,7 +1117,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1073,7 +1134,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1089,7 +1151,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1105,7 +1168,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1121,7 +1185,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1136,7 +1201,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1152,7 +1218,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1167,7 +1234,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1182,7 +1250,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -1207,7 +1276,8 @@ namespace Den.Dev.Orion.Core
                 true,
                 false,
                 GlobalConstants.HALO_WAYPOINT_USER_AGENT,
-                JsonSerializer.Serialize(permission));
+                JsonSerializer.Serialize(permission),
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1224,7 +1294,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Put,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1243,7 +1314,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1263,7 +1335,8 @@ namespace Den.Dev.Orion.Core
                 true,
                 false,
                 GlobalConstants.HALO_WAYPOINT_USER_AGENT,
-                JsonSerializer.Serialize(starter));
+                JsonSerializer.Serialize(starter),
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1280,7 +1353,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Delete,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1297,7 +1371,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Delete,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1315,7 +1390,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Delete,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1332,7 +1408,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Delete,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1354,7 +1431,8 @@ namespace Den.Dev.Orion.Core
                 true,
                 false,
                 GlobalConstants.HALO_WAYPOINT_USER_AGENT,
-                "{}");
+                "{}",
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1372,7 +1450,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1387,7 +1466,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 false,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1407,7 +1487,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1428,7 +1509,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1446,7 +1528,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1465,7 +1548,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1486,7 +1570,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1519,7 +1604,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1539,7 +1625,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1558,7 +1645,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1579,7 +1667,8 @@ namespace Den.Dev.Orion.Core
                 true,
                 false,
                 GlobalConstants.HALO_WAYPOINT_USER_AGENT,
-                JsonSerializer.Serialize(patchedAsset));
+                JsonSerializer.Serialize(patchedAsset),
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1601,7 +1690,8 @@ namespace Den.Dev.Orion.Core
                 true,
                 true,
                 GlobalConstants.HALO_WAYPOINT_USER_AGENT,
-                "{}");
+                "{}",
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1622,7 +1712,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1642,7 +1733,8 @@ namespace Den.Dev.Orion.Core
                 true,
                 false,
                 GlobalConstants.HALO_WAYPOINT_USER_AGENT,
-                JsonSerializer.Serialize(rating));
+                JsonSerializer.Serialize(rating),
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1662,7 +1754,8 @@ namespace Den.Dev.Orion.Core
                 true,
                 false,
                 GlobalConstants.HALO_WAYPOINT_USER_AGENT,
-                JsonSerializer.Serialize(report));
+                JsonSerializer.Serialize(report),
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1693,7 +1786,8 @@ namespace Den.Dev.Orion.Core
                 false,
                 GlobalConstants.HALO_WAYPOINT_USER_AGENT,
                 JsonSerializer.Serialize(asset),
-                contentType);
+                contentType,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1724,7 +1818,8 @@ namespace Den.Dev.Orion.Core
                 true,
                 false,
                 GlobalConstants.HALO_WAYPOINT_USER_AGENT,
-                JsonSerializer.Serialize(starter));
+                JsonSerializer.Serialize(starter),
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1748,7 +1843,8 @@ namespace Den.Dev.Orion.Core
                 true,
                 false,
                 GlobalConstants.HALO_WAYPOINT_USER_AGENT,
-                "{}");
+                "{}",
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1765,7 +1861,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Delete,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1786,7 +1883,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Post,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1804,7 +1902,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Post,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1820,7 +1919,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Post,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -1840,7 +1940,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1855,7 +1956,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1871,7 +1973,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1889,7 +1992,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1906,7 +2010,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1922,7 +2027,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1940,7 +2046,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1956,7 +2063,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1973,7 +2081,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -1995,7 +2104,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2011,7 +2121,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2027,7 +2138,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2045,7 +2157,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2061,7 +2174,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2078,7 +2192,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2094,7 +2209,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2111,7 +2227,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2127,7 +2244,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2142,7 +2260,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2159,7 +2278,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2175,7 +2295,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2210,7 +2331,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2227,7 +2349,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -2246,7 +2369,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2267,7 +2391,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2287,7 +2412,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -2307,7 +2433,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -2329,7 +2456,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2348,7 +2476,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -2373,7 +2502,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2392,7 +2522,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 true,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -2412,7 +2543,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2428,7 +2560,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2447,7 +2580,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2455,6 +2589,7 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/Stats_GetMatchStats.xml' path='//example'/>
         /// <param name="matchId">Match ID in GUID format.</param>
+        /// <param name="includeRawResponse">Determines whether the raw response JSON will be returned with the successful response.</param>
         /// <returns>An instance of MatchStats containing match metadata if request was successful. Return value is null otherwise.</returns>
         public async Task<HaloApiResultContainer<MatchStats, HaloApiErrorContainer>> StatsGetMatchStats(string matchId)
         {
@@ -2463,7 +2598,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2480,7 +2616,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2496,7 +2633,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2517,7 +2655,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+                GlobalConstants.HALO_WAYPOINT_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         // ================================================
@@ -2537,7 +2676,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 false,
                 false,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
 
         /// <summary>
@@ -2552,7 +2692,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 false,
                 false,
-                GlobalConstants.HALO_PC_USER_AGENT);
+                GlobalConstants.HALO_PC_USER_AGENT,
+                includeRawResponse: this.IncludeRawResponses);
         }
     }
 }

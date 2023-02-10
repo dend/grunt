@@ -51,6 +51,11 @@ namespace Den.Dev.Orion.Core.Foundation
         public string ClearanceToken { get; set; } = string.Empty;
 
         /// <summary>
+        /// Gets or sets a value indicating whether to include the raw JSON responses with each function call.
+        /// </summary>
+        public bool IncludeRawResponses { get; set; } = false;
+
+        /// <summary>
         /// Executes an API request in a standard way against a given API endpoint. This is a helper method that's put
         /// in place to simplify how the API calls are made because most requests against the Halo Infinite API are
         /// pretty repetitive.
@@ -62,9 +67,18 @@ namespace Den.Dev.Orion.Core.Foundation
         /// <param name="userAgent">User agent to be used for the request.</param>
         /// <param name="content">If the request contains data to be sent to the Halo Waypoint service, include it here. Expected format is JSON.</param>
         /// <param name="contentType">Content type for POST requests. By default it's `application/json`.</param>
+        /// <param name="includeRawResponse">Determines whether a raw response will be returned with the result. Disabled by default.</param>
         /// <typeparam name="T">Data type to return with the response metadata.</typeparam>
         /// <returns>Response string in case of a successful request. Null if request failed.</returns>
-        public async Task<HaloApiResultContainer<T, HaloApiErrorContainer>> ExecuteAPIRequest<T>(string endpoint, HttpMethod method, bool useSpartanToken, bool useClearance, string userAgent, string content = "", ApiContentType contentType = ApiContentType.Json)
+        public async Task<HaloApiResultContainer<T, HaloApiErrorContainer>> ExecuteAPIRequest<T>(
+            string endpoint,
+            HttpMethod method,
+            bool useSpartanToken,
+            bool useClearance,
+            string userAgent,
+            string content = "",
+            ApiContentType contentType = ApiContentType.Json,
+            bool includeRawResponse = false)
         {
             var contentTypeAttribute = contentType.GetHeaderValue();
 
@@ -138,6 +152,10 @@ namespace Den.Dev.Orion.Core.Foundation
                         if (!string.IsNullOrWhiteSpace(responseString))
                         {
                             resultContainer.Result = JsonSerializer.Deserialize<T>(responseString, this.serializerOptions);
+                            if (includeRawResponse)
+                            {
+                                resultContainer.Error.Message = responseString;
+                            }
                         }
                     }
                     else

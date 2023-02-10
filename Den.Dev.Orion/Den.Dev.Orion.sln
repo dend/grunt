@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Den.Dev.Orion.Zeta", "Den.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Den.Dev.Orion.Librarian", "Den.Dev.Orion.Librarian\Den.Dev.Orion.Librarian.csproj", "{8F75E00B-D12D-45C1-ACE2-B5FF47B32EB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Den.Dev.Orion.Composer", "Den.Dev.Orion.Composer\Den.Dev.Orion.Composer.csproj", "{2B4C8CA0-ABBB-46D3-BC9C-09BA81FEAE5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8F75E00B-D12D-45C1-ACE2-B5FF47B32EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F75E00B-D12D-45C1-ACE2-B5FF47B32EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F75E00B-D12D-45C1-ACE2-B5FF47B32EB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B4C8CA0-ABBB-46D3-BC9C-09BA81FEAE5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B4C8CA0-ABBB-46D3-BC9C-09BA81FEAE5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B4C8CA0-ABBB-46D3-BC9C-09BA81FEAE5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B4C8CA0-ABBB-46D3-BC9C-09BA81FEAE5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
