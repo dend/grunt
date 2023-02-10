@@ -37,6 +37,7 @@ namespace Den.Dev.Orion.Core.Foundation
             {
                 new EmptyDateStringToNullJsonConverter(),
                 new XmlDurationToTimeSpanJsonConverter(),
+                new StringValueToDoubleJsonConverter(),
             },
         };
 

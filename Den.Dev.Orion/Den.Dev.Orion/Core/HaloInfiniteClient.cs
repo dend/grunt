@@ -31,12 +31,13 @@ namespace Den.Dev.Orion.Core
         /// <param name="spartanToken">The Spartan token used to authenticate against the Halo Infinite API.</param>
         /// <param name="xuid">The player identifier in the format "xuid(XUID_VALUE)".</param>
         /// <param name="clearanceToken">ID of the flight/clearance currently active for the player. Optional when first instantiating the client.</param>
-        public HaloInfiniteClient(string spartanToken, string xuid = "", string clearanceToken = "")
+        /// <param name="includeRawResponses">Determines whether the raw content responses are returned with each request.</param>
+        public HaloInfiniteClient(string spartanToken, string xuid = "", string clearanceToken = "", bool includeRawResponses = false)
         {
             this.SpartanToken = spartanToken;
             this.Xuid = xuid;
             this.ClearanceToken = clearanceToken;
-            this.IncludeRawResponses = false;
+            this.IncludeRawResponses = includeRawResponses;
         }
 
         /// <summary>

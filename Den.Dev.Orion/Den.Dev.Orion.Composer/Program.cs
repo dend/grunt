@@ -2,7 +2,6 @@
 using Den.Dev.Orion.Core;
 using Den.Dev.Orion.Models;
 using Den.Dev.Orion.Util;
-using System;
 using System.CommandLine;
 using System.Text.Json;
 
@@ -103,12 +102,49 @@ namespace Den.Dev.Orion.Composer
                 if (File.Exists(xuid))
                 {
                     string[] playerXuids = File.ReadAllLines(xuid);
+
+                    // We will need a globally de-duped list of matches since stats are the same
+                    // and if two players participated in them we don't need to re-acquire the data.
+                    List<Guid> combinedMatchIds = new();
+
                     foreach(var playerXuid in playerXuids)
                     {
-                        var rawMatchEntries = await GetPlayerMatchStats(playerXuid, start, count, matchType);
-
+                        var matchIds = await GetPlayerMatchIds(playerXuid, start, count, matchType);
+                        if (matchIds != null)
+                        {
+                            Console.WriteLine($"Got {matchIds.Count} matches for {playerXuid}");
+                            combinedMatchIds.AddRange(matchIds);
+                        }
+                        else
+                        {
+                            continue;
+                        }
                         // Need to also make sure that I capture the skill frame for each player XUID.
                         // SkillGetMatchPlayerResult
+                    }
+
+                    var distinctMatchIds = combinedMatchIds.DistinctBy(x => x.ToString());
+
+                    foreach (var matchId in distinctMatchIds)
+                    {
+                        Console.WriteLine($"Getting match stats for {matchId}...");
+                        var matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
+                        string matchString = matchStats.Response.Message;
+
+                        if (matchStats != null && matchStats.Result != null && matchStats.Result.Players != null)
+                        {
+                            var targetPlayers = matchStats.Result.Players.Select(p => p.PlayerId).ToList();
+                            var playerStatsSnapshot = await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!);
+
+                            if (playerStatsSnapshot != null && playerStatsSnapshot.Result != null && playerStatsSnapshot.Result.Value != null)
+                            {
+                                Console.WriteLine($"Got stats for {playerStatsSnapshot.Result.Value.Count} players.");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Could not obtain player stats for match {matchId}. Requested {targetPlayers.Count} XUIDs.");
+                            }
+                        }
                     }
                 }
                 else
@@ -123,15 +159,15 @@ namespace Den.Dev.Orion.Composer
             return true;
         }
 
-        private static async Task<List<string>?> GetPlayerMatchStats(string playerXuid, int start, int count, Models.HaloInfinite.MatchType matchType)
+        private static async Task<List<Guid>?> GetPlayerMatchIds(string playerXuid, int start, int count, Models.HaloInfinite.MatchType matchType)
         {
             var matchCountSnapshot = await haloInfiniteClient.StatsGetMatchCount(playerXuid);
 
             if (matchCountSnapshot != null && matchCountSnapshot.Result != null)
             {
-                Console.WriteLine($"Got match stats for {playerXuid}.");
+                Console.WriteLine($"Got match counts for {playerXuid}.");
 
-                List<Guid> matchIds = new List<Guid>();
+                List<Guid> matchIds = new();
                 int queryCount = (count == -1) ? 25 : count;
                 int queryStart = start;
                 int counter = 0;
@@ -166,7 +202,7 @@ namespace Den.Dev.Orion.Composer
                     while (counter > 0)
                     {
                         var matches = await haloInfiniteClient.StatsGetMatchHistory(playerXuid, queryStart, queryCount, matchType);
-                        if (matches != null && matches.Result != null && matches.Result.Results != null)
+                        if (matches != null && matches.Result != null && matches.Result.Results != null && matches.Result.ResultCount > 0)
                         {
                             var matchIdBatch = matches.Result.Results.Select(item => item.MatchId).ToList();
                             Console.WriteLine($"Got matches starting from {queryStart} up to {queryCount} entries. Counter at {counter} and last query yielded {matchIdBatch.Count} results.");
@@ -174,10 +210,14 @@ namespace Den.Dev.Orion.Composer
                             counter = counter - matchIdBatch.Count;
                             queryStart = queryStart + matchIdBatch.Count;
                         }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
 
-                return null;
+                return matchIds;
             }
             else
             {
@@ -270,7 +310,7 @@ namespace Den.Dev.Orion.Composer
             if (haloToken != null && extendedTicket != null)
             {
                 //Let's create an instance to experiment with the Halo Infinite client.
-                return new HaloInfiniteClient(haloToken.Token, extendedTicket.DisplayClaims.Xui[0].XUID);
+                return new HaloInfiniteClient(haloToken.Token, extendedTicket.DisplayClaims.Xui[0].XUID, includeRawResponses: true);
             }
             else
             {

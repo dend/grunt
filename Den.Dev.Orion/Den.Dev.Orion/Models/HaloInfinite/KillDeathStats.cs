@@ -16,11 +16,11 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the number of kills.
         /// </summary>
-        public double Kills { get; set; }
+        public double? Kills { get; set; }
 
         /// <summary>
         /// Gets or sets the number of deaths.
         /// </summary>
-        public double Deaths { get; set; }
+        public double? Deaths { get; set; }
     }
 }
