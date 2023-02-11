@@ -39,8 +39,6 @@ namespace Den.Dev.Orion.Converters
                 return null;
             }
 
-            Console.WriteLine(result);
-
             return result;
         }
 

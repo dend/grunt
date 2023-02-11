@@ -24,11 +24,6 @@ namespace Den.Dev.Orion.Core.Foundation
     /// </summary>
     public abstract class ClientBase
     {
-        private readonly HttpClient client = new HttpClient(new HttpClientHandler
-        {
-            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli,
-        });
-
         private readonly JsonSerializerOptions serializerOptions = new()
         {
             WriteIndented = true,
@@ -40,6 +35,11 @@ namespace Den.Dev.Orion.Core.Foundation
                 new StringValueToDoubleJsonConverter(),
             },
         };
+
+        public HttpClient Client { get; set; } = new HttpClient(new HttpClientHandler
+        {
+            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli,
+        });
 
         /// <summary>
         /// Gets or sets the Spartan token used to authenticate against the Halo Infinite API.
@@ -81,7 +81,6 @@ namespace Den.Dev.Orion.Core.Foundation
             HttpMethod method,
             bool useSpartanToken,
             bool useClearance,
-            string userAgent,
             string content = "",
             ApiContentType contentType = ApiContentType.Json,
             bool includeRawResponse = false)
@@ -117,14 +116,7 @@ namespace Den.Dev.Orion.Core.Foundation
                 request.Headers.Add("343-clearance", this.ClearanceToken);
             }
 
-            this.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            this.client.DefaultRequestHeaders.ConnectionClose = true;
-            this.client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", userAgent);
-            this.client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
-            this.client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("deflate"));
-            this.client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("br"));
-
-            var response = await client.SendAsync(request);
+            var response = await Client.SendAsync(request);
 
             resultContainer.Response!.Code = Convert.ToInt32(response.StatusCode);
 

@@ -2,7 +2,7 @@
   "profiles": {
     "Den.Dev.Orion.Composer": {
       "commandName": "Project",
-      "commandLineArgs": "get matches --is-xuid-file true --xuid \"C:\\Users\\mbua\\Downloads\\xuid_list.txt\" --domain DUMMY"
+      "commandLineArgs": "get matches --is-xuid-file true --xuid \"C:\\Users\\mbua\\Downloads\\xuid_list.txt\" --domain \"C:\\Users\\mbua\\Downloads\\match_stats_db.db\""
     }
   }
 }

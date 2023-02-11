@@ -18,7 +18,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the team Matchmaking Rank (MMR).
         /// </summary>
-        public double TeamMmr { get; set; }
+        public double? TeamMmr { get; set; }
 
         /// <summary>
         /// Gets or sets the rank recap, outlining the CSR progression.
@@ -38,7 +38,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the breakdown of team Machmaking Rank (MMR) values.
         /// </summary>
-        public Dictionary<int, double>? TeamMmrs { get; set; }
+        public Dictionary<int, double?>? TeamMmrs { get; set; }
 
         /// <summary>
         /// Gets or sets ranked rewards for a player as a result of the match.

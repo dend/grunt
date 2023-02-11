@@ -2,6 +2,7 @@
 using Den.Dev.Orion.Core;
 using Den.Dev.Orion.Models;
 using Den.Dev.Orion.Util;
+using SQLite;
 using System.CommandLine;
 using System.Text.Json;
 
@@ -112,7 +113,7 @@ namespace Den.Dev.Orion.Composer
                         var matchIds = await GetPlayerMatchIds(playerXuid, start, count, matchType);
                         if (matchIds != null)
                         {
-                            Console.WriteLine($"Got {matchIds.Count} matches for {playerXuid}");
+                            WriteTimedLogEntry($"Got {matchIds.Count} matches for {playerXuid}");
                             combinedMatchIds.AddRange(matchIds);
                         }
                         else
@@ -125,31 +126,50 @@ namespace Den.Dev.Orion.Composer
 
                     var distinctMatchIds = combinedMatchIds.DistinctBy(x => x.ToString());
 
+                    var domainDatabase = new SQLiteConnection(domain);
+
+                    int matchCounter = 0;
+                    int matchesTotal = distinctMatchIds.Count();
+
                     foreach (var matchId in distinctMatchIds)
                     {
-                        Console.WriteLine($"Getting match stats for {matchId}...");
+                        WriteTimedLogEntry($"[{matchCounter}/{matchesTotal}] Getting match stats for {matchId}...");
                         var matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
-                        string matchString = matchStats.Response.Message;
 
                         if (matchStats != null && matchStats.Result != null && matchStats.Result.Players != null)
                         {
-                            var targetPlayers = matchStats.Result.Players.Select(p => p.PlayerId).ToList();
+                            var matchInsertionString = $"INSERT OR REPLACE INTO MatchStats (ResponseBody, MatchId) VALUES('{matchStats.Response.Message}', '{matchId}')";
+                            domainDatabase.Execute(matchInsertionString);
+                            WriteTimedLogEntry($"[{matchCounter}/{matchesTotal}] Stored match data for {matchId} in the database.");
+
+                            // Anything that starts with "bid" is a bot and including that in the request for player stats will result in failure.
+                            var targetPlayers = matchStats.Result.Players.Select(p => p.PlayerId).Where(p => !p.StartsWith("bid")).ToList();
+
                             var playerStatsSnapshot = await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!);
 
                             if (playerStatsSnapshot != null && playerStatsSnapshot.Result != null && playerStatsSnapshot.Result.Value != null)
                             {
-                                Console.WriteLine($"Got stats for {playerStatsSnapshot.Result.Value.Count} players.");
+                                WriteTimedLogEntry($"Got stats for {playerStatsSnapshot.Result.Value.Count} players.");
+
+                                if (playerStatsSnapshot.Response != null)
+                                {
+                                    var insertionString = $"INSERT OR REPLACE INTO PlayerMatchStats (MatchId, ResponseBody) VALUES('{matchId}', '{playerStatsSnapshot.Response.Message}')";
+                                    domainDatabase.Execute(insertionString);
+                                    WriteTimedLogEntry($"[{matchCounter}/{matchesTotal}] Stored player stats data for {matchId} in the database.");
+                                }
                             }
                             else
                             {
-                                Console.WriteLine($"Could not obtain player stats for match {matchId}. Requested {targetPlayers.Count} XUIDs.");
+                                WriteTimedLogEntry($"[{matchCounter}/{matchesTotal}] Could not obtain player stats for match {matchId}. Requested {targetPlayers.Count} XUIDs.");
                             }
                         }
+
+                        matchCounter++;
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"The file {xuid} could not be found. Make sure that the path is correct.");
+                    WriteTimedLogEntry($"The file {xuid} could not be found. Make sure that the path is correct.");
                 }
             }
             else
@@ -165,7 +185,7 @@ namespace Den.Dev.Orion.Composer
 
             if (matchCountSnapshot != null && matchCountSnapshot.Result != null)
             {
-                Console.WriteLine($"Got match counts for {playerXuid}.");
+                WriteTimedLogEntry($"Got match counts for {playerXuid}.");
 
                 List<Guid> matchIds = new();
                 int queryCount = (count == -1) ? 25 : count;
@@ -205,7 +225,7 @@ namespace Den.Dev.Orion.Composer
                         if (matches != null && matches.Result != null && matches.Result.Results != null && matches.Result.ResultCount > 0)
                         {
                             var matchIdBatch = matches.Result.Results.Select(item => item.MatchId).ToList();
-                            Console.WriteLine($"Got matches starting from {queryStart} up to {queryCount} entries. Counter at {counter} and last query yielded {matchIdBatch.Count} results.");
+                            WriteTimedLogEntry($"Got matches starting from {queryStart} up to {queryCount} entries. Counter at {counter} and last query yielded {matchIdBatch.Count} results.");
                             matchIds.AddRange(matchIdBatch);
                             counter = counter - matchIdBatch.Count;
                             queryStart = queryStart + matchIdBatch.Count;
@@ -235,13 +255,13 @@ namespace Den.Dev.Orion.Composer
             }
             else
             {
-                Console.WriteLine("Could not get client information. Make sure you have a client configuration file (client.json) defined in the application folder.");
+                WriteTimedLogEntry("Could not get client information. Make sure you have a client configuration file (client.json) defined in the application folder.");
                 return null;
             }
 
             if (clientConfig == null || clientConfig.ClientId == null || clientConfig.ClientSecret == null || clientConfig.RedirectUrl == null)
             {
-                Console.WriteLine("Make sure that the client configuration contains the client ID, client secret, and the redirect URL.");
+                WriteTimedLogEntry("Make sure that the client configuration contains the client ID, client secret, and the redirect URL.");
                 return null;
             }
 
@@ -259,7 +279,7 @@ namespace Den.Dev.Orion.Composer
 
             if (File.Exists("tokens.json"))
             {
-                Console.WriteLine("Trying to use local tokens...");
+                WriteTimedLogEntry("Trying to use local tokens...");
 
                 // If a local token file exists, load the file.
                 currentOAuthToken = ConfigurationReader.ReadConfiguration<OAuthToken>("tokens.json");
@@ -283,7 +303,7 @@ namespace Den.Dev.Orion.Composer
 
                     if (currentOAuthToken == null)
                     {
-                        Console.WriteLine("Could not get the token even with the refresh token.");
+                        WriteTimedLogEntry("Could not get the token even with the refresh token.");
                         currentOAuthToken = RequestNewToken(url, manager, clientConfig);
                     }
                     ticket = await manager.RequestUserToken(currentOAuthToken.AccessToken);
@@ -303,8 +323,8 @@ namespace Den.Dev.Orion.Composer
             Task.Run(async () =>
             {
                 haloToken = await haloAuthClient.GetSpartanToken(haloTicket.Token, 4);
-                Console.WriteLine("Your Halo token:");
-                Console.WriteLine(haloToken.Token);
+                WriteTimedLogEntry("Your Halo token:");
+                WriteTimedLogEntry(haloToken.Token);
             }).GetAwaiter().GetResult();
 
             if (haloToken != null && extendedTicket != null)
@@ -320,10 +340,10 @@ namespace Den.Dev.Orion.Composer
 
         private static OAuthToken RequestNewToken(string url, XboxAuthenticationClient manager, ClientConfiguration clientConfig)
         {
-            Console.WriteLine("Provide account authorization and grab the code from the URL:");
-            Console.WriteLine(url);
+            WriteTimedLogEntry("Provide account authorization and grab the code from the URL:");
+            WriteTimedLogEntry(url);
 
-            Console.WriteLine("Your code:");
+            WriteTimedLogEntry("Your code:");
             var code = Console.ReadLine();
             var currentOAuthToken = new OAuthToken();
 
@@ -336,16 +356,16 @@ namespace Den.Dev.Orion.Composer
                     var storeTokenResult = StoreTokens(currentOAuthToken, "tokens.json");
                     if (storeTokenResult)
                     {
-                        Console.WriteLine("Stored the tokens locally.");
+                        WriteTimedLogEntry("Stored the tokens locally.");
                     }
                     else
                     {
-                        Console.WriteLine("There was an issue storing tokens locally. A new token will be requested on the next run.");
+                        WriteTimedLogEntry("There was an issue storing tokens locally. A new token will be requested on the next run.");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("No token was obtained. There is no valid token to be used right now.");
+                    WriteTimedLogEntry("No token was obtained. There is no valid token to be used right now.");
                 }
             }).GetAwaiter().GetResult();
 
@@ -364,6 +384,11 @@ namespace Den.Dev.Orion.Composer
             {
                 return false;
             }
+        }
+
+        private static void WriteTimedLogEntry(string message)
+        {
+            Console.WriteLine($"[{DateTime.Now}] {message}");
         }
     }
 }

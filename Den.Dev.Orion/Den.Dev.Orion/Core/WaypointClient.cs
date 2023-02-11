@@ -64,7 +64,6 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Post,
                 true,
                 false,
-                GlobalConstants.WEB_USER_AGENT,
                 JsonSerializer.Serialize(container));
         }
 
@@ -255,7 +254,6 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Put,
                 true,
                 false,
-                GlobalConstants.WEB_USER_AGENT,
                 requestBody,
                 ApiContentType.Json);
         }
