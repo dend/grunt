@@ -1,4 +1,5 @@
 ﻿using Den.Dev.Orion.Authentication;
+using Den.Dev.Orion.Composer.Models;
 using Den.Dev.Orion.Core;
 using Den.Dev.Orion.Models;
 using Den.Dev.Orion.Util;
@@ -59,10 +60,10 @@ namespace Den.Dev.Orion.Composer
                 IsRequired = false
             };
 
-            var matchTypeArgument = new Option<Models.HaloInfinite.MatchType>(
+            var matchTypeArgument = new Option<Den.Dev.Orion.Models.HaloInfinite.MatchType>(
                 name: "--match-type",
                 description: "Kinds of matches to obtain. Default is all matches, but can also be set to 'matchmade' or 'custom'.",
-                getDefaultValue: () => Models.HaloInfinite.MatchType.All)
+                getDefaultValue: () => Den.Dev.Orion.Models.HaloInfinite.MatchType.All)
             {
                 IsRequired = true
             };
@@ -95,7 +96,7 @@ namespace Den.Dev.Orion.Composer
         /// <param name="count">Count of matches to obtain.</param>
         /// <param name="matchType">Type of matches to obtain. Can be matchmade, custom, local, or all. If not specified, all matches are obtained.</param>
         /// <param name="domain">The path to the SQLite database.</param>
-        private static async Task<bool> MatchCommandHandler(bool isXuidFile, string xuid, int start, int count, Models.HaloInfinite.MatchType matchType, string domain)
+        private static async Task<bool> MatchCommandHandler(bool isXuidFile, string xuid, int start, int count, Den.Dev.Orion.Models.HaloInfinite.MatchType matchType, string domain)
         {            
             if (isXuidFile)
             {
@@ -128,40 +129,80 @@ namespace Den.Dev.Orion.Composer
 
                     var domainDatabase = new SQLiteConnection(domain);
 
-                    int matchCounter = 0;
+                    int matchCounter = 1;
                     int matchesTotal = distinctMatchIds.Count();
 
                     foreach (var matchId in distinctMatchIds)
                     {
-                        WriteTimedLogEntry($"[{matchCounter}/{matchesTotal}] Getting match stats for {matchId}...");
-                        var matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
+                        var completionProgress = (double)matchCounter / (double)matchesTotal * 100.0;
+                        var matchAvailabilityString = $"SELECT EXISTS(SELECT 1 FROM MatchStats WHERE MatchId='{matchId}') AS MATCH_AVAILABLE, EXISTS(SELECT 1 FROM PlayerMatchStats WHERE MatchId='{matchId}') AS PLAYER_STATS_AVAILABLE;";
+                        var availability = domainDatabase.Query<EntityAvailabilityModel>(matchAvailabilityString).FirstOrDefault();
 
-                        if (matchStats != null && matchStats.Result != null && matchStats.Result.Players != null)
+                        if (availability != null)
                         {
-                            var matchInsertionString = $"INSERT OR REPLACE INTO MatchStats (ResponseBody, MatchId) VALUES('{matchStats.Response.Message}', '{matchId}')";
-                            domainDatabase.Execute(matchInsertionString);
-                            WriteTimedLogEntry($"[{matchCounter}/{matchesTotal}] Stored match data for {matchId} in the database.");
-
-                            // Anything that starts with "bid" is a bot and including that in the request for player stats will result in failure.
-                            var targetPlayers = matchStats.Result.Players.Select(p => p.PlayerId).Where(p => !p.StartsWith("bid")).ToList();
-
-                            var playerStatsSnapshot = await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!);
-
-                            if (playerStatsSnapshot != null && playerStatsSnapshot.Result != null && playerStatsSnapshot.Result.Value != null)
+                            if (!availability.MatchAvailable)
                             {
-                                WriteTimedLogEntry($"Got stats for {playerStatsSnapshot.Result.Value.Count} players.");
+                                WriteTimedLogEntry($"[{matchCounter}/{matchesTotal}] Getting match stats for {matchId}...");
+                                var matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
 
-                                if (playerStatsSnapshot.Response != null)
+                                if (matchStats != null && matchStats.Result != null)
                                 {
-                                    var insertionString = $"INSERT OR REPLACE INTO PlayerMatchStats (MatchId, ResponseBody) VALUES('{matchId}', '{playerStatsSnapshot.Response.Message}')";
-                                    domainDatabase.Execute(insertionString);
-                                    WriteTimedLogEntry($"[{matchCounter}/{matchesTotal}] Stored player stats data for {matchId} in the database.");
+                                    var matchInsertionString = $"INSERT OR REPLACE INTO MatchStats (ResponseBody, MatchId) VALUES('{matchStats.Response.Message}', '{matchId}')";
+                                    domainDatabase.Execute(matchInsertionString);
+                                    WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tStored match data for {matchId} in the database.");
+
+                                }
+                                else
+                                {
+                                    WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tMatch stats were not available for {matchId}.");
+                                    continue;
                                 }
                             }
                             else
                             {
-                                WriteTimedLogEntry($"[{matchCounter}/{matchesTotal}] Could not obtain player stats for match {matchId}. Requested {targetPlayers.Count} XUIDs.");
+                                WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tMatch {matchId} already available. Not requesting new data.");
                             }
+
+                            if (!availability.PlayerStatsAvailable)
+                            {
+                                var matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
+
+                                if (matchStats != null && matchStats.Result != null && matchStats.Result.Players != null)
+                                {
+                                    // Anything that starts with "bid" is a bot and including that in the request for player stats will result in failure.
+                                    var targetPlayers = matchStats.Result.Players.Select(p => p.PlayerId).Where(p => !p.StartsWith("bid")).ToList();
+
+                                    var playerStatsSnapshot = await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!);
+
+                                    if (playerStatsSnapshot != null && playerStatsSnapshot.Result != null && playerStatsSnapshot.Result.Value != null)
+                                    {
+                                        WriteTimedLogEntry($"Got stats for {playerStatsSnapshot.Result.Value.Count} players.");
+
+                                        if (playerStatsSnapshot.Response != null)
+                                        {
+                                            var insertionString = $"INSERT OR REPLACE INTO PlayerMatchStats (MatchId, ResponseBody) VALUES('{matchId}', '{playerStatsSnapshot.Response.Message}')";
+                                            domainDatabase.Execute(insertionString);
+                                            WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tStored player stats data for {matchId} in the database.");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tCould not obtain player stats for match {matchId}. Requested {targetPlayers.Count} XUIDs.");
+                                    }
+                                }
+                                else
+                                {
+                                    WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tCould not obtain player stats for match {matchId} because the match metadata was unavailable.");
+                                }
+                            }
+                            else
+                            {
+                                WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tMatch {matchId} player stats already available. Not requesting new data.");
+                            }
+                        }
+                        else
+                        {
+                            WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tSomething went wrong. Could not communicate with the database to get match availability.");
                         }
 
                         matchCounter++;
@@ -179,7 +220,7 @@ namespace Den.Dev.Orion.Composer
             return true;
         }
 
-        private static async Task<List<Guid>?> GetPlayerMatchIds(string playerXuid, int start, int count, Models.HaloInfinite.MatchType matchType)
+        private static async Task<List<Guid>?> GetPlayerMatchIds(string playerXuid, int start, int count, Den.Dev.Orion.Models.HaloInfinite.MatchType matchType)
         {
             var matchCountSnapshot = await haloInfiniteClient.StatsGetMatchCount(playerXuid);
 
@@ -194,17 +235,17 @@ namespace Den.Dev.Orion.Composer
 
                 switch (matchType)
                 {
-                    case Models.HaloInfinite.MatchType.Matchmaking:
+                    case Den.Dev.Orion.Models.HaloInfinite.MatchType.Matchmaking:
                         {
                             counter = matchCountSnapshot.Result.MatchmadeMatchesPlayedCount;
                             break;
                         }
-                    case Models.HaloInfinite.MatchType.Custom:
+                    case Den.Dev.Orion.Models.HaloInfinite.MatchType.Custom:
                         {
                             counter = matchCountSnapshot.Result.CustomMatchesPlayedCount;
                             break;
                         }
-                    case Models.HaloInfinite.MatchType.Local:
+                    case Den.Dev.Orion.Models.HaloInfinite.MatchType.Local:
                         {
                             counter = matchCountSnapshot.Result.LocalMatchesPlayedCount;
                             break;
