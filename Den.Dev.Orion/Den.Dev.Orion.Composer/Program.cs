@@ -2,6 +2,7 @@
 using Den.Dev.Orion.Composer.Models;
 using Den.Dev.Orion.Core;
 using Den.Dev.Orion.Models;
+using Den.Dev.Orion.Models.HaloInfinite;
 using Den.Dev.Orion.Util;
 using SQLite;
 using System.CommandLine;
@@ -97,19 +98,19 @@ namespace Den.Dev.Orion.Composer
         /// <param name="matchType">Type of matches to obtain. Can be matchmade, custom, local, or all. If not specified, all matches are obtained.</param>
         /// <param name="domain">The path to the SQLite database.</param>
         private static async Task<bool> MatchCommandHandler(bool isXuidFile, string xuid, int start, int count, Den.Dev.Orion.Models.HaloInfinite.MatchType matchType, string domain)
-        {            
+        {
             if (isXuidFile)
             {
                 // We have a file full of XUIDs, so we need to iterate through all of them.
-                if (File.Exists(xuid))
+                if (System.IO.File.Exists(xuid))
                 {
-                    string[] playerXuids = File.ReadAllLines(xuid);
+                    string[] playerXuids = System.IO.File.ReadAllLines(xuid);
 
                     // We will need a globally de-duped list of matches since stats are the same
                     // and if two players participated in them we don't need to re-acquire the data.
                     List<Guid> combinedMatchIds = new();
 
-                    foreach(var playerXuid in playerXuids)
+                    foreach (var playerXuid in playerXuids)
                     {
                         var matchIds = await GetPlayerMatchIds(playerXuid, start, count, matchType);
                         if (matchIds != null)
@@ -140,32 +141,54 @@ namespace Den.Dev.Orion.Composer
 
                         if (availability != null)
                         {
+                            HaloApiResultContainer<MatchStats, RawResponseContainer>? matchStats = null;
+
                             if (!availability.MatchAvailable)
                             {
-                                WriteTimedLogEntry($"[{matchCounter}/{matchesTotal}] Getting match stats for {matchId}...");
-                                var matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
+                                WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Getting match stats for {matchId}...");
+                                matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
 
-                                if (matchStats != null && matchStats.Result != null)
+                                if (matchStats.Response!.Code == 401)
                                 {
-                                    var matchInsertionString = $"INSERT OR REPLACE INTO MatchStats (ResponseBody, MatchId) VALUES('{matchStats.Response.Message}', '{matchId}')";
-                                    domainDatabase.Execute(matchInsertionString);
-                                    WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tStored match data for {matchId} in the database.");
-
+                                    // The token is no longer working - need to acquire a new one.
+                                    WriteTimedLogEntry("Token expired. Refreshing...");
+                                    haloInfiniteClient = InstantiateClient();
+                                    matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
                                 }
                                 else
                                 {
-                                    WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tMatch stats were not available for {matchId}.");
-                                    continue;
+                                    if (matchStats != null && matchStats.Result != null)
+                                    {
+                                        var matchInsertionString = $"INSERT OR REPLACE INTO MatchStats (ResponseBody, MatchId) VALUES('{matchStats.Response.Message}', '{matchId}')";
+                                        domainDatabase.Execute(matchInsertionString);
+                                        WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Stored match data for {matchId} in the database.");
+
+                                    }
+                                    else
+                                    {
+                                        WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Match stats were not available for {matchId}.");
+                                        continue;
+                                    }
                                 }
                             }
                             else
                             {
-                                WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tMatch {matchId} already available. Not requesting new data.");
+                                WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Match {matchId} already available. Not requesting new data.");
                             }
 
                             if (!availability.PlayerStatsAvailable)
                             {
-                                var matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
+                                if (matchStats == null)
+                                {
+                                    matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
+                                    if (matchStats.Response!.Code == 401)
+                                    {
+                                        // The token is no longer working - need to acquire a new one.
+                                        WriteTimedLogEntry("Token expired. Refreshing...");
+                                        haloInfiniteClient = InstantiateClient();
+                                        matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
+                                    }
+                                }
 
                                 if (matchStats != null && matchStats.Result != null && matchStats.Result.Players != null)
                                 {
@@ -174,35 +197,45 @@ namespace Den.Dev.Orion.Composer
 
                                     var playerStatsSnapshot = await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!);
 
-                                    if (playerStatsSnapshot != null && playerStatsSnapshot.Result != null && playerStatsSnapshot.Result.Value != null)
+                                    if (playerStatsSnapshot.Response!.Code == 401)
                                     {
-                                        WriteTimedLogEntry($"Got stats for {playerStatsSnapshot.Result.Value.Count} players.");
-
-                                        if (playerStatsSnapshot.Response != null)
-                                        {
-                                            var insertionString = $"INSERT OR REPLACE INTO PlayerMatchStats (MatchId, ResponseBody) VALUES('{matchId}', '{playerStatsSnapshot.Response.Message}')";
-                                            domainDatabase.Execute(insertionString);
-                                            WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tStored player stats data for {matchId} in the database.");
-                                        }
+                                        WriteTimedLogEntry("Token expired. Refreshing...");
+                                        haloInfiniteClient = InstantiateClient();
+                                        playerStatsSnapshot = await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!);
                                     }
                                     else
                                     {
-                                        WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tCould not obtain player stats for match {matchId}. Requested {targetPlayers.Count} XUIDs.");
+                                        if (playerStatsSnapshot != null && playerStatsSnapshot.Result != null && playerStatsSnapshot.Result.Value != null)
+                                        {
+                                            WriteTimedLogEntry($"Got stats for {playerStatsSnapshot.Result.Value.Count} players.");
+
+                                            if (playerStatsSnapshot.Response != null)
+                                            {
+                                                var insertionString = $"INSERT OR REPLACE INTO PlayerMatchStats (MatchId, ResponseBody) VALUES('{matchId}', '{playerStatsSnapshot.Response.Message}')";
+                                                domainDatabase.Execute(insertionString);
+                                                WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Stored player stats data for {matchId} in the database.");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Could not obtain player stats for match {matchId}. Requested {targetPlayers.Count} XUIDs.");
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                    WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tCould not obtain player stats for match {matchId} because the match metadata was unavailable.");
+                                    WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Could not obtain player stats for match {matchId} because the match metadata was unavailable.");
                                 }
+
                             }
                             else
                             {
-                                WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tMatch {matchId} player stats already available. Not requesting new data.");
+                                WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Match {matchId} player stats already available. Not requesting new data.");
                             }
                         }
                         else
                         {
-                            WriteTimedLogEntry($"[{completionProgress:#.00}%]\t[{matchCounter}/{matchesTotal}]\tSomething went wrong. Could not communicate with the database to get match availability.");
+                            WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Something went wrong. Could not communicate with the database to get match availability.");
                         }
 
                         matchCounter++;
@@ -318,7 +351,7 @@ namespace Den.Dev.Orion.Composer
             var extendedTicket = new XboxTicket();
             var haloToken = new SpartanToken();
 
-            if (File.Exists("tokens.json"))
+            if (System.IO.File.Exists("tokens.json"))
             {
                 WriteTimedLogEntry("Trying to use local tokens...");
 

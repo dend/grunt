@@ -1,25 +1,25 @@
-﻿// <copyright file="ResultContainerBase.cs" company="Den Delimarsky">
+﻿// <copyright file="ResultCode.cs" company="Den Delimarsky">
 // Developed by Den Delimarsky.
 // Den Delimarsky licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 // The underlying API powering Den.Dev.Orion is managed by 343 Industries and Microsoft. This wrapper is not endorsed by 343 Industries or Microsoft.
 // </copyright>
 
-namespace Den.Dev.Orion.Models.HaloInfinite.Foundation
+namespace Den.Dev.Orion.Models.HaloInfinite
 {
     /// <summary>
-    /// Base class for query results.
+    /// Code representing the result of the query.
     /// </summary>
-    public abstract class ResultContainerBase
+    public enum ResultCode
     {
         /// <summary>
-        /// Gets or sets the ID for the result.
+        /// The result was not found.
         /// </summary>
-        public string? Id { get; set; }
+        NotFound = 1,
 
         /// <summary>
-        /// Gets or sets the result code.
+        /// The result was successfully found.
         /// </summary>
-        public ResultCode ResultCode { get; set; }
+        Success = 0,
     }
 }
