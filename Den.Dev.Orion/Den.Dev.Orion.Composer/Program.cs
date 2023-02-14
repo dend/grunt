@@ -167,6 +167,7 @@ namespace Den.Dev.Orion.Composer
                                     else
                                     {
                                         WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Match stats were not available for {matchId}.");
+                                        matchCounter++;
                                         continue;
                                     }
                                 }
@@ -184,7 +185,7 @@ namespace Den.Dev.Orion.Composer
                                     if (matchStats.Response!.Code == 401)
                                     {
                                         // The token is no longer working - need to acquire a new one.
-                                        WriteTimedLogEntry("Token expired. Refreshing...");
+                                        WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Token expired. Refreshing...");
                                         haloInfiniteClient = InstantiateClient();
                                         matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
                                     }
@@ -199,7 +200,7 @@ namespace Den.Dev.Orion.Composer
 
                                     if (playerStatsSnapshot.Response!.Code == 401)
                                     {
-                                        WriteTimedLogEntry("Token expired. Refreshing...");
+                                        WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Token expired. Refreshing...");
                                         haloInfiniteClient = InstantiateClient();
                                         playerStatsSnapshot = await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!);
                                     }
@@ -207,7 +208,7 @@ namespace Den.Dev.Orion.Composer
                                     {
                                         if (playerStatsSnapshot != null && playerStatsSnapshot.Result != null && playerStatsSnapshot.Result.Value != null)
                                         {
-                                            WriteTimedLogEntry($"Got stats for {playerStatsSnapshot.Result.Value.Count} players.");
+                                            WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Got stats for {playerStatsSnapshot.Result.Value.Count} players.");
 
                                             if (playerStatsSnapshot.Response != null)
                                             {
