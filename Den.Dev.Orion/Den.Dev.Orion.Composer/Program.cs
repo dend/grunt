@@ -8,6 +8,7 @@ using SQLite;
 using System.CommandLine;
 using System.Globalization;
 using System.IO;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -16,12 +17,44 @@ namespace Den.Dev.Orion.Composer
     internal class Program
     {
         static HaloInfiniteClient? haloInfiniteClient = null;
+        static XboxAuthenticationClient manager = new();
+        static HaloAuthenticationClient haloAuthClient = new();
 
         static async Task<int> Main(string[] args)
         {
-            haloInfiniteClient = InstantiateClient();
-
             var rootCommand = new RootCommand();
+
+            var clientIdArgument = new Option<string>(
+                name: "--client-id",
+                description: "Client ID used for token refreshes. Otherwise, loaded from config.json.",
+                getDefaultValue: () => string.Empty)
+            {
+                IsRequired = false
+            };
+
+            var clientSecretArgument = new Option<string>(
+                name: "--client-secret",
+                description: "Client secret used for token refreshes. Otherwise, loaded from config.json.",
+                getDefaultValue: () => string.Empty)
+            {
+                IsRequired = false
+            };
+
+            var redirectUrlArgument = new Option<string>(
+                name: "--redirect-url",
+                description: "Redirect URL used for token refreshes. Otherwise, loaded from config.json.",
+                getDefaultValue: () => string.Empty)
+            {
+                IsRequired = false
+            };
+
+            var refreshTokenArgument = new Option<string>(
+                name: "--refresh-token",
+                description: "Existing refresh token used for token refreshes.",
+                getDefaultValue: () => string.Empty)
+            {
+                IsRequired = false
+            };
 
             var domainArgument = new Option<string>(
                 name: "--domain",
@@ -72,6 +105,15 @@ namespace Den.Dev.Orion.Composer
                 IsRequired = true
             };
 
+            var refreshCommand = new Command("refresh", "Refresh an existing access token.")
+            {
+                clientIdArgument,
+                clientSecretArgument,
+                redirectUrlArgument,
+                refreshTokenArgument,
+            };
+            rootCommand.AddCommand(refreshCommand);
+
             var getCommand = new Command("get", "Gets data from the Halo API.");
             rootCommand.AddCommand(getCommand);
 
@@ -82,33 +124,47 @@ namespace Den.Dev.Orion.Composer
                 startArgument,
                 countArgument,
                 matchTypeArgument,
-                domainArgument
             };
             getCommand.AddCommand(getMatchesCommand);
 
             var getServiceRecordCommand = new Command("sr", "Gets service record information.")
             {
                 isXuidFileArgument,
-                xuidArgument,
-                domainArgument
+                xuidArgument
             };
             getCommand.AddCommand(getServiceRecordCommand);
 
-            var getMedalMetadata = new Command("medalmetadata", "Gets service record information.")
-            {
-                domainArgument
-            };
+            var getMedalMetadata = new Command("medalmetadata", "Gets service record information.");
             getCommand.AddCommand(getMedalMetadata);
 
             getMatchesCommand.SetHandler(GetMatchesCommandHandler, isXuidFileArgument, xuidArgument, startArgument, countArgument, matchTypeArgument, domainArgument);
             getServiceRecordCommand.SetHandler(GetServiceRecordCommandHandler, isXuidFileArgument, xuidArgument, domainArgument);
             getMedalMetadata.SetHandler(GetMedalsCommandHandler, domainArgument);
+            refreshCommand.SetHandler(RefreshCommandHandler, clientIdArgument, clientSecretArgument, redirectUrlArgument, refreshTokenArgument);
 
             return await rootCommand.InvokeAsync(args);
         }
 
+        private static async Task<bool> RefreshCommandHandler(string clientId, string clientSecret, string redirectUrl, string refreshToken)
+        {
+            OAuthToken currentOAuthToken = await manager.RefreshOAuthToken(clientId, refreshToken, redirectUrl, clientSecret);
+
+            if (currentOAuthToken != null)
+            {
+                var storeTokenResult = StoreTokens(currentOAuthToken, "tokens.json");
+
+                var options = new JsonSerializerOptions { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+                Console.WriteLine(JsonSerializer.Serialize(currentOAuthToken, options));
+                return true;
+            }
+
+            return false;
+        }
+
         private static async Task<bool> GetMedalsCommandHandler(string domain)
         {
+            haloInfiniteClient = InstantiateClient();
+
             var domainDatabase = new SQLiteConnection(domain);
 
             var medalMetadata = await haloInfiniteClient.GameCmsGetMedalMetadata();
@@ -139,6 +195,8 @@ namespace Den.Dev.Orion.Composer
         
         private static async Task<bool> GetServiceRecordCommandHandler(bool isXuidFile, string xuid, string domain)
         {
+            haloInfiniteClient = InstantiateClient();
+
             string[] playerXuids;
 
             if (isXuidFile)
@@ -210,6 +268,8 @@ namespace Den.Dev.Orion.Composer
         /// <param name="domain">The path to the SQLite database.</param>
         private static async Task<bool> GetMatchesCommandHandler(bool isXuidFile, string xuid, int start, int count, Den.Dev.Orion.Models.HaloInfinite.MatchType matchType, string domain)
         {
+            haloInfiniteClient = InstantiateClient();
+
             string[] playerXuids;
 
             if (isXuidFile)
@@ -390,6 +450,14 @@ namespace Den.Dev.Orion.Composer
         {
             var matchCountSnapshot = await haloInfiniteClient.StatsGetMatchCount(playerXuid);
 
+            if (matchCountSnapshot.Response!.Code == 401)
+            {
+                // The token is no longer working - need to acquire a new one.
+                WriteTimedLogEntry($"Token expired. Refreshing...");
+                haloInfiniteClient = InstantiateClient();
+                matchCountSnapshot = await haloInfiniteClient.StatsGetMatchCount(playerXuid);
+            }
+
             if (matchCountSnapshot != null && matchCountSnapshot.Result != null)
             {
                 WriteTimedLogEntry($"Got match counts for {playerXuid}.");
@@ -472,10 +540,8 @@ namespace Den.Dev.Orion.Composer
                 return null;
             }
 
-            XboxAuthenticationClient manager = new();
+            
             var url = manager.GenerateAuthUrl(clientConfig.ClientId, clientConfig.RedirectUrl);
-
-            HaloAuthenticationClient haloAuthClient = new();
 
             OAuthToken? currentOAuthToken = null;
 

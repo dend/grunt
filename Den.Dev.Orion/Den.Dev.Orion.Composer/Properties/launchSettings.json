@@ -2,7 +2,7 @@
   "profiles": {
     "Den.Dev.Orion.Composer": {
       "commandName": "Project",
-      "commandLineArgs": "get medalmetadata --domain \"D:\\source\\match-stats\\store.db\""
+      "commandLineArgs": "refresh --client-id 1079e683-7752-435a-aa4a-3cfdd700de82 --client-secret Qnu8Q~BkH8WbI7U.cxixSksqqC70dBxYytgE9c3B --redirect-url https://localhost:3000 --refresh-token M.R3_BL2.-CZuu0WOTd4Gr3nt8KHSZ!5mmdXw1HQ7eBJKV8o0kRqYaGAlflb*pqRrF52eSp*EsOgtGc*z2G2opLJfAr!z9W3KclM06eUFLGKAafNhVtT32tgHx7yEXl8717g9fLjXXF2sVyRClHDvslQnpvxo3KqO9ctl9VQxGHTTyCPVyV9RB1LMU4oooKeVPKmQ8YAZAV6lLUFk!lZj7gj7ugG*!whA72560HrLbTuF6CRxmc1ORE1OCo5SS0JMKxZd5fKL9j5d!ufbt6TTnwA!cqZOzQ331OUr8mLJgYsI!RMWeYlu68F76zcrCjWhs!WwVj3Uz6qpidcUQbdg6FXou93VWlkdZPMTk3WDk1fzM0TNhMMR*"
     }
   }
 }
