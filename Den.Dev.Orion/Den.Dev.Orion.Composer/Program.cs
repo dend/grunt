@@ -6,6 +6,7 @@ using Den.Dev.Orion.Models.HaloInfinite;
 using Den.Dev.Orion.Util;
 using SQLite;
 using System.CommandLine;
+using System.CommandLine.Invocation;
 using System.Globalization;
 using System.IO;
 using System.Text.Encodings.Web;
@@ -105,6 +106,14 @@ namespace Den.Dev.Orion.Composer
                 IsRequired = true
             };
 
+            var playlistIdArgument = new Option<string>(
+                name: "--playlist-id",
+                description: "The GUID that identifies the playlist for which the record needs to be obtained.",
+                getDefaultValue: () => string.Empty)
+            {
+                IsRequired = true
+            };
+
             var refreshCommand = new Command("refresh", "Refresh an existing access token.")
             {
                 clientIdArgument,
@@ -134,6 +143,14 @@ namespace Den.Dev.Orion.Composer
             };
             getCommand.AddCommand(getServiceRecordCommand);
 
+            var getRankSnapshotCommand = new Command("rank", "Gets rank snapshot information.")
+            {
+                playlistIdArgument,
+                isXuidFileArgument,
+                xuidArgument
+            };
+            getCommand.AddCommand(getRankSnapshotCommand);
+
             var getMedalMetadata = new Command("medalmetadata", "Gets service record information.");
             getCommand.AddCommand(getMedalMetadata);
 
@@ -141,8 +158,68 @@ namespace Den.Dev.Orion.Composer
             getServiceRecordCommand.SetHandler(GetServiceRecordCommandHandler, isXuidFileArgument, xuidArgument, domainArgument);
             getMedalMetadata.SetHandler(GetMedalsCommandHandler, domainArgument);
             refreshCommand.SetHandler(RefreshCommandHandler, clientIdArgument, clientSecretArgument, redirectUrlArgument, refreshTokenArgument);
+            getRankSnapshotCommand.SetHandler(RankSnapshotCommandHandler, playlistIdArgument, isXuidFileArgument, xuidArgument, domainArgument);
 
             return await rootCommand.InvokeAsync(args);
+        }
+
+        private static async Task<bool> RankSnapshotCommandHandler(string playlistId, bool isXuidFile, string xuid, string domain)
+        {
+            haloInfiniteClient = InstantiateClient();
+
+            string[] playerXuids;
+
+            if (isXuidFile)
+            {
+                // We have a file full of XUIDs, so we need to iterate through all of them.
+                if (System.IO.File.Exists(xuid))
+                {
+                    playerXuids = System.IO.File.ReadAllLines(xuid);
+                }
+                else
+                {
+                    WriteTimedLogEntry($"The file {xuid} could not be found. Make sure that the path is correct.");
+                    return false;
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(xuid))
+                {
+                    playerXuids = new string[] { xuid };
+                }
+                else
+                {
+                    WriteTimedLogEntry($"XUID was not specified.");
+                    return false;
+                }
+            }
+
+            var domainDatabase = new SQLiteConnection(domain);
+
+            var rankData = await haloInfiniteClient.SkillGetPlaylistCsr(playlistId, playerXuids.ToList());
+            if (rankData.Response!.Code == 401)
+            {
+                // The token is no longer working - need to acquire a new one.
+                WriteTimedLogEntry("Token expired. Refreshing...");
+                haloInfiniteClient = InstantiateClient();
+                rankData = await haloInfiniteClient.SkillGetPlaylistCsr(playlistId, playerXuids.ToList());
+            }
+            else
+            {
+                if (rankData != null && rankData.Result != null)
+                {
+                    var matchInsertionString = $"INSERT OR REPLACE INTO PlayerRankSnapshots (ResponseBody, PlaylistId, SnapshotTimestamp) VALUES(?, ?, ?)";
+                    domainDatabase.Execute(matchInsertionString, new string[] { rankData.Response.Message, playlistId, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
+                    WriteTimedLogEntry($"Stored rank snapshot in the database.");
+                }
+                else
+                {
+                    WriteTimedLogEntry($"Data storage failed for rank snapshots.");
+                }
+            }
+
+            return true;
         }
 
         private static async Task<bool> RefreshCommandHandler(string clientId, string clientSecret, string redirectUrl, string refreshToken)
