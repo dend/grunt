@@ -119,7 +119,6 @@ namespace Den.Dev.Orion.Composer
                 clientIdArgument,
                 clientSecretArgument,
                 redirectUrlArgument,
-                refreshTokenArgument,
             };
             rootCommand.AddCommand(refreshCommand);
 
@@ -157,7 +156,7 @@ namespace Den.Dev.Orion.Composer
             getMatchesCommand.SetHandler(GetMatchesCommandHandler, isXuidFileArgument, xuidArgument, startArgument, countArgument, matchTypeArgument, domainArgument);
             getServiceRecordCommand.SetHandler(GetServiceRecordCommandHandler, isXuidFileArgument, xuidArgument, domainArgument);
             getMedalMetadata.SetHandler(GetMedalsCommandHandler, domainArgument);
-            refreshCommand.SetHandler(RefreshCommandHandler, clientIdArgument, clientSecretArgument, redirectUrlArgument, refreshTokenArgument);
+            refreshCommand.SetHandler(RefreshCommandHandler, clientIdArgument, clientSecretArgument, redirectUrlArgument);
             getRankSnapshotCommand.SetHandler(RankSnapshotCommandHandler, playlistIdArgument, isXuidFileArgument, xuidArgument, domainArgument);
 
             return await rootCommand.InvokeAsync(args);
@@ -222,17 +221,30 @@ namespace Den.Dev.Orion.Composer
             return true;
         }
 
-        private static async Task<bool> RefreshCommandHandler(string clientId, string clientSecret, string redirectUrl, string refreshToken)
+        private static async Task<bool> RefreshCommandHandler(string clientId, string clientSecret, string redirectUrl)
         {
-            OAuthToken currentOAuthToken = await manager.RefreshOAuthToken(clientId, refreshToken, redirectUrl, clientSecret);
+            OAuthToken currentOAuthToken;
 
-            if (currentOAuthToken != null)
+            if (System.IO.File.Exists("tokens.json"))
             {
-                var storeTokenResult = StoreTokens(currentOAuthToken, "tokens.json");
+                WriteTimedLogEntry("Trying to use local tokens for refresh...");
 
-                var options = new JsonSerializerOptions { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
-                Console.WriteLine(JsonSerializer.Serialize(currentOAuthToken, options));
-                return true;
+                // If a local token file exists, load the file.
+                currentOAuthToken = ConfigurationReader.ReadConfiguration<OAuthToken>("tokens.json");
+
+                currentOAuthToken = await manager.RefreshOAuthToken(clientId, currentOAuthToken.RefreshToken, redirectUrl, clientSecret);
+
+                if (currentOAuthToken != null)
+                {
+                    var storeTokenResult = StoreTokens(currentOAuthToken, "tokens.json");
+
+                    WriteTimedLogEntry("Tokens refreshed inside the file.");
+                    return true;
+                }
+            }
+            else
+            {
+                WriteTimedLogEntry("Could not refresh the token. The tokens.json file was not there.");
             }
 
             return false;

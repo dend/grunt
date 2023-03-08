@@ -2,7 +2,7 @@
     "profiles": {
         "Den.Dev.Orion.Composer": {
             "commandName": "Project",
-            "commandLineArgs": "get rank --playlist-id edfef3ac-9cbe-4fa2-b949-8f29deafd483 --xuid xuid(282533274855333605) --domain \"C:\\Users\\bbua\\Downloads\\store.db\""
+            "commandLineArgs": "refresh --client-id 1079e683-7752-435a-aa4a-3cfdd700de82 --client-secret Qnu8Q~BkH8WbI7U.cxixSksqqC70dBxYytgE9c3B --redirect-url https://localhost:3000"
         }
     }
 }
