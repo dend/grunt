@@ -196,26 +196,24 @@ namespace Den.Dev.Orion.Composer
 
             var domainDatabase = new SQLiteConnection(domain);
 
-            var rankData = await haloInfiniteClient.SkillGetPlaylistCsr(playlistId, playerXuids.ToList());
+            var rankData = await haloInfiniteClient!.SkillGetPlaylistCsr(playlistId, playerXuids.ToList());
             if (rankData.Response!.Code == 401)
             {
                 // The token is no longer working - need to acquire a new one.
                 WriteTimedLogEntry("Token expired. Refreshing...");
                 haloInfiniteClient = InstantiateClient();
-                rankData = await haloInfiniteClient.SkillGetPlaylistCsr(playlistId, playerXuids.ToList());
+                rankData = await haloInfiniteClient!.SkillGetPlaylistCsr(playlistId, playerXuids.ToList());
+            }
+
+            if (rankData != null && rankData.Result != null)
+            {
+                var matchInsertionString = $"INSERT OR REPLACE INTO PlayerRankSnapshots (ResponseBody, PlaylistId, SnapshotTimestamp) VALUES(?, ?, ?)";
+                domainDatabase.Execute(matchInsertionString, new string[] { rankData.Response.Message, playlistId, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
+                WriteTimedLogEntry($"Stored rank snapshot in the database.");
             }
             else
             {
-                if (rankData != null && rankData.Result != null)
-                {
-                    var matchInsertionString = $"INSERT OR REPLACE INTO PlayerRankSnapshots (ResponseBody, PlaylistId, SnapshotTimestamp) VALUES(?, ?, ?)";
-                    domainDatabase.Execute(matchInsertionString, new string[] { rankData.Response.Message, playlistId, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
-                    WriteTimedLogEntry($"Stored rank snapshot in the database.");
-                }
-                else
-                {
-                    WriteTimedLogEntry($"Data storage failed for rank snapshots.");
-                }
+                WriteTimedLogEntry($"Data storage failed for rank snapshots.");
             }
 
             return true;
@@ -236,7 +234,7 @@ namespace Den.Dev.Orion.Composer
 
                 if (currentOAuthToken != null)
                 {
-                    var storeTokenResult = StoreTokens(currentOAuthToken, "tokens.json");
+                    _ = StoreTokens(currentOAuthToken, "tokens.json");
 
                     WriteTimedLogEntry("Tokens refreshed inside the file.");
                     return true;
@@ -264,19 +262,17 @@ namespace Den.Dev.Orion.Composer
                 haloInfiniteClient = InstantiateClient();
                 medalMetadata = await haloInfiniteClient.GameCmsGetMedalMetadata();
             }
+
+            if (medalMetadata != null && medalMetadata.Result != null)
+            {
+                var matchInsertionString = $"INSERT OR REPLACE INTO MedalMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
+                domainDatabase.Execute(matchInsertionString, new string[] { medalMetadata.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
+                WriteTimedLogEntry($"Stored medal metadata in the database.");
+            }
             else
             {
-                if (medalMetadata != null && medalMetadata.Result != null)
-                {
-                    var matchInsertionString = $"INSERT OR REPLACE INTO MedalMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
-                    domainDatabase.Execute(matchInsertionString, new string[] { medalMetadata.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
-                    WriteTimedLogEntry($"Stored medal metadata in the database.");
-                }
-                else
-                {
-                    WriteTimedLogEntry($"Data storage failed for medal metadata");
-                    return false;
-                }
+                WriteTimedLogEntry($"Data storage failed for medal metadata");
+                return false;
             }
 
             return true;
@@ -326,20 +322,18 @@ namespace Den.Dev.Orion.Composer
                     haloInfiniteClient = InstantiateClient();
                     srData = await haloInfiniteClient.StatsGetPlayerServiceRecord(playerXuid, LifecycleMode.Matchmade);
                 }
+
+                if (srData != null && srData.Result != null)
+                {
+                    var matchInsertionString = $"INSERT OR REPLACE INTO ServiceRecordSnapshots (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
+                    domainDatabase.Execute(matchInsertionString, new string[] { srData.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
+                    WriteTimedLogEntry($"Stored service record for {playerXuid} in the database.");
+
+                }
                 else
                 {
-                    if (srData != null && srData.Result != null)
-                    {
-                        var matchInsertionString = $"INSERT OR REPLACE INTO ServiceRecordSnapshots (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
-                        domainDatabase.Execute(matchInsertionString, new string[] { srData.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
-                        WriteTimedLogEntry($"Stored service record for {playerXuid} in the database.");
-
-                    }
-                    else
-                    {
-                        WriteTimedLogEntry($"Data storage failed for {playerXuid}");
-                        continue;
-                    }
+                    WriteTimedLogEntry($"Data storage failed for {playerXuid}");
+                    continue;
                 }
             }
 
@@ -438,21 +432,19 @@ namespace Den.Dev.Orion.Composer
                                 haloInfiniteClient = InstantiateClient();
                                 matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
                             }
+
+                            if (matchStats != null && matchStats.Result != null)
+                            {
+                                var matchInsertionString = $"INSERT OR REPLACE INTO MatchStats (ResponseBody) VALUES(?)";
+                                domainDatabase.Execute(matchInsertionString, new string[] { matchStats.Response.Message });
+                                WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Stored match data for {matchId} in the database.");
+
+                            }
                             else
                             {
-                                if (matchStats != null && matchStats.Result != null)
-                                {
-                                    var matchInsertionString = $"INSERT OR REPLACE INTO MatchStats (ResponseBody) VALUES(?)";
-                                    domainDatabase.Execute(matchInsertionString, new string[] { matchStats.Response.Message });
-                                    WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Stored match data for {matchId} in the database.");
-
-                                }
-                                else
-                                {
-                                    WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Match stats were not available for {matchId}.");
-                                    matchCounter++;
-                                    continue;
-                                }
+                                WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Match stats were not available for {matchId}.");
+                                matchCounter++;
+                                continue;
                             }
                         }
                         else
@@ -489,23 +481,21 @@ namespace Den.Dev.Orion.Composer
                                     haloInfiniteClient = InstantiateClient();
                                     playerStatsSnapshot = await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!);
                                 }
+
+                                if (playerStatsSnapshot != null && playerStatsSnapshot.Result != null && playerStatsSnapshot.Result.Value != null)
+                                {
+                                    WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Got stats for {playerStatsSnapshot.Result.Value.Count} players.");
+
+                                    if (playerStatsSnapshot.Response != null)
+                                    {
+                                        var insertionString = $"INSERT OR REPLACE INTO PlayerMatchStats (MatchId, ResponseBody) VALUES(?, ?)";
+                                        domainDatabase.Execute(insertionString, new string[] { matchId.ToString(), playerStatsSnapshot.Response.Message });
+                                        WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Stored player stats data for {matchId} in the database.");
+                                    }
+                                }
                                 else
                                 {
-                                    if (playerStatsSnapshot != null && playerStatsSnapshot.Result != null && playerStatsSnapshot.Result.Value != null)
-                                    {
-                                        WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Got stats for {playerStatsSnapshot.Result.Value.Count} players.");
-
-                                        if (playerStatsSnapshot.Response != null)
-                                        {
-                                            var insertionString = $"INSERT OR REPLACE INTO PlayerMatchStats (MatchId, ResponseBody) VALUES(?, ?)";
-                                            domainDatabase.Execute(insertionString, new string[] { matchId.ToString(), playerStatsSnapshot.Response.Message });
-                                            WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Stored player stats data for {matchId} in the database.");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Could not obtain player stats for match {matchId}. Requested {targetPlayers.Count} XUIDs.");
-                                    }
+                                    WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Could not obtain player stats for match {matchId}. Requested {targetPlayers.Count} XUIDs.");
                                 }
                             }
                             else
@@ -537,14 +527,14 @@ namespace Den.Dev.Orion.Composer
 
         private static async Task<List<Guid>?> GetPlayerMatchIds(string playerXuid, int start, int count, Den.Dev.Orion.Models.HaloInfinite.MatchType matchType)
         {
-            var matchCountSnapshot = await haloInfiniteClient.StatsGetMatchCount(playerXuid);
+            var matchCountSnapshot = await haloInfiniteClient!.StatsGetMatchCount(playerXuid);
 
             if (matchCountSnapshot.Response!.Code == 401)
             {
                 // The token is no longer working - need to acquire a new one.
                 WriteTimedLogEntry($"Token expired. Refreshing...");
                 haloInfiniteClient = InstantiateClient();
-                matchCountSnapshot = await haloInfiniteClient.StatsGetMatchCount(playerXuid);
+                matchCountSnapshot = await haloInfiniteClient!.StatsGetMatchCount(playerXuid);
             }
 
             if (matchCountSnapshot != null && matchCountSnapshot.Result != null)
