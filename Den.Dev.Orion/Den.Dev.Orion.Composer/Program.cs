@@ -114,6 +114,22 @@ namespace Den.Dev.Orion.Composer
                 IsRequired = true
             };
 
+            var projectIdArgument = new Option<string>(
+                name: "--project-id",
+                description: "The GUID representing a project for which stats need to be obtained.",
+                getDefaultValue: () => string.Empty)
+            {
+                IsRequired = true
+            };
+
+            var buildIdArgument = new Option<string>(
+                name: "--build-id",
+                description: "The GUID representing the build for which stats need to be obtained.",
+                getDefaultValue: () => string.Empty)
+            {
+                IsRequired = true
+            };
+
             var refreshCommand = new Command("refresh", "Refresh an existing access token.")
             {
                 clientIdArgument,
@@ -150,6 +166,18 @@ namespace Den.Dev.Orion.Composer
             };
             getCommand.AddCommand(getRankSnapshotCommand);
 
+            var getProjectStats = new Command("projectstats", "Gets stats from a project.")
+            {
+                projectIdArgument
+            };
+            getCommand.AddCommand(getProjectStats);
+
+            var getBuildStats = new Command("buildstats", "Gets stats from a build.")
+            {
+                buildIdArgument
+            };
+            getCommand.AddCommand(getBuildStats);
+
             var getMedalMetadata = new Command("medalmetadata", "Gets service record information.");
             getCommand.AddCommand(getMedalMetadata);
 
@@ -158,8 +186,115 @@ namespace Den.Dev.Orion.Composer
             getMedalMetadata.SetHandler(GetMedalsCommandHandler, domainArgument);
             refreshCommand.SetHandler(RefreshCommandHandler, clientIdArgument, clientSecretArgument, redirectUrlArgument);
             getRankSnapshotCommand.SetHandler(RankSnapshotCommandHandler, playlistIdArgument, isXuidFileArgument, xuidArgument, domainArgument);
+            getProjectStats.SetHandler(ProjectStatsCommandHandler, projectIdArgument, domainArgument);
+            getBuildStats.SetHandler(BuildStatsCommandHandler, buildIdArgument, domainArgument);
 
             return await rootCommand.InvokeAsync(args);
+        }
+
+        private static void ProcessUncertainAssetData(List<AssetLink>? assets, AssetClass assetClass, SQLiteConnection domain)
+        {
+            foreach (var asset in assets)
+            {
+                WriteTimedLogEntry($"Getting {asset.AssetId} with version {asset.VersionId} of class {assetClass}...");
+
+                if (assetClass == AssetClass.Map)
+                {
+                    Task.Run(async () =>
+                    {
+                        var container = await haloInfiniteClient.HIUGCDiscoveryGetMap(asset.AssetId.ToString(), asset.VersionId.ToString());
+                        var buildInsertionString = $"INSERT OR REPLACE INTO MapMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
+                        domain.Execute(buildInsertionString, new string[] { container.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
+
+                    }).GetAwaiter().GetResult();
+                }
+                else if (assetClass == AssetClass.EngineGameVariant)
+                {
+                    Task.Run(async () =>
+                    {
+                        var container = await haloInfiniteClient.HIUGCDiscoveryGetEngineGameVariant(asset.AssetId.ToString(), asset.VersionId.ToString());
+                        var buildInsertionString = $"INSERT OR REPLACE INTO EngineGameVariantMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
+                        domain.Execute(buildInsertionString, new string[] { container.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
+                    }).GetAwaiter().GetResult();
+                }
+                else if (assetClass == AssetClass.GameVariant)
+                {
+                    Task.Run(async () =>
+                    {
+                        var container = await haloInfiniteClient.HIUGCDiscoveryGetUgcGameVariant(asset.AssetId.ToString(), asset.VersionId.ToString());
+                        var buildInsertionString = $"INSERT OR REPLACE INTO UgcGameVariantMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
+                        domain.Execute(buildInsertionString, new string[] { container.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
+                    }).GetAwaiter().GetResult();
+                }
+
+                WriteTimedLogEntry($"Asset {asset.AssetId} with version {asset.VersionId} of class {assetClass} stored.");
+            }
+        }
+
+        private static async Task<bool> BuildStatsCommandHandler(string buildId, string domain)
+        {
+            haloInfiniteClient = InstantiateClient();
+
+            var domainDatabase = new SQLiteConnection(domain);
+
+            var buildData = await haloInfiniteClient!.HIUGCDiscoveryGetManifestByBuildGuid(buildId);
+            if (buildData.Response!.Code == 401)
+            {
+                // The token is no longer working - need to acquire a new one.
+                WriteTimedLogEntry("Token expired. Refreshing...");
+                haloInfiniteClient = InstantiateClient();
+                buildData = await haloInfiniteClient!.HIUGCDiscoveryGetManifestByBuildGuid(buildId);
+            }
+
+            if (buildData != null && buildData.Result != null)
+            {
+                var buildInsertionString = $"INSERT OR REPLACE INTO BuildMetadata (ResponseBody, BuildId, SnapshotTimestamp) VALUES(?, ?, ?)";
+                domainDatabase.Execute(buildInsertionString, new string[] { buildData.Response.Message, buildId, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
+                WriteTimedLogEntry($"Stored build snapshot in the database.");
+
+                ProcessUncertainAssetData(buildData.Result.MapLinks, AssetClass.Map, domainDatabase);
+                ProcessUncertainAssetData(buildData.Result.EngineGameVariantLinks, AssetClass.EngineGameVariant, domainDatabase);
+                ProcessUncertainAssetData(buildData.Result.UgcGameVariantLinks, AssetClass.GameVariant, domainDatabase);
+
+                WriteTimedLogEntry("Finished storing build-related data.");
+            }
+            else
+            {
+                WriteTimedLogEntry($"Data storage failed for build snapshot.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private static async Task<bool> ProjectStatsCommandHandler(string projectId, string domain)
+        {
+            haloInfiniteClient = InstantiateClient();
+
+            var domainDatabase = new SQLiteConnection(domain);
+
+            var projectData = await haloInfiniteClient!.HIUGCDiscoveryGetProjectWithoutVersion(projectId);
+            if (projectData.Response!.Code == 401)
+            {
+                // The token is no longer working - need to acquire a new one.
+                WriteTimedLogEntry("Token expired. Refreshing...");
+                haloInfiniteClient = InstantiateClient();
+                projectData = await haloInfiniteClient!.HIUGCDiscoveryGetProjectWithoutVersion(projectId);
+            }
+
+            if (projectData != null && projectData.Result != null)
+            {
+                var buildInsertionString = $"INSERT OR REPLACE INTO ProjectMetadata (ResponseBody, ProjectId, SnapshotTimestamp) VALUES(?, ?, ?)";
+                domainDatabase.Execute(buildInsertionString, new string[] { projectData.Response.Message, projectId, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
+                WriteTimedLogEntry($"Stored project snapshot in the database.");
+            }
+            else
+            {
+                WriteTimedLogEntry($"Data storage failed for project snapshot.");
+                return false;
+            }
+
+            return true;
         }
 
         private static async Task<bool> RankSnapshotCommandHandler(string playlistId, bool isXuidFile, string xuid, string domain)
@@ -214,6 +349,7 @@ namespace Den.Dev.Orion.Composer
             else
             {
                 WriteTimedLogEntry($"Data storage failed for rank snapshots.");
+                return false;
             }
 
             return true;

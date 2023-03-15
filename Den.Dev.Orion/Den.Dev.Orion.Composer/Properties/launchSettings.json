@@ -1,8 +1,8 @@
 {
     "profiles": {
-        "Den.Dev.Orion.Composer": {
-            "commandName": "Project",
-            "commandLineArgs": "get matches --is-xuid-file true --xuid \"C:\\Users\\bbua\\Downloads\\xuids.txt\" --domain \"C:\\Users\\bbua\\Downloads\\store.db\""
-        }
+      "Den.Dev.Orion.Composer": {
+        "commandName": "Project",
+        "commandLineArgs": "get buildstats --build-id \"22727c81-2415-4095-827d-a4d2fe27b51b\" --domain \"C:\\Users\\mbua\\Downloads\\playstore.db\""
+      }
     }
 }
