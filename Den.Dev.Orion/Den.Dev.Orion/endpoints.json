@@ -36,6 +36,15 @@
                 0
             ]
         },
+        "crashesprod": {
+            "AuthorityId": "crashesprod",
+            "Scheme": 2,
+            "Hostname": "crashes.svc.halowaypoint.com",
+            "Port": 443,
+            "AuthenticationMethods": [
+                0
+            ]
+        },
         "economy": {
             "AuthorityId": "economy",
             "Scheme": 2,
@@ -250,14 +259,25 @@
                 "RetryIfNotFound": false
             }
         },
-        "longerlinearretry": {
-            "RetryPolicyId": "longerlinearretry",
-            "TimeoutMs": 10000,
+        "economylongerlinearretry": {
+            "RetryPolicyId": "economylongerlinearretry",
+            "TimeoutMs": 5000,
             "RetryOptions": {
                 "MaxRetryCount": 2,
                 "RetryDelayMs": 1000,
                 "RetryGrowth": 1.0,
                 "RetryJitterMs": 150,
+                "RetryIfNotFound": false
+            }
+        },
+        "economylinearretry": {
+            "RetryPolicyId": "economylinearretry",
+            "TimeoutMs": 5000,
+            "RetryOptions": {
+                "MaxRetryCount": 1,
+                "RetryDelayMs": 50,
+                "RetryGrowth": 1.0,
+                "RetryJitterMs": 10,
                 "RetryIfNotFound": false
             }
         },
@@ -530,11 +550,21 @@
             "AuthenticationLifetimeExtensionSupported": false,
             "ClearanceAware": false
         },
+        "Crashes_Upload_RETAIL": {
+            "AuthorityId": "crashesprod",
+            "Path": "/crashes/hipc/bf05b320-ee8f-4be5-879d-505b669654c9",
+            "QueryString": "",
+            "RetryPolicyId": "linearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": false
+        },
         "Economy_AiCoreCustomization": {
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/customization/ais/{coreId}",
             "QueryString": "",
-            "RetryPolicyId": "longerlinearretry",
+            "RetryPolicyId": "economylongerlinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -544,7 +574,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/customization/ais",
             "QueryString": "",
-            "RetryPolicyId": "longerlinearretry",
+            "RetryPolicyId": "economylongerlinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -554,7 +584,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/cores",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -564,7 +594,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/customization/armors/{coreId}",
             "QueryString": "",
-            "RetryPolicyId": "longerlinearretry",
+            "RetryPolicyId": "economylongerlinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -574,7 +604,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/customization/armors",
             "QueryString": "",
-            "RetryPolicyId": "longerlinearretry",
+            "RetryPolicyId": "economylongerlinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -584,7 +614,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/boosts",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -594,7 +624,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/rewards/{rewardId}",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -604,7 +634,17 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/stores/boosts",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetCustomizationStore": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/customizationoffers",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -614,7 +654,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/stores/events",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -624,7 +664,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/giveaways",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -634,7 +674,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/stores/hcs",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -644,7 +684,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/inventory",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -654,7 +694,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/stores/main",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -664,7 +704,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/{rewardTrackType}s/{trackId}",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -674,7 +714,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/customization",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -684,7 +724,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/stores/operationrewardlevels",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -694,7 +734,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/stores/operations",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -704,7 +744,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/rewardtracks/{rewardTrackType}s/{trackId}",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -714,7 +754,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/currencies",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -724,7 +764,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/stores/xpgrants",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -734,7 +774,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/cores/{coreId}",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -744,7 +784,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/customization/appearance",
             "QueryString": "",
-            "RetryPolicyId": "longerlinearretry",
+            "RetryPolicyId": "economylongerlinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -754,7 +794,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/customization",
             "QueryString": "?view={viewType}",
-            "RetryPolicyId": "longerlinearretry",
+            "RetryPolicyId": "economylongerlinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -764,7 +804,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/rewardtracks/operations",
             "QueryString": "",
-            "RetryPolicyId": "longerlinearretry",
+            "RetryPolicyId": "economylongerlinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -774,7 +814,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/currencies/{currencyId}/transactions",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -784,7 +824,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/storetransactions",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -794,7 +834,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/stores/{storeId}",
             "QueryString": "",
-            "RetryPolicyId": "linearretry",
+            "RetryPolicyId": "economylinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -804,7 +844,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/customization/spartanbody",
             "QueryString": "",
-            "RetryPolicyId": "longerlinearretry",
+            "RetryPolicyId": "economylongerlinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -814,7 +854,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/customization/vehicles/{coreId}",
             "QueryString": "",
-            "RetryPolicyId": "longerlinearretry",
+            "RetryPolicyId": "economylongerlinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -824,7 +864,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/customization/vehicles",
             "QueryString": "",
-            "RetryPolicyId": "longerlinearretry",
+            "RetryPolicyId": "economylongerlinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -834,7 +874,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/customization/weapons/{coreId}",
             "QueryString": "",
-            "RetryPolicyId": "longerlinearretry",
+            "RetryPolicyId": "economylongerlinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -844,7 +884,7 @@
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/customization/weapons",
             "QueryString": "",
-            "RetryPolicyId": "longerlinearretry",
+            "RetryPolicyId": "economylongerlinearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -944,6 +984,16 @@
             "AuthorityId": "gamecms",
             "Path": "/hi/Progression/file/inventory/catalog/inventory_catalog.json",
             "QueryString": "?flight={flightId}",
+            "RetryPolicyId": "linearretry_3",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "GameCms_GetCustomExperienceConfiguration": {
+            "AuthorityId": "gamecms",
+            "Path": "/hi/Progression/file/configuration/CustomExperience/CustomExperienceConfiguration.json",
+            "QueryString": "",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -1238,7 +1288,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_DeleteAllVersions": {
             "AuthorityId": "HIUGC_Authoring_Authority",
@@ -1268,7 +1318,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_DeleteVersion": {
             "AuthorityId": "HIUGC_Authoring_Authority",
@@ -1288,7 +1338,17 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
+        },
+        "HIUGC_Discovery_GetCommunityTab": {
+            "AuthorityId": "HIUGC_Discovery_Authority",
+            "Path": "/hi/projects/90f9e508-99ce-411c-bf88-7bf12b5e9f52",
+            "QueryString": "",
+            "RetryPolicyId": "getcustomgamemanifest",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetCustomGameManifest": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1298,7 +1358,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetEngineGameVariant": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1308,7 +1368,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetEngineGameVariantWithoutVersion": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1318,7 +1378,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetForgeTemplates": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1328,7 +1388,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetManifest": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1348,7 +1408,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetManifestByBuild": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1378,7 +1438,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetMap": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1388,7 +1448,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetMapModePair": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1408,7 +1468,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetMapWithoutVersion": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1418,7 +1478,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetPlaylist": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1438,7 +1498,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetPrefab": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1448,7 +1508,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetPrefabWithoutVersion": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1458,7 +1518,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetProject": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1468,7 +1528,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetProjectWithoutVersion": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1478,7 +1538,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetTagsInfo": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1498,7 +1558,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_GetUgcGameVariantWithoutVersion": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1508,7 +1568,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_Search": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1518,7 +1578,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_Discovery_SpectateByMatchId": {
             "AuthorityId": "HIUGC_Discovery_Authority",
@@ -1578,7 +1638,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_GetLatestAssetVersionAgnostic": {
             "AuthorityId": "HIUGC_Authoring_Authority",
@@ -1588,7 +1648,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_GetPublishedVersion": {
             "AuthorityId": "HIUGC_Authoring_Authority",
@@ -1598,7 +1658,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_GetSessionBlob": {
             "AuthorityId": "iUgcSessionFiles",
@@ -1628,7 +1688,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_ListAllVersions": {
             "AuthorityId": "HIUGC_Authoring_Authority",
@@ -1648,7 +1708,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_ListPlayerFavorites": {
             "AuthorityId": "HIUGC_Authoring_Authority",
@@ -1658,7 +1718,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_ListPlayerFavoritesAgnostic": {
             "AuthorityId": "HIUGC_Authoring_Authority",
@@ -1668,7 +1728,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_PatchAssetVersion": {
             "AuthorityId": "HIUGC_Authoring_Authority",
@@ -1678,7 +1738,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_PublishAssetVersion": {
             "AuthorityId": "HIUGC_Authoring_Authority",
@@ -1718,7 +1778,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_SpectateFilm": {
             "AuthorityId": "HIUGC_Authoring_Authority",
@@ -1738,7 +1798,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "HIUGC_StringValidation": {
             "AuthorityId": "HIUGC_Authoring_Authority",
@@ -1788,7 +1848,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "Lobby_GameConnection": {
             "AuthorityId": "lobbyamqp",
@@ -1860,10 +1920,10 @@
             "AuthenticationLifetimeExtensionSupported": false,
             "ClearanceAware": false
         },
-        "Lobby_RegisterJoinLobbyHandle": {
+        "Lobby_RegisterJoinLobbyHandleWithIsolation": {
             "AuthorityId": "lobby",
             "Path": "/hi/handles/{handleId}/players/{player}",
-            "QueryString": "?auth=st",
+            "QueryString": "?auth=st&isolationMode={isolationMode}",
             "RetryPolicyId": "registerjoinlobbyhandle",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -1923,7 +1983,7 @@
         "Settings_ActiveFlight": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/RETAIL/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.4",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -1933,7 +1993,7 @@
         "Settings_GetClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/{audience}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.4",
             "RetryPolicyId": "clearanceretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -1943,7 +2003,7 @@
         "Settings_GetPlayerClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/{audience}/players/{player}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.4",
             "RetryPolicyId": "clearanceretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -1953,7 +2013,7 @@
         "Settings_PlayerClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/RETAIL/players/{player}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.4",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2035,6 +2095,16 @@
             "Path": "/hi/matches/{matchId}/stats",
             "QueryString": "",
             "RetryPolicyId": "linearretry404retry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": false
+        },
+        "Stats_GetPlayerDailyCustomExperience": {
+            "AuthorityId": "halostats",
+            "Path": "/hi/players/{player}/customexperience",
+            "QueryString": "",
+            "RetryPolicyId": "linearretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
