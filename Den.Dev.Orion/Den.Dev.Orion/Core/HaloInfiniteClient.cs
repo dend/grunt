@@ -1231,7 +1231,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/permissions/{player}",
                 HttpMethod.Patch,
                 true,
-                false,
+                true,
                 JsonSerializer.Serialize(permission),
                 includeRawResponse: this.IncludeRawResponses);
         }
@@ -1270,7 +1270,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions",
                 HttpMethod.Post,
                 true,
-                false,
+                true,
                 JsonSerializer.Serialize(starter),
                 includeRawResponse: this.IncludeRawResponses);
         }
@@ -1288,7 +1288,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions",
                 HttpMethod.Delete,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -1305,7 +1305,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}",
                 HttpMethod.Delete,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -1415,7 +1415,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/films/{assetId}/versions/latest",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -1436,7 +1436,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions/latest",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -1454,7 +1454,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions/published",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -1527,7 +1527,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/players/{player}/assets?start={start}&count={count}&include-times={includeTimes}&sort={sort}&order={order}&keywords={formattedKeywordList}&kind={kind}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -1547,7 +1547,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/favorites/{assetType}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -1566,7 +1566,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/favorites",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -1586,7 +1586,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/versions/{versionId}",
                 HttpMethod.Patch,
                 true,
-                false,
+                true,
                 JsonSerializer.Serialize(patchedAsset),
                 includeRawResponse: this.IncludeRawResponses);
         }
@@ -1699,7 +1699,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}",
                 HttpMethod.Post,
                 true,
-                false,
+                true,
                 JsonSerializer.Serialize(asset),
                 contentType,
                 includeRawResponse: this.IncludeRawResponses);
@@ -1731,7 +1731,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/{title}/{assetType}/{assetId}/sessions?include-container-sas={includeContainerSas}",
                 HttpMethod.Post,
                 true,
-                false,
+                true,
                 JsonSerializer.Serialize(starter),
                 includeRawResponse: this.IncludeRawResponses);
         }
@@ -1913,7 +1913,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/projects/712add52-f989-48e1-b3bb-ac7cd8a1c17a",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -1930,7 +1930,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/engineGameVariants/{assetId}/versions/{versionId}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -1946,7 +1946,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/engineGameVariants/{assetId}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -1997,7 +1997,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/maps/{assetId}/versions/{versionId}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2035,7 +2035,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/mapModePairs/{assetId}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2051,7 +2051,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/maps/{assetId}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2085,7 +2085,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/playlists/{assetId}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2102,7 +2102,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/prefabs/{assetId}/versions/{versionId}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2118,7 +2118,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/prefabs/{assetId}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2135,7 +2135,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/projects/{assetId}/versions/{versionId}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2151,7 +2151,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/projects/{assetId}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2183,7 +2183,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/ugcGameVariants/{assetId}/versions/{versionId}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2199,7 +2199,7 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/ugcGameVariants/{assetId}",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2234,7 +2234,7 @@ namespace Den.Dev.Orion.Core
                 baseSearchString,
                 HttpMethod.Get,
                 true,
-                false,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2366,11 +2366,12 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The player identifier in the format "xuid(000000)".</param>
         /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
         /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>
+        /// <param name="release">>Release identifier.</param>
         /// <returns>An instance of PlayerClearance if the request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> SettingsGetPlayerClearance(string audience, string player, string sandbox, string buildNumber)
+        public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> SettingsGetPlayerClearance(string audience, string player, string sandbox, string buildNumber, string release)
         {
             return await this.ExecuteAPIRequest<PlayerClearance>(
-                $"https://{HaloCoreEndpoints.SettingsOrigin}.{HaloCoreEndpoints.ServiceDomain}/oban/flight-configurations/titles/hi/audiences/{audience}/players/{player}/active?sandbox={sandbox}&build={buildNumber}",
+                $"https://{HaloCoreEndpoints.SettingsOrigin}.{HaloCoreEndpoints.ServiceDomain}/oban/flight-configurations/titles/hi/audiences/{audience}/players/{player}/active?sandbox={sandbox}&build={buildNumber}&release={release}",
                 HttpMethod.Get,
                 true,
                 false,
