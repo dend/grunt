@@ -36,6 +36,9 @@ namespace Den.Dev.Orion.Core.Foundation
             },
         };
 
+        /// <summary>
+        /// The instance of the HTTP client that handles processing of API requests and responses.
+        /// </summary>
         public HttpClient Client { get; set; } = new HttpClient(new HttpClientHandler
         {
             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli,

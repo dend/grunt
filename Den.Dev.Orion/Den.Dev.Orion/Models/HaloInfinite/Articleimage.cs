@@ -1,4 +1,4 @@
-﻿// <copyright file="ArticleImage.cs" company="Den Delimarsky">
+﻿// <copyright file="Articleimage.cs" company="Den Delimarsky">
 // Developed by Den Delimarsky.
 // Den Delimarsky licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.

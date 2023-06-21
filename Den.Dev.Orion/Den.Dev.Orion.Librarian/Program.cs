@@ -18,7 +18,7 @@ namespace Den.Dev.Orion.Librarian
             Console.WriteLine("Den.Dev.Orion Librarian - Halo Infinite API Indexer");
             Console.WriteLine("Developed by Den Delimarsky in 2022. Part of https://Den.Dev.Orionapi.com");
 
-            Halo5Client client = new(string.Empty, string.Empty);
+            HaloInfiniteClient client = new(string.Empty, string.Empty);
 
             Configuration? container = new();
 

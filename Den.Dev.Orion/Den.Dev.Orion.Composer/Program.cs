@@ -194,40 +194,43 @@ namespace Den.Dev.Orion.Composer
 
         private static void ProcessUncertainAssetData(List<AssetLink>? assets, AssetClass assetClass, SQLiteConnection domain)
         {
-            foreach (var asset in assets)
+            if (assets != null)
             {
-                WriteTimedLogEntry($"Getting {asset.AssetId} with version {asset.VersionId} of class {assetClass}...");
-
-                if (assetClass == AssetClass.Map)
+                foreach (var asset in assets)
                 {
-                    Task.Run(async () =>
-                    {
-                        var container = await haloInfiniteClient.HIUGCDiscoveryGetMap(asset.AssetId.ToString(), asset.VersionId.ToString());
-                        var buildInsertionString = $"INSERT OR REPLACE INTO MapMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
-                        domain.Execute(buildInsertionString, new string[] { container.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
+                    WriteTimedLogEntry($"Getting {asset.AssetId} with version {asset.VersionId} of class {assetClass}...");
 
-                    }).GetAwaiter().GetResult();
-                }
-                else if (assetClass == AssetClass.EngineGameVariant)
-                {
-                    Task.Run(async () =>
+                    if (assetClass == AssetClass.Map)
                     {
-                        var container = await haloInfiniteClient.HIUGCDiscoveryGetEngineGameVariant(asset.AssetId.ToString(), asset.VersionId.ToString());
-                        var buildInsertionString = $"INSERT OR REPLACE INTO EngineGameVariantMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
-                        domain.Execute(buildInsertionString, new string[] { container.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
-                    }).GetAwaiter().GetResult();
-                }
-                else if (assetClass == AssetClass.GameVariant)
-                {
-                    Task.Run(async () =>
-                    {
-                        var container = await haloInfiniteClient.HIUGCDiscoveryGetUgcGameVariant(asset.AssetId.ToString(), asset.VersionId.ToString());
-                        var buildInsertionString = $"INSERT OR REPLACE INTO UgcGameVariantMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
-                        domain.Execute(buildInsertionString, new string[] { container.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
-                    }).GetAwaiter().GetResult();
-                }
+                        Task.Run(async () =>
+                        {
+                            var container = await haloInfiniteClient.HIUGCDiscoveryGetMap(asset.AssetId.ToString(), asset.VersionId.ToString());
+                            var buildInsertionString = $"INSERT OR REPLACE INTO MapMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
+                            domain.Execute(buildInsertionString, new string[] { container.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
 
-                WriteTimedLogEntry($"Asset {asset.AssetId} with version {asset.VersionId} of class {assetClass} stored.");
+                        }).GetAwaiter().GetResult();
+                    }
+                    else if (assetClass == AssetClass.EngineGameVariant)
+                    {
+                        Task.Run(async () =>
+                        {
+                            var container = await haloInfiniteClient.HIUGCDiscoveryGetEngineGameVariant(asset.AssetId.ToString(), asset.VersionId.ToString());
+                            var buildInsertionString = $"INSERT OR REPLACE INTO EngineGameVariantMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
+                            domain.Execute(buildInsertionString, new string[] { container.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
+                        }).GetAwaiter().GetResult();
+                    }
+                    else if (assetClass == AssetClass.GameVariant)
+                    {
+                        Task.Run(async () =>
+                        {
+                            var container = await haloInfiniteClient.HIUGCDiscoveryGetUgcGameVariant(asset.AssetId.ToString(), asset.VersionId.ToString());
+                            var buildInsertionString = $"INSERT OR REPLACE INTO UgcGameVariantMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
+                            domain.Execute(buildInsertionString, new string[] { container.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
+                        }).GetAwaiter().GetResult();
+                    }
+
+                    WriteTimedLogEntry($"Asset {asset.AssetId} with version {asset.VersionId} of class {assetClass} stored.");
+                }
             }
         }
 
