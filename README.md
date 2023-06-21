@@ -1,4 +1,4 @@
-![Den.Dev.Orion logo](../media/orion-logo.png)
+![Den.Dev.Orion logo](media/orion-logo.png)
 
 # 🪐 Orion - The Halo API Wrapper
 
