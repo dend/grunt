@@ -2,9 +2,12 @@
 
 # 🪐 Orion - The Halo API Wrapper
 
-Welcome to **Den.Dev.Orion API** - the unofficial way to use official undocumented Halo APIs. Here be **a lot of dragons**. I mostly created this project for my own stat tracking and it will never be public.
+Welcome to **Den.Dev.Orion API** - the unofficial way to use official undocumented Halo APIs. Here be **a lot of dragons**. I created this project for my own stat tracking and it will never be public.
 
-This API enables you to:
+>**Note**
+>This project is an internal library that is not meant for broad developer audience consumption. It's used primarily for the OpenSpartan suite of applications.
+
+This API enables a developer to:
 
 - Get stats on matches you played.
 - Get your personal player stats.
