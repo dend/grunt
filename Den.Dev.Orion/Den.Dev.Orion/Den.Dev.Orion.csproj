@@ -2,11 +2,11 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<PackageProjectUrl>https://Den.Dev.Orionapi.com</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/openspartan/Den.Dev.Orion</RepositoryUrl>
+		<PackageProjectUrl>https://openspartan.com</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/dend/orion</RepositoryUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageTags>halo,halo-api,api,halo-infinite,halo-mcc,halo-5,halo-wars,halo-4</PackageTags>
-		<PackageIcon>Den.Dev.Orion-logo.png</PackageIcon>
+		<PackageIcon>orion-logo.png</PackageIcon>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<TransformOnBuild>true</TransformOnBuild>
 		<TransformOutOfDateOnly>false</TransformOutOfDateOnly>
@@ -17,7 +17,7 @@
 		<Company>Den Delimarsky</Company>
 		<Product>$(AssemblyName)</Product>
 		<Description>An unofficial wrapper for the Halo APIs. Currently supports the full API stack for Halo Infinite.</Description>
-		<Copyright>2022 by Den Delimarsky</Copyright>
+		<Copyright>2023 by Den Delimarsky</Copyright>
 		<PackageReleaseNotes>Initial release of the Den.Dev.Orion package.</PackageReleaseNotes>
 		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
@@ -38,6 +38,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Include="..\..\media\orion-logo.png">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\..\README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
