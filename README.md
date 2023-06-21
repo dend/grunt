@@ -28,10 +28,10 @@ And more!
 
 ## Components
 
-| Component | Description |
-|:----------|:------------|
-| `Den.Dev.Orion` | The core library, written in C#, that wraps the Halo Infinite web APIs. |
-| `Den.Dev.Orion.Zeta` | Experimental ground for the Den.Dev.Orion library. It's a project where wrapped APIs from Den.Dev.Orion are tested in a more real scenario. |
+| Component                 | Description |
+|:--------------------------|:------------|
+| `Den.Dev.Orion`           | The core library, written in C#, that wraps the Halo Infinite web APIs. |
+| `Den.Dev.Orion.Zeta`      | Experimental ground for the Den.Dev.Orion library. It's a project where wrapped APIs from Den.Dev.Orion are tested in a more real scenario. |
 | `Den.Dev.Orion.Librarian` | Tool used to auto-generate code stubs for Halo Infinite API endpoints. It's a very "brute"-ish way to produce the code, but it works for now. |
 
 ## Setup & usage
