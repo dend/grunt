@@ -37,7 +37,7 @@ namespace Den.Dev.Orion.Core.Foundation
         };
 
         /// <summary>
-        /// The instance of the HTTP client that handles processing of API requests and responses.
+        /// Gets or sets the instance of the HTTP client that handles processing of API requests and responses.
         /// </summary>
         public HttpClient Client { get; set; } = new HttpClient(new HttpClientHandler
         {
@@ -73,7 +73,6 @@ namespace Den.Dev.Orion.Core.Foundation
         /// <param name="method">HTTP method to be used for the request.</param>
         /// <param name="useSpartanToken">Determines whether a Spartan token needs to be applied to teh request.</param>
         /// <param name="useClearance">Determines whether a clearance/flight ID needs to be applied to the request.</param>
-        /// <param name="userAgent">User agent to be used for the request.</param>
         /// <param name="content">If the request contains data to be sent to the Halo Waypoint service, include it here. Expected format is JSON.</param>
         /// <param name="contentType">Content type for POST requests. By default it's `application/json`.</param>
         /// <param name="includeRawResponse">Determines whether a raw response will be returned with the result. Disabled by default.</param>
@@ -119,7 +118,7 @@ namespace Den.Dev.Orion.Core.Foundation
                 request.Headers.Add("343-clearance", this.ClearanceToken);
             }
 
-            var response = await Client.SendAsync(request);
+            var response = await this.Client.SendAsync(request);
 
             resultContainer.Response!.Code = Convert.ToInt32(response.StatusCode);
 

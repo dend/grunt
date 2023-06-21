@@ -647,6 +647,22 @@ namespace Den.Dev.Orion.Core
                 includeRawResponse: this.IncludeRawResponses);
         }
 
+        /// <summary>
+        /// Gets or sets the store customization offers available for a player.
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetCustomizationStore.xml' path='//example'/>
+        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <returns>If successful, returns an instance of <see cref="StoreItem"/>. Otherwise, returns null.</returns>
+        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyGetCustomizationStore (string player)
+        {
+            return await this.ExecuteAPIRequest<StoreItem>(
+                $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/stores/customizationoffers",
+                HttpMethod.Get,
+                true,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
         // ================================================
         // GameCms
         // ================================================
@@ -1217,23 +1233,6 @@ namespace Den.Dev.Orion.Core
                 true,
                 false,
                 JsonSerializer.Serialize(permission),
-                includeRawResponse: this.IncludeRawResponses);
-        }
-
-        /// <summary>
-        /// Favorites a film to a player's account based on a match ID.
-        /// </summary>
-        /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_FavoriteAFilmByMatchId.xml' path='//example'/>
-        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
-        /// <param name="matchId">Unique match ID.</param>
-        /// <returns>If successful, returns an instance of <see cref="AssetActionResult"/> representing the favorited film. Otherwise, returns a null result object with attached error details.</returns>
-        public async Task<HaloApiResultContainer<AssetActionResult, RawResponseContainer>> HIUGCFavoriteAFilmByMatchId(string player, string matchId)
-        {
-            return await this.ExecuteAPIRequest<AssetActionResult>(
-                $"https://{HaloCoreEndpoints.AuthoringOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/favorites/films/matches/{matchId}",
-                HttpMethod.Put,
-                true,
-                false,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -1864,7 +1863,23 @@ namespace Den.Dev.Orion.Core
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/projects/bf0e9bab-6fed-47a4-8bf7-bfd4422ee552",
                 HttpMethod.Get,
                 true,
-                false,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
+        /// <summary>
+        /// Gets the collection of community assets.
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetCommunityTab.xml' path='//example'/>
+        /// <remarks>Important to note that the API currently does not return a viable result while being listed in the endpoint configuration.</remarks>
+        /// <returns>If successful, returns an instance of <see cref="Project"/> containing the list of assets in the community tab. Otherwise, returns a null object along with error details.</returns>
+        public async Task<HaloApiResultContainer<Project, RawResponseContainer>> HIUGCDiscoveryGetCommunityTab()
+        {
+            return await this.ExecuteAPIRequest<Project>(
+                $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/projects/90f9e508-99ce-411c-bf88-7bf12b5e9f52",
+                HttpMethod.Get,
+                true,
+                true,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2331,11 +2346,12 @@ namespace Den.Dev.Orion.Core
         /// <param name="audience">Audience that the request is targeting. Standard value is RETAIL.</param>
         /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
         /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>
+        /// <param name="release">Release identifier.</param>
         /// <returns>An instance of PlayerClearance if the request is successful. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> SettingsGetClearance(string audience, string sandbox, string buildNumber)
+        public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> SettingsGetClearance(string audience, string sandbox, string buildNumber, string release)
         {
             return await this.ExecuteAPIRequest<PlayerClearance>(
-                $"https://{HaloCoreEndpoints.SettingsOrigin}.{HaloCoreEndpoints.ServiceDomain}/oban/flight-configurations/titles/hi/audiences/{audience}/active?sandbox={sandbox}&build={buildNumber}",
+                $"https://{HaloCoreEndpoints.SettingsOrigin}.{HaloCoreEndpoints.ServiceDomain}/oban/flight-configurations/titles/hi/audiences/{audience}/active?sandbox={sandbox}&build={buildNumber}&release={release}",
                 HttpMethod.Get,
                 true,
                 false,

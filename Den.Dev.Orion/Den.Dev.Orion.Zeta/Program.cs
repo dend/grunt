@@ -99,7 +99,9 @@ namespace Den.Dev.Orion.Zeta
             string localClearance = string.Empty;
             Task.Run(async () =>
             {
-                var clearance = (await client.SettingsGetClearance("RETAIL", "UNUSED", "222249.22.06.08.1730-0")).Result;
+                // Previous build values:
+                // - 222249.22.06.08.1730-0
+                var clearance = (await client.SettingsGetClearance("RETAIL", "UNUSED", "245613.23.06.01.1708-0", "1.4")).Result;
                 if (clearance != null)
                 {
                     localClearance = clearance.FlightConfigurationId;
@@ -114,29 +116,35 @@ namespace Den.Dev.Orion.Zeta
 
             Task.Run(async () =>
             {
-                var serviceRecord = (await client.StatsGetPlayerServiceRecord("zebond", LifecycleMode.Matchmade))!.Result;
+                var storeData = (await client.EconomyGetCustomizationStore("xuid(2533274855333605)"));
+                Console.WriteLine("Got customization data!");
+            });
 
-                if (serviceRecord != null && serviceRecord.Subqueries != null && serviceRecord.Subqueries.PlaylistAssetIds != null)
-                {
-                    foreach (var playlist in serviceRecord.Subqueries.PlaylistAssetIds)
-                    {
-                        var playlistConfiguration = (await client.GameCmsGetMultiplayerPlaylistConfiguration($"{playlist}.json")).Result;
-                        if (playlistConfiguration != null)
-                        {
-                            Console.WriteLine($"Playlist configration for {playlist} obtained.");
-                            var playlistAssetManifest = (await client.HIUGCDiscoveryGetPlaylist(playlist.ToString(), playlistConfiguration.UgcPlaylistVersion.ToString(), client.ClearanceToken)).Result;
-                            if (playlistAssetManifest != null && playlistAssetManifest.RotationEntries != null)
-                            {
-                                foreach (var rotationEntry in playlistAssetManifest.RotationEntries)
-                                {
-                                    Console.WriteLine($"{rotationEntry.PublicName} has weight of {rotationEntry.Metadata!.Weight}");
-                                }
-                            }
-                        }
-                    }
-                }
-                Console.WriteLine("Got service record.");
-            }).GetAwaiter().GetResult();
+            //Task.Run(async () =>
+            //{
+            //    var serviceRecord = (await client.StatsGetPlayerServiceRecord("zebond", LifecycleMode.Matchmade))!.Result;
+
+            //    if (serviceRecord != null && serviceRecord.Subqueries != null && serviceRecord.Subqueries.PlaylistAssetIds != null)
+            //    {
+            //        foreach (var playlist in serviceRecord.Subqueries.PlaylistAssetIds)
+            //        {
+            //            var playlistConfiguration = (await client.GameCmsGetMultiplayerPlaylistConfiguration($"{playlist}.json")).Result;
+            //            if (playlistConfiguration != null)
+            //            {
+            //                Console.WriteLine($"Playlist configration for {playlist} obtained.");
+            //                var playlistAssetManifest = (await client.HIUGCDiscoveryGetPlaylist(playlist.ToString(), playlistConfiguration.UgcPlaylistVersion.ToString(), client.ClearanceToken)).Result;
+            //                if (playlistAssetManifest != null && playlistAssetManifest.RotationEntries != null)
+            //                {
+            //                    foreach (var rotationEntry in playlistAssetManifest.RotationEntries)
+            //                    {
+            //                        Console.WriteLine($"{rotationEntry.PublicName} has weight of {rotationEntry.Metadata!.Weight}");
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //    Console.WriteLine("Got service record.");
+            //}).GetAwaiter().GetResult();
 
             //Task.Run(async () =>
             //{

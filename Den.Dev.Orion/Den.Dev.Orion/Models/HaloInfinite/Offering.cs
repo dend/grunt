@@ -69,5 +69,10 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Gets or sets match boosts.
         /// </summary>
         public dynamic? MatchBoosts { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reward track adjustments.
+        /// </summary>
+        public dynamic? RewardTrackAdjustments { get; set; }
     }
 }
