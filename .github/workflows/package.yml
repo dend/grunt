@@ -30,7 +30,7 @@ jobs:
     - name: Verify commit exists in origin/main
       run: |
         git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
-        git branch --remote --contains | grep origin/main
+        git branch --remote --contains | grep origin/master
     - name: Build
       working-directory: ./Den.Dev.Orion/Den.Dev.Orion
       run: dotnet build --configuration Release
