@@ -653,10 +653,33 @@ namespace Den.Dev.Orion.Core
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetCustomizationStore.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
         /// <returns>If successful, returns an instance of <see cref="StoreItem"/>. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyGetCustomizationStore (string player)
+        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyGetCustomizationStore(string player)
         {
             return await this.ExecuteAPIRequest<StoreItem>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/stores/customizationoffers",
+                HttpMethod.Get,
+                true,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
+        /// <summary>
+        /// Gets the player career progression status.
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetPlayerCareerRank.xml' path='//example'/>
+        /// <param name="players">List of players, where each player is represented by a unique player ID in the format of xuid(YOUR_XUID).</param>
+        /// <param name="careerPathId">Unique identifier for the career path. Example value is "careerRank1".</param>
+        /// <returns>If successful, returns an instance of <see cref="RewardTrackResultContainer"/>. Otherwise, returns null with associated error details in <see cref="RawResponseContainer"/> within the result.</returns>
+        public async Task<HaloApiResultContainer<RewardTrackResultContainer, RawResponseContainer>> EconomyGetPlayerCareerRank(List<string> players, string careerPathId)
+        {
+            var formattedPlayerList = string.Empty;
+            if (players != null && players.Count > 0)
+            {
+                formattedPlayerList = string.Join(",", players);
+            }
+
+            return await this.ExecuteAPIRequest<RewardTrackResultContainer>(
+                $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/careerranks/{careerPathId}?players={formattedPlayerList}",
                 HttpMethod.Get,
                 true,
                 true,
@@ -1044,6 +1067,22 @@ namespace Den.Dev.Orion.Core
         {
             return await this.ExecuteAPIRequest<SeasonRewardTrack>(
                 $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/{seasonPath}?flight={flightId}",
+                HttpMethod.Get,
+                true,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
+        /// <summary>
+        /// Gets the list of available career ranks for a given career path ID.
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetCareerRanks.xml' path='//example'/>
+        /// <param name="careerPathId">Unique identifier for the career path. Example value is "careerRank1".</param>
+        /// <returns>If successful, returns an instance of <see cref="CareerTrackContainer"/>. Otherwise, returns null with associated error details in <see cref="RawResponseContainer"/> within the result.</returns>
+        public async Task<HaloApiResultContainer<CareerTrackContainer, RawResponseContainer>> GameCmsGetCareerRanks(string careerPathId)
+        {
+            return await this.ExecuteAPIRequest<CareerTrackContainer>(
+                $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/RewardTracks/CareerRanks/{careerPathId}.json",
                 HttpMethod.Get,
                 true,
                 true,

@@ -6,6 +6,7 @@ using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Den.Dev.Orion.Models.HaloInfinite;
+using System.Collections.Generic;
 
 namespace Den.Dev.Orion.Zeta
 {
@@ -116,9 +117,9 @@ namespace Den.Dev.Orion.Zeta
 
             Task.Run(async () =>
             {
-                var storeData = (await client.EconomyGetCustomizationStore("xuid(2533274855333605)"));
+                var storeData = (await client.GameCmsGetCareerRanks("careerRank1"));
                 Console.WriteLine("Got customization data!");
-            });
+            }).GetAwaiter().GetResult();
 
             //Task.Run(async () =>
             //{
