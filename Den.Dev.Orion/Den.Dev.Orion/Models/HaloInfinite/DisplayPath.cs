@@ -42,5 +42,15 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Gets or sets the item file name.
         /// </summary>
         public string? FileName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the caption if the file is an image.
+        /// </summary>
+        public string? Caption { get; set; }
+
+        /// <summary>
+        /// Gets or sets the alternate text if the file is an image.
+        /// </summary>
+        public string? AlternateText { get; set; }
     }
 }

@@ -39,5 +39,10 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Gets or sets a list of available in-game item configurations.
         /// </summary>
         public List<InGameItemConfiguration>? AvailableConfigurations { get; set; }
+
+        /// <summary>
+        /// Gets or sets the media display path if the file is an image.
+        /// </summary>
+        public DisplayPath? ImagePath { get; set; }
     }
 }
