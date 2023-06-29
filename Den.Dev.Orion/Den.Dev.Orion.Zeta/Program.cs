@@ -117,7 +117,9 @@ namespace Den.Dev.Orion.Zeta
 
             Task.Run(async () =>
             {
-                var storeData = (await client.GameCmsGetCareerRanks("careerRank1"));
+                var emblem = await client.GameCmsGetItem("Inventory/Spartan/Emblems/104-001-cp-chibinerfn-66459761.json", client.ClearanceToken);
+
+                var settings = await client.GetApiSettingsContainer();
                 Console.WriteLine("Got customization data!");
             }).GetAwaiter().GetResult();
 
