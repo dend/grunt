@@ -18,7 +18,7 @@ namespace Den.Dev.Orion.Models
         public int Code { get; set; }
 
         /// <summary>
-        /// Gets or sets the error message returned by the API.
+        /// Gets or sets the message returned by the API. If the request is successful, the message is the response in raw format.
         /// </summary>
         public string? Message { get; set; }
     }

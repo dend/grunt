@@ -58,7 +58,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the Kill/Death/Assist (KDA) ratio.
         /// </summary>
-        public float KDA { get; set; }
+        public float AverageKDA { get; set; }
 
         /// <summary>
         /// Gets or sets the number of suicides.
