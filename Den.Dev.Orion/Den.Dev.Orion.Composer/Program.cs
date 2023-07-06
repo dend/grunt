@@ -6,12 +6,8 @@ using Den.Dev.Orion.Models.HaloInfinite;
 using Den.Dev.Orion.Util;
 using SQLite;
 using System.CommandLine;
-using System.CommandLine.Invocation;
 using System.Globalization;
-using System.IO;
-using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Text.RegularExpressions;
 
 namespace Den.Dev.Orion.Composer
 {
