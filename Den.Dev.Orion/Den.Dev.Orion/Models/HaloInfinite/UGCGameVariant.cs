@@ -22,5 +22,10 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Additional research is needed to understand what metadata can be injected here.
         /// </remarks>
         public dynamic? CustomData { get; set; }
+
+        /// <summary>
+        /// Gets or sets the associated engine game variant.
+        /// </summary>
+        public EngineGameVariant? EngineGameVariantLink { get; set; }
     }
 }
