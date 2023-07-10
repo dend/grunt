@@ -117,9 +117,10 @@ namespace Den.Dev.Orion.Zeta
 
             Task.Run(async () =>
             {
-                var emblem = await client.GameCmsGetItem("Inventory/Spartan/Emblems/104-001-cp-chibinerfn-66459761.json", client.ClearanceToken);
+                //var emblem = await client.GameCmsGetItem("Inventory/Spartan/Emblems/104-001-cp-chibinerfn-66459761.json", client.ClearanceToken);
 
-                var settings = await client.GetApiSettingsContainer();
+                //var settings = await client.GetApiSettingsContainer();
+                var mapData = await client.HIUGCDiscoveryGetMap("f0a1760f-0d4a-4bcc-ac7a-e8f9aee331dc", "fdfe6f2d-4ac0-4ddd-94a1-a165f54586a7");
                 Console.WriteLine("Got customization data!");
             }).GetAwaiter().GetResult();
 
