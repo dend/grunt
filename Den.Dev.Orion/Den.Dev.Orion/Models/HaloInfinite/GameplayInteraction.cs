@@ -1,4 +1,4 @@
-﻿// <copyright file="PlaylistExperience.cs" company="Den Delimarsky">
+﻿// <copyright file="GameplayInteraction.cs" company="Den Delimarsky">
 // Developed by Den Delimarsky.
 // Den Delimarsky licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
@@ -8,23 +8,14 @@
 namespace Den.Dev.Orion.Models.HaloInfinite
 {
     /// <summary>
-    /// Playlist experience associated with a given match.
+    /// Type of interaction in a match.
     /// </summary>
-    public enum PlaylistExperience
+    [IsAutomaticallySerializable]
+    public enum GameplayInteraction
     {
         /// <summary>
-        /// Arena experience.
+        /// Player versus player.
         /// </summary>
-        Arena = 2,
-
-        /// <summary>
-        /// Big team battle.
-        /// </summary>
-        BTB = 3,
-
-        /// <summary>
-        /// Featured series experience.
-        /// </summary>
-        Featured = 5,
+        Pvp = 1,
     }
 }

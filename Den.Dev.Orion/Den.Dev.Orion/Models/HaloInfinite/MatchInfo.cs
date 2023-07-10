@@ -94,5 +94,10 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Gets or sets a value indicating whether team scoring is enabled.
         /// </summary>
         public bool? TeamScoringEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the gameplay interaction mode for a specific match.
+        /// </summary>
+        public GameplayInteraction? GameplayInteraction { get; set; }
     }
 }
