@@ -49,12 +49,12 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         public int SortingWeight { get; set; }
 
         /// <summary>
-        /// Gets or sets the difficulty index.
+        /// Gets or sets the difficulty index, mapped to the difficulties property in the medal metadata blob.
         /// </summary>
         public int DifficultyIndex { get; set; }
 
         /// <summary>
-        /// Gets or sets the type index.
+        /// Gets or sets the type index, mapped to the types property in the medal metadata blob.
         /// </summary>
         public int TypeIndex { get; set; }
 
