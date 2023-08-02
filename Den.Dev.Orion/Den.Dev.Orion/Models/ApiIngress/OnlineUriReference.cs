@@ -5,7 +5,6 @@
 // The underlying API powering Den.Dev.Orion is managed by 343 Industries and Microsoft. This wrapper is not endorsed by 343 Industries or Microsoft.
 // </copyright>
 
-using Den.Dev.Orion.Converters;
 using System.Text.Json.Serialization;
 
 namespace Den.Dev.Orion.Models.ApiIngress

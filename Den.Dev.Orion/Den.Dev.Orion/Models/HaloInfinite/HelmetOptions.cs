@@ -1,31 +1,28 @@
-﻿// <copyright file="Emblem.cs" company="Den Delimarsky">
+﻿// <copyright file="HelmetOptions.cs" company="Den Delimarsky">
 // Developed by Den Delimarsky.
 // Den Delimarsky licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 // The underlying API powering Den.Dev.Orion is managed by 343 Industries and Microsoft. This wrapper is not endorsed by 343 Industries or Microsoft.
 // </copyright>
 
+using Den.Dev.Orion.Models.HaloInfinite.Foundation;
+
 namespace Den.Dev.Orion.Models.HaloInfinite
 {
     /// <summary>
-    /// Player emblem.
+    /// Class for helmet configuration.
     /// </summary>
     [IsAutomaticallySerializable]
-    public class Emblem
+    public class HelmetOptions : ArmorConfigurationOptionsBase
     {
         /// <summary>
-        /// Gets or sets the emblem path.
+        /// Gets or sets the helmet path.
         /// </summary>
-        public string? EmblemPath { get; set; }
+        public string? HelmetPath { get; set; }
 
         /// <summary>
-        /// Gets or sets the configuration ID.
+        /// Gets or sets the helmet attachments.
         /// </summary>
-        public int ConfigurationId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the emblem path. Alternative to <see cref="EmblemPath"/>, which needs to be validated.
-        /// </summary>
-        public string? Path { get; set; }
+        public StandardConfigurationOptions? HelmetAttachments { get; set; }
     }
 }

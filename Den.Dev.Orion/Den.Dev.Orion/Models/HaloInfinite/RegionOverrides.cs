@@ -1,31 +1,33 @@
-﻿// <copyright file="Emblem.cs" company="Den Delimarsky">
+﻿// <copyright file="RegionOverrides.cs" company="Den Delimarsky">
 // Developed by Den Delimarsky.
 // Den Delimarsky licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 // The underlying API powering Den.Dev.Orion is managed by 343 Industries and Microsoft. This wrapper is not endorsed by 343 Industries or Microsoft.
 // </copyright>
 
+using System.Collections.Generic;
+
 namespace Den.Dev.Orion.Models.HaloInfinite
 {
     /// <summary>
-    /// Player emblem.
+    /// Class for region overrides.
     /// </summary>
     [IsAutomaticallySerializable]
-    public class Emblem
+    public class RegionOverrides
     {
         /// <summary>
-        /// Gets or sets the emblem path.
+        /// Gets or sets the full override.
         /// </summary>
-        public string? EmblemPath { get; set; }
+        public List<RegionMetadata>? Full { get; set; }
 
         /// <summary>
-        /// Gets or sets the configuration ID.
+        /// Gets or sets half overrides.
         /// </summary>
-        public int ConfigurationId { get; set; }
+        public List<RegionMetadata>? Half { get; set; }
 
         /// <summary>
-        /// Gets or sets the emblem path. Alternative to <see cref="EmblemPath"/>, which needs to be validated.
+        /// Gets or sets extremity overrides.
         /// </summary>
-        public string? Path { get; set; }
+        public List<RegionMetadata>? Extremity { get; set; }
     }
 }
