@@ -63,22 +63,22 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the sprite bitmap index.
         /// </summary>
-        public int SpriteBitmap { get; set; }
+        public int? SpriteBitmap { get; set; }
 
         /// <summary>
         /// Gets or sets the sprite frame index.
         /// </summary>
-        public int SpriteFrameIndex { get; set; }
+        public int? SpriteFrameIndex { get; set; }
 
         /// <summary>
         /// Gets or sets the alternative sprite bitmap index.
         /// </summary>
-        public int AltSpriteBitmap { get; set; }
+        public int? AltSpriteBitmap { get; set; }
 
         /// <summary>
         /// Gets or sets the alternative sprite frame index.
         /// </summary>
-        public int AltSpriteFrameIndex { get; set; }
+        public int? AltSpriteFrameIndex { get; set; }
 
         /// <summary>
         /// Gets or sets the display path for the item.
@@ -93,7 +93,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the item manufacturer ID.
         /// </summary>
-        public int ManufacturerId { get; set; }
+        public int? ManufacturerId { get; set; }
 
         /// <summary>
         /// Gets or sets the item type.
@@ -118,12 +118,12 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the item acquisition season number.
         /// </summary>
-        public int SeasonNumber { get; set; }
+        public int? SeasonNumber { get; set; }
 
         /// <summary>
         /// Gets or sets the item release season number.
         /// </summary>
-        public int OriginalSeasonNumber { get; set; }
+        public int? OriginalSeasonNumber { get; set; }
 
         /// <summary>
         /// Gets or sets the season string. Includes translated strings.

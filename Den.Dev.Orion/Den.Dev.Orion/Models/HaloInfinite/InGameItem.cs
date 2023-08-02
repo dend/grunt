@@ -18,12 +18,22 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the tag ID.
         /// </summary>
-        public int TagId { get; set; }
+        public int? TagId { get; set; }
 
         /// <summary>
         /// Gets or sets the theme name.
         /// </summary>
         public IdentifierName? ThemeName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the style ID. Used with vehicle coatings.
+        /// </summary>
+        public IdentifierName? StyleId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the region part ID. Used with vehicle coatings.
+        /// </summary>
+        public IdentifierName? RegionPartId { get; set; }
 
         /// <summary>
         /// Gets or sets the emblem shader name.
@@ -44,5 +54,25 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Gets or sets the media display path if the file is an image.
         /// </summary>
         public DisplayPath? ImagePath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the lightning scalar override. Used with vehicle coatings.
+        /// </summary>
+        public int? LightingScalarOverride { get; set; }
+
+        /// <summary>
+        /// Gets or sets part region data. Used with armor components.
+        /// </summary>
+        public List<RegionMetadata>? RegionData { get; set; }
+
+        /// <summary>
+        /// Gets or sets the marker location. Used with hip attachments.
+        /// </summary>
+        public MarkerLocation? MarkerLocation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mesh index. Used with hip attachments.
+        /// </summary>
+        public int? MeshIndex { get; set; }
     }
 }
