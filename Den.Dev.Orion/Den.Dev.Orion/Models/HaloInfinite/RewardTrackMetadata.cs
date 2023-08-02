@@ -63,11 +63,16 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the week number.
         /// </summary>
-        public int WeekNumber { get; set; }
+        public int? WeekNumber { get; set; }
 
         /// <summary>
         /// Gets or sets the path to the background image for the reward track.
         /// </summary>
         public string? BackgroundImagePath { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the event is hidden if not owned by the player.
+        /// </summary>
+        public bool? HideIfNotOwned { get; set; }
     }
 }
