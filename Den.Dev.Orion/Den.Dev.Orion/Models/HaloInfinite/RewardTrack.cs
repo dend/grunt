@@ -41,11 +41,11 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the base amount of experience (XP) awarded with the reward track.
         /// </summary>
-        public int BaseXp { get; set; }
+        public int? BaseXp { get; set; }
 
         /// <summary>
         /// Gets or sets the boost experience (XP) amount awarded with the reward track.
         /// </summary>
-        public int BoostXp { get; set; }
+        public int? BoostXp { get; set; }
     }
 }
