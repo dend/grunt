@@ -18,7 +18,7 @@ namespace Den.Dev.Orion.Models
         /// <summary>
         /// Gets or sets the location ID.
         /// </summary>
-        public string? LocationId { get; set; }
+        public int? LocationId { get; set; }
         
         /// <summary>
         /// gets or sets the default emblem option.
