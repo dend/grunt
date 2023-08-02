@@ -23,7 +23,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the list of operation reward tracks.
         /// </summary>
-        public List<RewardTrackMetadata>? OperationRewardTracks { get; set; }
+        public List<RewardTrack>? OperationRewardTracks { get; set; }
 
         /// <summary>
         /// Gets or sets the path for a scheduled operation reward track.
