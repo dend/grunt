@@ -129,5 +129,117 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Gets or sets the season string. Includes translated strings.
         /// </summary>
         public DisplayString? Season { get; set; }
+
+        /// <summary>
+        /// Gets or sets the focus marker.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public IdentifierName? FocusMarker { get; set; }
+
+        /// <summary>
+        /// Gets or sets the focal distance.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public int? FocalDistance { get; set; }
+
+        /// <summary>
+        /// Gets or sets the focus marker offset.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public int? FocusMarkerOffset { get; set; }
+
+        /// <summary>
+        /// Gets or sets the depth of field type.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public string? DOFType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the depth of field focal length.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public int? DOFFocalLength { get; set; }
+
+        /// <summary>
+        /// Gets or sets the depth of field focal distance.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public int? DOFFocalDistance { get; set; }
+
+        /// <summary>
+        /// Gets or sets the depth of field F stop.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public int? DOFFStop { get; set; }
+
+        /// <summary>
+        /// Gets or sets the camera positions.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public List<object>? CameraPositions { get; set; }
+
+        /// <summary>
+        /// Gets or sets the camera offset.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public int? CameraOffset { get; set; }
+
+        /// <summary>
+        /// Gets or sets the camera field of view.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public int? CameraFOV { get; set; }
+
+        /// <summary>
+        /// Gets or sets the camera transition.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public int? CameraTransition { get; set; }
+
+        /// <summary>
+        /// Gets or sets the orientation.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public Vector? Orientation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the focused object orientation.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public Vector? FocusedObjectOrientation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the parent theme.
+        /// </summary>
+        /// <remarks>
+        /// Used with alternate geometry items such as "inventory/Weapon/AlternateGeos/210-000-cqs48-mode-l-b7a3960d.json".
+        /// </remarks>
+        public string? ParentTheme { get; set; }
     }
 }

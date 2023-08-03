@@ -164,5 +164,30 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Gets or sets the kit base theme path.
         /// </summary>
         public string? KitBaseThemePath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stance ID.
+        /// </summary>
+        public IdentifierName? StanceId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the weapon tag ID.
+        /// </summary>
+        public int? WeaponTagId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the effect IDs.
+        /// </summary>
+        public List<int>? FxIds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the effect cotnent type.
+        /// </summary>
+        public string? FxContentType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the composer scene name.
+        /// </summary>
+        public IdentifierName? ComposerSceneName { get; set; }
     }
 }
