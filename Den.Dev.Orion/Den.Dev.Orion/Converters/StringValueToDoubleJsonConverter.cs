@@ -17,7 +17,7 @@ namespace Den.Dev.Orion.Converters
     /// <remarks>
     /// This originates from the call to /hi/matches/MATCH_ID/skill where there's a chance that the expected number or the standard deviation can be "NaN".
     /// </remarks>
-    internal class StringValueToDoubleJsonConverter : JsonConverter<double?>
+    public class StringValueToDoubleJsonConverter : JsonConverter<double?>
     {
         /// <summary>
         /// Read content from the JSON parser.

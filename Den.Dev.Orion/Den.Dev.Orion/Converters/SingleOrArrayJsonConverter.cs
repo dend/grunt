@@ -16,7 +16,7 @@ namespace Den.Dev.Orion.Converters
     /// Ensures that objects are consistently cast as an array even if only a single object is passed.
     /// </summary>
     /// <typeparam name="T">Type to be cast to.</typeparam>
-    internal class SingleOrArrayJsonConverter<T> : JsonConverter<List<T>>
+    public class SingleOrArrayJsonConverter<T> : JsonConverter<List<T>>
     {
         /// <summary>
         /// Determines whether the type can be properly converted to the target type.

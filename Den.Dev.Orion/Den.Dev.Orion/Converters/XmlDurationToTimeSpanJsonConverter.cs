@@ -15,7 +15,7 @@ namespace Den.Dev.Orion.Converters
     /// <summary>
     /// Helper class used for conversion of XML duration into standard time span.
     /// </summary>
-    internal class XmlDurationToTimeSpanJsonConverter : JsonConverter<TimeSpan>
+    public class XmlDurationToTimeSpanJsonConverter : JsonConverter<TimeSpan>
     {
         /// <summary>
         /// Read the XML duration.

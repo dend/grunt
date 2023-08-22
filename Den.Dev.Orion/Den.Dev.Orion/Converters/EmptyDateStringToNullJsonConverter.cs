@@ -15,7 +15,7 @@ namespace Den.Dev.Orion.Converters
     /// Converts an empty date string to a null. 343i is returning some ISO8601 dates that we wrap in <see cref="Models.APIFormattedDate"/> as empty,
     /// which in turn breaks System.Text.Json deserialization.
     /// </summary>
-    internal class EmptyDateStringToNullJsonConverter : JsonConverter<DateTime?>
+    public class EmptyDateStringToNullJsonConverter : JsonConverter<DateTime?>
     {
         /// <summary>
         /// Read content from the JSON parser.
