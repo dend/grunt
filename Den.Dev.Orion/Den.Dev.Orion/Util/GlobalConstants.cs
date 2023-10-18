@@ -25,7 +25,7 @@ namespace Den.Dev.Orion.Util
         /// <summary>
         /// Halo Infinite PC game user agent used for outbound HTTP API requests.
         /// </summary>
-        internal static readonly string HALO_PC_USER_AGENT = "SHIVA-2043073184/6.10021.18539.0 (release; PC)";
+        internal static readonly string HALO_PC_USER_AGENT = "SHIVA-2043073184/6.10025.10367.0 (release; PC)";
 
         /// <summary>
         /// Default scopes used for the Xbox Live authentication.

@@ -695,7 +695,7 @@ namespace Den.Dev.Orion.Core
         /// Gets the fallback playlist for the Play Now button.
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetAchievements.xml' path='//example'/>
-        /// <returns></returns>
+        /// <returns>If successful, returns an instance of <see cref="FallbackPlaylist"/>. Otherwise, returns null with a description of the error.</returns>
         public async Task<HaloApiResultContainer<FallbackPlaylist, RawResponseContainer>> GameCmsGetPlayNowButtonSettings()
         {
             return await this.ExecuteAPIRequest<FallbackPlaylist>(
