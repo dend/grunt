@@ -517,11 +517,12 @@ namespace Den.Dev.Orion.Core
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_PlayerOperations.xml' path='//example'/>
         /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="flightId">The unique ID for the currently active flight.</param>
         /// <returns>If successful, returns an instance of OperationRewardTrackSnapshot containing battle pass information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<OperationRewardTrackSnapshot, RawResponseContainer>> EconomyPlayerOperations(string player)
+        public async Task<HaloApiResultContainer<OperationRewardTrackSnapshot, RawResponseContainer>> EconomyPlayerOperations(string player, string flightId)
         {
             return await this.ExecuteAPIRequest<OperationRewardTrackSnapshot>(
-                $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/rewardtracks/operations",
+                $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/rewardtracks/operations?flight={flightId}",
                 HttpMethod.Get,
                 true,
                 true,
@@ -689,6 +690,21 @@ namespace Den.Dev.Orion.Core
         // ================================================
         // GameCms
         // ================================================
+
+        /// <summary>
+        /// Gets the fallback playlist for the Play Now button.
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetAchievements.xml' path='//example'/>
+        /// <returns></returns>
+        public async Task<HaloApiResultContainer<FallbackPlaylist, RawResponseContainer>> GameCmsGetPlayNowButtonSettings()
+        {
+            return await this.ExecuteAPIRequest<FallbackPlaylist>(
+                $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Multiplayer/file/playlists/playNowButton/settings.json",
+                HttpMethod.Get,
+                true,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
 
         /// <summary>
         /// Returns the collection of available achievements to unlock in the game.

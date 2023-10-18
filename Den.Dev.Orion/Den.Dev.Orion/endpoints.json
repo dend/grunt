@@ -1110,16 +1110,6 @@
             "AuthenticationLifetimeExtensionSupported": false,
             "ClearanceAware": true
         },
-        "GameCms_GetImage": {
-            "AuthorityId": "gamecms",
-            "Path": "/hi/images/file/{filePath}",
-            "QueryString": "",
-            "RetryPolicyId": "linearretry_3",
-            "TopicName": "",
-            "AcknowledgementTypeId": 0,
-            "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": true
-        },
         "GameCms_GetNewsImage": {
             "AuthorityId": "gamecms",
             "Path": "/hi/images/file/{filePath}",
@@ -1199,6 +1189,16 @@
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
             "ClearanceAware": false
+        },
+        "GameCms_GetPlayNowButtonSettings": {
+            "AuthorityId": "gamecms",
+            "Path": "/hi/Multiplayer/file/playlists/playNowButton/settings.json",
+            "QueryString": "",
+            "RetryPolicyId": "longerdelayedexponentialretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
         },
         "GameCms_GetProgressionFile": {
             "AuthorityId": "gamecms",
@@ -1352,7 +1352,7 @@
         },
         "HIUGC_Discovery_GetCustomGameManifest": {
             "AuthorityId": "HIUGC_Discovery_Authority",
-            "Path": "/hi/projects/a9dc0785-2a99-4fec-ba6e-0216feaaf041",
+            "Path": "/hi/projects/e5f3328b-5d51-41db-bf49-9b6f789cf4ea",
             "QueryString": "",
             "RetryPolicyId": "getcustomgamemanifest",
             "TopicName": "",
@@ -1920,6 +1920,16 @@
             "AuthenticationLifetimeExtensionSupported": false,
             "ClearanceAware": false
         },
+        "Lobby_RegisterJoinLobbyHandleAsFireteam": {
+            "AuthorityId": "lobby",
+            "Path": "/hi/handles/{handleId}/lobbies/{lobbyId}",
+            "QueryString": "?auth=st&isolationMode={isolationMode}&player={player}",
+            "RetryPolicyId": "registerjoinlobbyhandle",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": false
+        },
         "Lobby_RegisterJoinLobbyHandleWithIsolation": {
             "AuthorityId": "lobby",
             "Path": "/hi/handles/{handleId}/players/{player}",
@@ -1983,7 +1993,7 @@
         "Settings_ActiveFlight": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/RETAIL/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.4",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.5",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -1993,7 +2003,7 @@
         "Settings_GetClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/{audience}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.4",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.5",
             "RetryPolicyId": "clearanceretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2003,7 +2013,7 @@
         "Settings_GetPlayerClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/{audience}/players/{player}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.4",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.5",
             "RetryPolicyId": "clearanceretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2013,7 +2023,7 @@
         "Settings_PlayerClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/RETAIL/players/{player}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.4",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.5",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2068,7 +2078,7 @@
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
-            "ClearanceAware": false
+            "ClearanceAware": true
         },
         "Stats_GetMatchCount": {
             "AuthorityId": "halostats",
