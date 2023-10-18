@@ -2395,13 +2395,31 @@ namespace Den.Dev.Orion.Core
         // ================================================
 
         /// <summary>
+        /// Returns the currently active flight.
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/Settings_ActiveFlight.xml' path='//example'/>
+        /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
+        /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>
+        /// <param name="release">Release identifier. Examples seen are 1.4 and 1.5.</param>
+        /// <returns>If successful, returns an instance of <see cref="PlayerClearance"/>. Otherwise, returns null.</returns>
+        public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> SettingsActiveFlight(string sandbox, string buildNumber, string release)
+        {
+            return await this.ExecuteAPIRequest<PlayerClearance>(
+                $"https://{HaloCoreEndpoints.SettingsOrigin}.{HaloCoreEndpoints.ServiceDomain}/oban/flight-configurations/titles/hi/audiences/RETAIL/active?sandbox={sandbox}&build={buildNumber}&release={release}",
+                HttpMethod.Get,
+                true,
+                false,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
+        /// <summary>
         /// Gets the currently assigned clearance/flight ID.
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/Settings_GetClearance.xml' path='//example'/>
         /// <param name="audience">Audience that the request is targeting. Standard value is RETAIL.</param>
         /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
         /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>
-        /// <param name="release">Release identifier.</param>
+        /// <param name="release">Release identifier. Examples seen are 1.4 and 1.5.</param>
         /// <returns>An instance of PlayerClearance if the request is successful. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> SettingsGetClearance(string audience, string sandbox, string buildNumber, string release)
         {
@@ -2421,12 +2439,31 @@ namespace Den.Dev.Orion.Core
         /// <param name="player">The player identifier in the format "xuid(000000)".</param>
         /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
         /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>
-        /// <param name="release">>Release identifier.</param>
+        /// <param name="release">>Release identifier. Examples seen are 1.4 and 1.5.</param>
         /// <returns>An instance of PlayerClearance if the request is successful. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> SettingsGetPlayerClearance(string audience, string player, string sandbox, string buildNumber, string release)
         {
             return await this.ExecuteAPIRequest<PlayerClearance>(
                 $"https://{HaloCoreEndpoints.SettingsOrigin}.{HaloCoreEndpoints.ServiceDomain}/oban/flight-configurations/titles/hi/audiences/{audience}/players/{player}/active?sandbox={sandbox}&build={buildNumber}&release={release}",
+                HttpMethod.Get,
+                true,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
+        /// <summary>
+        /// Gets the the player clearance/flight ID.
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/Settings_PlayerClearance.xml' path='//example'/>
+        /// <param name="player">The player identifier in the format "xuid(000000)".</param>
+        /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
+        /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>
+        /// <param name="release">>Release identifier. Examples seen are 1.4 and 1.5.</param>
+        /// <returns>An instance of PlayerClearance if the request is successful. Otherwise, returns null.</returns>
+        public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> SettingsPlayerClearance(string player, string sandbox, string buildNumber, string release)
+        {
+            return await this.ExecuteAPIRequest<PlayerClearance>(
+                $"https://{HaloCoreEndpoints.SettingsOrigin}.{HaloCoreEndpoints.ServiceDomain}/oban/flight-configurations/titles/hi/audiences/RETAIL/players/{player}/active?sandbox={sandbox}&build={buildNumber}&release={release}",
                 HttpMethod.Get,
                 true,
                 false,
