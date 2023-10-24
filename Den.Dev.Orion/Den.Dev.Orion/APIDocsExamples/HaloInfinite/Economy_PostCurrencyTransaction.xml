@@ -1,20 +1,213 @@
 ﻿<example>
-	Here is an example response from the API, as snapshotted on 6/14/2022:
+	Here is an example response from the API, as snapshotted on 10/24/2023:
 	<code>
     {
-        "Transactions": [],
-        "ContinuationToken": "",
+        "Transactions": [
+            {
+                "AdjustmentSource": "DirectAdjustment",
+                "BalanceAdjustment": -500,
+                "ResultingBalance": 500,
+                "Finalized": true,
+                "TransactionId": "0ea0d695-acca-4813-953f-6b792c341a5d",
+                "TransactionDate": {
+                    "ISO8601Date": "2023-10-16T21:28:05.693Z"
+                },
+                "ProductReference": null,
+                "UnitsConsumed": 0,
+                "AuthenticatedIdentities": [
+                    "xdiv(Scarlett:F4000D5F5C753BA2)",
+                    "xsbx(RETAIL)",
+                    "xtid(2043073184)",
+                    "xuid(2533274855333605)"
+                ]
+            },
+            {
+                "AdjustmentSource": "DirectAdjustment",
+                "BalanceAdjustment": -1000,
+                "ResultingBalance": 1000,
+                "Finalized": true,
+                "TransactionId": "8287c1c4-95fb-43fd-99b8-ff9cdf6c7237",
+                "TransactionDate": {
+                    "ISO8601Date": "2023-10-15T16:01:00.573Z"
+                },
+                "ProductReference": null,
+                "UnitsConsumed": 0,
+                "AuthenticatedIdentities": [
+                    "xdiv(Scarlett:F4000D5F5C753BA2)",
+                    "xsbx(RETAIL)",
+                    "xtid(2043073184)",
+                    "xuid(2533274855333605)"
+                ]
+            },
+            {
+                "AdjustmentSource": "DirectAdjustment",
+                "BalanceAdjustment": 1000,
+                "ResultingBalance": 2000,
+                "Finalized": true,
+                "TransactionId": "c51684d6-ff6f-4978-8679-9d80c042371c",
+                "TransactionDate": {
+                    "ISO8601Date": "2023-10-15T16:01:00.573Z"
+                },
+                "ProductReference": null,
+                "UnitsConsumed": 0,
+                "AuthenticatedIdentities": [
+                    "xdiv(Scarlett:F4000D5F5C753BA2)",
+                    "xsbx(RETAIL)",
+                    "xtid(2043073184)",
+                    "xuid(2533274855333605)"
+                ]
+            },
+            {
+                "AdjustmentSource": "DirectAdjustment",
+                "BalanceAdjustment": -1000,
+                "ResultingBalance": 1000,
+                "Finalized": true,
+                "TransactionId": "4a96cdd6-1ab6-4de9-9562-395ddb30db76",
+                "TransactionDate": {
+                    "ISO8601Date": "2023-10-15T16:00:41.6Z"
+                },
+                "ProductReference": null,
+                "UnitsConsumed": 0,
+                "AuthenticatedIdentities": [
+                    "xdiv(Scarlett:F4000D5F5C753BA2)",
+                    "xsbx(RETAIL)",
+                    "xtid(2043073184)",
+                    "xuid(2533274855333605)"
+                ]
+            },
+            {
+                "AdjustmentSource": "DirectAdjustment",
+                "BalanceAdjustment": 1000,
+                "ResultingBalance": 2000,
+                "Finalized": true,
+                "TransactionId": "2e5c7e8f-15ec-49bb-ab05-958346955b45",
+                "TransactionDate": {
+                    "ISO8601Date": "2023-10-15T16:00:41.6Z"
+                },
+                "ProductReference": null,
+                "UnitsConsumed": 0,
+                "AuthenticatedIdentities": [
+                    "xdiv(Scarlett:F4000D5F5C753BA2)",
+                    "xsbx(RETAIL)",
+                    "xtid(2043073184)",
+                    "xuid(2533274855333605)"
+                ]
+            },
+            {
+                "AdjustmentSource": "DirectAdjustment",
+                "BalanceAdjustment": -1000,
+                "ResultingBalance": 1000,
+                "Finalized": true,
+                "TransactionId": "49c05bf0-6448-41c6-be37-91b1f4f1c761",
+                "TransactionDate": {
+                    "ISO8601Date": "2023-10-15T16:00:10.744Z"
+                },
+                "ProductReference": null,
+                "UnitsConsumed": 0,
+                "AuthenticatedIdentities": [
+                    "xdiv(Scarlett:F4000D5F5C753BA2)",
+                    "xsbx(RETAIL)",
+                    "xtid(2043073184)",
+                    "xuid(2533274855333605)"
+                ]
+            },
+            {
+                "AdjustmentSource": "DirectAdjustment",
+                "BalanceAdjustment": 1000,
+                "ResultingBalance": 2000,
+                "Finalized": true,
+                "TransactionId": "bb825a2e-8407-4bc4-a2cf-e469eca5daa2",
+                "TransactionDate": {
+                    "ISO8601Date": "2023-10-15T16:00:10.744Z"
+                },
+                "ProductReference": null,
+                "UnitsConsumed": 0,
+                "AuthenticatedIdentities": [
+                    "xdiv(Scarlett:F4000D5F5C753BA2)",
+                    "xsbx(RETAIL)",
+                    "xtid(2043073184)",
+                    "xuid(2533274855333605)"
+                ]
+            },
+            {
+                "AdjustmentSource": "DirectAdjustment",
+                "BalanceAdjustment": 1000,
+                "ResultingBalance": 1000,
+                "Finalized": true,
+                "TransactionId": "d54b0b42-2339-403a-9b8f-3bfd57be03af",
+                "TransactionDate": {
+                    "ISO8601Date": "2023-10-15T15:59:02.409Z"
+                },
+                "ProductReference": "9NVMHSH9C861",
+                "UnitsConsumed": 1,
+                "AuthenticatedIdentities": [
+                    "xdiv(Scarlett:F4000D5F5C753BA2)",
+                    "xsbx(RETAIL)",
+                    "xtid(2043073184)",
+                    "xuid(2533274855333605)"
+                ]
+            },
+            {
+                "AdjustmentSource": "DirectAdjustment",
+                "BalanceAdjustment": -1000,
+                "ResultingBalance": 0,
+                "Finalized": true,
+                "TransactionId": "cd5c60f1-dfc4-44ee-95d9-ac1487a32448",
+                "TransactionDate": {
+                    "ISO8601Date": "2023-10-14T03:38:03.725Z"
+                },
+                "ProductReference": null,
+                "UnitsConsumed": 0,
+                "AuthenticatedIdentities": [
+                    "xdiv(Scarlett:F4000F71F8530C36)",
+                    "xsbx(RETAIL)",
+                    "xtid(2043073184)",
+                    "xuid(2533274855333605)"
+                ]
+            },
+            {
+                "AdjustmentSource": "DirectAdjustment",
+                "BalanceAdjustment": -1000,
+                "ResultingBalance": 1000,
+                "Finalized": true,
+                "TransactionId": "fb497960-d74d-42d8-9f1a-2a1a04b470ca",
+                "TransactionDate": {
+                    "ISO8601Date": "2023-10-14T03:36:41.086Z"
+                },
+                "ProductReference": null,
+                "UnitsConsumed": 0,
+                "AuthenticatedIdentities": [
+                    "xdiv(Scarlett:F4000F71F8530C36)",
+                    "xsbx(RETAIL)",
+                    "xtid(2043073184)",
+                    "xuid(2533274855333605)"
+                ]
+            }
+        ],
+        "ContinuationToken": "v1-w_99od13EEMno0nGyykjY7u5Xau3J_Vr2izGZs-Xjux_jAvjQbBBL73r1KqkG1J3xRxDxdQ7twF8lgs",
         "MarketplaceLastSuccessfulDates": [
             {
-                "MarketplaceSource": "MicrosoftStore",
+                "MarketplaceSource": "SteamInventory",
                 "ProductsLastCheckedDate": {
-                    "ISO8601Date": "2022-06-14T21:45:49.273Z"
+                    "ISO8601Date": "2023-10-23T23:52:10.021Z"
                 },
                 "WorkflowEntitiesLastCreatedDate": {
                     "ISO8601Date": "1601-01-01T00:00:00Z"
                 },
                 "ProductsLastConsumedDate": {
                     "ISO8601Date": "1601-01-01T00:00:00Z"
+                }
+            },
+            {
+                "MarketplaceSource": "MicrosoftStore",
+                "ProductsLastCheckedDate": {
+                    "ISO8601Date": "2023-10-24T13:59:54.951Z"
+                },
+                "WorkflowEntitiesLastCreatedDate": {
+                    "ISO8601Date": "2023-10-15T15:59:02.281Z"
+                },
+                "ProductsLastConsumedDate": {
+                    "ISO8601Date": "2023-10-15T15:59:02.404Z"
                 }
             }
         ]
