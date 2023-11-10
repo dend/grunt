@@ -5,6 +5,7 @@
 // The underlying API powering Den.Dev.Orion is managed by 343 Industries and Microsoft. This wrapper is not endorsed by 343 Industries or Microsoft.
 // </copyright>
 
+using System;
 using System.Collections.Generic;
 
 namespace Den.Dev.Orion.Models.HaloInfinite
@@ -19,6 +20,16 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Gets or sets the score.
         /// </summary>
         public int Score { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of objectives a player completed.
+        /// </summary>
+        public int? ObjectivesCompleted { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of times a player spawned.
+        /// </summary>
+        public int Spawns { get; set; }
 
         /// <summary>
         /// Gets or sets the personal score.
@@ -58,7 +69,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the Kill/Death/Assist (KDA) ratio.
         /// </summary>
-        public float AverageKDA { get; set; }
+        public float KDA { get; set; }
 
         /// <summary>
         /// Gets or sets the number of suicides.
@@ -73,7 +84,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the average life duration.
         /// </summary>
-        public string? AverageLifeDuration { get; set; }
+        public TimeSpan? AverageLifeDuration { get; set; }
 
         /// <summary>
         /// Gets or sets the number of grenade kills.
