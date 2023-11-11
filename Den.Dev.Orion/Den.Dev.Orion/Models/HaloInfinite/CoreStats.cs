@@ -67,6 +67,14 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         public int Assists { get; set; }
 
         /// <summary>
+        /// Gets or sets the average Kill/Death/Assist (KDA) ratio.
+        /// </summary>
+        /// <remarks>
+        /// In the player service record, this is the property used, while in match core stats, the <see cref="KDA"/> property is used instead.
+        /// </remarks>
+        public float AverageKDA { get; set; }
+
+        /// <summary>
         /// Gets or sets the Kill/Death/Assist (KDA) ratio.
         /// </summary>
         public float KDA { get; set; }
