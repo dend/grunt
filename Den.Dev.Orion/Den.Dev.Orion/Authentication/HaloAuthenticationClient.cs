@@ -61,7 +61,7 @@ namespace Den.Dev.Orion.Authentication
                 Content = version == 4 ? new StringContent(data, Encoding.UTF8, "application/json") : null,
             };
 
-            request.Headers.Add("User-Agent", GlobalConstants.HALO_WAYPOINT_USER_AGENT);
+            request.Headers.Add("User-Agent", GlobalConstants.HALO_PC_USER_AGENT);
             request.Headers.Add("Accept", "application/json");
 
             if (version == 3)
