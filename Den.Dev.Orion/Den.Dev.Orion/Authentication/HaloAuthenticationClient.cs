@@ -56,7 +56,7 @@ namespace Den.Dev.Orion.Authentication
 
             var request = new HttpRequestMessage()
             {
-                RequestUri = new Uri(HaloCoreEndpoints.SpartanTokenEndpoint + $"?v={version}"),
+                RequestUri = new Uri(HaloCoreEndpoints.SpartanTokenEndpoint),
                 Method = version == 4 ? HttpMethod.Post : HttpMethod.Get,
                 Content = version == 4 ? new StringContent(data, Encoding.UTF8, "application/json") : null,
             };
