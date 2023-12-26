@@ -1,4 +1,4 @@
-﻿// <copyright file="XboxDisplayClaims.cs" company="Den Delimarsky">
+﻿// <copyright file="XboxXdi.cs" company="Den Delimarsky">
 // Developed by Den Delimarsky.
 // Den Delimarsky licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
@@ -10,20 +10,20 @@ using System.Text.Json.Serialization;
 namespace Den.Dev.Orion.Models
 {
     /// <summary>
-    /// Container class for Xbox Live API display claims.
+    /// Container class encapsulating the Xbox device information.
     /// </summary>
-    public class XboxDisplayClaims
+    public class XboxXdi
     {
         /// <summary>
-        /// Gets or sets Xbox user-related information.
+        /// Gets or sets the device ID.
         /// </summary>
-        [JsonPropertyName("xui")]
-        public XboxXui[]? Xui { get; set; }
+        [JsonPropertyName("did")]
+        public string DID { get; set; }
 
         /// <summary>
-        /// Gets or sets the Xbox device information.
+        /// Gets or sets the device clock skew.
         /// </summary>
-        [JsonPropertyName("xdi")]
-        public XboxXdi[]? Xdi { get; set; }
+        [JsonPropertyName("dcs")]
+        public string DCS { get; set; }
     }
 }
