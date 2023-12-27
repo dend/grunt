@@ -83,10 +83,11 @@ namespace Den.Dev.Orion.Authentication
         /// <param name="clientId">Client ID defined for the registered application in the Azure Portal.</param>
         /// <param name="authorizationCode">Authorization code provided by visiting the URL from the <see cref="GenerateAuthUrl"/> function.</param>
         /// <param name="redirectUrl">Redirect URL defined for the registered application in the Azure Portal.</param>
+        /// <param name="codeVerifier">Code verifier used for SISU requests. If not using SISU flows, this can be ignored.</param>
         /// <param name="clientSecret">Client secret defined for the registered application in the Azure Portal.</param>
         /// <param name="scopes">A list of scopes used for authentication against the Xbox Live APIs.</param>
         /// <returns>If successful, returns an instance of <see cref="OAuthToken"/> representing the OAuth token used for authentication. Otherwise, returns null.</returns>
-        public async Task<OAuthToken?> RequestOAuthToken(string clientId, string authorizationCode, string redirectUrl, string clientSecret = "", string[]? scopes = null)
+        public async Task<OAuthToken?> RequestOAuthToken(string clientId, string authorizationCode, string redirectUrl, string codeVerifier = "", string clientSecret = "", string[]? scopes = null)
         {
             Dictionary<string, string> tokenRequestContent = new()
             {
@@ -109,6 +110,11 @@ namespace Den.Dev.Orion.Authentication
             if (!string.IsNullOrEmpty(clientSecret))
             {
                 tokenRequestContent.Add("client_secret", clientSecret);
+            }
+
+            if (!string.IsNullOrEmpty(codeVerifier))
+            {
+                tokenRequestContent.Add("code_verifier", codeVerifier);
             }
 
             var response = await this.client.PostAsync(XboxEndpoints.XboxLiveToken, new FormUrlEncodedContent(tokenRequestContent));
