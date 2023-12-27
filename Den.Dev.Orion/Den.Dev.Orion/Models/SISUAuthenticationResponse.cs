@@ -27,5 +27,11 @@ namespace Den.Dev.Orion.Models
         [JsonPropertyName("MsaRequestParameters")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public MSARequestParameters? MSARequestParameters { get; set; }
+
+        /// <summary>
+        /// Gets or sets the session ID. Populated automatically within Orion when authenticating against SISU from the X-SessionId header.
+        /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+        public string? SessionId { get; set; }
     }
 }

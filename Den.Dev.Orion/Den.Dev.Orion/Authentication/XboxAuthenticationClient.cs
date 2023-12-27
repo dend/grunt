@@ -8,9 +8,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Den.Dev.Orion.Endpoints;
 using Den.Dev.Orion.Models;
@@ -26,6 +29,17 @@ namespace Den.Dev.Orion.Authentication
     {
         private readonly HttpClient client = new();
         private readonly ECDCertificatePoPCryptoProvider popCryptoProvider = new();
+        private readonly string codeVerifier;
+        private readonly string codeChallenge;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XboxAuthenticationClient"/> class.
+        /// </summary>
+        public XboxAuthenticationClient()
+        {
+            codeVerifier = GenerateCodeVerifier();
+            codeChallenge = GenerateCodeChallenge(codeVerifier);
+        }
 
         /// <summary>
         /// Generates the authentication URL that can be used to produce the temporary code
@@ -254,7 +268,7 @@ namespace Den.Dev.Orion.Authentication
                 SerialNumber = $"{Guid.NewGuid().ToString()}",
                 Version = version,
                 AuthMethod = authMethod,
-                ProofKey = popCryptoProvider.ProofKey,
+                ProofKey = this.popCryptoProvider.ProofKey,
             };
 
             var rawBody = JsonSerializer.Serialize(ticketData);
@@ -267,7 +281,7 @@ namespace Den.Dev.Orion.Authentication
                 Content = body,
             };
 
-            var signature = this.SignRequest(XboxEndpoints.XboxLiveDeviceAuthenticate, "", rawBody);
+            var signature = this.SignRequest(XboxEndpoints.XboxLiveDeviceAuthenticate, string.Empty, rawBody);
 
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Signature", signature);
@@ -279,6 +293,70 @@ namespace Den.Dev.Orion.Authentication
             return response.IsSuccessStatusCode
                 ? JsonSerializer.Deserialize<XboxTicket>(responseData)
                 : null;
+        }
+
+        /// <summary>
+        /// Initializes a new SISU session.
+        /// </summary>
+        /// <param name="appId">Application ID.</param>
+        /// <param name="titleId">Title ID.</param>
+        /// <param name="deviceToken">Previously-generated device token.</param>
+        /// <param name="offers">List of associated offers.</param>
+        /// <param name="tokenType">Token type. Default is "code".</param>
+        /// <param name="sandbox">The sandbox to be used. Default is "RETAIL".</param>
+        /// <returns>If successful, returns an instance of <see cref="SISUAuthenticationResponse"/>. Otherwise, returns null.</returns>
+        public async Task<SISUAuthenticationResponse?> RequestSISUSession(string appId, string titleId, string deviceToken, List<string> offers, string tokenType = "code", string sandbox = "RETAIL")
+        {
+            XboxTicketRequest ticketData = new();
+            ticketData.AppId = appId;
+            ticketData.TitleId = titleId;
+            ticketData.DeviceToken = deviceToken;
+            ticketData.Sandbox = sandbox;
+            ticketData.TokenType = tokenType;
+            ticketData.Offers = offers;
+            ticketData.ProofKey = this.popCryptoProvider.ProofKey;
+            ticketData.Query = new AuthQuery()
+            {
+                CodeChallenge = this.codeChallenge,
+                CodeChallengeMethod = "S256",
+                State = Guid.NewGuid().ToString(),
+            };
+
+            var rawBody = JsonSerializer.Serialize(ticketData);
+            var body = new StringContent(rawBody, Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage()
+            {
+                RequestUri = new Uri(XboxEndpoints.XboxLiveSisuAuthenticate),
+                Method = HttpMethod.Post,
+                Content = body,
+            };
+
+            var signature = this.SignRequest(XboxEndpoints.XboxLiveSisuAuthenticate, string.Empty, rawBody);
+
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Signature", signature);
+            request.Headers.Add("x-xbl-contract-version", "2");
+
+            var response = await this.client.SendAsync(request);
+            var responseData = response.Content.ReadAsStringAsync().Result;
+
+            SISUAuthenticationResponse? authResponse = null;
+
+            if (response.IsSuccessStatusCode)
+            {
+                authResponse = JsonSerializer.Deserialize<SISUAuthenticationResponse>(responseData);
+                IEnumerable<string>? headerValues;
+                if (response.Headers.TryGetValues("X-SessionId", out headerValues))
+                {
+                    if (authResponse != null)
+                    {
+                        authResponse.SessionId = headerValues.First();
+                    }
+                }
+            }
+
+            return authResponse;
         }
 
         private string SignRequest(string reqUri, string token, string body)
@@ -358,6 +436,33 @@ namespace Den.Dev.Orion.Authentication
             Array.Copy(signature, 0, header, 12, signature.Length);
 
             return header;
+        }
+
+        private string GenerateCodeVerifier()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRTSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            var nonce = new char[32];
+            for (int i = 0; i < nonce.Length; i++)
+            {
+                nonce[i] = chars[random.Next(chars.Length)];
+            }
+            var data = new string(nonce);
+
+            char[] padding = { '=' };
+
+            return System.Convert.ToBase64String(Encoding.UTF8.GetBytes(data)).TrimEnd(padding).Replace('+', '-').Replace('/', '_');
+        }
+
+        private string GenerateCodeChallenge(string codeVerifier)
+        {
+            using var sha256 = SHA256.Create();
+            var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(codeVerifier));
+            var b64Hash = Convert.ToBase64String(hash);
+            var code = Regex.Replace(b64Hash, "\\+", "-");
+            code = Regex.Replace(code, "\\/", "_");
+            code = Regex.Replace(code, "=+$", string.Empty);
+            return code;
         }
     }
 }

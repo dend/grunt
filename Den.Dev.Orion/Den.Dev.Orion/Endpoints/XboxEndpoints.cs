@@ -46,5 +46,10 @@ namespace Den.Dev.Orion.Endpoints
         /// Device authentication endpoint.
         /// </summary>
         internal static readonly string XboxLiveDeviceAuthenticate = "https://device.auth.xboxlive.com/device/authenticate";
+
+        /// <summary>
+        /// SISU authentication URL.
+        /// </summary>
+        internal static readonly string XboxLiveSisuAuthenticate = "https://sisu.xboxlive.com/authenticate";
     }
 }
