@@ -1,4 +1,4 @@
-﻿// <copyright file="XboxXdi.cs" company="Den Delimarsky">
+﻿// <copyright file="XboxXti.cs" company="Den Delimarsky">
 // Developed by Den Delimarsky.
 // Den Delimarsky licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
@@ -12,18 +12,12 @@ namespace Den.Dev.Orion.Models
     /// <summary>
     /// Container class encapsulating the Xbox device information.
     /// </summary>
-    public class XboxXdi
+    public class XboxXti
     {
         /// <summary>
-        /// Gets or sets the device ID.
+        /// Gets or sets the title ID.
         /// </summary>
-        [JsonPropertyName("did")]
-        public string? DID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the device clock skew.
-        /// </summary>
-        [JsonPropertyName("dcs")]
-        public string? DCS { get; set; }
+        [JsonPropertyName("tid")]
+        public string? TID { get; set; }
     }
 }

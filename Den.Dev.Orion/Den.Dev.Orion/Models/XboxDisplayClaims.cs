@@ -5,7 +5,9 @@
 // The underlying API powering Den.Dev.Orion is managed by 343 Industries and Microsoft. This wrapper is not endorsed by 343 Industries or Microsoft.
 // </copyright>
 
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Den.Dev.Orion.Converters;
 
 namespace Den.Dev.Orion.Models
 {
@@ -18,12 +20,19 @@ namespace Den.Dev.Orion.Models
         /// Gets or sets Xbox user-related information.
         /// </summary>
         [JsonPropertyName("xui")]
-        public XboxXui[]? Xui { get; set; }
+        [JsonConverter(typeof(SingleOrArrayJsonConverter<XboxXui>))]
+        public List<XboxXui>? Xui { get; set; }
 
         /// <summary>
         /// Gets or sets the Xbox device information.
         /// </summary>
         [JsonPropertyName("xdi")]
         public XboxXdi? Xdi { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Xbox title information.
+        /// </summary>
+        [JsonPropertyName("xti")]
+        public XboxXti? Xti { get; set; }
     }
 }

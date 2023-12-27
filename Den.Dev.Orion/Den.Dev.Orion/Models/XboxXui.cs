@@ -55,5 +55,20 @@ namespace Den.Dev.Orion.Models
         /// </summary>
         [JsonPropertyName("prv")]
         public string? Privileges { get; set; }
+
+        /// <summary>
+        /// Gets or sets the modern gamertag.
+        /// </summary>
+        [JsonPropertyName("mgt")]
+        public string? ModernGamertag { get; set; }
+
+        /// <summary>
+        /// Gets or sets the username with modern gamertag.
+        /// </summary>
+        /// <remarks>
+        /// TODO: Figure out what this actually is.
+        /// </remarks>
+        [JsonPropertyName("umg")]
+        public string? UserModernGamertag { get; set; }
     }
 }

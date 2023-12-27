@@ -37,8 +37,8 @@ namespace Den.Dev.Orion.Authentication
         /// </summary>
         public XboxAuthenticationClient()
         {
-            codeVerifier = GenerateCodeVerifier();
-            codeChallenge = GenerateCodeChallenge(codeVerifier);
+            this.codeVerifier = this.GenerateCodeVerifier();
+            this.codeChallenge = this.GenerateCodeChallenge(this.codeVerifier);
         }
 
         /// <summary>
@@ -83,11 +83,11 @@ namespace Den.Dev.Orion.Authentication
         /// <param name="clientId">Client ID defined for the registered application in the Azure Portal.</param>
         /// <param name="authorizationCode">Authorization code provided by visiting the URL from the <see cref="GenerateAuthUrl"/> function.</param>
         /// <param name="redirectUrl">Redirect URL defined for the registered application in the Azure Portal.</param>
-        /// <param name="useCodeVerifier">Determines whether the code verifier should be used. If not using SISU flows, this can be ignored.</param>
         /// <param name="clientSecret">Client secret defined for the registered application in the Azure Portal.</param>
         /// <param name="scopes">A list of scopes used for authentication against the Xbox Live APIs.</param>
+        /// <param name="useCodeVerifier">Determines whether the code verifier should be used. If not using SISU flows, this can be ignored.</param>
         /// <returns>If successful, returns an instance of <see cref="OAuthToken"/> representing the OAuth token used for authentication. Otherwise, returns null.</returns>
-        public async Task<OAuthToken?> RequestOAuthToken(string clientId, string authorizationCode, string redirectUrl, bool useCodeVerifier = false, string clientSecret = "", string[]? scopes = null)
+        public async Task<OAuthToken?> RequestOAuthToken(string clientId, string authorizationCode, string redirectUrl, string clientSecret = "", string[]? scopes = null, bool useCodeVerifier = false)
         {
             Dictionary<string, string> tokenRequestContent = new()
             {
@@ -365,6 +365,57 @@ namespace Den.Dev.Orion.Authentication
             return authResponse;
         }
 
+        /// <summary>
+        /// Uses the SISU endpoint to authorize the user, device, and the title.
+        /// </summary>
+        /// <remarks>
+        /// Under most conditions, this will not be used and instead standard XSTS authorization should be relied upon. However, when special permission tokens are needed (e.g., when using the lobby endpoints), this is the way.
+        /// </remarks>
+        /// <param name="deviceToken">Previously generated device token.</param>
+        /// <param name="accessToken">Access token from the OAuth authentication endpoint.</param>
+        /// <param name="appId">Application ID.</param>
+        /// <param name="sessionId">Session ID from the SISU authentication request.</param>
+        /// <param name="sandbox">Sandbox to be used. Default value is "RETAIL".</param>
+        /// <param name="siteName">Site name to be used for the request. Default value is "user.auth.xboxlive.com".</param>
+        /// <param name="useModernGamertag">Determines whether modern gamertags are used. Default value is true.</param>
+        /// <returns>If successful, returns an instance of <see cref="SISUAuthorizationResponse"/> that contains device, authorization, user, and title tokens. Otherwise, returns null.</returns>
+        public async Task<SISUAuthorizationResponse?> RequestSISUTokens(string deviceToken, string accessToken, string appId, string sessionId, string sandbox = "RETAIL", string siteName = "user.auth.xboxlive.com", bool useModernGamertag = true)
+        {
+            XboxTicketRequest ticketData = new();
+            ticketData.AppId = appId;
+            ticketData.DeviceToken = deviceToken;
+            ticketData.ProofKey = this.popCryptoProvider.ProofKey;
+            ticketData.Sandbox = sandbox;
+            ticketData.AccessToken = $"t={accessToken}";
+            ticketData.Sandbox = sandbox;
+            ticketData.UseModernGamertag = useModernGamertag;
+            ticketData.SessionId = sessionId;
+            ticketData.SiteName = siteName;
+
+            var rawBody = JsonSerializer.Serialize(ticketData);
+            var body = new StringContent(rawBody, Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage()
+            {
+                RequestUri = new Uri(XboxEndpoints.XboxLiveSisuAuthorize),
+                Method = HttpMethod.Post,
+                Content = body,
+            };
+
+            var signature = this.SignRequest(XboxEndpoints.XboxLiveSisuAuthorize, string.Empty, rawBody);
+
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Signature", signature);
+            request.Headers.Add("x-xbl-contract-version", "2");
+
+            var response = await this.client.SendAsync(request);
+            var responseData = response.Content.ReadAsStringAsync().Result;
+
+            return response.IsSuccessStatusCode
+                ? JsonSerializer.Deserialize<SISUAuthorizationResponse>(responseData)
+                : null;
+        }
+
         private string SignRequest(string reqUri, string token, string body)
         {
             var timestamp = this.GetWindowsTimestamp();
@@ -453,6 +504,7 @@ namespace Den.Dev.Orion.Authentication
             {
                 nonce[i] = chars[random.Next(chars.Length)];
             }
+
             var data = new string(nonce);
 
             char[] padding = { '=' };

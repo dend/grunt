@@ -51,5 +51,10 @@ namespace Den.Dev.Orion.Endpoints
         /// SISU authentication URL.
         /// </summary>
         internal static readonly string XboxLiveSisuAuthenticate = "https://sisu.xboxlive.com/authenticate";
+
+        /// <summary>
+        /// SISU authorization URL.
+        /// </summary>
+        internal static readonly string XboxLiveSisuAuthorize = "https://sisu.xboxlive.com/authorize";
     }
 }

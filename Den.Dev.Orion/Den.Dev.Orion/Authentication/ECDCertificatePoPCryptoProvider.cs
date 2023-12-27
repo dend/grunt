@@ -16,14 +16,8 @@ namespace Den.Dev.Orion.Authentication
     /// </summary>
     public class ECDCertificatePoPCryptoProvider : IPoPCryptoProvider
     {
-        private ProofKey? proofKey;
-
-        /// <summary>
-        /// Gets the proof key associated with the provider. An existing key will be provided if previous runs were done.
-        /// </summary>
-        public ProofKey ProofKey => this.proofKey ??= this.GenerateNewProofKey();
-
         private readonly ECDsa signer;
+        private ProofKey? proofKey;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ECDCertificatePoPCryptoProvider"/> class.
@@ -33,6 +27,11 @@ namespace Den.Dev.Orion.Authentication
             var ecCurve = ECCurve.NamedCurves.nistP256;
             this.signer = ECDsa.Create(ecCurve);
         }
+
+        /// <summary>
+        /// Gets the proof key associated with the provider. An existing key will be provided if previous runs were done.
+        /// </summary>
+        public ProofKey ProofKey => this.proofKey ??= this.GenerateNewProofKey();
 
         /// <summary>
         /// Signs binary data with the locally-generated key.
