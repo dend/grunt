@@ -63,12 +63,9 @@ namespace Den.Dev.Orion.Models.Security
         public string? ModernGamertag { get; set; }
 
         /// <summary>
-        /// Gets or sets the username with modern gamertag.
+        /// Gets or sets the unique modern gamertag with the numbers appended to it, where appropriate.
         /// </summary>
-        /// <remarks>
-        /// TODO: Figure out what this actually is.
-        /// </remarks>
         [JsonPropertyName("umg")]
-        public string? UserModernGamertag { get; set; }
+        public string? UniqueModernGamertag { get; set; }
     }
 }
