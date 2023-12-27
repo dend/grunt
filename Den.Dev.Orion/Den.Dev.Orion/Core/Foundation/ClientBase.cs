@@ -78,6 +78,8 @@ namespace Den.Dev.Orion.Core.Foundation
         /// <param name="binaryContent">Binary content to be passed to the API. Either this or textContent should be used, but not both. Binary content takes priority.</param>
         /// <param name="contentType">Content type for POST requests. By default it's `application/json`.</param>
         /// <param name="includeRawResponse">Determines whether a raw response will be returned with the result. Disabled by default.</param>
+        /// <param name="customHeaders">A list of custom headers to append to the request.</param>
+        /// <param name="enforceSuccess">Determines whether to try and serialize the response data even if the request returns an error code (that is - not HTTP 200 OK). Default is set to true.</param>
         /// <typeparam name="T">Data type to return with the response metadata.</typeparam>
         /// <returns>Response string in case of a successful request. Null if request failed.</returns>
         public async Task<HaloApiResultContainer<T, RawResponseContainer>> ExecuteAPIRequest<T>(
@@ -89,7 +91,8 @@ namespace Den.Dev.Orion.Core.Foundation
             byte[]? binaryContent = null,
             APIContentType contentType = APIContentType.Json,
             bool includeRawResponse = false,
-            List<KeyValuePair<string,string>> customHeaders = null)
+            List<KeyValuePair<string,string>> customHeaders = null,
+            bool enforceSuccess = true)
         {
             var contentTypeAttribute = contentType.GetHeaderValue();
 
@@ -139,7 +142,7 @@ namespace Den.Dev.Orion.Core.Foundation
 
             resultContainer.Response!.Code = Convert.ToInt32(response.StatusCode);
 
-            if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode || !enforceSuccess)
             {
                 if (typeof(T) == typeof(string))
                 {

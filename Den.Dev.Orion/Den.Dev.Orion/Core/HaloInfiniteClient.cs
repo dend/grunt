@@ -2389,7 +2389,8 @@ namespace Den.Dev.Orion.Core
                 true,
                 contentType: APIContentType.BondCompactBinary,
                 binaryContent: lobbyBootstrapPayload,
-                includeRawResponse: this.IncludeRawResponses);
+                includeRawResponse: this.IncludeRawResponses,
+                enforceSuccess: false);
         }
 
         // ================================================
