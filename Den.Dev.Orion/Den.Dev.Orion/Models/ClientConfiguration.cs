@@ -31,5 +31,11 @@ namespace Den.Dev.Orion.Models
         /// </summary>
         [JsonPropertyName("redirect_url")]
         public string? RedirectUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title ID.
+        /// </summary>
+        [JsonPropertyName("title_id")]
+        public string? TitleId { get; set; }
     }
 }
