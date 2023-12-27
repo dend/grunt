@@ -6,6 +6,7 @@
 // </copyright>
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -87,7 +88,8 @@ namespace Den.Dev.Orion.Core.Foundation
             string textContent = "",
             byte[]? binaryContent = null,
             APIContentType contentType = APIContentType.Json,
-            bool includeRawResponse = false)
+            bool includeRawResponse = false,
+            List<KeyValuePair<string,string>> customHeaders = null)
         {
             var contentTypeAttribute = contentType.GetHeaderValue();
 
@@ -123,6 +125,14 @@ namespace Den.Dev.Orion.Core.Foundation
             if (useClearance)
             {
                 request.Headers.Add("343-clearance", this.ClearanceToken);
+            }
+
+            if (customHeaders != null)
+            {
+                foreach (var header in customHeaders)
+                {
+                    request.Headers.Add(header.Key, header.Value);
+                }
             }
 
             var response = await this.Client.SendAsync(request);

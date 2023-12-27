@@ -2367,7 +2367,8 @@ namespace Den.Dev.Orion.Core
                 HttpMethod.Get,
                 true,
                 false,
-                includeRawResponse: this.IncludeRawResponses);
+                includeRawResponse: this.IncludeRawResponses,
+                customHeaders: new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("Accept-Language", "en-us") });
         }
 
         /// <summary>
