@@ -24,6 +24,6 @@ namespace Den.Dev.Orion.Models
         /// Gets or sets the Xbox device information.
         /// </summary>
         [JsonPropertyName("xdi")]
-        public XboxXdi[]? Xdi { get; set; }
+        public XboxXdi? Xdi { get; set; }
     }
 }
