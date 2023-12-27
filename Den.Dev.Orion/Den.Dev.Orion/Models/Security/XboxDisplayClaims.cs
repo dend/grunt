@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Den.Dev.Orion.Converters;
 
-namespace Den.Dev.Orion.Models
+namespace Den.Dev.Orion.Models.Security
 {
     /// <summary>
     /// Container class for Xbox Live API display claims.

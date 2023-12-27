@@ -7,7 +7,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace Den.Dev.Orion.Models
+namespace Den.Dev.Orion.Models.Security
 {
     /// <summary>
     /// Xbox XUI

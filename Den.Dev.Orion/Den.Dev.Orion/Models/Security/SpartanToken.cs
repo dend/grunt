@@ -7,7 +7,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace Den.Dev.Orion.Models
+namespace Den.Dev.Orion.Models.Security
 {
     /// <summary>
     /// Model containing the information about an issued Spartan V4 token.

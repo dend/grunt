@@ -7,7 +7,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace Den.Dev.Orion.Models
+namespace Den.Dev.Orion.Models.Security
 {
     /// <summary>
     /// Container class for the cryptographic proof key used for Proof-of-Possession requests.

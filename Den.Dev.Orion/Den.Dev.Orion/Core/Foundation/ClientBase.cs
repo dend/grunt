@@ -84,7 +84,7 @@ namespace Den.Dev.Orion.Core.Foundation
             bool useSpartanToken,
             bool useClearance,
             string content = "",
-            ApiContentType contentType = ApiContentType.Json,
+            APIContentType contentType = APIContentType.Json,
             bool includeRawResponse = false)
         {
             var contentTypeAttribute = contentType.GetHeaderValue();

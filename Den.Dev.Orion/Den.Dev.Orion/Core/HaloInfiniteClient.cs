@@ -1743,7 +1743,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="asset">Asset definition, containing information about the asset to be created.</param>
         /// <param name="contentType">Content type to be used for the request. Default value uses the Bond encoding.</param>
         /// <returns>If successful, returns an instance of AuthoringAsset containing asset information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAsset, RawResponseContainer>> HIUGCSpawnAsset(string title, string assetType, object? asset = null, ApiContentType contentType = ApiContentType.BondCompactBinary)
+        public async Task<HaloApiResultContainer<AuthoringAsset, RawResponseContainer>> HIUGCSpawnAsset(string title, string assetType, object? asset = null, APIContentType contentType = APIContentType.BondCompactBinary)
         {
             if (asset is null)
             {

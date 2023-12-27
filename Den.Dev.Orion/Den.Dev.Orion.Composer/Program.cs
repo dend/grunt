@@ -3,6 +3,7 @@ using Den.Dev.Orion.Composer.Models;
 using Den.Dev.Orion.Core;
 using Den.Dev.Orion.Models;
 using Den.Dev.Orion.Models.HaloInfinite;
+using Den.Dev.Orion.Models.Security;
 using Den.Dev.Orion.Util;
 using SQLite;
 using System.CommandLine;

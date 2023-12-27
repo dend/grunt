@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Den.Dev.Orion.Models
+namespace Den.Dev.Orion.Models.Security
 {
     /// <summary>
     /// Container for the Xbox Live authentication ticket request.

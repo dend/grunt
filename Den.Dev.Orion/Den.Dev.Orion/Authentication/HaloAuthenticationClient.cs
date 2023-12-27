@@ -12,7 +12,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Den.Dev.Orion.Endpoints;
-using Den.Dev.Orion.Models;
+using Den.Dev.Orion.Models.Security;
 using Den.Dev.Orion.Util;
 
 namespace Den.Dev.Orion.Authentication

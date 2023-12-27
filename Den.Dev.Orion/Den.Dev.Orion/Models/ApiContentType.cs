@@ -10,7 +10,7 @@ namespace Den.Dev.Orion.Models
     /// <summary>
     /// Type of content to return for the Halo API.
     /// </summary>
-    public enum ApiContentType
+    public enum APIContentType
     {
         /// <summary>
         /// JSON data format.

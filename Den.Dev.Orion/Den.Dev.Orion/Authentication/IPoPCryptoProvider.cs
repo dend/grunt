@@ -1,4 +1,4 @@
-﻿using Den.Dev.Orion.Models;
+﻿using Den.Dev.Orion.Models.Security;
 
 namespace Den.Dev.Orion.Authentication
 {

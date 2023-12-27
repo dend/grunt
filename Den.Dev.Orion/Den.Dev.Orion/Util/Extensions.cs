@@ -19,9 +19,9 @@ namespace Den.Dev.Orion.Util
         /// <summary>
         /// Determines the header value for a specific API content type.
         /// </summary>
-        /// <param name="value">API content type represented by <see cref="ApiContentType"/>.</param>
+        /// <param name="value">API content type represented by <see cref="APIContentType"/>.</param>
         /// <returns>If successful, returns the string value for the header associated with a content type.</returns>
-        public static string? GetHeaderValue(this ApiContentType value)
+        public static string? GetHeaderValue(this APIContentType value)
         {
             Type type = value.GetType();
             FieldInfo? fieldInfo = type.GetField(name: value.ToString());

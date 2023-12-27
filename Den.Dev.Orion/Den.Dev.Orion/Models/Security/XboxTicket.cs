@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Den.Dev.Orion.Models
+namespace Den.Dev.Orion.Models.Security
 {
     /// <summary>
     /// Container class for the Xbox Live ticket.

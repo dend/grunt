@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Den.Dev.Orion.Models.HaloInfinite;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
+using Den.Dev.Orion.Models.Security;
 
 namespace Den.Dev.Orion.Zeta
 {

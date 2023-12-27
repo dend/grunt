@@ -255,7 +255,7 @@ namespace Den.Dev.Orion.Core
                 true,
                 false,
                 requestBody,
-                ApiContentType.Json);
+                APIContentType.Json);
         }
 
         /// <summary>
