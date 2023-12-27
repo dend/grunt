@@ -21,18 +21,21 @@ namespace Den.Dev.Orion.Models.Security
         /// </summary>
         [JsonPropertyName("xui")]
         [JsonConverter(typeof(SingleOrArrayJsonConverter<XboxXui>))]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<XboxXui>? Xui { get; set; }
 
         /// <summary>
         /// Gets or sets the Xbox device information.
         /// </summary>
         [JsonPropertyName("xdi")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public XboxXdi? Xdi { get; set; }
 
         /// <summary>
         /// Gets or sets the Xbox title information.
         /// </summary>
         [JsonPropertyName("xti")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public XboxXti? Xti { get; set; }
     }
 }
