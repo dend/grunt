@@ -7,6 +7,8 @@
 
 using System.IO;
 using System.Text.Json;
+using Den.Dev.Orion.Converters;
+using Den.Dev.Orion.Models.Security;
 
 namespace Den.Dev.Orion.Util
 {
@@ -15,6 +17,8 @@ namespace Den.Dev.Orion.Util
     /// </summary>
     public class ConfigurationReader
     {
+        private static readonly JsonSerializerOptions SerializerOptions = new() { Converters = { new SingleOrArrayJsonConverter<XboxXui>() } };
+
         /// <summary>
         /// Reads configuration from a local file and deserializes it into an object.
         /// </summary>
@@ -28,7 +32,7 @@ namespace Den.Dev.Orion.Util
             using (StreamReader r = new(path))
             {
                 string json = r.ReadToEnd();
-                config = JsonSerializer.Deserialize<T>(json);
+                config = JsonSerializer.Deserialize<T>(json, SerializerOptions);
             }
 
             return config;
