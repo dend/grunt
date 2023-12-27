@@ -1756,7 +1756,7 @@ namespace Den.Dev.Orion.Core
                 true,
                 true,
                 JsonSerializer.Serialize(asset),
-                contentType,
+                contentType: contentType,
                 includeRawResponse: this.IncludeRawResponses);
         }
 
@@ -2373,6 +2373,7 @@ namespace Den.Dev.Orion.Core
         /// <summary>
         /// Bootstraps a new lobby.
         /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/Lobby_ThirdPartyJoinHandle.xml' path='//example'/>
         /// <param name="lobbyId">Unique lobby ID.</param>
         /// <param name="player">Player ID in the format of "xuid(XUID_VALUE)".</param>
         /// <param name="auth">Authentication to be used. "st" represents Spartan token.</param>
