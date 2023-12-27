@@ -52,15 +52,25 @@ namespace Den.Dev.Orion.Converters
         /// <summary>
         /// Writes the target type data to a writer.
         /// </summary>
-        /// <remarks>
-        /// Not used. Will throw a <see cref="NotImplementedException"/> at this time.
-        /// </remarks>
         /// <param name="writer">JSON writer.</param>
         /// <param name="value">Instance of <see cref="List{T}"/> that needs to be written.</param>
         /// <param name="options">Additional writing options.</param>
         public override void Write(Utf8JsonWriter writer, List<T> value, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
+            if (value == null)
+            {
+                writer.WriteNullValue();
+                return;
+            }
+
+            writer.WriteStartArray();
+
+            foreach (var item in value)
+            {
+                JsonSerializer.Serialize(writer, item, options);
+            }
+
+            writer.WriteEndArray();
         }
     }
 }
