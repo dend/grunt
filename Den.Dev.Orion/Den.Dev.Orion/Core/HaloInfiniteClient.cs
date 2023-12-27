@@ -2370,6 +2370,26 @@ namespace Den.Dev.Orion.Core
                 includeRawResponse: this.IncludeRawResponses);
         }
 
+        /// <summary>
+        /// Bootstraps a new lobby.
+        /// </summary>
+        /// <param name="lobbyId">Unique lobby ID.</param>
+        /// <param name="player">Player ID in the format of "xuid(XUID_VALUE)".</param>
+        /// <param name="auth">Authentication to be used. "st" represents Spartan token.</param>
+        /// <param name="lobbyBootstrapPayload">Binary payload (Bond-encoded) that contains the lobby bootstrap logic.</param>
+        /// <returns>An instance of <see cref="JoinLobbyResponse"/> in the response container if successful. Otherwise, a null.</returns>
+        public async Task<HaloApiResultContainer<JoinLobbyResponse, RawResponseContainer>> LobbyJoinLobby(string lobbyId, string player, string auth, byte[] lobbyBootstrapPayload)
+        {
+            return await this.ExecuteAPIRequest<JoinLobbyResponse>(
+                $"https://{HaloCoreEndpoints.HaloInfiniteLobbyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/lobbies/{lobbyId}/players/{player}?auth={auth}",
+                HttpMethod.Put,
+                true,
+                true,
+                contentType: APIContentType.BondCompactBinary,
+                binaryContent: lobbyBootstrapPayload,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
         // ================================================
         // Setting
         // ================================================

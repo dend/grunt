@@ -73,7 +73,8 @@ namespace Den.Dev.Orion.Core.Foundation
         /// <param name="method">HTTP method to be used for the request.</param>
         /// <param name="useSpartanToken">Determines whether a Spartan token needs to be applied to teh request.</param>
         /// <param name="useClearance">Determines whether a clearance/flight ID needs to be applied to the request.</param>
-        /// <param name="content">If the request contains data to be sent to the Halo Waypoint service, include it here. Expected format is JSON.</param>
+        /// <param name="textContent">If the request contains data to be sent to the Halo Waypoint service, include it here. Expected format is JSON.</param>
+        /// <param name="binaryContent">Binary content to be passed to the API. Either this or textContent should be used, but not both. Binary content takes priority.</param>
         /// <param name="contentType">Content type for POST requests. By default it's `application/json`.</param>
         /// <param name="includeRawResponse">Determines whether a raw response will be returned with the result. Disabled by default.</param>
         /// <typeparam name="T">Data type to return with the response metadata.</typeparam>
@@ -83,7 +84,8 @@ namespace Den.Dev.Orion.Core.Foundation
             HttpMethod method,
             bool useSpartanToken,
             bool useClearance,
-            string content = "",
+            string textContent = "",
+            byte[]? binaryContent = null,
             APIContentType contentType = APIContentType.Json,
             bool includeRawResponse = false)
         {
@@ -97,9 +99,14 @@ namespace Den.Dev.Orion.Core.Foundation
                 Method = method,
             };
             
-            if (!string.IsNullOrEmpty(content))
+            if (!string.IsNullOrEmpty(textContent))
             {
-                request.Content = new StringContent(content, Encoding.UTF8, contentTypeAttribute);
+                request.Content = new StringContent(textContent, Encoding.UTF8, contentTypeAttribute);
+            }
+
+            if (binaryContent != null)
+            {
+                request.Content = new ByteArrayContent(binaryContent);
             }
 
             if (request.Method == HttpMethod.Post || request.Method == HttpMethod.Put || request.Method == HttpMethod.Patch)
