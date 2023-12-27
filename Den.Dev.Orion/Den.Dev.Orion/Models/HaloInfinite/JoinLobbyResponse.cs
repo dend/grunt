@@ -12,6 +12,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
     /// <summary>
     /// Container class for the response obtained when bootstrapping a new lobby.
     /// </summary>
+    [IsAutomaticallySerializable]
     public class JoinLobbyResponse
     {
         /// <summary>
