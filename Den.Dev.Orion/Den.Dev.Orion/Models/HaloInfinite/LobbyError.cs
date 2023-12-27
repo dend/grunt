@@ -13,6 +13,11 @@ namespace Den.Dev.Orion.Models.HaloInfinite
     public enum LobbyError
     {
         /// <summary>
+        /// No errors occurred during the lobby bootstrap process.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Lobby is recovering and is not bootstrapped. Use provided nonce the bootstrap the lobby.
         /// </summary>
         LobbyRecovering = 12,
