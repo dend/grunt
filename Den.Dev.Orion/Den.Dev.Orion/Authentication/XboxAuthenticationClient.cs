@@ -204,8 +204,10 @@ namespace Den.Dev.Orion.Authentication
         /// </summary>
         /// <param name="userToken">Previously generated Xbox Live user token.</param>
         /// <param name="useHaloRelyingParty">Determines whether the Halo relying party is used or a more generic Xbox Live one. Using the Xbox Live relying party will not enable you to access Halo APIs.</param>
+        /// <param name="deviceToken">Optional device token, if available.</param>
+        /// <param name="titleToken">Optional title token, if available.</param>
         /// <returns>If successful, returns an instance of <see cref="XboxTicket"/> representing the authentication ticket. Otherwise, returns null.</returns>
-        public async Task<XboxTicket?> RequestXstsToken(string userToken, bool useHaloRelyingParty = true)
+        public async Task<XboxTicket?> RequestXstsToken(string userToken, bool useHaloRelyingParty = true, string? deviceToken = null, string? titleToken = null)
         {
             XboxTicketRequest ticketData = new();
 
@@ -223,6 +225,8 @@ namespace Den.Dev.Orion.Authentication
             {
                 UserTokens = new string[] { userToken },
                 SandboxId = "RETAIL",
+                DeviceToken = deviceToken,
+                TitleToken = titleToken,
             };
 
             var data = JsonSerializer.Serialize(ticketData);

@@ -18,12 +18,14 @@ namespace Den.Dev.Orion.Models.Security
         /// Gets or sets the device ID.
         /// </summary>
         [JsonPropertyName("did")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? DID { get; set; }
 
         /// <summary>
         /// Gets or sets the device clock skew.
         /// </summary>
         [JsonPropertyName("dcs")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? DCS { get; set; }
     }
 }

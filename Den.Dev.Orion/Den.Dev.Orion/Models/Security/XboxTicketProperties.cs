@@ -79,5 +79,17 @@ namespace Den.Dev.Orion.Models.Security
         /// </summary>
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? Version { get; set; }
+
+        /// <summary>
+        /// Gets or sets the device token.
+        /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string? DeviceToken { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title token.
+        /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string? TitleToken { get; set; }
     }
 }

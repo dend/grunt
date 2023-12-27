@@ -18,6 +18,7 @@ namespace Den.Dev.Orion.Models.Security
         /// Gets or sets the title ID.
         /// </summary>
         [JsonPropertyName("tid")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? TID { get; set; }
     }
 }
