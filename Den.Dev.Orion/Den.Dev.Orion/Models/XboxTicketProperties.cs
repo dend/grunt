@@ -49,5 +49,35 @@ namespace Den.Dev.Orion.Models
         /// </summary>
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool? UseModernGamertag { get; set; }
+
+        /// <summary>
+        /// Gets or sets the device type for Proof-of-Possession authentication (used for device tokens).
+        /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string? DeviceType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the device ID when generating a device token.
+        /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string? Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the cryptographic proof key metadata.
+        /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public ProofKey? ProofKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the device serial number.
+        /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string? SerialNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets the version of the OS on the device.
+        /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string? Version { get; set; }
     }
 }

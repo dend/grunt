@@ -41,5 +41,10 @@ namespace Den.Dev.Orion.Endpoints
         /// Xbox Live authorization endpoint.
         /// </summary>
         internal static readonly string XboxLiveXstsAuthorize = "https://xsts.auth.xboxlive.com/xsts/authorize";
+
+        /// <summary>
+        /// Device authentication endpoint.
+        /// </summary>
+        internal static readonly string XboxLiveDeviceAuthenticate = "https://device.auth.xboxlive.com/device/authenticate";
     }
 }
