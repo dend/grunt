@@ -264,17 +264,19 @@ namespace Den.Dev.Orion.Authentication
         /// <returns>If successful, returns an instance of <see cref="XboxTicket"/> that contains the device token. Otherwise, returns null."</returns>
         public async Task<XboxTicket?> RequestDeviceToken(string deviceType = "Win32", string version = "10.0.22000", string authMethod = "ProofOfPossession")
         {
-            XboxTicketRequest ticketData = new();
-            ticketData.RelyingParty = "http://auth.xboxlive.com";
-            ticketData.TokenType = "JWT";
-            ticketData.Properties = new XboxTicketProperties
+            XboxTicketRequest ticketData = new()
             {
-                DeviceType = deviceType,
-                Id = $"{Guid.NewGuid().ToString()}",
-                SerialNumber = $"{Guid.NewGuid().ToString()}",
-                Version = version,
-                AuthMethod = authMethod,
-                ProofKey = this.popCryptoProvider.ProofKey,
+                RelyingParty = "http://auth.xboxlive.com",
+                TokenType = "JWT",
+                Properties = new()
+                {
+                    DeviceType = deviceType,
+                    Id = $"{Guid.NewGuid()}",
+                    SerialNumber = $"{Guid.NewGuid()}",
+                    Version = version,
+                    AuthMethod = authMethod,
+                    ProofKey = this.popCryptoProvider.ProofKey,
+                },
             };
 
             var rawBody = JsonSerializer.Serialize(ticketData);
@@ -308,24 +310,28 @@ namespace Den.Dev.Orion.Authentication
         /// <param name="titleId">Title ID.</param>
         /// <param name="deviceToken">Previously-generated device token.</param>
         /// <param name="offers">List of associated offers.</param>
+        /// <param name="redirectUri">Redirect URI used for authentication.</param>
         /// <param name="tokenType">Token type. Default is "code".</param>
         /// <param name="sandbox">The sandbox to be used. Default is "RETAIL".</param>
         /// <returns>If successful, returns an instance of <see cref="SISUAuthenticationResponse"/>. Otherwise, returns null.</returns>
-        public async Task<SISUAuthenticationResponse?> RequestSISUSession(string appId, string titleId, string deviceToken, List<string> offers, string tokenType = "code", string sandbox = "RETAIL")
+        public async Task<SISUAuthenticationResponse?> RequestSISUSession(string appId, string titleId, string deviceToken, List<string> offers, string redirectUri, string tokenType = "code", string sandbox = "RETAIL")
         {
-            XboxTicketRequest ticketData = new();
-            ticketData.AppId = appId;
-            ticketData.TitleId = titleId;
-            ticketData.DeviceToken = deviceToken;
-            ticketData.Sandbox = sandbox;
-            ticketData.TokenType = tokenType;
-            ticketData.Offers = offers;
-            ticketData.ProofKey = this.popCryptoProvider.ProofKey;
-            ticketData.Query = new AuthQuery()
+            XboxTicketRequest ticketData = new()
             {
-                CodeChallenge = this.codeChallenge,
-                CodeChallengeMethod = "S256",
-                State = Guid.NewGuid().ToString(),
+                AppId = appId,
+                TitleId = titleId,
+                DeviceToken = deviceToken,
+                Sandbox = sandbox,
+                TokenType = tokenType,
+                Offers = offers,
+                RedirectUri = redirectUri,
+                ProofKey = this.popCryptoProvider.ProofKey,
+                Query = new()
+                {
+                    CodeChallenge = this.codeChallenge,
+                    CodeChallengeMethod = "S256",
+                    State = Guid.NewGuid().ToString(),
+                },
             };
 
             var rawBody = JsonSerializer.Serialize(ticketData);
@@ -381,16 +387,17 @@ namespace Den.Dev.Orion.Authentication
         /// <returns>If successful, returns an instance of <see cref="SISUAuthorizationResponse"/> that contains device, authorization, user, and title tokens. Otherwise, returns null.</returns>
         public async Task<SISUAuthorizationResponse?> RequestSISUTokens(string deviceToken, string accessToken, string appId, string sessionId, string sandbox = "RETAIL", string siteName = "user.auth.xboxlive.com", bool useModernGamertag = true)
         {
-            XboxTicketRequest ticketData = new();
-            ticketData.AppId = appId;
-            ticketData.DeviceToken = deviceToken;
-            ticketData.ProofKey = this.popCryptoProvider.ProofKey;
-            ticketData.Sandbox = sandbox;
-            ticketData.AccessToken = $"t={accessToken}";
-            ticketData.Sandbox = sandbox;
-            ticketData.UseModernGamertag = useModernGamertag;
-            ticketData.SessionId = sessionId;
-            ticketData.SiteName = siteName;
+            XboxTicketRequest ticketData = new()
+            {
+                AppId = appId,
+                DeviceToken = deviceToken,
+                ProofKey = this.popCryptoProvider.ProofKey,
+                Sandbox = sandbox,
+                AccessToken = $"t={accessToken}",
+                UseModernGamertag = useModernGamertag,
+                SessionId = sessionId,
+                SiteName = siteName,
+            };
 
             var rawBody = JsonSerializer.Serialize(ticketData);
             var body = new StringContent(rawBody, Encoding.UTF8, "application/json");
@@ -509,13 +516,12 @@ namespace Den.Dev.Orion.Authentication
 
             char[] padding = { '=' };
 
-            return System.Convert.ToBase64String(Encoding.UTF8.GetBytes(data)).TrimEnd(padding).Replace('+', '-').Replace('/', '_');
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(data)).TrimEnd(padding).Replace('+', '-').Replace('/', '_');
         }
 
         private string GenerateCodeChallenge(string codeVerifier)
         {
-            using var sha256 = SHA256.Create();
-            var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(codeVerifier));
+            var hash = SHA256.HashData(Encoding.UTF8.GetBytes(codeVerifier));
             var b64Hash = Convert.ToBase64String(hash);
             var code = Regex.Replace(b64Hash, "\\+", "-");
             code = Regex.Replace(code, "\\/", "_");
