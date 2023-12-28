@@ -389,7 +389,7 @@ namespace Den.Dev.Orion.Authentication
         /// <param name="siteName">Site name to be used for the request. Default value is "user.auth.xboxlive.com".</param>
         /// <param name="useModernGamertag">Determines whether modern gamertags are used. Default value is true.</param>
         /// <returns>If successful, returns an instance of <see cref="SISUAuthorizationResponse"/> that contains device, authorization, user, and title tokens. Otherwise, returns null.</returns>
-        public async Task<SISUAuthorizationResponse?> RequestSISUTokens(string deviceToken, string accessToken, string appId, string sessionId, string sandbox = "RETAIL", string siteName = "user.auth.xboxlive.com", bool useModernGamertag = true)
+        public async Task<SISUAuthorizationResponse?> RequestSISUTokens(string deviceToken, string accessToken, string appId, string? sessionId = null, string sandbox = "RETAIL", string siteName = "user.auth.xboxlive.com", bool useModernGamertag = true)
         {
             XboxTicketRequest ticketData = new()
             {
