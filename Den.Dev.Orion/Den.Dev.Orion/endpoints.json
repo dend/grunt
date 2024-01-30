@@ -700,6 +700,16 @@
             "AuthenticationLifetimeExtensionSupported": false,
             "ClearanceAware": true
         },
+        "Economy_GetSoftCurrencyStore": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencyoffers",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
         "Economy_GetMultiplePlayersRewardTrack": {
             "AuthorityId": "economy",
             "Path": "/hi/{rewardTrackType}s/{trackId}",
@@ -1380,6 +1390,16 @@
             "AuthenticationLifetimeExtensionSupported": false,
             "ClearanceAware": true
         },
+        "HIUGC_Discovery_GetForgeModeCategories": {
+            "AuthorityId": "HIUGC_Discovery_Authority",
+            "Path": "/hi/projects/aff73c44-0771-468f-b9cf-5c52eee7ab4c",
+            "QueryString": "",
+            "RetryPolicyId": "getcustomgamemanifest",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
         "HIUGC_Discovery_GetForgeTemplates": {
             "AuthorityId": "HIUGC_Discovery_Authority",
             "Path": "/hi/projects/bf0e9bab-6fed-47a4-8bf7-bfd4422ee552",
@@ -1993,7 +2013,7 @@
         "Settings_ActiveFlight": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/RETAIL/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.5",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.6",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2003,7 +2023,7 @@
         "Settings_GetClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/{audience}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.5",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.6",
             "RetryPolicyId": "clearanceretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2013,7 +2033,7 @@
         "Settings_GetPlayerClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/{audience}/players/{player}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.5",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.6",
             "RetryPolicyId": "clearanceretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2023,7 +2043,7 @@
         "Settings_PlayerClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/RETAIL/players/{player}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.5",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.6",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
