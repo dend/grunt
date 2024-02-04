@@ -1911,11 +1911,26 @@ namespace Den.Dev.Orion.Core
         /// Gets the collection of Forge templates (canvases) such as Arid, Seafloor, Mires, Void, Argyle, and more. These are suggested maps from which to start when making a new map in Forge.
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetForgeTemplates.xml' path='//example'/>
-        /// <returns>If successful, returns an instance of <see cref="Project"/> containing the maps. Otherwise, returns a null object along with error details.</returns>
+        /// <returns>If successful, returns an instance of <see cref="Project"/> containing the templates. Otherwise, returns a null object along with error details.</returns>
         public async Task<HaloApiResultContainer<Project, RawResponseContainer>> HIUGCDiscoveryGetForgeTemplates()
         {
             return await this.ExecuteAPIRequest<Project>(
                 $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/projects/bf0e9bab-6fed-47a4-8bf7-bfd4422ee552",
+                HttpMethod.Get,
+                true,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
+        /// <summary>
+        /// Gets the Forge Mode Creator Variants, used for mode creator system inside Forge.
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/HIUGC_Discovery_GetForgeModeCategories.xml' path='//example'/>
+        /// <returns>If successful, returns an instance of <see cref="Project"/> containing the variants. Otherwise, returns a null object along with error details.</returns>
+        public async Task<HaloApiResultContainer<Project, RawResponseContainer>> HIUGCDiscoveryGetForgeModeCategories()
+        {
+            return await this.ExecuteAPIRequest<Project>(
+                $"https://{HaloCoreEndpoints.DiscoveryOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/projects/aff73c44-0771-468f-b9cf-5c52eee7ab4c",
                 HttpMethod.Get,
                 true,
                 true,
