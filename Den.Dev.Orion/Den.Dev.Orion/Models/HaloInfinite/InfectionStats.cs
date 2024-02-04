@@ -18,47 +18,47 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the number of humans infected.
         /// </summary>
-        public int HumansInfected { get; set; }
+        public int? HumansInfected { get; set; }
 
         /// <summary>
         /// Gets or sets the number of humans infected as the alpha zombie.
         /// </summary>
-        public int HumansInfectedAsAlpha { get; set; }
+        public int? HumansInfectedAsAlpha { get; set; }
 
         /// <summary>
         /// Gets or sets the number of last humans standing infected.
         /// </summary>
-        public int LastHumansStandingInfected { get; set; }
+        public int? LastHumansStandingInfected { get; set; }
 
         /// <summary>
         /// Gets or sets the number of zombies killed.
         /// </summary>
-        public int ZombiesKilled { get; set; }
+        public int? ZombiesKilled { get; set; }
 
         /// <summary>
         /// Gets or sets the number of alpha zombies killed.
         /// </summary>
-        public int AlphaZombiesKilled { get; set; }
+        public int? AlphaZombiesKilled { get; set; }
 
         /// <summary>
         /// Gets or sets the number of kills as the last human standing.
         /// </summary>
-        public int KillsAsLastHumanStanding { get; set; }
+        public int? KillsAsLastHumanStanding { get; set; }
 
         /// <summary>
         /// Gets or sets the number of rounds survived as a human.
         /// </summary>
-        public int RoundsSurvivedAsHuman { get; set; }
+        public int? RoundsSurvivedAsHuman { get; set; }
 
         /// <summary>
         /// Gets or sets the number of rounds survived as the last human standing.
         /// </summary>
-        public int RoundsSurvivedAsLastHumanStanding { get; set; }
+        public int? RoundsSurvivedAsLastHumanStanding { get; set; }
 
         /// <summary>
         /// Gets or sets the number of rounds played as the last human standing.
         /// </summary>
-        public int RoundsAsLastHumanStanding { get; set; }
+        public int? RoundsAsLastHumanStanding { get; set; }
 
         /// <summary>
         /// Gets or sets the time spent as the last human standing.
@@ -68,11 +68,11 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the number of rounds played as the alpha zombie.
         /// </summary>
-        public int RoundsAsAlphaZombie { get; set; }
+        public int? RoundsAsAlphaZombie { get; set; }
 
         /// <summary>
         /// Gets or sets the number of rounds finished as a zombie.
         /// </summary>
-        public int RoundsFinishedAsZombie { get; set; }
+        public int? RoundsFinishedAsZombie { get; set; }
     }
 }

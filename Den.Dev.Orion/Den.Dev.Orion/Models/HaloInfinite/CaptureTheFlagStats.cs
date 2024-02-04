@@ -18,56 +18,56 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the number of flag capture assists.
         /// </summary>
-        public int FlagCaptureAssists { get; set; }
+        public int? FlagCaptureAssists { get; set; }
 
         /// <summary>
         /// Gets or sets the number of flag captures.
         /// </summary>
-        public int FlagCaptures { get; set; }
+        public int? FlagCaptures { get; set; }
 
         /// <summary>
         /// Gets or sets the number of flag carriers killed.
         /// </summary>
-        public int FlagCarriersKilled { get; set; }
+        public int? FlagCarriersKilled { get; set; }
 
         /// <summary>
         /// Gets or sets the number of flag grabs.
         /// </summary>
-        public int FlagGrabs { get; set; }
+        public int? FlagGrabs { get; set; }
 
         /// <summary>
         /// Gets or sets the number of flag returnes killed.
         /// </summary>
-        public int FlagReturnersKilled { get; set; }
+        public int? FlagReturnersKilled { get; set; }
 
         /// <summary>
         /// Gets or sets the number of flag returns.
         /// </summary>
-        public int FlagReturns { get; set; }
+        public int? FlagReturns { get; set; }
 
         /// <summary>
         /// Gets or sets the number of flag secures.
         /// </summary>
-        public int FlagSecures { get; set; }
+        public int? FlagSecures { get; set; }
 
         /// <summary>
         /// Gets or sets the number of flag steals.
         /// </summary>
-        public int FlagSteals { get; set; }
+        public int? FlagSteals { get; set; }
 
         /// <summary>
         /// Gets or sets the number of kills as a flag carrier.
         /// </summary>
-        public int KillsAsFlagCarrier { get; set; }
+        public int? KillsAsFlagCarrier { get; set; }
 
         /// <summary>
         /// Gets or sets the number of kills as a flag returner.
         /// </summary>
-        public int KillsAsFlagReturner { get; set; }
+        public int? KillsAsFlagReturner { get; set; }
 
         /// <summary>
         /// Gets or sets the time spent as a flag carrier.
         /// </summary>
-        public TimeSpan TimeAsFlagCarrier { get; set; }
+        public TimeSpan? TimeAsFlagCarrier { get; set; }
     }
 }

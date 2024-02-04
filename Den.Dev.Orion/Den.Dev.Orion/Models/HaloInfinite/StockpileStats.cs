@@ -18,31 +18,31 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the number of kills while carrying a power seed.
         /// </summary>
-        public int KillsAsPowerSeedCarrier { get; set; }
+        public int? KillsAsPowerSeedCarrier { get; set; }
 
         /// <summary>
         /// Gets or sets the number of power seeds deposited at base.
         /// </summary>
-        public int PowerSeedsDeposited { get; set; }
+        public int? PowerSeedsDeposited { get; set; }
 
         /// <summary>
         /// Gets or sets the number of power seeds stolen from the opposing team's base.
         /// </summary>
-        public int PowerSeedsStolen { get; set; }
+        public int? PowerSeedsStolen { get; set; }
 
         /// <summary>
         /// Gets or sets the number of power seed carrier kills.
         /// </summary>
-        public int PowerSeedCarriersKilled { get; set; }
+        public int? PowerSeedCarriersKilled { get; set; }
 
         /// <summary>
         /// Gets or sets the amount of time spent carrying a power seed during a match.
         /// </summary>
-        public TimeSpan TimeAsPowerSeedCarrier { get; set; }
+        public TimeSpan? TimeAsPowerSeedCarrier { get; set; }
 
         /// <summary>
         /// Gets or sets the amount of time spent driving while carrying a power seed during a match.
         /// </summary>
-        public TimeSpan TimeAsPowerSeedDriver { get; set; }
+        public TimeSpan? TimeAsPowerSeedDriver { get; set; }
     }
 }

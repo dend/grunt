@@ -16,47 +16,47 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the number of allies revived.
         /// </summary>
-        public int AlliesRevived { get; set; }
+        public int? AlliesRevived { get; set; }
 
         /// <summary>
         /// Gets or sets the number of assists.
         /// </summary>
-        public int EliminationAssists { get; set; }
+        public int? EliminationAssists { get; set; }
 
         /// <summary>
         /// Gets or sets the number of eliminations.
         /// </summary>
-        public int Eliminations { get; set; }
+        public int? Eliminations { get; set; }
 
         /// <summary>
         /// Gets or sets the number of enemy revives that were denied.
         /// </summary>
-        public int EnemyRevivesDenied { get; set; }
+        public int? EnemyRevivesDenied { get; set; }
 
         /// <summary>
         /// Gets or sets the number of executions.
         /// </summary>
-        public int Executions { get; set; }
+        public int? Executions { get; set; }
 
         /// <summary>
         /// Gets or sets the number of kills as last player standing.
         /// </summary>
-        public int KillsAsLastPlayerStanding { get; set; }
+        public int? KillsAsLastPlayerStanding { get; set; }
 
         /// <summary>
         /// Gets or sets the number of last players standing killed.
         /// </summary>
-        public int LastPlayersStandingKilled { get; set; }
+        public int? LastPlayersStandingKilled { get; set; }
 
         /// <summary>
         /// Gets or sets the number of rounds survived.
         /// </summary>
-        public int RoundsSurvived { get; set; }
+        public int? RoundsSurvived { get; set; }
 
         /// <summary>
         /// Gets or sets the number of times being revived by an ally.
         /// </summary>
-        public int TimesRevivedByAlly { get; set; }
+        public int? TimesRevivedByAlly { get; set; }
 
         /// <summary>
         /// Gets or sets the number of lives remaining.
@@ -66,6 +66,6 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the elimination order.
         /// </summary>
-        public int EliminationOrder { get; set; }
+        public int? EliminationOrder { get; set; }
     }
 }

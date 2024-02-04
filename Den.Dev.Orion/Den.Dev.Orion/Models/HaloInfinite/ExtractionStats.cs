@@ -16,26 +16,26 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the number of completed extraction conversions.
         /// </summary>
-        public int ExtractionConversionsCompleted { get; set; }
+        public int? ExtractionConversionsCompleted { get; set; }
 
         /// <summary>
         /// Gets or sets the number of denied extraction conversions.
         /// </summary>
-        public int ExtractionConversionsDenied { get; set; }
+        public int? ExtractionConversionsDenied { get; set; }
 
         /// <summary>
         /// Gets or sets the number of completed extraction initiations.
         /// </summary>
-        public int ExtractionInitiationsCompleted { get; set; }
+        public int? ExtractionInitiationsCompleted { get; set; }
 
         /// <summary>
         /// Gets or sets the number of denied extraction initiations.
         /// </summary>
-        public int ExtractionInitiationsDenied { get; set; }
+        public int? ExtractionInitiationsDenied { get; set; }
 
         /// <summary>
         /// Gets or sets the number of successful extractions.
         /// </summary>
-        public int SuccessfulExtractions { get; set; }
+        public int? SuccessfulExtractions { get; set; }
     }
 }

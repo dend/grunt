@@ -216,5 +216,10 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Land Grab
         /// </summary>
         MultiplayerLandGrab = 39,
+
+        /// <summary>
+        /// Firefight.
+        /// </summary>
+        MultiplayerFirefight = 42,
     }
 }

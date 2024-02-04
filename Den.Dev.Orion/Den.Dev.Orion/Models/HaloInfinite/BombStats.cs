@@ -18,46 +18,46 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the number of bomb carriers killed.
         /// </summary>
-        public int BombCarriersKilled { get; set; }
+        public int? BombCarriersKilled { get; set; }
 
         /// <summary>
         /// Gets or sets the number of bomb defusals.
         /// </summary>
-        public int BombDefusals { get; set; }
+        public int? BombDefusals { get; set; }
 
         /// <summary>
         /// Gets or sets the number of bomb defusers killed.
         /// </summary>
-        public int BombDefusersKilled { get; set; }
+        public int? BombDefusersKilled { get; set; }
 
         /// <summary>
         /// Gets or sets the number of bomb detonations.
         /// </summary>
-        public int BombDetonations { get; set; }
+        public int? BombDetonations { get; set; }
 
         /// <summary>
         /// Gets or sets the number of bomb pick-ups.
         /// </summary>
-        public int BombPickUps { get; set; }
+        public int? BombPickUps { get; set; }
 
         /// <summary>
         /// Gets or sets the number of bomb plants.
         /// </summary>
-        public int BombPlants { get; set; }
+        public int? BombPlants { get; set; }
 
         /// <summary>
         /// Gets or sets the number of bomb returns.
         /// </summary>
-        public int BombReturns { get; set; }
+        public int? BombReturns { get; set; }
 
         /// <summary>
         /// Gets or sets the number of kills as a bomb carrier.
         /// </summary>
-        public int KillsAsBombCarrier { get; set; }
+        public int? KillsAsBombCarrier { get; set; }
 
         /// <summary>
         /// Gets or sets the time spent in game as a bomb carrier.
         /// </summary>
-        public TimeSpan TimeAsBombCarrier { get; set; }
+        public TimeSpan? TimeAsBombCarrier { get; set; }
     }
 }

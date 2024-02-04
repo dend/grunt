@@ -17,5 +17,10 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Player versus player.
         /// </summary>
         Pvp = 1,
+
+        /// <summary>
+        /// Player versus environment.
+        /// </summary>
+        Pve = 2,
     }
 }

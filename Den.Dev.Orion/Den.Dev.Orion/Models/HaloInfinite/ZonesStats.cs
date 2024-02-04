@@ -38,7 +38,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the duration of zone occupation during a match.
         /// </summary>
-        public TimeSpan TotalZoneOccupationTime { get; set; }
+        public TimeSpan? TotalZoneOccupationTime { get; set; }
 
         /// <summary>
         /// Gets or sets number of ticks during which the player was occupying a zone.

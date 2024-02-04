@@ -62,5 +62,10 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Gets or sets VIP game mode stats.
         /// </summary>
         public VIPStats? VipStats { get; set; }
+
+        /// <summary>
+        /// Gets or sets Firefight game mode stats.
+        /// </summary>
+        public PveStats? PveStats { get; set; }
     }
 }
