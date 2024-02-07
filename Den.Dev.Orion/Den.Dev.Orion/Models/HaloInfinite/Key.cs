@@ -15,6 +15,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
     /// <remarks>
     /// Additional details can be obtained by reading the <see href="https://datatracker.ietf.org/doc/html/rfc7518">RFC 7518 document</see> or a more recent <see href="https://stackoverflow.com/questions/70022898/what-does-e-aqab-mean-in-jwks">Stack Overflow question</see>.
     /// </remarks>
+    [IsAutomaticallySerializable]
     public class Key
     {
         /// <summary>

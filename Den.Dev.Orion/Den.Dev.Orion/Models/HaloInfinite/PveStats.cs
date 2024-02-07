@@ -10,6 +10,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
     /// <summary>
     /// Container class for Player-versus-Environment (i.e., Firefight) game mode stats.
     /// </summary>
+    [IsAutomaticallySerializable]
     public class PveStats
     {
         /// <summary>

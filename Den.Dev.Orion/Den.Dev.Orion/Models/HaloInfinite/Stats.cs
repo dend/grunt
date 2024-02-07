@@ -67,5 +67,10 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Gets or sets Firefight game mode stats.
         /// </summary>
         public PveStats? PveStats { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Player-vs-Player (PvP) stats.
+        /// </summary>
+        public PvpStats? PvpStats { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
     /// <summary>
     /// Container for sprite information. Primarily used for medals.
     /// </summary>
+    [IsAutomaticallySerializable]
     public class SpriteContainer
     {
         /// <summary>

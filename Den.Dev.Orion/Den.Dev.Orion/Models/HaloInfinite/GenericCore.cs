@@ -10,6 +10,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
     /// <summary>
     /// Generic in-game core implemented through <see cref="HaloInfinite.Foundation.CoreBase"/>.
     /// </summary>
+    [IsAutomaticallySerializable]
     public class GenericCore : HaloInfinite.Foundation.CoreBase
     {
     }

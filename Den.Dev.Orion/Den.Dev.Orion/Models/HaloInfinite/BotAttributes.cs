@@ -10,6 +10,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
     /// <summary>
     /// Information related to bot-specific attributes.
     /// </summary>
+    [IsAutomaticallySerializable]
     public class BotAttributes
     {
         /// <summary>

@@ -1,4 +1,4 @@
-﻿// <copyright file="Sprite.cs" company="Den Delimarsky">
+﻿// <copyright file="PvpStats.cs" company="Den Delimarsky">
 // Developed by Den Delimarsky.
 // Den Delimarsky licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
@@ -8,24 +8,29 @@
 namespace Den.Dev.Orion.Models.HaloInfinite
 {
     /// <summary>
-    /// Individual sprite configuration. Mostly used for medals.
+    /// Container class for Player-vs-Player (PvP) stats.
     /// </summary>
     [IsAutomaticallySerializable]
-    public class Sprite
+    public class PvpStats
     {
         /// <summary>
-        /// Gets or sets the path to the sprite.
+        /// Gets or sets the number of PvP assists.
         /// </summary>
-        public string? Path { get; set; }
+        public int? Assists { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of columns for the sprite.
+        /// Gets or sets the number of PvP deaths.
         /// </summary>
-        public int Columns { get; set; }
+        public int? Deaths { get; set; }
 
         /// <summary>
-        /// Gets or sets the size, in pixels, for component images.
+        /// Gets or sets the PvP KDA.
         /// </summary>
-        public int Size { get; set; }
+        public float? KDA { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the number of PvP kills.
+        /// </summary>
+        public int? Kills { get; set; }
     }
 }

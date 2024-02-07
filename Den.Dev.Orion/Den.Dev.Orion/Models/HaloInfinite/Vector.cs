@@ -12,6 +12,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
     /// <summary>
     /// Class representing a positioning vector.
     /// </summary>
+    [IsAutomaticallySerializable]
     public class Vector
     {
         /// <summary>

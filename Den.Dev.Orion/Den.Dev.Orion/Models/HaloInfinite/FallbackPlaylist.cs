@@ -10,6 +10,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
     /// <summary>
     /// Container class for a fallback playlist.
     /// </summary>
+    [IsAutomaticallySerializable]
     public class FallbackPlaylist
     {
         /// <summary>
