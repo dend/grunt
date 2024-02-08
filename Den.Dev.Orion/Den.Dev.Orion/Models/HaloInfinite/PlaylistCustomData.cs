@@ -23,37 +23,37 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the playlist strategy type.
         /// </summary>
-        public int Strategy { get; set; }
+        public int? Strategy { get; set; }
 
         /// <summary>
         /// Gets or sets the minimum number of teams.
         /// </summary>
-        public int MinTeams { get; set; }
+        public int? MinTeams { get; set; }
 
         /// <summary>
         /// Gets or sets the minimum team size.
         /// </summary>
-        public int MinTeamSize { get; set; }
+        public int? MinTeamSize { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum number of teams.
         /// </summary>
-        public int MaxTeams { get; set; }
+        public int? MaxTeams { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum team size.
         /// </summary>
-        public int MaxTeamSize { get; set; }
+        public int? MaxTeamSize { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum team imbalance.
         /// </summary>
-        public int MaxTeamImbalance { get; set; }
+        public int? MaxTeamImbalance { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum number of splitscreen players allowed.
         /// </summary>
-        public int MaxSplitscreenPlayersAllowed { get; set; }
+        public int? MaxSplitscreenPlayersAllowed { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether friends can join an in-progress match.
@@ -73,7 +73,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the duration of the exit experience in seconds.
         /// </summary>
-        public int ExitExperienceDurationSec { get; set; }
+        public int? ExitExperienceDurationSec { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the fireteam leader is allowed to kick players.
@@ -93,16 +93,16 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the bot difficulty for the playlist.
         /// </summary>
-        public int BotDifficulty { get; set; }
+        public int? BotDifficulty { get; set; }
 
         /// <summary>
         /// Gets or sets the minimum fireteam size.
         /// </summary>
-        public int MinFireteamSize { get; set; }
+        public int? MinFireteamSize { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum fireteam size.
         /// </summary>
-        public int MaxFireteamSize { get; set; }
+        public int? MaxFireteamSize { get; set; }
     }
 }
