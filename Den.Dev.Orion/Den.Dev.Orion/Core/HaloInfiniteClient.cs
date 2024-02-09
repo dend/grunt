@@ -33,7 +33,8 @@ namespace Den.Dev.Orion.Core
         /// <param name="xuid">The player identifier in the format "xuid(XUID_VALUE)".</param>
         /// <param name="clearanceToken">ID of the flight/clearance currently active for the player. Optional when first instantiating the client.</param>
         /// <param name="includeRawResponses">Determines whether the raw content responses are returned with each request.</param>
-        public HaloInfiniteClient(string spartanToken, string xuid = "", string clearanceToken = "", bool includeRawResponses = false)
+        /// <param name="userAgent">User agent to be used with requests.</param>
+        public HaloInfiniteClient(string spartanToken, string xuid = "", string clearanceToken = "", bool includeRawResponses = false, string userAgent = "")
         {
             this.SpartanToken = spartanToken;
             this.Xuid = xuid;
@@ -42,7 +43,16 @@ namespace Den.Dev.Orion.Core
 
             this.Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             this.Client.DefaultRequestHeaders.ConnectionClose = true;
-            this.Client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", GlobalConstants.HALO_PC_USER_AGENT);
+
+            if (userAgent == string.Empty)
+            {
+                this.Client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", GlobalConstants.HALO_PC_USER_AGENT);
+            }
+            else
+            {
+                this.Client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", userAgent);
+            }
+
             this.Client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
             this.Client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("deflate"));
             this.Client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("br"));
