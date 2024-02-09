@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -17,6 +16,7 @@ using System.Threading.Tasks;
 using Den.Dev.Orion.Converters;
 using Den.Dev.Orion.Models;
 using Den.Dev.Orion.Util;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Den.Dev.Orion.Core.Foundation
 {
@@ -25,6 +25,8 @@ namespace Den.Dev.Orion.Core.Foundation
     /// </summary>
     public abstract class ClientBase
     {
+        private readonly MemoryCache Cache = new MemoryCache(new MemoryCacheOptions());
+
         private readonly JsonSerializerOptions serializerOptions = new()
         {
             WriteIndented = true,
@@ -138,21 +140,43 @@ namespace Den.Dev.Orion.Core.Foundation
                 }
             }
 
-            var response = await this.Client.SendAsync(request);
+            HttpResponseMessage? response = null;
+            byte[] responseData = null;
+
+            if (this.Cache.TryGetValue<CachedAPIResponse>(endpoint, out CachedAPIResponse cachedResponse))
+            {
+                var eTagHeader = cachedResponse.ETag;
+                request.Headers.Add("If-None-Match", eTagHeader);
+                response = await this.Client.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.NotModified)
+                {
+                    responseData = cachedResponse.Content;
+                }
+                else
+                {
+                    this.UpdateCache(endpoint, response);
+                    responseData = await response.Content.ReadAsByteArrayAsync();
+                }
+            }
+            else
+            {
+                response = await this.Client.SendAsync(request);
+                this.UpdateCache(endpoint, response);
+                responseData = await response.Content.ReadAsByteArrayAsync();
+            }
 
             resultContainer.Response!.Code = Convert.ToInt32(response.StatusCode);
 
-            if (response.IsSuccessStatusCode || !enforceSuccess)
+            if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || !enforceSuccess)
             {
                 if (typeof(T) == typeof(string))
                 {
-                    resultContainer.Result = (T)Convert.ChangeType(await response.Content.ReadAsStringAsync(), typeof(T));
+                    resultContainer.Result = (T)Convert.ChangeType(Encoding.UTF8.GetString(responseData), typeof(T));
                 }
                 else if (typeof(T) == typeof(byte[]))
                 {
-                    using MemoryStream dataStream = new();
-                    response.Content.ReadAsStreamAsync().Result.CopyTo(dataStream);
-                    resultContainer.Result = (T)Convert.ChangeType(dataStream.ToArray(), typeof(T));
+                    resultContainer.Result = (T)Convert.ChangeType(responseData, typeof(T));
                 }
                 else if (typeof(T) == typeof(bool))
                 {
@@ -166,7 +190,7 @@ namespace Den.Dev.Orion.Core.Foundation
                     if (Attribute.GetCustomAttribute(typeof(T), typeof(IsAutomaticallySerializableAttribute)) != null ||
                         typeof(T).IsGenericType)
                     {
-                        var responseString = await response.Content.ReadAsStringAsync();
+                        var responseString = Encoding.UTF8.GetString(responseData);
                         if (!string.IsNullOrWhiteSpace(responseString))
                         {
                             resultContainer.Result = JsonSerializer.Deserialize<T>(responseString, this.serializerOptions);
@@ -190,5 +214,19 @@ namespace Den.Dev.Orion.Core.Foundation
 
             return resultContainer;
         }
+
+        private void UpdateCache(string cacheKey, HttpResponseMessage response)
+        {
+            var eTag = response.Headers.ETag?.ToString();
+            var content = response.Content.ReadAsByteArrayAsync().Result;
+
+            var cacheEntryOptions = new MemoryCacheEntryOptions
+            {
+                AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(60),
+            };
+
+            Cache.Set(cacheKey, new CachedAPIResponse { ETag = eTag, Content = content }, cacheEntryOptions);
+        }
+
     }
 }
