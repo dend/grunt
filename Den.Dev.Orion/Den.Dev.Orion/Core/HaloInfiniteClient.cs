@@ -2419,8 +2419,9 @@ namespace Den.Dev.Orion.Core
         }
 
         // ================================================
-        // Setting
+        // Settings
         // ================================================
+
 
         /// <summary>
         /// Get a list of features enables for a given flight.
@@ -2438,9 +2439,21 @@ namespace Den.Dev.Orion.Core
                 includeRawResponse: this.IncludeRawResponses);
         }
 
-        // ================================================
-        // Settings
-        // ================================================
+        /// <summary>
+        /// Returns the currently active (clearance).
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/Settings_ActiveClearance.xml' path='//example'/>
+        /// <param name="release">Release identifier. Examples seen are 1.4, 1.5, and 1.6.</param>
+        /// <returns>If successful, returns an instance of <see cref="PlayerClearance"/>. Otherwise, returns null.</returns>
+        public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> SettingsActiveClearance(string release)
+        {
+            return await this.ExecuteAPIRequest<PlayerClearance>(
+                $"https://{HaloCoreEndpoints.SettingsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/clearances/active?release={release}",
+                HttpMethod.Get,
+                false,
+                false,
+                includeRawResponse: this.IncludeRawResponses);
+        }
 
         /// <summary>
         /// Returns the currently active flight.
