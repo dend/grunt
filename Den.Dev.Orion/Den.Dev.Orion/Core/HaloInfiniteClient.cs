@@ -2421,8 +2421,7 @@ namespace Den.Dev.Orion.Core
         // ================================================
         // Settings
         // ================================================
-
-
+        
         /// <summary>
         /// Get a list of features enables for a given flight.
         /// </summary>

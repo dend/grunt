@@ -16,12 +16,12 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the CSR value.
         /// </summary>
-        public int Value { get; set; }
+        public int? Value { get; set; }
 
         /// <summary>
         /// Gets or sets the number of matches remaining to measure the CSR.
         /// </summary>
-        public int MeasurementMatchesRemaining { get; set; }
+        public int? MeasurementMatchesRemaining { get; set; }
 
         /// <summary>
         /// Gets or sets the tier.
@@ -31,12 +31,12 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the tier start.
         /// </summary>
-        public int TierStart { get; set; }
+        public int? TierStart { get; set; }
 
         /// <summary>
         /// Gets or sets the subtier.
         /// </summary>
-        public int SubTier { get; set; }
+        public int? SubTier { get; set; }
 
         /// <summary>
         /// Gets or sets the next tier.
@@ -46,16 +46,26 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the start of the next tier.
         /// </summary>
-        public int NextTierStart { get; set; }
+        public int? NextTierStart { get; set; }
 
         /// <summary>
         /// Gets or sets the next subtier.
         /// </summary>
-        public int NextSubTier { get; set; }
+        public int? NextSubTier { get; set; }
 
         /// <summary>
         /// Gets or sets the number of initial measurement matches.
         /// </summary>
-        public int InitialMeasurementMatches { get; set; }
+        public int? InitialMeasurementMatches { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of initial demotion protection matches.
+        /// </summary>
+        public int? InitialDemotionProtectionMatches { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of initial demotion protection matches.
+        /// </summary>
+        public int? DemotionProtectionMatchesRemaining { get; set; }
     }
 }

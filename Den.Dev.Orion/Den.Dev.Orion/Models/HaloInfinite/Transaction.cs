@@ -5,6 +5,7 @@
 // The underlying API powering Den.Dev.Orion is managed by 343 Industries and Microsoft. This wrapper is not endorsed by 343 Industries or Microsoft.
 // </copyright>
 
+using System;
 using System.Collections.Generic;
 
 namespace Den.Dev.Orion.Models.HaloInfinite
@@ -41,7 +42,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the transaction ID.
         /// </summary>
-        public string? TransactionId { get; set; }
+        public Guid? TransactionId { get; set; }
 
         /// <summary>
         /// Gets or sets the transaction date.
@@ -51,7 +52,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the product reference.
         /// </summary>
-        public dynamic? ProductReference { get; set; }
+        public string? ProductReference { get; set; }
 
         /// <summary>
         /// Gets or sets the units consumed.

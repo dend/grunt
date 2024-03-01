@@ -25,7 +25,7 @@ namespace Den.Dev.Orion.Core.Foundation
     /// </summary>
     public abstract class ClientBase
     {
-        private readonly MemoryCache Cache = new MemoryCache(new MemoryCacheOptions());
+        private readonly MemoryCache cache = new(new MemoryCacheOptions());
 
         private readonly JsonSerializerOptions serializerOptions = new()
         {
@@ -45,6 +45,7 @@ namespace Den.Dev.Orion.Core.Foundation
         public HttpClient Client { get; set; } = new HttpClient(new HttpClientHandler
         {
             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli,
+            MaxConnectionsPerServer = 16,
         });
 
         /// <summary>
@@ -93,7 +94,7 @@ namespace Den.Dev.Orion.Core.Foundation
             byte[]? binaryContent = null,
             APIContentType contentType = APIContentType.Json,
             bool includeRawResponse = false,
-            List<KeyValuePair<string,string>> customHeaders = null,
+            List<KeyValuePair<string, string>>? customHeaders = null,
             bool enforceSuccess = true)
         {
             var contentTypeAttribute = contentType.GetHeaderValue();
@@ -141,22 +142,25 @@ namespace Den.Dev.Orion.Core.Foundation
             }
 
             HttpResponseMessage? response = null;
-            byte[] responseData = null;
+            byte[]? responseData = null;
 
-            if (this.Cache.TryGetValue<CachedAPIResponse>(endpoint, out CachedAPIResponse cachedResponse))
+            if (this.cache.TryGetValue(endpoint, out CachedAPIResponse? cachedResponse))
             {
-                var eTagHeader = cachedResponse.ETag;
-                request.Headers.Add("If-None-Match", eTagHeader);
-                response = await this.Client.SendAsync(request);
+                if (cachedResponse != null)
+                {
+                    var eTagHeader = cachedResponse.ETag;
+                    request.Headers.Add("If-None-Match", eTagHeader);
+                    response = await this.Client.SendAsync(request);
 
-                if (response.StatusCode == HttpStatusCode.NotModified)
-                {
-                    responseData = cachedResponse.Content;
-                }
-                else
-                {
-                    this.UpdateCache(endpoint, response);
-                    responseData = await response.Content.ReadAsByteArrayAsync();
+                    if (response.StatusCode == HttpStatusCode.NotModified)
+                    {
+                        responseData = cachedResponse.Content;
+                    }
+                    else
+                    {
+                        this.UpdateCache(endpoint, response);
+                        responseData = await response.Content.ReadAsByteArrayAsync();
+                    }
                 }
             }
             else
@@ -166,17 +170,17 @@ namespace Den.Dev.Orion.Core.Foundation
                 responseData = await response.Content.ReadAsByteArrayAsync();
             }
 
-            resultContainer.Response!.Code = Convert.ToInt32(response.StatusCode);
+            resultContainer.Response!.Code = Convert.ToInt32(response!.StatusCode);
 
             if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || !enforceSuccess)
             {
                 if (typeof(T) == typeof(string))
                 {
-                    resultContainer.Result = (T)Convert.ChangeType(Encoding.UTF8.GetString(responseData), typeof(T));
+                    resultContainer.Result = (T)Convert.ChangeType(Encoding.UTF8.GetString(responseData!), typeof(T));
                 }
                 else if (typeof(T) == typeof(byte[]))
                 {
-                    resultContainer.Result = (T)Convert.ChangeType(responseData, typeof(T));
+                    resultContainer.Result = (T)Convert.ChangeType(responseData!, typeof(T));
                 }
                 else if (typeof(T) == typeof(bool))
                 {
@@ -190,7 +194,7 @@ namespace Den.Dev.Orion.Core.Foundation
                     if (Attribute.GetCustomAttribute(typeof(T), typeof(IsAutomaticallySerializableAttribute)) != null ||
                         typeof(T).IsGenericType)
                     {
-                        var responseString = Encoding.UTF8.GetString(responseData);
+                        var responseString = Encoding.UTF8.GetString(responseData!);
                         if (!string.IsNullOrWhiteSpace(responseString))
                         {
                             resultContainer.Result = JsonSerializer.Deserialize<T>(responseString, this.serializerOptions);
@@ -225,8 +229,7 @@ namespace Den.Dev.Orion.Core.Foundation
                 AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(60),
             };
 
-            Cache.Set(cacheKey, new CachedAPIResponse { ETag = eTag, Content = content }, cacheEntryOptions);
+            this.cache.Set(cacheKey, new CachedAPIResponse { ETag = eTag, Content = content }, cacheEntryOptions);
         }
-
     }
 }
