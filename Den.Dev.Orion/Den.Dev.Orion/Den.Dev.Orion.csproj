@@ -23,6 +23,8 @@
 		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<AssemblyVersion>1.0.50</AssemblyVersion>
+		<FileVersion>1.0.50</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
