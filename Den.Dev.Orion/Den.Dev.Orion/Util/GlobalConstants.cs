@@ -30,6 +30,9 @@ namespace Den.Dev.Orion.Util
         /// <summary>
         /// Default scopes used for the Xbox Live authentication.
         /// </summary>
-        internal static readonly string[] DEFAULT_AUTH_SCOPES = new string[] { "Xboxlive.signin", "Xboxlive.offline_access", "service::user.auth.xboxlive.com::MBI_SSL" };
+        /// <remarks>
+        /// If device authentication is needed, you can use add `service::user.auth.xboxlive.com::MBI_SSL`.
+        /// </remarks>
+        internal static readonly string[] DEFAULT_AUTH_SCOPES = new string[] { "Xboxlive.signin", "Xboxlive.offline_access" };
     }
 }

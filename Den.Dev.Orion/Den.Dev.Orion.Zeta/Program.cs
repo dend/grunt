@@ -105,7 +105,7 @@ namespace Den.Dev.Orion.Zeta
             {
                 // Previous build values:
                 // - 222249.22.06.08.1730-0
-                var clearance = (await client.SettingsGetClearance("RETAIL", "UNUSED", "245613.23.06.01.1708-0", "1.4")).Result;
+                var clearance = (await client.SettingsGetClearance("RETAIL", "UNUSED", "245613.23.06.01.1708-0", "1.6")).Result;
                 if (clearance != null)
                 {
                     localClearance = clearance.FlightConfigurationId;
@@ -125,22 +125,7 @@ namespace Den.Dev.Orion.Zeta
                 //var settings = await client.GetApiSettingsContainer();
                 Dictionary<string, string> inspectionPlaylists = new Dictionary<string, string>()
                 {
-                    {"00cd3ab8-4b24-4181-8493-7aee34751f52", "6ec76c9b-5134-4444-8e6a-b736413d0af3"},
-                    {"d22aa90d-3091-4214-a85e-c968037cef2f", "b5439adc-6100-44a3-bc37-012d618e8c9f"},
-                    {"52392a40-5a75-4205-abc6-b51cdc84918c", "dc1a0dde-24cf-4e26-a94f-0a5d76854959"},
-                    {"da024c44-7c2a-49bb-a6ff-8d91ac179900", "19bfb62e-76dd-46bf-ab6e-180e69b8873c"},
-                    {"aa41f6a9-51be-4f25-a53f-48192ce14de7", "a5e4c224-89cb-49f8-88e0-b2f04e74b59f"},
-                    {"4829f027-a9af-4b2f-86dd-7b290d6bb0a4", "9bd2d072-e579-4b54-b603-d4801111ce53"},
-                    {"dcb2e24e-05fb-4390-8076-32a0cdb4326e", "d4165aad-2cc0-4130-a93a-4742f6606c0b"},
-                    {"bdceefb3-1c52-4848-a6b7-d49acd13109d", "01949da1-ae38-460a-a27c-e95aac0db9b6"},
-                    {"dc4929de-216c-43bc-b207-1702253f4576", "c487b0af-5b4a-4576-8ae7-34ff9773a20f"},
-                    {"70bb9184-e674-4307-8846-239ab4a30cb6", "e2d74d94-9cec-4286-b4d8-ded9ccc8d858"},
-                    {"4795cb47-5b32-4c87-98ab-02f12e94ca31", "58a0c3d9-d906-4c07-bc48-af757c0fe580"},
-                    {"73b48e1e-05c4-4004-927d-965549b28396", "17b616fb-f128-46c9-b966-7850b38445f9"},
-                    {"edfef3ac-9cbe-4fa2-b949-8f29deafd483", "5dfe7c2b-8d15-4049-933e-eb9c0fa113a6"},
-                    {"f336c231-e55c-46c9-af11-d9acf1b3245d", "0e498c69-56a9-43cd-b8af-a73d9f14d016"},
-                    {"7071b932-18c1-4f9b-b80e-266aec1d6770", "f5dd07b9-a22e-4ccc-a9a1-a489a0d1269f"},
-                    {"a446725e-b281-414c-a21e-31b8700e95a1", "b108af37-38b3-45f4-af18-9e1f59f930b3" }
+                    {"edfef3ac-9cbe-4fa2-b949-8f29deafd483", "b8681883-23a7-4d27-9cf8-3730ec274c12"}
                 };
 
                 List<PlaylistRotationEntry> existingMapModePairs = new List<PlaylistRotationEntry>();
