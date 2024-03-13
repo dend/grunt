@@ -5,6 +5,7 @@ using Den.Dev.Orion.Models;
 using Den.Dev.Orion.Models.HaloInfinite;
 using Den.Dev.Orion.Models.Security;
 using Den.Dev.Orion.Util;
+using Microsoft.Extensions.Logging;
 using SQLite;
 using System.CommandLine;
 using System.Globalization;
@@ -559,15 +560,7 @@ namespace Den.Dev.Orion.Composer
                         if (!availability.MatchAvailable)
                         {
                             WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Getting match stats for {matchId}...");
-                            matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
-
-                            if (matchStats.Response!.Code == 401)
-                            {
-                                // The token is no longer working - need to acquire a new one.
-                                WriteTimedLogEntry("Token expired. Refreshing...");
-                                haloInfiniteClient = InstantiateClient();
-                                matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
-                            }
+                            matchStats = await SafeAPICall(async () => await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString()));
 
                             if (matchStats != null && matchStats.Result != null)
                             {
@@ -592,31 +585,20 @@ namespace Den.Dev.Orion.Composer
                         {
                             if (matchStats == null)
                             {
-                                matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
-                                if (matchStats.Response!.Code == 401)
-                                {
-                                    // The token is no longer working - need to acquire a new one.
-                                    WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Token expired. Refreshing...");
-                                    haloInfiniteClient = InstantiateClient();
-                                    matchStats = await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString());
-                                }
+                                matchStats = await SafeAPICall(async () => await haloInfiniteClient!.StatsGetMatchStats(matchId.ToString()));
                             }
 
                             if (matchStats != null && matchStats.Result != null && matchStats.Result.Players != null)
                             {
+                                // Update asset records.
+                                await UpdateMatchAssetRecords(matchStats.Result, domain);
+
                                 // Anything that starts with "bid" is a bot and including that in the request for player stats will result in failure.
                                 var targetPlayers = matchStats.Result.Players.Select(p => p.PlayerId).Where(p => !p.StartsWith("bid")).ToList();
 
                                 WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Attempting to get player results for players for match {matchId}.");
 
-                                var playerStatsSnapshot = await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!);
-
-                                if (playerStatsSnapshot.Response!.Code == 401)
-                                {
-                                    WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Token expired. Refreshing...");
-                                    haloInfiniteClient = InstantiateClient();
-                                    playerStatsSnapshot = await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!);
-                                }
+                                var playerStatsSnapshot = await SafeAPICall(async() => await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!));
 
                                 if (playerStatsSnapshot != null && playerStatsSnapshot.Result != null && playerStatsSnapshot.Result.Value != null)
                                 {
@@ -661,6 +643,154 @@ namespace Den.Dev.Orion.Composer
             return true;
         }
 
+        internal static async Task<bool> UpdateMatchAssetRecords(MatchStats result, string domain)
+        {
+            try
+            {
+                UGCGameVariant? targetGameVariant = null;
+
+                var domainDatabase = new SQLiteConnection(domain);
+
+                string query = $"SELECT EXISTS(SELECT 1 FROM Maps WHERE AssetId = '{result.MatchInfo.MapVariant.AssetId.ToString()}' AND VersionId = '{result.MatchInfo.MapVariant.VersionId.ToString()}') AS MAP_AVAILABLE, " +
+                      $"EXISTS(SELECT 1 FROM GameVariants WHERE AssetId = '{result.MatchInfo.UgcGameVariant.AssetId.ToString()}' AND VersionId = '{result.MatchInfo.UgcGameVariant.VersionId.ToString()}') AS GAMEVARIANT_AVAILABLE";
+
+                if (result.MatchInfo.Playlist != null)
+                {
+                    query += $", EXISTS(SELECT 1 FROM Playlists WHERE AssetId = '{result.MatchInfo.Playlist.AssetId.ToString()}' AND VersionId = '{result.MatchInfo.Playlist.VersionId.ToString()}') AS PLAYLIST_AVAILABLE";
+                }
+
+                if (result.MatchInfo.PlaylistMapModePair != null)
+                {
+                    query += $", EXISTS(SELECT 1 FROM PlaylistMapModePairs WHERE AssetId = '{result.MatchInfo.PlaylistMapModePair.AssetId.ToString()}' AND VersionId = '{result.MatchInfo.PlaylistMapModePair.VersionId.ToString()}') AS PLAYLISTMAPMODEPAIR_AVAILABLE";
+                }
+
+                var availability = domainDatabase.Query<AssetAvailability>(query).FirstOrDefault();
+
+                if (!availability.MapAvailable)
+                {
+                    var map = await SafeAPICall(async () => await haloInfiniteClient.HIUGCDiscoveryGetMap(result.MatchInfo.MapVariant.AssetId.ToString(), result.MatchInfo.MapVariant.VersionId.ToString()));
+                    if (map != null && map.Result != null && map.Response.Code == 200)
+                    {
+                        var record = new MapRecord { ResponseBody = map.Response.Message };
+                        var insertionResult = domainDatabase.Insert(record);
+
+                        if (insertionResult > 0)
+                        {
+                            WriteTimedLogEntry($"Stored map: {result.MatchInfo.MapVariant.AssetId}/{result.MatchInfo.MapVariant.VersionId}");
+                        }
+                    }
+                }
+
+                if (!availability.PlaylistAvailable)
+                {
+                    if (result.MatchInfo.Playlist != null)
+                    {
+                        var playlist = await SafeAPICall(async () => await haloInfiniteClient!.HIUGCDiscoveryGetPlaylist(result.MatchInfo.Playlist.AssetId.ToString(), result.MatchInfo.Playlist.VersionId.ToString(), haloInfiniteClient.ClearanceToken));
+                        if (playlist != null && playlist.Result != null && playlist.Response.Code == 200)
+                        {
+                            var record = new PlaylistRecord { ResponseBody = playlist.Response.Message };
+                            var insertionResult = domainDatabase.Insert(record);
+
+                            if (insertionResult > 0)
+                            {
+                                WriteTimedLogEntry($"Stored playlist: {result.MatchInfo.Playlist.AssetId}/{result.MatchInfo.Playlist.VersionId}");
+                            }
+                        }
+                    }
+                }
+
+                if (!availability.PlaylistMapModePairAvailable)
+                {
+                    if (result.MatchInfo.PlaylistMapModePair != null)
+                    {
+                        var playlistMmp = await SafeAPICall(async () => await haloInfiniteClient.HIUGCDiscoveryGetMapModePair(result.MatchInfo.PlaylistMapModePair.AssetId.ToString(), result.MatchInfo.PlaylistMapModePair.VersionId.ToString(), haloInfiniteClient.ClearanceToken));
+                        if (playlistMmp != null && playlistMmp.Result != null && playlistMmp.Response.Code == 200)
+                        {
+                            var record = new PlaylistMapModePairRecord { ResponseBody = playlistMmp.Response.Message };
+                            var insertionResult = domainDatabase.Insert(record);
+
+                            if (insertionResult > 0)
+                            {
+                                WriteTimedLogEntry($"Stored playlist + map mode pair: {result.MatchInfo.PlaylistMapModePair.AssetId}/{result.MatchInfo.PlaylistMapModePair.VersionId}");
+                            }
+                        }
+                    }
+                }
+
+                if (!availability.GameVariantAvailable)
+                {
+                    var gameVariant = await SafeAPICall(async () => await haloInfiniteClient.HIUGCDiscoveryGetUgcGameVariant(result.MatchInfo.UgcGameVariant.AssetId.ToString(), result.MatchInfo.UgcGameVariant.VersionId.ToString()));
+                    if (gameVariant != null && gameVariant.Result != null && gameVariant.Response.Code == 200)
+                    {
+                        targetGameVariant = gameVariant.Result;
+
+                        var record = new GameVariantRecord { ResponseBody = gameVariant.Response.Message };
+                        var insertionResult = domainDatabase.Insert(record);
+
+                        if (insertionResult > 0)
+                        {
+                            WriteTimedLogEntry($"Stored game variant: {result.MatchInfo.UgcGameVariant.AssetId}/{result.MatchInfo.UgcGameVariant.VersionId}");
+                        }
+
+                        var engineQuery = $"SELECT EXISTS(SELECT 1 FROM EngineGameVariants WHERE AssetId='{gameVariant.Result.EngineGameVariantLink.AssetId}' AND VersionId='{gameVariant.Result.EngineGameVariantLink.VersionId}') AS ENGINEGAMEVARIANT_AVAILABLE";
+                        availability.EngineGameVariantAvailable = domainDatabase.Query<AssetAvailability>(engineQuery).FirstOrDefault().EngineGameVariantAvailable;
+                    }
+                }
+
+                if (!availability.EngineGameVariantAvailable && targetGameVariant != null)
+                {
+                    var engineGameVariant = await SafeAPICall(async () => await haloInfiniteClient.HIUGCDiscoveryGetEngineGameVariant(targetGameVariant.EngineGameVariantLink.AssetId.ToString(), targetGameVariant.EngineGameVariantLink.VersionId.ToString()));
+
+                    if (engineGameVariant != null && engineGameVariant.Result != null && engineGameVariant.Response.Code == 200)
+                    {
+                        var record = new EngineGameVariantRecord { ResponseBody = engineGameVariant.Response.Message };
+                        var insertionResult = domainDatabase.Insert(record);
+
+                        if (insertionResult > 0)
+                        {
+                            WriteTimedLogEntry($"Stored engine game variant: {engineGameVariant.Result.AssetId}/{engineGameVariant.Result.VersionId}");
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                WriteTimedLogEntry($"Error updating match stats. {ex.Message}");
+                return false;
+            }
+        }
+
+        public static async Task<HaloApiResultContainer<T, RawResponseContainer>> SafeAPICall<T>(Func<Task<HaloApiResultContainer<T, RawResponseContainer>>> orionAPICall)
+        {
+            try
+            {
+                var result = await orionAPICall();
+
+                if (result.Response.Code == 401)
+                {
+                    haloInfiniteClient = InstantiateClient();
+
+                    if (haloInfiniteClient == null)
+                    {
+                        WriteTimedLogEntry("Could not reacquire tokens.");
+
+                        return default;
+                    }
+
+                    return await orionAPICall();
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                WriteTimedLogEntry($"Failed to make Halo Infinite API call. {ex.Message}");
+                return null;
+            }
+        }
+
         private static async Task<List<Guid>?> GetPlayerMatchIds(string playerXuid, int start, int count, Den.Dev.Orion.Models.HaloInfinite.MatchType matchType)
         {
             var matchCountSnapshot = await haloInfiniteClient!.StatsGetMatchCount(playerXuid);
@@ -670,6 +800,8 @@ namespace Den.Dev.Orion.Composer
                 // The token is no longer working - need to acquire a new one.
                 WriteTimedLogEntry($"Token expired. Refreshing...");
                 haloInfiniteClient = InstantiateClient();
+
+                // The counter is not accurate.
                 matchCountSnapshot = await haloInfiniteClient!.StatsGetMatchCount(playerXuid);
             }
 
@@ -682,50 +814,48 @@ namespace Den.Dev.Orion.Composer
                 int queryStart = start;
                 int counter = 0;
 
-                switch (matchType)
-                {
-                    case Den.Dev.Orion.Models.HaloInfinite.MatchType.Matchmaking:
-                        {
-                            counter = matchCountSnapshot.Result.MatchmadeMatchesPlayedCount;
-                            break;
-                        }
-                    case Den.Dev.Orion.Models.HaloInfinite.MatchType.Custom:
-                        {
-                            counter = matchCountSnapshot.Result.CustomMatchesPlayedCount;
-                            break;
-                        }
-                    case Den.Dev.Orion.Models.HaloInfinite.MatchType.Local:
-                        {
-                            counter = matchCountSnapshot.Result.LocalMatchesPlayedCount;
-                            break;
-                        }
-                    default:
-                        {
-                            counter = matchCountSnapshot.Result.MatchesPlayedCount;
-                            break;
-                        }
-                }
+                //switch (matchType)
+                //{
+                //    case Den.Dev.Orion.Models.HaloInfinite.MatchType.Matchmaking:
+                //        {
+                //            counter = matchCountSnapshot.Result.MatchmadeMatchesPlayedCount;
+                //            break;
+                //        }
+                //    case Den.Dev.Orion.Models.HaloInfinite.MatchType.Custom:
+                //        {
+                //            counter = matchCountSnapshot.Result.CustomMatchesPlayedCount;
+                //            break;
+                //        }
+                //    case Den.Dev.Orion.Models.HaloInfinite.MatchType.Local:
+                //        {
+                //            counter = matchCountSnapshot.Result.LocalMatchesPlayedCount;
+                //            break;
+                //        }
+                //    default:
+                //        {
+                //            counter = matchCountSnapshot.Result.MatchesPlayedCount;
+                //            break;
+                //        }
+                //}
 
                 // Need to make sure that the player has more than zero matches played.
-                if (counter > 0)
+
+                do
                 {
-                    while (counter > 0)
+                    var matches = await haloInfiniteClient.StatsGetMatchHistory(playerXuid, queryStart, queryCount, matchType);
+                    if (matches != null && matches.Result != null && matches.Result.Results != null && matches.Result.ResultCount > 0)
                     {
-                        var matches = await haloInfiniteClient.StatsGetMatchHistory(playerXuid, queryStart, queryCount, matchType);
-                        if (matches != null && matches.Result != null && matches.Result.Results != null && matches.Result.ResultCount > 0)
-                        {
-                            var matchIdBatch = matches.Result.Results.Select(item => item.MatchId).ToList();
-                            WriteTimedLogEntry($"Got matches starting from {queryStart} up to {queryCount} entries. Counter at {counter} and last query yielded {matchIdBatch.Count} results.");
-                            matchIds.AddRange(matchIdBatch);
-                            counter = counter - matchIdBatch.Count;
-                            queryStart = queryStart + matchIdBatch.Count;
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        var matchIdBatch = matches.Result.Results.Select(item => item.MatchId).ToList();
+                        WriteTimedLogEntry($"Got matches starting from {queryStart} up to {queryCount} entries. Counter at {counter} and last query yielded {matchIdBatch.Count} results.");
+                        matchIds.AddRange(matchIdBatch);
+                        counter += matchIdBatch.Count;
+                        queryStart = queryStart + matchIdBatch.Count;
                     }
-                }
+                    else
+                    {
+                        break;
+                    }
+                } while (counter > 0);
 
                 return matchIds;
             }
