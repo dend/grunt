@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">	
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<PackageProjectUrl>https://openspartan.com</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/dend/orion</RepositoryUrl>

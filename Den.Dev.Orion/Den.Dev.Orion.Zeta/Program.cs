@@ -125,7 +125,8 @@ namespace Den.Dev.Orion.Zeta
                 //var settings = await client.GetApiSettingsContainer();
                 Dictionary<string, string> inspectionPlaylists = new Dictionary<string, string>()
                 {
-                    {"edfef3ac-9cbe-4fa2-b949-8f29deafd483", "b8681883-23a7-4d27-9cf8-3730ec274c12"}
+                    {"edfef3ac-9cbe-4fa2-b949-8f29deafd483", "b5b27781-43ac-4c08-9628-f3c6184a1358"}
+                    //{ "dcb2e24e-05fb-4390-8076-32a0cdb4326e", "0c972299-c48e-4231-b3ac-2c93f72bd8b9" }
                 };
 
                 List<PlaylistRotationEntry> existingMapModePairs = new List<PlaylistRotationEntry>();

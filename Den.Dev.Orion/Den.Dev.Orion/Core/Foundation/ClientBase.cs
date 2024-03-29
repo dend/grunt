@@ -109,7 +109,7 @@ namespace Den.Dev.Orion.Core.Foundation
             
             if (!string.IsNullOrEmpty(textContent))
             {
-                request.Content = new StringContent(textContent, Encoding.UTF8, contentTypeAttribute);
+                request.Content = new StringContent(textContent, Encoding.UTF8, contentTypeAttribute!);
             }
 
             if (binaryContent != null)

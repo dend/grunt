@@ -81,7 +81,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         public OddballStats? OddballStats { get; set; }
 
         /// <summary>
-        /// Gets or sets stats for the player in the Land Grab game mode.
+        /// Gets or sets stats for the player in the Land Grab, King Of The Hill (KOTH), or Strongholds game modes.
         /// </summary>
         public ZonesStats? ZonesStats { get; set; }
 

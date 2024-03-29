@@ -530,6 +530,16 @@
             "AuthenticationLifetimeExtensionSupported": false,
             "ClearanceAware": false
         },
+        "BanProcessor_EacUntrustedClientSettings": {
+            "AuthorityId": "banprocessor",
+            "Path": "/hi/eac/untrusted-client-settings",
+            "QueryString": "",
+            "RetryPolicyId": "longerdelayedexponentialretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": false
+        },
         "BanProcessor_PlayerReport": {
             "AuthorityId": "banprocessor",
             "Path": "/hi/players/{player}/player-report",
@@ -1015,6 +1025,16 @@
             "Path": "/hi/Specs/file/graphics/DevicePresetOverrides.json",
             "QueryString": "",
             "RetryPolicyId": "linearretry_3",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "GameCms_GetEasyAntiCheatClientConfig": {
+            "AuthorityId": "gamecms",
+            "Path": "/hi/Multiplayer/file/Eos/EosConfig.json",
+            "QueryString": "?flight={flightId}",
+            "RetryPolicyId": "longerdelayedexponentialretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,

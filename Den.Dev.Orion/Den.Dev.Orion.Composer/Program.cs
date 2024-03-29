@@ -522,34 +522,33 @@ namespace Den.Dev.Orion.Composer
             // and if two players participated in them we don't need to re-acquire the data.
             List<Guid> combinedMatchIds = new();
 
-            foreach (var playerXuid in playerXuids)
+            await Task.WhenAll(playerXuids.Select(async playerXuid =>
             {
                 var matchIds = await GetPlayerMatchIds(playerXuid, start, count, matchType);
                 if (matchIds != null)
                 {
                     WriteTimedLogEntry($"Got {matchIds.Count} matches for {playerXuid}");
-                    combinedMatchIds.AddRange(matchIds);
+                    lock (combinedMatchIds)
+                    {
+                        combinedMatchIds.AddRange(matchIds);
+                    }
                 }
-                else
-                {
-                    continue;
-                }
-                // Need to also make sure that I capture the skill frame for each player XUID.
-                // SkillGetMatchPlayerResult
-            }
+            }));
 
-            var distinctMatchIds = combinedMatchIds.DistinctBy(x => x.ToString());
-
+            var distinctMatchIds = combinedMatchIds.DistinctBy(x => x.ToString()).ToList();
             var domainDatabase = new SQLiteConnection(domain);
 
-            int matchCounter = 1;
-            int matchesTotal = distinctMatchIds.Count();
+            var walQuery = "PRAGMA journal_mode=WAL;";
+            var wal = domainDatabase.ExecuteScalar<string>(walQuery);
 
-            foreach (var matchId in distinctMatchIds)
+            int matchesTotal = distinctMatchIds.Count;
+            int matchCounter = 0;
+
+            await Task.WhenAll(distinctMatchIds.Select(async matchId =>
             {
                 try
                 {
-                    var completionProgress = (double)matchCounter / (double)matchesTotal * 100.0;
+                    var completionProgress = (double)Interlocked.Increment(ref matchCounter) / matchesTotal * 100.0;
                     var matchAvailabilityString = $"SELECT EXISTS(SELECT 1 FROM MatchStats WHERE MatchId='{matchId}') AS MATCH_AVAILABLE, EXISTS(SELECT 1 FROM PlayerMatchStats WHERE MatchId='{matchId}') AS PLAYER_STATS_AVAILABLE;";
                     var availability = domainDatabase.Query<EntityAvailabilityModel>(matchAvailabilityString).FirstOrDefault();
 
@@ -572,8 +571,7 @@ namespace Den.Dev.Orion.Composer
                             else
                             {
                                 WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Match stats were not available for {matchId}.");
-                                matchCounter++;
-                                continue;
+                                return;
                             }
                         }
                         else
@@ -598,7 +596,7 @@ namespace Den.Dev.Orion.Composer
 
                                 WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Attempting to get player results for players for match {matchId}.");
 
-                                var playerStatsSnapshot = await SafeAPICall(async() => await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!));
+                                var playerStatsSnapshot = await SafeAPICall(async () => await haloInfiniteClient.SkillGetMatchPlayerResult(matchId.ToString(), targetPlayers!));
 
                                 if (playerStatsSnapshot != null && playerStatsSnapshot.Result != null && playerStatsSnapshot.Result.Value != null)
                                 {
@@ -620,7 +618,6 @@ namespace Den.Dev.Orion.Composer
                             {
                                 WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Could not obtain player stats for match {matchId} because the match metadata was unavailable.");
                             }
-
                         }
                         else
                         {
@@ -631,17 +628,16 @@ namespace Den.Dev.Orion.Composer
                     {
                         WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Something went wrong. Could not communicate with the database to get match availability.");
                     }
-
-                    matchCounter++;
                 }
                 catch (Exception e)
                 {
                     WriteTimedLogEntry($"Error getting match data for {matchId}. Details: {e.Message}");
                 }
-            }
+            }));
 
             return true;
         }
+
 
         internal static async Task<bool> UpdateMatchAssetRecords(MatchStats result, string domain)
         {
