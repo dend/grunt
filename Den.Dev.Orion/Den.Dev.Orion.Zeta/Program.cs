@@ -125,8 +125,9 @@ namespace Den.Dev.Orion.Zeta
                 //var settings = await client.GetApiSettingsContainer();
                 Dictionary<string, string> inspectionPlaylists = new Dictionary<string, string>()
                 {
-                    {"edfef3ac-9cbe-4fa2-b949-8f29deafd483", "b5b27781-43ac-4c08-9628-f3c6184a1358"}
+                    //{"edfef3ac-9cbe-4fa2-b949-8f29deafd483", "b5b27781-43ac-4c08-9628-f3c6184a1358"} // Ranked Arena
                     //{ "dcb2e24e-05fb-4390-8076-32a0cdb4326e", "0c972299-c48e-4231-b3ac-2c93f72bd8b9" }
+                    {"57e417dd-7366-4dda-9bdd-2802151d5e81", "3a263cb6-b453-4b52-9dba-599405dca0ce" }  // Ranked Tactical Slayer
                 };
 
                 List<PlaylistRotationEntry> existingMapModePairs = new List<PlaylistRotationEntry>();
