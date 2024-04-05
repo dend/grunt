@@ -127,7 +127,8 @@ namespace Den.Dev.Orion.Zeta
                 {
                     //{"edfef3ac-9cbe-4fa2-b949-8f29deafd483", "b5b27781-43ac-4c08-9628-f3c6184a1358"} // Ranked Arena
                     //{ "dcb2e24e-05fb-4390-8076-32a0cdb4326e", "0c972299-c48e-4231-b3ac-2c93f72bd8b9" }
-                    {"57e417dd-7366-4dda-9bdd-2802151d5e81", "3a263cb6-b453-4b52-9dba-599405dca0ce" }  // Ranked Tactical Slayer
+                    //{"57e417dd-7366-4dda-9bdd-2802151d5e81", "3a263cb6-b453-4b52-9dba-599405dca0ce" }  // Ranked Tactical Slayer
+                    {"52392A40-5A75-4205-ABC6-B51CDC84918C", "31FE1E4F-B14B-42E0-9BC4-8C37A9C8F1C2" } // Squad Battle
                 };
 
                 List<PlaylistRotationEntry> existingMapModePairs = new List<PlaylistRotationEntry>();

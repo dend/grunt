@@ -2618,7 +2618,7 @@ namespace Den.Dev.Orion.Core
         /// <param name="start">Start value for the counter, from which data should be returned.</param>
         /// <param name="count">Number of matches to return. Maximum is 25. Going beyond 25 will result in only 25 values being returned.</param>
         /// <param name="type">Type of matches to query.</param>
-        /// <returns>An instance of MatchContainer containing match metadata if request was successful. Return value is null otherwise.</returns>
+        /// <returns>An instance of <see cref="MatchHistoryResponse"></see> containing match metadata if request was successful. Return value is null otherwise.</returns>
         public async Task<HaloApiResultContainer<MatchHistoryResponse, RawResponseContainer>> StatsGetMatchHistory(string player, int start, int count, Models.HaloInfinite.MatchType type)
         {
             return await this.ExecuteAPIRequest<MatchHistoryResponse>(

@@ -144,76 +144,107 @@ namespace Den.Dev.Orion.Core.Foundation
             HttpResponseMessage? response = null;
             byte[]? responseData = null;
 
-            if (this.cache.TryGetValue(endpoint, out CachedAPIResponse? cachedResponse))
+            try
             {
-                if (cachedResponse != null)
+                if (this.cache.TryGetValue(endpoint, out CachedAPIResponse? cachedResponse))
                 {
-                    var eTagHeader = cachedResponse.ETag;
-                    request.Headers.Add("If-None-Match", eTagHeader);
-                    response = await this.Client.SendAsync(request);
-
-                    if (response.StatusCode == HttpStatusCode.NotModified)
+                    if (cachedResponse != null)
                     {
-                        responseData = cachedResponse.Content;
-                    }
-                    else
-                    {
-                        this.UpdateCache(endpoint, response);
-                        responseData = await response.Content.ReadAsByteArrayAsync();
-                    }
-                }
-            }
-            else
-            {
-                response = await this.Client.SendAsync(request);
-                this.UpdateCache(endpoint, response);
-                responseData = await response.Content.ReadAsByteArrayAsync();
-            }
+                        var eTagHeader = cachedResponse.ETag;
+                        request.Headers.Add("If-None-Match", eTagHeader);
+                        response = await this.Client.SendAsync(request);
 
-            resultContainer.Response!.Code = Convert.ToInt32(response!.StatusCode);
+                        if (response.StatusCode == HttpStatusCode.NotModified)
+                        {
+                            responseData = cachedResponse.Content;
+                        }
+                        else
+                        {
+                            // We only want to update cache if the request is successful
+                            // or the developer explicitly wants to enforce a successful response
+                            // policy (which means that even error codes are considered success)
+                            if (response.IsSuccessStatusCode || enforceSuccess)
+                            {
+                                this.UpdateCache(endpoint, response);
+                            }
 
-            if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || !enforceSuccess)
-            {
-                if (typeof(T) == typeof(string))
-                {
-                    resultContainer.Result = (T)Convert.ChangeType(Encoding.UTF8.GetString(responseData!), typeof(T));
-                }
-                else if (typeof(T) == typeof(byte[]))
-                {
-                    resultContainer.Result = (T)Convert.ChangeType(responseData!, typeof(T));
-                }
-                else if (typeof(T) == typeof(bool))
-                {
-                    resultContainer.Result = (T)(object)response.IsSuccessStatusCode;
+                            responseData = await response.Content.ReadAsByteArrayAsync();
+                        }
+                    }
                 }
                 else
                 {
-                    // We will check whether the type is either one of the supported types or is
-                    // a generic type, which means we're directly casting data to something that is usable
-                    // without much custom model wrapping.
-                    if (Attribute.GetCustomAttribute(typeof(T), typeof(IsAutomaticallySerializableAttribute)) != null ||
-                        typeof(T).IsGenericType)
+                    response = await this.Client.SendAsync(request);
+
+                    if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || enforceSuccess)
                     {
-                        var responseString = Encoding.UTF8.GetString(responseData!);
-                        if (!string.IsNullOrWhiteSpace(responseString))
-                        {
-                            resultContainer.Result = JsonSerializer.Deserialize<T>(responseString, this.serializerOptions);
-                            if (includeRawResponse)
-                            {
-                                resultContainer.Response.Message = responseString;
-                            }
-                        }
+                        this.UpdateCache(endpoint, response);
                     }
-                    else
+
+                    responseData = await response.Content.ReadAsByteArrayAsync();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                resultContainer.Response!.Message = ex.Message;
+
+                if (ex.InnerException is WebException webException)
+                {
+                    if (webException.Response is HttpWebResponse httpWebResponse)
                     {
-                        throw new NotSupportedException("The specified type is not supported. You can only get results in string or byte array formats.");
+                        // Extract HTTP status code from the response
+                        resultContainer.Response!.Code = (int)httpWebResponse.StatusCode;
                     }
                 }
             }
 
-            if (response.Content != null)
+            if (response != null)
             {
-                resultContainer.Response.Message = await response.Content.ReadAsStringAsync();
+                resultContainer.Response!.Code = Convert.ToInt32(response!.StatusCode);
+
+                if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || enforceSuccess)
+                {
+                    if (typeof(T) == typeof(string))
+                    {
+                        resultContainer.Result = (T)Convert.ChangeType(Encoding.UTF8.GetString(responseData!), typeof(T));
+                    }
+                    else if (typeof(T) == typeof(byte[]))
+                    {
+                        resultContainer.Result = (T)Convert.ChangeType(responseData!, typeof(T));
+                    }
+                    else if (typeof(T) == typeof(bool))
+                    {
+                        resultContainer.Result = (T)(object)response.IsSuccessStatusCode;
+                    }
+                    else
+                    {
+                        // We will check whether the type is either one of the supported types or is
+                        // a generic type, which means we're directly casting data to something that is usable
+                        // without much custom model wrapping.
+                        if (Attribute.GetCustomAttribute(typeof(T), typeof(IsAutomaticallySerializableAttribute)) != null ||
+                            typeof(T).IsGenericType)
+                        {
+                            var responseString = Encoding.UTF8.GetString(responseData!);
+                            if (!string.IsNullOrWhiteSpace(responseString))
+                            {
+                                resultContainer.Result = JsonSerializer.Deserialize<T>(responseString, this.serializerOptions);
+                                if (includeRawResponse)
+                                {
+                                    resultContainer.Response.Message = responseString;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            throw new NotSupportedException("The specified type is not supported. You can only get results in string or byte array formats.");
+                        }
+                    }
+                }
+
+                if (response.Content != null)
+                {
+                    resultContainer.Response.Message = await response.Content.ReadAsStringAsync();
+                }
             }
 
             return resultContainer;
