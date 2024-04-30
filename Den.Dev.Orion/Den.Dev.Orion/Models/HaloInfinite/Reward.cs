@@ -34,6 +34,14 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         public int OperationExperience { get; set; }
 
         /// <summary>
+        /// Gets or sets soft experience awarded.
+        /// </summary>
+        /// <remarks>
+        /// I am not entirely sure what soft experience means but in certain cases it's double from what an OperationExperience value is. Potentially Spartan Points (for completing weekly capstone).
+        /// </remarks>
+        public int SoftExperience { get; set; }
+
+        /// <summary>
         /// Gets or sets the list of awarded inventory rewards.
         /// </summary>
         public List<InventoryAmount>? InventoryRewards { get; set; }

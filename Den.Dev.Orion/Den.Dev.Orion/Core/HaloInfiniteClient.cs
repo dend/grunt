@@ -310,6 +310,23 @@ namespace Den.Dev.Orion.Core
         }
 
         /// <summary>
+        /// Gets information about the items available on The Exchange (Soft Currency Store).
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetSoftCurrencyStore.xml' path='//example'/>
+        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <returns>If successful, returns an instance of StoreItem containing The Exchange information. Otherwise, returns null.</returns>
+        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyGetSoftCurrencyStore(string player)
+        {
+            return await this.ExecuteAPIRequest<StoreItem>(
+                $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/stores/softcurrencyoffers",
+                HttpMethod.Get,
+                true,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
+
+        /// <summary>
         /// Gets the information about giveaways available for a given player.
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetGiveawayRewards.xml' path='//example'/>

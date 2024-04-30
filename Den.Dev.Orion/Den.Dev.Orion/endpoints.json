@@ -24,7 +24,7 @@
             "Hostname": "banprocessor.svc.halowaypoint.com",
             "Port": 443,
             "AuthenticationMethods": [
-                1
+                15
             ]
         },
         "crashes": {
@@ -289,6 +289,17 @@
                 "RetryDelayMs": 1000,
                 "RetryGrowth": 1.0,
                 "RetryJitterMs": 0,
+                "RetryIfNotFound": false
+            }
+        },
+        "getcontentguideretry": {
+            "RetryPolicyId": "getcontentguideretry",
+            "TimeoutMs": 5000,
+            "RetryOptions": {
+                "MaxRetryCount": 5,
+                "RetryDelayMs": 300,
+                "RetryGrowth": 0.2,
+                "RetryJitterMs": 2000,
                 "RetryIfNotFound": false
             }
         },
@@ -1084,7 +1095,7 @@
             "AuthorityId": "gamecms",
             "Path": "/hi/images/guide/xo",
             "QueryString": "?flight={flightId}",
-            "RetryPolicyId": "linearretry_3",
+            "RetryPolicyId": "getcontentguideretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -1094,7 +1105,7 @@
             "AuthorityId": "gamecms",
             "Path": "/hi/Multiplayer/guide/xo",
             "QueryString": "?flight={flightId}",
-            "RetryPolicyId": "linearretry_3",
+            "RetryPolicyId": "getcontentguideretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -1104,7 +1115,7 @@
             "AuthorityId": "gamecms",
             "Path": "/hi/News/guide/xo",
             "QueryString": "?flight={flightId}",
-            "RetryPolicyId": "linearretry_3",
+            "RetryPolicyId": "getcontentguideretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -1114,7 +1125,7 @@
             "AuthorityId": "gamecms",
             "Path": "/hi/Progression/guide/xo",
             "QueryString": "?flight={flightId}",
-            "RetryPolicyId": "linearretry_3",
+            "RetryPolicyId": "getcontentguideretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -1124,7 +1135,7 @@
             "AuthorityId": "gamecms",
             "Path": "/hi/Specs/guide/xo",
             "QueryString": "?flight={flightId}",
-            "RetryPolicyId": "linearretry_3",
+            "RetryPolicyId": "getcontentguideretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -1134,7 +1145,7 @@
             "AuthorityId": "gamecms",
             "Path": "/hi/TitleAuthorization/guide/xo",
             "QueryString": "?flight={flightId}",
-            "RetryPolicyId": "linearretry_3",
+            "RetryPolicyId": "getcontentguideretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
             "AuthenticationLifetimeExtensionSupported": false,
@@ -2033,7 +2044,7 @@
         "Settings_ActiveFlight": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/RETAIL/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.6",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.7",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2043,7 +2054,7 @@
         "Settings_GetClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/{audience}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.6",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.7",
             "RetryPolicyId": "clearanceretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2053,7 +2064,7 @@
         "Settings_GetPlayerClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/{audience}/players/{player}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.6",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.7",
             "RetryPolicyId": "clearanceretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2063,7 +2074,7 @@
         "Settings_PlayerClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/RETAIL/players/{player}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.6",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.7",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
