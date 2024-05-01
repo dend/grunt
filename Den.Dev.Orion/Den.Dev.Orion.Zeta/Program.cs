@@ -10,6 +10,7 @@ using Den.Dev.Orion.Models.HaloInfinite;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using Den.Dev.Orion.Models.Security;
+using System.Collections;
 
 namespace Den.Dev.Orion.Zeta
 {
@@ -122,13 +123,18 @@ namespace Den.Dev.Orion.Zeta
             {
                 //var emblem = await client.GameCmsGetItem("Inventory/Spartan/Emblems/104-001-cp-chibinerfn-66459761.json", client.ClearanceToken);
 
+                // https://discovery-infiniteugc.svc.halowaypoint.com/hi/Playlists/edfef3ac-9cbe-4fa2-b949-8f29deafd483/versions/ec986564-4895-4ad3-832d-921583954c34
+                /// https://discovery-infiniteugc.svc.halowaypoint.com/hi/Playlists/325c18a5-d85b-4ba6-b98f-21465d9c19e2/versions/13fda05c-54b0-40e7-bc7e-3994b0f9a040
+                /// https://gamecms-hacs.svc.halowaypoint.com/hi/Multiplayer/file/playlists/assets/6233381c-fc96-40b9-b1ff-f6a4de72dd7a.json
                 //var settings = await client.GetApiSettingsContainer();
                 Dictionary<string, string> inspectionPlaylists = new Dictionary<string, string>()
                 {
-                    //{"edfef3ac-9cbe-4fa2-b949-8f29deafd483", "b5b27781-43ac-4c08-9628-f3c6184a1358"} // Ranked Arena
+                    //{"edfef3ac-9cbe-4fa2-b949-8f29deafd483", "b5b27781-43ac-4c08-9628-f3c6184a1358"} // Ranked Arena - Yappening
                     //{ "dcb2e24e-05fb-4390-8076-32a0cdb4326e", "0c972299-c48e-4231-b3ac-2c93f72bd8b9" }
                     //{"57e417dd-7366-4dda-9bdd-2802151d5e81", "3a263cb6-b453-4b52-9dba-599405dca0ce" }  // Ranked Tactical Slayer
-                    {"52392A40-5A75-4205-ABC6-B51CDC84918C", "31FE1E4F-B14B-42E0-9BC4-8C37A9C8F1C2" } // Squad Battle
+                    //{"52392A40-5A75-4205-ABC6-B51CDC84918C", "31FE1E4F-B14B-42E0-9BC4-8C37A9C8F1C2" } // Squad Battle
+                    //{"edfef3ac-9cbe-4fa2-b949-8f29deafd483", "ec986564-4895-4ad3-832d-921583954c34"} // Ranked Arena - Banished Honor
+                    {"6233381c-fc96-40b9-b1ff-f6a4de72dd7a", "b08f2c67-ccea-49cd-a27a-b7e451194f32" }
                 };
 
                 List<PlaylistRotationEntry> existingMapModePairs = new List<PlaylistRotationEntry>();
@@ -153,9 +159,15 @@ namespace Den.Dev.Orion.Zeta
 
                     Console.WriteLine("========");
 
+                    playlistData.Result.RotationEntries.Sort((x, y) => y.Metadata.Weight.CompareTo(x.Metadata.Weight));
+
+                    double totality = playlistData.Result.RotationEntries.Sum(item => item.Metadata.Weight);
+
+                    Console.WriteLine("| Map/Mode Pair | Relative Weight | Relative Likelihood |");
+                    Console.WriteLine("|:--------------|:----------------|:--------------------|");
                     foreach (var mmp in playlistData.Result.RotationEntries)
                     {
-                        Console.WriteLine($"      {mmp.PublicName} ({mmp.AssetId} / {mmp.VersionId}) - {mmp.Metadata.Weight}");
+                        Console.WriteLine($"| {mmp.PublicName.PadRight(50)} | {mmp.Metadata.Weight.ToString().PadRight(5)} | { ((double)mmp.Metadata.Weight / totality).ToString("P").PadRight(8) } |");
                         //var existingPRE = (from c in existingMapModePairs where c.AssetId.ToString() == mmp.AssetId.ToString() && c.VersionId.ToString() == mmp.VersionId.ToString() select c).FirstOrDefault();
 
                         //if (existingPRE == null)

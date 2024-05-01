@@ -37,7 +37,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// Gets or sets soft experience awarded.
         /// </summary>
         /// <remarks>
-        /// I am not entirely sure what soft experience means but in certain cases it's double from what an OperationExperience value is. Potentially Spartan Points (for completing weekly capstone).
+        /// This value represents Spartan Points, introduced in April 2024 with the Banished Honor operation.
         /// </remarks>
         public int SoftExperience { get; set; }
 

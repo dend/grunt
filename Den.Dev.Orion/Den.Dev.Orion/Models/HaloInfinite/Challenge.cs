@@ -34,6 +34,11 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         public Reward? Reward { get; set; }
 
         /// <summary>
+        /// Gets or sets the secondary challenge reward.
+        /// </summary>
+        public Reward? SecondaryReward { get; set; }
+
+        /// <summary>
         /// Gets or sets the threshold for success for the challenge.
         /// </summary>
         public int? ThresholdForSuccess { get; set; }
