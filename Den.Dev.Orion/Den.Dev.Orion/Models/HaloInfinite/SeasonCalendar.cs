@@ -31,6 +31,6 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the details about the career rank definitions.
         /// </summary>
-        public List<SeasonCalendarEntry>? CareerRank { get; set; }
+        public SeasonCalendarEntry? CareerRank { get; set; }
     }
 }
