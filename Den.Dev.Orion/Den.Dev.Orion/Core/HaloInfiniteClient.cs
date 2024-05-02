@@ -1132,6 +1132,36 @@ namespace Den.Dev.Orion.Core
                 includeRawResponse: this.IncludeRawResponses);
         }
 
+        /// <summary>
+        /// Gets the currently available season calendar.
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetSeasonCalendar.xml' path='//example'/>
+        /// <returns>If successful, returns an instance of <see cref="SeasonCalendar"/> that contains pointers to season details. Otherwise, returns null with associated error details in <see cref="RawResponseContainer"/> within the result.</returns>
+        public async Task<HaloApiResultContainer<SeasonCalendar, RawResponseContainer>> GameCmsGetSeasonCalendar()
+        {
+            return await this.ExecuteAPIRequest<SeasonCalendar>(
+                $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/Calendars/Seasons/SeasonCalendar.json",
+                HttpMethod.Get,
+                true,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
+        /// <summary>
+        /// Gets the currently available CSR season calendar. This is applicable for ranked games and usually delineates when the rank reset will happen.
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetCSRCalendar.xml' path='//example'/>
+        /// <returns>If successful, returns an instance of <see cref="SeasonCalendar"/> that contains pointers to season details. Otherwise, returns null with associated error details in <see cref="RawResponseContainer"/> within the result.</returns>
+        public async Task<HaloApiResultContainer<SeasonCalendar, RawResponseContainer>> GameCmsGetCSRCalendar()
+        {
+            return await this.ExecuteAPIRequest<SeasonCalendar>(
+                $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/Csr/Calendars/CsrSeasonCalendar.json",
+                HttpMethod.Get,
+                true,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
         // ================================================
         // GameCmsGetGuide
         // ================================================
