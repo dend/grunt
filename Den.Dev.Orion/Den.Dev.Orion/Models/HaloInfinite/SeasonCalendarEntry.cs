@@ -10,6 +10,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
     /// <summary>
     /// Container class for a season calendar metadata entry.
     /// </summary>
+    [IsAutomaticallySerializable]
     public class SeasonCalendarEntry
     {
         /// <summary>

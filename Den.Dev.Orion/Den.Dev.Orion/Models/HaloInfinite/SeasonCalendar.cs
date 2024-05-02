@@ -12,6 +12,7 @@ namespace Den.Dev.Orion.Models.HaloInfinite
     /// <summary>
     /// Container class for season metadata.
     /// </summary>
+    [IsAutomaticallySerializable]
     public class SeasonCalendar
     {
         /// <summary>
