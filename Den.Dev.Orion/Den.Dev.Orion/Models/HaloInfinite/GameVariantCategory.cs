@@ -218,6 +218,11 @@ namespace Den.Dev.Orion.Models.HaloInfinite
         MultiplayerLandGrab = 39,
 
         /// <summary>
+        /// Minigames,such as Survive The Undead
+        /// </summary>
+        MultiplayerMinigame = 41,
+
+        /// <summary>
         /// Firefight.
         /// </summary>
         MultiplayerFirefight = 42,
