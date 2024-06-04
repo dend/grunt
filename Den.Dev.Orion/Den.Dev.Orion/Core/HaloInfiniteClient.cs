@@ -447,9 +447,9 @@ namespace Den.Dev.Orion.Core
         /// <param name="rewardTrackType">Type of reward track. For seasons, this is usually "operation". This parameter is a singular noun, and is pluralized automatically in the function (the "s" character is appended).</param>
         /// <param name="trackId">Unique identifier for the reward track. An example value is "battlepass-noblesacrifice.json".</param>
         /// <returns>If successful, returns an instance of RewardTrack containing information for reward track tiers. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<RewardTrackMetadata, RawResponseContainer>> EconomyGetRewardTrack(string player, string rewardTrackType, string trackId)
+        public async Task<HaloApiResultContainer<RewardTrack, RawResponseContainer>> EconomyGetRewardTrack(string player, string rewardTrackType, string trackId)
         {
-            return await this.ExecuteAPIRequest<RewardTrackMetadata>(
+            return await this.ExecuteAPIRequest<RewardTrack>(
                 $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/rewardtracks/{rewardTrackType}s/{trackId}",
                 HttpMethod.Get,
                 true,
