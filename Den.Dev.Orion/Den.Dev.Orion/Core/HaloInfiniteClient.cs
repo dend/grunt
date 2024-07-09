@@ -719,6 +719,22 @@ namespace Den.Dev.Orion.Core
         // ================================================
 
         /// <summary>
+        /// Gets the contents of a store offering based on a given path.
+        /// </summary>
+        /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetStoreOffering.xml' path='//example'/>
+        /// <param name="offeringPath">Path to a store offering, for example 'StoreContent/Display/Offerings/20240410-01.json'.</param>
+        /// <returns>If successful, returns an instance of <see cref="StoreOffering"/> containing offering details. Otherwise, returns null with a description of the error.</returns>
+        public async Task<HaloApiResultContainer<StoreOffering, RawResponseContainer>> GameCmsGetStoreOffering(string offeringPath)
+        {
+            return await this.ExecuteAPIRequest<StoreOffering>(
+                $"https://{HaloCoreEndpoints.GameCmsOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/Progression/file/{offeringPath}",
+                HttpMethod.Get,
+                true,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
+        /// <summary>
         /// Gets the fallback playlist for the Play Now button.
         /// </summary>
         /// <include file='../APIDocsExamples/HaloInfinite/GameCms_GetAchievements.xml' path='//example'/>
