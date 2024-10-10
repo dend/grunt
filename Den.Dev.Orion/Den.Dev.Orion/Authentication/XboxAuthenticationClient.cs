@@ -266,7 +266,7 @@ namespace Den.Dev.Orion.Authentication
         /// <param name="version">OS version on the device. Default is 10.0.22000 for Windows 11.</param>
         /// <param name="authMethod">Authentication method used. Default is ProofOfPossession.</param>
         /// <returns>If successful, returns an instance of <see cref="XboxTicket"/> that contains the device token. Otherwise, returns null."</returns>
-        public async Task<XboxTicket?> RequestDeviceToken(string deviceType = "Win32", string version = "10.0.22000", string authMethod = "ProofOfPossession")
+        public async Task<XboxTicket?> RequestDeviceToken(string deviceType = "Win32", string version = "10.16.0", string authMethod = "ProofOfPossession")
         {
             XboxTicketRequest ticketData = new()
             {
@@ -275,8 +275,7 @@ namespace Den.Dev.Orion.Authentication
                 Properties = new()
                 {
                     DeviceType = deviceType,
-                    Id = $"{Guid.NewGuid()}",
-                    SerialNumber = $"{Guid.NewGuid()}",
+                    Id = $"{{{Guid.NewGuid()}}}",
                     Version = version,
                     AuthMethod = authMethod,
                     ProofKey = this.popCryptoProvider.ProofKey,
