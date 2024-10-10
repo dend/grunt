@@ -208,7 +208,7 @@ You can read the docs on the [Den.Dev.Orion docs website](https://docs.Den.Dev.O
 
 ## FAQ
 
-**Q1: Is this in any way endorsed by 343 Industries or Microsoft?**
+**Q1: Is this in any way endorsed by Halo Studios or Microsoft?**
 
 No. Not at all. This is something that I've put together myself by inspecting network traffic. This project is not funded, supported, or otherwise endorsed by either 343 Industries or Microsoft.
 

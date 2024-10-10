@@ -9,7 +9,7 @@
   "settings": {
     "documentationRules": {
       "companyName": "Den Delimarsky",
-      "copyrightText": "Developed by {companyName}.\r\n{companyName} licenses this file to you under the MIT license.\r\nSee the LICENSE file in the project root for more information.\r\nThe underlying API powering Den.Dev.Orion is managed by 343 Industries and Microsoft. This wrapper is not endorsed by 343 Industries or Microsoft."
+      "copyrightText": "Developed by {companyName}.\r\n{companyName} licenses this file to you under the MIT license.\r\nSee the LICENSE file in the project root for more information.\r\nThe underlying API powering Den.Dev.Orion is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft."
     },
     "layoutRules": {
       "newlineAtEndOfFile": "require"
