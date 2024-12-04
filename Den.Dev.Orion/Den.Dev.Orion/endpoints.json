@@ -2044,7 +2044,7 @@
         "Settings_ActiveFlight": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/RETAIL/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.7",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.9",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2054,7 +2054,7 @@
         "Settings_GetClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/{audience}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.7",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.9",
             "RetryPolicyId": "clearanceretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2064,7 +2064,7 @@
         "Settings_GetPlayerClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/{audience}/players/{player}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.7",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.9",
             "RetryPolicyId": "clearanceretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2074,7 +2074,7 @@
         "Settings_PlayerClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/RETAIL/players/{player}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.7",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.9",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
