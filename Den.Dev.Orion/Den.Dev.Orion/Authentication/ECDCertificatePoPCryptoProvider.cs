@@ -30,13 +30,9 @@ namespace Den.Dev.Orion.Authentication
         }
 
         /// <summary>
-        /// Gets or sets the proof key associated with the provider. An existing key will be provided if previous runs were done.
+        /// Gets the proof key associated with the provider. An existing key will be provided if previous runs were done.
         /// </summary>
-        public ProofKey ProofKey
-        {
-            get => this.proofKey ??= this.GenerateNewProofKey();
-            set => this.proofKey = value;
-        }
+        public ProofKey ProofKey => this.proofKey ??= this.GenerateNewProofKey();
 
         /// <summary>
         /// Signs binary data with the locally-generated key.
