@@ -60,5 +60,11 @@ namespace Den.Dev.Orion.Models.Security
         /// </summary>
         [JsonIgnore]
         public HttpStatusCode ErrorCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the HTTP error message that is returned when requesting a SISU response.
+        /// </summary>
+        [JsonIgnore]
+        public string? ErrorMessage { get; set; }
     }
 }

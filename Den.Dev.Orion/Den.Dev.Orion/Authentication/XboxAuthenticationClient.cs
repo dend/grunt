@@ -423,8 +423,8 @@ namespace Den.Dev.Orion.Authentication
 
             return response.IsSuccessStatusCode
                 ? (JsonSerializer.Deserialize<SISUAuthorizationResponse>(responseData) ?? new SISUAuthorizationResponse())
-                    with { ErrorCode = response.StatusCode }
-                : new SISUAuthorizationResponse { ErrorCode = response.StatusCode };
+                    with { ErrorCode = response.StatusCode, ErrorMessage = responseData }
+                : new SISUAuthorizationResponse { ErrorCode = response.StatusCode, ErrorMessage = responseData };
         }
 
         private string SignRequest(string reqUri, string token, string body)
