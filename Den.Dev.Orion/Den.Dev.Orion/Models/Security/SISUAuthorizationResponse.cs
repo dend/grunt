@@ -5,12 +5,15 @@
 // The underlying API powering Den.Dev.Orion is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
 // </copyright>
 
+using System.Net;
+using System.Text.Json.Serialization;
+
 namespace Den.Dev.Orion.Models.Security
 {
     /// <summary>
     /// Container class for SISU authorization responses.
     /// </summary>
-    public class SISUAuthorizationResponse
+    public record SISUAuthorizationResponse
     {
         /// <summary>
         /// Gets or sets the device token.
@@ -51,5 +54,11 @@ namespace Den.Dev.Orion.Models.Security
         /// Gets or sets the flow.
         /// </summary>
         public string? Flow { get; set; }
+
+        /// <summary>
+        /// Gets or sets the HTTP error code that is returned when requesting a SISU response.
+        /// </summary>
+        [JsonIgnore]
+        public HttpStatusCode ErrorCode { get; set; }
     }
 }

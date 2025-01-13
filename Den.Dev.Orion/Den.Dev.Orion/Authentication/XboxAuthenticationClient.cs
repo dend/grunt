@@ -422,8 +422,9 @@ namespace Den.Dev.Orion.Authentication
             var responseData = response.Content.ReadAsStringAsync().Result;
 
             return response.IsSuccessStatusCode
-                ? JsonSerializer.Deserialize<SISUAuthorizationResponse>(responseData)
-                : null;
+                ? (JsonSerializer.Deserialize<SISUAuthorizationResponse>(responseData) ?? new SISUAuthorizationResponse())
+                    with { ErrorCode = response.StatusCode }
+                : new SISUAuthorizationResponse { ErrorCode = response.StatusCode };
         }
 
         private string SignRequest(string reqUri, string token, string body)
