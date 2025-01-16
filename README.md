@@ -1,8 +1,8 @@
-![Den.Dev.Orion logo](media/orion-logo.png)
+![Den.Dev.Grunt logo](media/Grunt-logo.png)
 
-# 🪐 Orion - The Halo API Wrapper
+# 🪐 Grunt - The Halo API Wrapper
 
-Welcome to **Den.Dev.Orion API** - the unofficial way to use official undocumented Halo APIs. Here be **a lot of dragons**. I created this project for my own stat tracking and it will never be public.
+Welcome to **Den.Dev.Grunt API** - the unofficial way to use official undocumented Halo APIs. Here be **a lot of dragons**. I created this project for my own stat tracking and it will never be public.
 
 >**Note**
 >This project is an internal library that is not meant for broad developer audience consumption. It's used primarily for the OpenSpartan suite of applications.
@@ -30,9 +30,9 @@ And more!
 
 | Component                 | Description |
 |:--------------------------|:------------|
-| `Den.Dev.Orion`           | The core library, written in C#, that wraps the Halo Infinite web APIs. |
-| `Den.Dev.Orion.Zeta`      | Experimental ground for the Den.Dev.Orion library. It's a project where wrapped APIs from Den.Dev.Orion are tested in a more real scenario. |
-| `Den.Dev.Orion.Librarian` | Tool used to auto-generate code stubs for Halo Infinite API endpoints. It's a very "brute"-ish way to produce the code, but it works for now. |
+| `Den.Dev.Grunt`           | The core library, written in C#, that wraps the Halo Infinite web APIs. |
+| `Den.Dev.Grunt.Zeta`      | Experimental ground for the Den.Dev.Grunt library. It's a project where wrapped APIs from Den.Dev.Grunt are tested in a more real scenario. |
+| `Den.Dev.Grunt.Librarian` | Tool used to auto-generate code stubs for Halo Infinite API endpoints. It's a very "brute"-ish way to produce the code, but it works for now. |
 
 ## Setup & usage
 
@@ -41,7 +41,7 @@ The core requirement to use the endpoints in the library is to have a Spartan to
 There are two ways to experiment with the library:
 
 1. **Bring your own Spartan token**. That means that you can obtain it on your own through man-in-the-middle inspection of the app/game traffic (what Julia Evans described [in her blog post](https://jvns.ca/blog/2022/03/10/how-to-use-undocumented-web-apis/)), or by grabbing it from the [Halo Waypoint](https://halowaypoint.com) site. Read more on that in the [section below](#bring-your-own-token).
-2. **Executing the full authentication flow yourself.** This is a bit more complex, but doable because Den.Dev.Orion API wraps all the required methods out-of-the-box. You are still using your own identity and account, but will be generating a new Spartan token for your requests. For details, see [section below](#authenticate-yourself).
+2. **Executing the full authentication flow yourself.** This is a bit more complex, but doable because Den.Dev.Grunt API wraps all the required methods out-of-the-box. You are still using your own identity and account, but will be generating a new Spartan token for your requests. For details, see [section below](#authenticate-yourself).
 
 ### Bring your own token
 
@@ -55,7 +55,7 @@ I'll say it again - this token is not long-lived and if you see calls failing wi
 
 Some API calls are also requiring you include another header - `343-clearance`. This token is obtained through a separate API call, but you can also grab it from the Halo Waypoint site. If you look for it in the network inspector, you will get the `343-clearance` header as well.
 
-Once you have the Spartan and clearance tokens, you are good to go, and can now call the API endpoints from `Den.Dev.Orion`:
+Once you have the Spartan and clearance tokens, you are good to go, and can now call the API endpoints from `Den.Dev.Grunt`:
 
 ```csharp
 HaloInfiniteClient client = new(<YOUR_SPARTAN_TOKEN>, <YOUR_CLEARANCE_TOKEN>, <YOUR_XUID_REQUIRED_ONLY_FOR_SOME_CALLS>);
@@ -72,9 +72,9 @@ Task.Run(async () =>
 
 > **IMPORTANT**: The instructions below are using Visual Studio 2019, but are going to work with Visual Studio 2022, which you can [download for free](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=17).
 
-If you want to automatically generate the Spartan token, you can do so with the help of Den.Dev.Orion API without having to worry about doing any of the REST API calls yourself. Before you get started, make sure that you [register an Azure Active Directory application](https://docs.microsoft.com/azure/active-directory/develop/quickstart-register-app). You will need it in order to log in with your Microsoft account, that will be used to generate the token. Because this is just for you, you can use `https://localhost` as the redirect URI when you create the application, unless you're thinking of productizing whatever you're building.
+If you want to automatically generate the Spartan token, you can do so with the help of Den.Dev.Grunt API without having to worry about doing any of the REST API calls yourself. Before you get started, make sure that you [register an Azure Active Directory application](https://docs.microsoft.com/azure/active-directory/develop/quickstart-register-app). You will need it in order to log in with your Microsoft account, that will be used to generate the token. Because this is just for you, you can use `https://localhost` as the redirect URI when you create the application, unless you're thinking of productizing whatever you're building.
 
-With the application created, in the `Den.Dev.Orion.Zeta` project create a `client.json` file, that has the following contents:
+With the application created, in the `Den.Dev.Grunt.Zeta` project create a `client.json` file, that has the following contents:
 
 ```json
 {
@@ -86,9 +86,9 @@ With the application created, in the `Den.Dev.Orion.Zeta` project create a `clie
 
 When you add the configuration file to your project, make sure that it's `Build Action` is set to `None` and `Copy to Output Directory` is `Copy if newer`.
 
-![Configuration file for Den.Dev.Orion.Zeta](https://raw.githubusercontent.com/OpenSpartan/Den.Dev.Orion/main/media/Den.Dev.Orion-zeta-config.png)
+![Configuration file for Den.Dev.Grunt.Zeta](https://raw.githubusercontent.com/OpenSpartan/Den.Dev.Grunt/main/media/Den.Dev.Grunt-zeta-config.png)
 
-With the file there, you can now run through the authentication flow, that is powered by Den.Dev.Orion's helper methods:
+With the file there, you can now run through the authentication flow, that is powered by Den.Dev.Grunt's helper methods:
 
 ```csharp
 ConfigurationReader clientConfigReader = new();
@@ -200,11 +200,11 @@ Complete list of endpoints can be obtained by querying the official Halo Infinit
 https://settings.svc.halowaypoint.com/settings/hipc/e2a0a7c6-6efe-42af-9283-c2ab73250c48
 ```
 
-The endpoint above does not require authentication and can be queried in the open. You can also peruse an offline version of the API response [in the library](https://github.com/dend/Den.Dev.Orion/blob/main/Den.Dev.Orion/Den.Dev.Orion/endpoints.json).
+The endpoint above does not require authentication and can be queried in the open. You can also peruse an offline version of the API response [in the library](https://github.com/dend/Den.Dev.Grunt/blob/main/Den.Dev.Grunt/Den.Dev.Grunt/endpoints.json).
 
 ## Documentation
 
-You can read the docs on the [Den.Dev.Orion docs website](https://docs.Den.Dev.Orionapi.com).
+You can read the docs on the [Den.Dev.Grunt docs website](https://docs.Den.Dev.Gruntapi.com).
 
 ## FAQ
 
@@ -218,11 +218,11 @@ Don't use any of this code in production. It's nowhere near stable, and will nev
 
 **Q3: Some API endpoint is not working anymore or returns an unexpected result. What's up with that?**
 
-[Open an issue](https://github.com/dend/Den.Dev.Orion/issues) so that I can investigate.
+[Open an issue](https://github.com/dend/Den.Dev.Grunt/issues) so that I can investigate.
 
 **Q4: How do I contact the author?**
 
-[Open an issue](https://github.com/dend/Den.Dev.Orion/issues) or reach out [on Twitter](https://twitter.com/denniscode).
+[Open an issue](https://github.com/dend/Den.Dev.Grunt/issues) or reach out [on Twitter](https://twitter.com/denniscode).
 
 **Q5: Can this be used for commercial purposes?**
 
@@ -230,4 +230,4 @@ _Absolutely not_. This project is exploratory in nature. It has no guarantees, i
 
 ## Contributions
 
-Contributions are welcome, but please first [open an issue](https://github.com/dend/Den.Dev.Orion/issues) so that we can discuss before writing any code.
+Contributions are welcome, but please first [open an issue](https://github.com/dend/Den.Dev.Grunt/issues) so that we can discuss before writing any code.

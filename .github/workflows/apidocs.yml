@@ -24,7 +24,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Build
-      working-directory: ./Den.Dev.Orion/Den.Dev.Orion
+      working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt
       run: dotnet build --configuration Release
     - name: Download mdoc
       run: Invoke-WebRequest https://github.com/mono/api-doc-tools/releases/download/mdoc-5.8.3/mdoc-5.8.3.zip -OutFile mdoc.zip
@@ -35,7 +35,7 @@ jobs:
     - name: Extract ECMA2YAML
       run: Expand-Archive -Path ecma2yaml.zip -DestinationPath _ecma2yaml
     - name: Run mdoc bootstrap
-      working-directory: ./Den.Dev.Orion/Den.Dev.Orion/bin
+      working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt/bin
       run: ${{ github.workspace }}\_mdoc\mdoc.exe fx-bootstrap Release
     - name: Checkout
       uses: actions/checkout@v2
@@ -44,13 +44,13 @@ jobs:
         path: '_docs'
         token: ${{ secrets.DOCS_PAT }}
     - name: Run import script
-      working-directory: ./Den.Dev.Orion/Den.Dev.Orion/bin/Release
+      working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt/bin/Release
       run: ${{ github.workspace }}\_docs\scripts\mdoc-import.ps1
     - name: Run XML generation
-      working-directory: ./Den.Dev.Orion/Den.Dev.Orion/bin/Release
+      working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt/bin/Release
       run: ${{ github.workspace }}\_mdoc\mdoc.exe update --debug --out _xml -fx (Resolve-Path frameworks.xml) --use-docid
     - name: Run YAML generation
-      run: _ecma2yaml\tools\ecma2yaml.exe update -s ${{ github.workspace }}\Den.Dev.Orion\Den.Dev.Orion\bin\Release\_xml -o _ready_yaml
+      run: _ecma2yaml\tools\ecma2yaml.exe update -s ${{ github.workspace }}\Den.Dev.Grunt\Den.Dev.Grunt\bin\Release\_xml -o _ready_yaml
     - name: Clean old API files
       run: |
         if (Test-Path ${{ github.workspace }}\_docs\docs\dotnet\api\) {

@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Den.Dev.Orion.Composer": {
-      "commandName": "Project",
-      "commandLineArgs": "get matches --is-xuid-file --xuid \"C:\\Users\\ibua\\Downloads\\hcsxuid.txt\" --domain \"C:\\Users\\ibua\\Downloads\\hcsplayers.db\""
-    }
-  }
-}

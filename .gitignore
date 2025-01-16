@@ -350,7 +350,7 @@ MigrationBackup/
 .ionide/
 
 # *****************************
-# Custom for Den.Dev.Orion
+# Custom for Den.Dev.Grunt
 # *****************************
 ## Misc
 .vscode/
