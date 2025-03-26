@@ -1,0 +1,612 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 10/05/2022:
+	<code>
+    {
+        "Subqueries": {
+            "SeasonIds": null,
+            "GameVariantCategories": [
+                19,
+                18,
+                15,
+                11,
+                14,
+                6,
+                9,
+                7
+            ],
+            "IsRanked": null,
+            "PlaylistAssetIds": [
+                "dc4929de-216c-43bc-b207-1702253f4576",
+                "edfef3ac-9cbe-4fa2-b949-8f29deafd483",
+                "bdceefb3-1c52-4848-a6b7-d49acd13109d",
+                "a446725e-b281-414c-a21e-31b8700e95a1",
+                "4af0b113-8696-4f22-9e09-596d473de933",
+                "aa41f6a9-51be-4f25-a53f-48192ce14de7",
+                "4829f027-a9af-4b2f-86dd-7b290d6bb0a4",
+                "f7eb8c71-fedb-4696-8c0f-96025e285ffd",
+                "7f2b4f8f-c2f3-4ad4-a250-b55214fa4111",
+                "0c47c724-3625-4243-a3fd-29b66a2aea6d",
+                "f6c93ddd-a623-41b1-b9e3-81632ff73cfb"
+            ]
+        },
+        "TimePlayed": "P1DT7H50M24.6360455S",
+        "MatchesCompleted": 264,
+        "Wins": 180,
+        "Losses": 83,
+        "Ties": 1,
+        "CoreStats": {
+            "Score": 3980,
+            "PersonalScore": 376490,
+            "RoundsWon": 241,
+            "RoundsLost": 118,
+            "RoundsTied": 29,
+            "Kills": 2726,
+            "Deaths": 2100,
+            "Assists": 710,
+            "KDA": 862.6666666666665,
+            "Suicides": 12,
+            "Betrayals": 3,
+            "GrenadeKills": 159,
+            "HeadshotKills": 441,
+            "MeleeKills": 931,
+            "PowerWeaponKills": 585,
+            "ShotsFired": 84834,
+            "ShotsHit": 25065,
+            "Accuracy": 29.54593677063442,
+            "DamageDealt": 747456,
+            "DamageTaken": 650617,
+            "CalloutAssists": 7,
+            "VehicleDestroys": 25,
+            "DriverAssists": 4,
+            "Hijacks": 14,
+            "EmpAssists": 0,
+            "MaxKillingSpree": 0,
+            "Medals": [
+                {
+                    "NameId": 548533137,
+                    "Count": 149,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 2418616582,
+                    "Count": 22,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 2123530881,
+                    "Count": 91,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3905838030,
+                    "Count": 5,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 622331684,
+                    "Count": 236,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 2780740615,
+                    "Count": 101,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 2063152177,
+                    "Count": 24,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 221693153,
+                    "Count": 11,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1283796619,
+                    "Count": 7,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 2758320809,
+                    "Count": 18,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3233952928,
+                    "Count": 36,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1472686630,
+                    "Count": 12,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 269174970,
+                    "Count": 80,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 2625820422,
+                    "Count": 24,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1169390319,
+                    "Count": 65,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 2602963073,
+                    "Count": 75,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3334154676,
+                    "Count": 2,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 4277328263,
+                    "Count": 6,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 4229934157,
+                    "Count": 14,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 4261842076,
+                    "Count": 10,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 731054446,
+                    "Count": 4,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1445036152,
+                    "Count": 4,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1284032216,
+                    "Count": 2,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1512363953,
+                    "Count": 14,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 690125105,
+                    "Count": 2,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1176569867,
+                    "Count": 7,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 781229683,
+                    "Count": 11,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3091261182,
+                    "Count": 24,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3085856613,
+                    "Count": 5,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 2861418269,
+                    "Count": 18,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1172766553,
+                    "Count": 9,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1427176344,
+                    "Count": 4,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3488248720,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3227840152,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1210678802,
+                    "Count": 23,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 976049027,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3655682764,
+                    "Count": 8,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 2852571933,
+                    "Count": 9,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 988255960,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 2414983178,
+                    "Count": 7,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1734214473,
+                    "Count": 8,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1146876011,
+                    "Count": 7,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3934547153,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1880789493,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 418532952,
+                    "Count": 3,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 865763896,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3546244406,
+                    "Count": 4,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 265478668,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 835814121,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3114137341,
+                    "Count": 3,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 87172902,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1680000231,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3732790338,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 1169571763,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 3217141618,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 524758914,
+                    "Count": 2,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 670606868,
+                    "Count": 2,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 4132863117,
+                    "Count": 4,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 2750622016,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 4215552487,
+                    "Count": 2,
+                    "TotalPersonalScoreAwarded": 0
+                },
+                {
+                    "NameId": 2593226288,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 0
+                }
+            ],
+            "PersonalScores": [
+                {
+                    "NameId": 2188620691,
+                    "Count": 3,
+                    "TotalPersonalScoreAwarded": 300
+                },
+                {
+                    "NameId": 1024030246,
+                    "Count": 2611,
+                    "TotalPersonalScoreAwarded": 1000
+                },
+                {
+                    "NameId": 2801241965,
+                    "Count": 2,
+                    "TotalPersonalScoreAwarded": 300
+                },
+                {
+                    "NameId": 963594075,
+                    "Count": 4,
+                    "TotalPersonalScoreAwarded": 100
+                },
+                {
+                    "NameId": 3996338664,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 50
+                },
+                {
+                    "NameId": 3107879375,
+                    "Count": 4,
+                    "TotalPersonalScoreAwarded": 50
+                },
+                {
+                    "NameId": 1614285349,
+                    "Count": 6,
+                    "TotalPersonalScoreAwarded": 25
+                },
+                {
+                    "NameId": 204144695,
+                    "Count": 110,
+                    "TotalPersonalScoreAwarded": 40
+                },
+                {
+                    "NameId": 454168309,
+                    "Count": 465,
+                    "TotalPersonalScoreAwarded": 450
+                },
+                {
+                    "NameId": 638246808,
+                    "Count": 686,
+                    "TotalPersonalScoreAwarded": 50
+                },
+                {
+                    "NameId": 746397417,
+                    "Count": 38,
+                    "TotalPersonalScoreAwarded": 25
+                },
+                {
+                    "NameId": 22113181,
+                    "Count": 29,
+                    "TotalPersonalScoreAwarded": 50
+                },
+                {
+                    "NameId": 316828380,
+                    "Count": 20,
+                    "TotalPersonalScoreAwarded": 25
+                },
+                {
+                    "NameId": 3507884073,
+                    "Count": 181,
+                    "TotalPersonalScoreAwarded": 750
+                },
+                {
+                    "NameId": 709346128,
+                    "Count": 35,
+                    "TotalPersonalScoreAwarded": 50
+                },
+                {
+                    "NameId": 601966503,
+                    "Count": 56,
+                    "TotalPersonalScoreAwarded": 900
+                },
+                {
+                    "NameId": 2387185397,
+                    "Count": 43,
+                    "TotalPersonalScoreAwarded": 20
+                },
+                {
+                    "NameId": 3002710045,
+                    "Count": 63,
+                    "TotalPersonalScoreAwarded": 75
+                },
+                {
+                    "NameId": 555570945,
+                    "Count": 12,
+                    "TotalPersonalScoreAwarded": 100
+                },
+                {
+                    "NameId": 911992497,
+                    "Count": 3,
+                    "TotalPersonalScoreAwarded": -100
+                },
+                {
+                    "NameId": 3150095814,
+                    "Count": 4,
+                    "TotalPersonalScoreAwarded": 25
+                },
+                {
+                    "NameId": 2106274556,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 50
+                },
+                {
+                    "NameId": 249491819,
+                    "Count": 12,
+                    "TotalPersonalScoreAwarded": -100
+                },
+                {
+                    "NameId": 1834653062,
+                    "Count": 2,
+                    "TotalPersonalScoreAwarded": 25
+                },
+                {
+                    "NameId": 3472794399,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 50
+                },
+                {
+                    "NameId": 152718958,
+                    "Count": 7,
+                    "TotalPersonalScoreAwarded": 20
+                },
+                {
+                    "NameId": 1267013266,
+                    "Count": 4,
+                    "TotalPersonalScoreAwarded": 10
+                },
+                {
+                    "NameId": 2408971842,
+                    "Count": 115,
+                    "TotalPersonalScoreAwarded": 400
+                },
+                {
+                    "NameId": 3428202435,
+                    "Count": 11,
+                    "TotalPersonalScoreAwarded": 100
+                },
+                {
+                    "NameId": 4254982885,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 50
+                },
+                {
+                    "NameId": 2130209372,
+                    "Count": 2,
+                    "TotalPersonalScoreAwarded": 50
+                },
+                {
+                    "NameId": 597066859,
+                    "Count": 2,
+                    "TotalPersonalScoreAwarded": 50
+                },
+                {
+                    "NameId": 3243589708,
+                    "Count": 2,
+                    "TotalPersonalScoreAwarded": 200
+                },
+                {
+                    "NameId": 1059880024,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 25
+                },
+                {
+                    "NameId": 2008690931,
+                    "Count": 1,
+                    "TotalPersonalScoreAwarded": 50
+                }
+            ],
+            "Spawns": 0
+        },
+        "BombStats": null,
+        "CaptureTheFlagStats": {
+            "FlagCaptureAssists": 12,
+            "FlagCaptures": 56,
+            "FlagCarriersKilled": 20,
+            "FlagGrabs": 97,
+            "FlagReturnersKilled": 7,
+            "FlagReturns": 29,
+            "FlagSecures": 49,
+            "FlagSteals": 63,
+            "KillsAsFlagCarrier": 9,
+            "KillsAsFlagReturner": 3,
+            "TimeAsFlagCarrier": "PT34M9.9S"
+        },
+        "EliminationStats": {
+            "AlliesRevived": 11,
+            "EliminationAssists": 51,
+            "Eliminations": 115,
+            "EnemyRevivesDenied": 2,
+            "Executions": 0,
+            "KillsAsLastPlayerStanding": 10,
+            "LastPlayersStandingKilled": 18,
+            "RoundsSurvived": 68,
+            "TimesRevivedByAlly": 22
+        },
+        "ExtractionStats": null,
+        "InfectionStats": null,
+        "OddballStats": {
+            "KillsAsSkullCarrier": 20,
+            "LongestTimeAsSkullCarrier": "PT1M39.9S",
+            "SkullCarriersKilled": 38,
+            "SkullGrabs": 24,
+            "TimeAsSkullCarrier": "PT43M3.1S",
+            "SkullScoringTicks": 2531
+        },
+        "ZonesStats": {
+            "ZoneCaptures": 181,
+            "ZoneDefensiveKills": 35,
+            "ZoneOffensiveKills": 48,
+            "ZoneSecures": 35,
+            "TotalZoneOccupationTime": "PT34M0.7S",
+            "ZoneScoringTicks": 0
+        },
+        "StockpileStats": {
+            "KillsAsPowerSeedCarrier": 2,
+            "PowerSeedCarriersKilled": 0,
+            "PowerSeedsDeposited": 3,
+            "PowerSeedsStolen": 1,
+            "TimeAsPowerSeedCarrier": "PT2M3.4S",
+            "TimeAsPowerSeedDriver": "PT32.8S"
+        }
+    }
+	</code>
+	To use this function in your code:
+	<code>
+	HaloInfiniteClient client = new(haloToken.Token, extendedTicket.DisplayClaims.Xui[0].XUID);
+    Task.Run(async () =>
+    {
+        var serviceRecord = (await client.StatsGetPlayerServiceRecord("zebond", LifecycleMode.Custom)).Result;
+        Console.WriteLine("Got service record.");
+    }).GetAwaiter().GetResult();
+	</code>
+</example>

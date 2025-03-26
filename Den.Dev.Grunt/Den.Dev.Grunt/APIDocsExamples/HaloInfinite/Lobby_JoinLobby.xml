@@ -1,0 +1,9 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 12/27/2023:
+	<code>
+	{
+		"joinLobbyError": 12,
+		"lobbyActivationNonce": 1265039708
+	}
+	</code>
+</example>

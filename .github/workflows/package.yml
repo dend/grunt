@@ -1,0 +1,50 @@
+name: Publish In-Repo NuGet Package
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+  workflow_dispatch:
+    branches:
+      - master
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Verify commit exists in origin/master
+      run: |
+        git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+        git branch --remote --contains | grep origin/master
+    - name: Set env
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+    - name: Build
+      working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt
+      run: dotnet build --configuration Release
+    - name: Test
+      working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt
+      run: dotnet test --configuration Release --no-build
+    - name: Pack
+      working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt
+      run: dotnet pack -p:PackageVersion=${{ env.RELEASE_VERSION }} --configuration Release --no-build --output .
+    - name: Add NuGet source
+      working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt
+      run: dotnet nuget add source --username dend --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/dend/index.json"
+    - name: Push
+      working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt
+      run: dotnet nuget push *.nupkg --source "github" --skip-duplicate

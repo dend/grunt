@@ -1,0 +1,15 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 10/11/2022:
+	<code>
+    {
+        "xuid": "2533274837773602",
+        "gamertag": "BreadKrtek",
+        "gamerpic": {
+            "small": "https://images-eds-ssl.xboxlive.com/image?url=wHwbXKif8cus8csoZ03RW8ke8ralOdP9BGd4wzwl0MJ9z6QzuGwZjtvbE7sSsMVW6LiEZmpqmsKukU0M8LRLHiaAUiVr63s0STC3mwlgJzAkMFmhO.xaviC7shx29ZEw.vSTpBUhkOw_5LbjZmCFuaIWIBkUMuD7ueJ4JfXYHfU-&amp;format=png&amp;w=64&amp;h=64",
+            "medium": "https://images-eds-ssl.xboxlive.com/image?url=wHwbXKif8cus8csoZ03RW8ke8ralOdP9BGd4wzwl0MJ9z6QzuGwZjtvbE7sSsMVW6LiEZmpqmsKukU0M8LRLHiaAUiVr63s0STC3mwlgJzAkMFmhO.xaviC7shx29ZEw.vSTpBUhkOw_5LbjZmCFuaIWIBkUMuD7ueJ4JfXYHfU-&amp;format=png&amp;w=208&amp;h=208",
+            "large": "https://images-eds-ssl.xboxlive.com/image?url=wHwbXKif8cus8csoZ03RW8ke8ralOdP9BGd4wzwl0MJ9z6QzuGwZjtvbE7sSsMVW6LiEZmpqmsKukU0M8LRLHiaAUiVr63s0STC3mwlgJzAkMFmhO.xaviC7shx29ZEw.vSTpBUhkOw_5LbjZmCFuaIWIBkUMuD7ueJ4JfXYHfU-&amp;format=png&amp;w=424&amp;h=424",
+            "xlarge": "https://images-eds-ssl.xboxlive.com/image?url=wHwbXKif8cus8csoZ03RW8ke8ralOdP9BGd4wzwl0MJ9z6QzuGwZjtvbE7sSsMVW6LiEZmpqmsKukU0M8LRLHiaAUiVr63s0STC3mwlgJzAkMFmhO.xaviC7shx29ZEw.vSTpBUhkOw_5LbjZmCFuaIWIBkUMuD7ueJ4JfXYHfU-&amp;format=png"
+        }
+    }
+	</code>
+</example>

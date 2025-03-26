@@ -1,0 +1,13 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 11/7/2022:
+	<code>
+    {
+        "id": 44859,
+        "imageUri": "https://wpassets.halowaypoint.com/wp-content/2022/08/Fracture_-Entrenched-Award.png",
+        "imageAlt": "",
+        "title": "Fracture: Entrenched",
+        "excerpt": "",
+        "slug": "hi-event-ritualeaglestrike"
+    }
+	</code>
+</example>

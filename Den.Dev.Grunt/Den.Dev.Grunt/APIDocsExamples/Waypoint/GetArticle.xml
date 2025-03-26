@@ -1,0 +1,299 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 11/7/2022:
+	<code>
+    {
+        "id": 48481,
+        "featuredImageUri": "https://wpassets.halowaypoint.com/wp-content/2022/11/Module_waypoint-x-forge-1920x1080-1.jpg",
+        "featuredImageAlt": "Module for the Waypoint Content Browser Blog. Select or Select to read the blog.",
+        "title": "Halo Waypoint | Content Browser",
+        "subtitle": "",
+        "content": "\n&lt;p&gt;As we look to the arrival of the Winter Update in &lt;em&gt;Halo Infinite &lt;/em&gt;on November 8, which brings with it the highly anticipated Forge Beta, our support for the game with Halo Waypoint’s continues to expand.&lt;/p&gt;\n\n\n\n&lt;p&gt;Today, we’re excited to share that Halo Waypoint’s latest update brings the &lt;em&gt;Halo Infinite&lt;/em&gt; Content Browser to the web—making it incredibly easy to find and share community creations.&lt;/p&gt;\n\n\n\n&lt;hr class=\"wp-block-separator\"/&gt;\n\n\n\n&lt;figure class=\"wp-block-image size-full\"&gt;&lt;img src=\"https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-C.jpg\" alt=\"Recommended content on the Content Browser\" class=\"wp-image-49829\" srcset=\"https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-C.jpg 1650w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-C-300x207.jpg 300w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-C-1024x707.jpg 1024w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-C-768x531.jpg 768w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-C-1536x1061.jpg 1536w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-C-1568x1083.jpg 1568w\" sizes=\"(max-width: 1650px) 100vw, 1650px\" /&gt;&lt;/figure&gt;\n\n\n\n&lt;p&gt;Halo Waypoint’s Content Browser is how you can search for and bookmark Forge creations from other players. We’re bringing this powerful in-game tool (which can be accessed from the main menu’s Community tab) to Halo Waypoint, putting it in the hands of our players, wherever they may be.&lt;/p&gt;\n\n\n\n&lt;p&gt;At the landing page of the Halo Waypoint Content Browser, you’ll find 343 Recommended content, as well as popular maps, modes, and prefabs (these are things like Forge objects and scripting nodegraphs created by other players that you can download and place in your maps).&lt;/p&gt;\n\n\n\n&lt;figure class=\"wp-block-image size-full\"&gt;&lt;img src=\"https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-B.jpg\" alt=\"Popular maps and modes on the Content Browser\" class=\"wp-image-49815\" srcset=\"https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-B.jpg 1650w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-B-286x300.jpg 286w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-B-978x1024.jpg 978w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-B-768x804.jpg 768w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-B-1467x1536.jpg 1467w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-B-1568x1642.jpg 1568w\" sizes=\"(max-width: 1650px) 100vw, 1650px\" /&gt;&lt;/figure&gt;\n\n\n\n&lt;p&gt;Explore below to see how the Content Browser looks and the filters and tags it offers to refine your search.&lt;/p&gt;\n\n\n\n&lt;p&gt;With the Content Browser at the tip of your fingertips, you’re never far from being able to try out the next great map and mode from the community, or from implementing objects and nodegraphs into your own maps under construction.&lt;/p&gt;\n\n\n\n&lt;p&gt;Whether you’re a cartographer looking to share your content, or a player looking to try out something new, the Content Browser is your one-stop hub for everything you need!&lt;/p&gt;\n\n\n\n&lt;figure class=\"wp-block-image size-full\"&gt;&lt;img src=\"https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-D-scaled.jpg\" alt=\"Content Browser \"Browse All\" page\" class=\"wp-image-49843\" srcset=\"https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-D-scaled.jpg 1061w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-D-124x300.jpg 124w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-D-424x1024.jpg 424w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-D-768x1853.jpg 768w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-D-636x1536.jpg 636w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-D-849x2048.jpg 849w, https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-D-1568x3784.jpg 1568w\" sizes=\"(max-width: 1061px) 100vw, 1061px\" /&gt;&lt;/figure&gt;\n\n\n\n&lt;hr class=\"wp-block-separator\"/&gt;\n\n\n\n&lt;p&gt;We’re excited to continue supporting &lt;em&gt;Halo Infinite&lt;/em&gt; and Halo Waypoint experiences across the board, and today’s update is another step on that great journey.&lt;/p&gt;\n\n\n\n&lt;p&gt;If you have any feedback about this latest update, please be sure to share it with us on our &lt;a rel=\"noreferrer noopener\" href=\"https://forums.halowaypoint.com/\" target=\"_blank\"&gt;Forums&lt;/a&gt;. If you come across any technical issues, please let us know on the &lt;a rel=\"noreferrer noopener\" href=\"https://aka.ms/HaloSupport\" target=\"_blank\"&gt;Halo Support site&lt;/a&gt;.&lt;/p&gt;\n\n\n\n&lt;p&gt;Thank you for your continued support and feedback, and we can’t wait to see what you make!&lt;/p&gt;\n",
+        "excerpt": "&lt;p&gt;Get a closer look at the Content Browser on Halo Waypoint for maps, modes, and prefabs!&lt;/p&gt;\n",
+        "slug": "halo-waypoint-content-browser",
+        "creatorSlug": "alex-wakeford",
+        "creatorTitle": "Alex Wakeford",
+        "categories": [
+            55,
+            78
+        ],
+        "tags": [],
+        "blocks": [
+            {
+                "blockName": "core/paragraph",
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;p&gt;As we look to the arrival of the Winter Update in &lt;em&gt;Halo Infinite &lt;/em&gt;on November 8, which brings with it the highly anticipated Forge Beta, our support for the game with Halo Waypoint’s continues to expand.&lt;/p&gt;\n",
+                "innerContent": [
+                    "\n&lt;p&gt;As we look to the arrival of the Winter Update in &lt;em&gt;Halo Infinite &lt;/em&gt;on November 8, which brings with it the highly anticipated Forge Beta, our support for the game with Halo Waypoint’s continues to expand.&lt;/p&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/paragraph",
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;p&gt;Today, we’re excited to share that Halo Waypoint’s latest update brings the &lt;em&gt;Halo Infinite&lt;/em&gt; Content Browser to the web—making it incredibly easy to find and share community creations.&lt;/p&gt;\n",
+                "innerContent": [
+                    "\n&lt;p&gt;Today, we’re excited to share that Halo Waypoint’s latest update brings the &lt;em&gt;Halo Infinite&lt;/em&gt; Content Browser to the web—making it incredibly easy to find and share community creations.&lt;/p&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/separator",
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;hr class=\"wp-block-separator\"/&gt;\n",
+                "innerContent": [
+                    "\n&lt;hr class=\"wp-block-separator\"/&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/image",
+                "attrs": {
+                    "id": 49829,
+                    "sizeSlug": "full"
+                },
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;figure class=\"wp-block-image size-full\"&gt;&lt;img src=\"https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-C.jpg\" alt=\"Recommended content on the Content Browser\" class=\"wp-image-49829\"/&gt;&lt;/figure&gt;\n",
+                "innerContent": [
+                    "\n&lt;figure class=\"wp-block-image size-full\"&gt;&lt;img src=\"https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-C.jpg\" alt=\"Recommended content on the Content Browser\" class=\"wp-image-49829\"/&gt;&lt;/figure&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/paragraph",
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;p&gt;Halo Waypoint’s Content Browser is how you can search for and bookmark Forge creations from other players. We’re bringing this powerful in-game tool (which can be accessed from the main menu’s Community tab) to Halo Waypoint, putting it in the hands of our players, wherever they may be.&lt;/p&gt;\n",
+                "innerContent": [
+                    "\n&lt;p&gt;Halo Waypoint’s Content Browser is how you can search for and bookmark Forge creations from other players. We’re bringing this powerful in-game tool (which can be accessed from the main menu’s Community tab) to Halo Waypoint, putting it in the hands of our players, wherever they may be.&lt;/p&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/paragraph",
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;p&gt;At the landing page of the Halo Waypoint Content Browser, you’ll find 343 Recommended content, as well as popular maps, modes, and prefabs (these are things like Forge objects and scripting nodegraphs created by other players that you can download and place in your maps).&lt;/p&gt;\n",
+                "innerContent": [
+                    "\n&lt;p&gt;At the landing page of the Halo Waypoint Content Browser, you’ll find 343 Recommended content, as well as popular maps, modes, and prefabs (these are things like Forge objects and scripting nodegraphs created by other players that you can download and place in your maps).&lt;/p&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/image",
+                "attrs": {
+                    "id": 49815,
+                    "sizeSlug": "full"
+                },
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;figure class=\"wp-block-image size-full\"&gt;&lt;img src=\"https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-B.jpg\" alt=\"Popular maps and modes on the Content Browser\" class=\"wp-image-49815\"/&gt;&lt;/figure&gt;\n",
+                "innerContent": [
+                    "\n&lt;figure class=\"wp-block-image size-full\"&gt;&lt;img src=\"https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-B.jpg\" alt=\"Popular maps and modes on the Content Browser\" class=\"wp-image-49815\"/&gt;&lt;/figure&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/paragraph",
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;p&gt;Explore below to see how the Content Browser looks and the filters and tags it offers to refine your search.&lt;/p&gt;\n",
+                "innerContent": [
+                    "\n&lt;p&gt;Explore below to see how the Content Browser looks and the filters and tags it offers to refine your search.&lt;/p&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/paragraph",
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;p&gt;With the Content Browser at the tip of your fingertips, you’re never far from being able to try out the next great map and mode from the community, or from implementing objects and nodegraphs into your own maps under construction.&lt;/p&gt;\n",
+                "innerContent": [
+                    "\n&lt;p&gt;With the Content Browser at the tip of your fingertips, you’re never far from being able to try out the next great map and mode from the community, or from implementing objects and nodegraphs into your own maps under construction.&lt;/p&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/paragraph",
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;p&gt;Whether you’re a cartographer looking to share your content, or a player looking to try out something new, the Content Browser is your one-stop hub for everything you need!&lt;/p&gt;\n",
+                "innerContent": [
+                    "\n&lt;p&gt;Whether you’re a cartographer looking to share your content, or a player looking to try out something new, the Content Browser is your one-stop hub for everything you need!&lt;/p&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/image",
+                "attrs": {
+                    "id": 49843,
+                    "sizeSlug": "full"
+                },
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;figure class=\"wp-block-image size-full\"&gt;&lt;img src=\"https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-D-scaled.jpg\" alt=\"Content Browser &amp;quot;Browse All&amp;quot; page\" class=\"wp-image-49843\"/&gt;&lt;/figure&gt;\n",
+                "innerContent": [
+                    "\n&lt;figure class=\"wp-block-image size-full\"&gt;&lt;img src=\"https://wpassets.halowaypoint.com/wp-content/2022/11/Content-Browser-D-scaled.jpg\" alt=\"Content Browser &amp;quot;Browse All&amp;quot; page\" class=\"wp-image-49843\"/&gt;&lt;/figure&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/separator",
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;hr class=\"wp-block-separator\"/&gt;\n",
+                "innerContent": [
+                    "\n&lt;hr class=\"wp-block-separator\"/&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/paragraph",
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;p&gt;We’re excited to continue supporting&amp;nbsp;&lt;em&gt;Halo Infinite&lt;/em&gt;&amp;nbsp;and Halo Waypoint experiences across the board, and today’s update is another step on that great journey.&lt;/p&gt;\n",
+                "innerContent": [
+                    "\n&lt;p&gt;We’re excited to continue supporting&amp;nbsp;&lt;em&gt;Halo Infinite&lt;/em&gt;&amp;nbsp;and Halo Waypoint experiences across the board, and today’s update is another step on that great journey.&lt;/p&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/paragraph",
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;p&gt;If you have any feedback about this latest update, please be sure to share it with us on our &lt;a rel=\"noreferrer noopener\" href=\"https://forums.halowaypoint.com/\" target=\"_blank\"&gt;Forums&lt;/a&gt;. If you come across any technical issues, please let us know on the &lt;a rel=\"noreferrer noopener\" href=\"https://aka.ms/HaloSupport\" target=\"_blank\"&gt;Halo Support site&lt;/a&gt;.&lt;/p&gt;\n",
+                "innerContent": [
+                    "\n&lt;p&gt;If you have any feedback about this latest update, please be sure to share it with us on our &lt;a rel=\"noreferrer noopener\" href=\"https://forums.halowaypoint.com/\" target=\"_blank\"&gt;Forums&lt;/a&gt;. If you come across any technical issues, please let us know on the &lt;a rel=\"noreferrer noopener\" href=\"https://aka.ms/HaloSupport\" target=\"_blank\"&gt;Halo Support site&lt;/a&gt;.&lt;/p&gt;\n"
+                ]
+            },
+            {
+                "blockName": null,
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n\n",
+                "innerContent": [
+                    "\n\n"
+                ]
+            },
+            {
+                "blockName": "core/paragraph",
+                "attrs": [],
+                "innerBlocks": [],
+                "innerHTML": "\n&lt;p&gt;Thank you for your continued support and feedback, and we can’t wait to see what you make!&lt;/p&gt;\n",
+                "innerContent": [
+                    "\n&lt;p&gt;Thank you for your continued support and feedback, and we can’t wait to see what you make!&lt;/p&gt;\n"
+                ]
+            }
+        ],
+        "publishDate": "2022-11-07T12:58:00",
+        "featuredImageUriMedium": null,
+        "featuredImageAltMedium": null,
+        "featuredImageUriSmall": null,
+        "featuredImageAltSmall": null
+    }
+	</code>
+</example>

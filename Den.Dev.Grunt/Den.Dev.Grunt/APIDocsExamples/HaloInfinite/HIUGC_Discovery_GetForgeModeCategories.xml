@@ -1,0 +1,1005 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 2/3/2024:
+	<code>
+    {
+        "CustomData": {
+            "Intent": 0
+        },
+        "MapLinks": [],
+        "PlaylistLinks": [],
+        "PrefabLinks": [],
+        "UgcGameVariantLinks": [
+            {
+                "AssetId": "8650f7e0-1f82-4d45-a127-32dd54df06e5",
+                "VersionId": "2cb07a58-190d-4fbc-a071-721147faa9e4",
+                "PublicName": "Arena:CTF",
+                "Description": "Capture the enemy flag while defending your own.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/8650f7e0-1f82-4d45-a127-32dd54df06e5/2cb07a58-190d-4fbc-a071-721147faa9e4/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.Png",
+                        "images/screenshot1.png",
+                        "images/screenshot2.Png",
+                        "images/screenshot2.png",
+                        "images/screenshot3.Png",
+                        "images/screenshot3.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/8650f7e0-1f82-4d45-a127-32dd54df06e5/2cb07a58-190d-4fbc-a071-721147faa9e4/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 61495,
+                    "PlaysAllTime": 13544045,
+                    "Favorites": 98640,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 156,
+                    "AverageRating": 2.435752291212526,
+                    "NumberOfRatings": 85326
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 0,
+                "PublishedDate": {
+                    "ISO8601Date": "2021-11-04T17:51:28.003Z"
+                },
+                "VersionNumber": 7,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "29a97061-cf32-49c6-80f0-6638f5a9d0bd",
+                "VersionId": "fca7e5e6-bbf0-4491-b4ef-abf702e492a7",
+                "PublicName": "Arena:One Flag CTF",
+                "Description": "Only one team has a flag. Teams alternate attacking and defending the flag.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/29a97061-cf32-49c6-80f0-6638f5a9d0bd/fca7e5e6-bbf0-4491-b4ef-abf702e492a7/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.Png",
+                        "images/screenshot1.png",
+                        "images/screenshot2.Png",
+                        "images/screenshot2.png",
+                        "images/screenshot3.Png",
+                        "images/screenshot3.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/29a97061-cf32-49c6-80f0-6638f5a9d0bd/fca7e5e6-bbf0-4491-b4ef-abf702e492a7/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 8123,
+                    "PlaysAllTime": 3666528,
+                    "Favorites": 56134,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 45,
+                    "AverageRating": 2.423966405647746,
+                    "NumberOfRatings": 49294
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 10,
+                "PublishedDate": null,
+                "VersionNumber": 7,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "de0c672f-bbc8-481c-88d0-7ab63b55270c",
+                "VersionId": "d585d623-db25-40bc-bf87-6da23eb2ebc4",
+                "PublicName": "Arena:Neutral Flag CTF",
+                "Description": "Steal and capture the forsaken flag.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/de0c672f-bbc8-481c-88d0-7ab63b55270c/d585d623-db25-40bc-bf87-6da23eb2ebc4/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.Png",
+                        "images/screenshot1.png",
+                        "images/screenshot2.Png",
+                        "images/screenshot2.png",
+                        "images/screenshot3.Png",
+                        "images/screenshot3.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/de0c672f-bbc8-481c-88d0-7ab63b55270c/d585d623-db25-40bc-bf87-6da23eb2ebc4/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 1398,
+                    "PlaysAllTime": 74314,
+                    "Favorites": 259,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 26,
+                    "AverageRating": 3.7857142857142856,
+                    "NumberOfRatings": 42
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 20,
+                "PublishedDate": {
+                    "ISO8601Date": "2021-11-04T17:51:48.332Z"
+                },
+                "VersionNumber": 7,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "1519c0cb-759d-424e-a68e-b9cb870b1e14",
+                "VersionId": "bb4138ae-465d-4a61-b175-3a0e82e3f272",
+                "PublicName": "BTB:CTF",
+                "Description": "Capture the enemy flag.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/1519c0cb-759d-424e-a68e-b9cb870b1e14/bb4138ae-465d-4a61-b175-3a0e82e3f272/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.Png",
+                        "images/screenshot1.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/1519c0cb-759d-424e-a68e-b9cb870b1e14/bb4138ae-465d-4a61-b175-3a0e82e3f272/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 4758,
+                    "PlaysAllTime": 2747673,
+                    "Favorites": 47190,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 47,
+                    "AverageRating": 2.985376827896513,
+                    "NumberOfRatings": 37338
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 30,
+                "PublishedDate": {
+                    "ISO8601Date": "2021-11-04T17:51:48.348Z"
+                },
+                "VersionNumber": 2,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "d99a8a3e-b402-405b-88db-753eace29ec3",
+                "VersionId": "3b949998-ec27-461e-b775-5f6f9c1cc6f9",
+                "PublicName": "Arena:Strongholds",
+                "Description": "Capture and control two or more zones.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/d99a8a3e-b402-405b-88db-753eace29ec3/3b949998-ec27-461e-b775-5f6f9c1cc6f9/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.Png",
+                        "images/screenshot1.png",
+                        "images/screenshot2.Png",
+                        "images/screenshot2.png",
+                        "images/screenshot3.Png",
+                        "images/screenshot3.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/d99a8a3e-b402-405b-88db-753eace29ec3/3b949998-ec27-461e-b775-5f6f9c1cc6f9/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 12257,
+                    "PlaysAllTime": 12122159,
+                    "Favorites": 61862,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 129,
+                    "AverageRating": 3.021644848605976,
+                    "NumberOfRatings": 50035
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 40,
+                "PublishedDate": {
+                    "ISO8601Date": "2021-11-04T17:51:27.768Z"
+                },
+                "VersionNumber": 7,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "373f3d27-cb4c-4d7b-b6c9-7757de3c1133",
+                "VersionId": "30a57362-5308-4607-8801-3d3a1c099cfa",
+                "PublicName": "Arena:King of the Hill",
+                "Description": "Hold the Hill. Hail to the King.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/373f3d27-cb4c-4d7b-b6c9-7757de3c1133/30a57362-5308-4607-8801-3d3a1c099cfa/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.png",
+                        "images/screenshot2.png",
+                        "images/screenshot3.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/373f3d27-cb4c-4d7b-b6c9-7757de3c1133/30a57362-5308-4607-8801-3d3a1c099cfa/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 18289,
+                    "PlaysAllTime": 3686512,
+                    "Favorites": 16708,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 107,
+                    "AverageRating": 3.1126163391933814,
+                    "NumberOfRatings": 9670
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 50,
+                "PublishedDate": null,
+                "VersionNumber": 7,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "f6d1b868-02c6-4786-9d93-b947b2a4c62b",
+                "VersionId": "bb7133b0-0340-4572-9ae7-f0133465529c",
+                "PublicName": "Arena:FFA King of the Hill",
+                "Description": "Every Spartan for themselves! Hold the Hill. Hail to the King.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/f6d1b868-02c6-4786-9d93-b947b2a4c62b/bb7133b0-0340-4572-9ae7-f0133465529c/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/f6d1b868-02c6-4786-9d93-b947b2a4c62b/bb7133b0-0340-4572-9ae7-f0133465529c/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [
+                    "xuid(PLAYER_XUID_HERE)"
+                ],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 0,
+                    "PlaysAllTime": 8313,
+                    "Favorites": 59,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 6,
+                    "AverageRating": 2.75,
+                    "NumberOfRatings": 32
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 2,
+                "Order": 51,
+                "PublishedDate": null,
+                "VersionNumber": 1,
+                "Admin": "xuid(PLAYER_XUID_HERE)"
+            },
+            {
+                "AssetId": "8d6e16cd-7e95-4166-92fd-d280163b7ab7",
+                "VersionId": "6ce17bcf-6af5-4d26-9181-9583ed35af56",
+                "PublicName": "Arena:Land Grab",
+                "Description": "Capture and claim zones to score!",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/8d6e16cd-7e95-4166-92fd-d280163b7ab7/6ce17bcf-6af5-4d26-9181-9583ed35af56/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/8d6e16cd-7e95-4166-92fd-d280163b7ab7/6ce17bcf-6af5-4d26-9181-9583ed35af56/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 47546,
+                    "PlaysAllTime": 5529033,
+                    "Favorites": 9449,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 71,
+                    "AverageRating": 3.0736048749198206,
+                    "NumberOfRatings": 6236
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 60,
+                "PublishedDate": {
+                    "ISO8601Date": "2022-05-26T00:21:19.771Z"
+                },
+                "VersionNumber": 4,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "34bac2c7-b6d7-4202-b634-1d770e5247a4",
+                "VersionId": "e3577f2c-9e03-4429-8aff-b84f58bd5603",
+                "PublicName": "BTB:Total Control",
+                "Description": "Control all three zones simultaneously to score.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/34bac2c7-b6d7-4202-b634-1d770e5247a4/e3577f2c-9e03-4429-8aff-b84f58bd5603/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.Png",
+                        "images/screenshot1.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/34bac2c7-b6d7-4202-b634-1d770e5247a4/e3577f2c-9e03-4429-8aff-b84f58bd5603/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 4590,
+                    "PlaysAllTime": 2485817,
+                    "Favorites": 31235,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 41,
+                    "AverageRating": 3.183229357798165,
+                    "NumberOfRatings": 27250
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 70,
+                "PublishedDate": {
+                    "ISO8601Date": "2021-11-04T17:51:48.598Z"
+                },
+                "VersionNumber": 2,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "d3aa10fe-502d-4778-8bc2-db5c3a9242ad",
+                "VersionId": "bf90f526-d11a-4619-a84d-bfe7d6e9ac8d",
+                "PublicName": "Arena:Oddball",
+                "Description": "Hold the flaming skull.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/d3aa10fe-502d-4778-8bc2-db5c3a9242ad/bf90f526-d11a-4619-a84d-bfe7d6e9ac8d/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.png",
+                        "images/screenshot2.png",
+                        "images/screenshot3.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/d3aa10fe-502d-4778-8bc2-db5c3a9242ad/bf90f526-d11a-4619-a84d-bfe7d6e9ac8d/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 18250,
+                    "PlaysAllTime": 13409093,
+                    "Favorites": 43246,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 103,
+                    "AverageRating": 2.8934826427771556,
+                    "NumberOfRatings": 44650
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 80,
+                "PublishedDate": {
+                    "ISO8601Date": "2021-11-04T17:51:28.018Z"
+                },
+                "VersionNumber": 7,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "3fcab1bb-e43c-4f7c-bf7a-eb19f0cdb7db",
+                "VersionId": "f3fd1720-ed3d-4e9c-8823-87f452f16c35",
+                "PublicName": "Arena:FFA Oddball",
+                "Description": "Every Spartan for themselves! Hold the flaming skull.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/3fcab1bb-e43c-4f7c-bf7a-eb19f0cdb7db/f3fd1720-ed3d-4e9c-8823-87f452f16c35/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.png",
+                        "images/screenshot2.png",
+                        "images/screenshot3.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/3fcab1bb-e43c-4f7c-bf7a-eb19f0cdb7db/f3fd1720-ed3d-4e9c-8823-87f452f16c35/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 1893,
+                    "PlaysAllTime": 260643,
+                    "Favorites": 682,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 25,
+                    "AverageRating": 3.0167910447761193,
+                    "NumberOfRatings": 536
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 81,
+                "PublishedDate": null,
+                "VersionNumber": 5,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "c6989025-455b-4435-b380-684256a33503",
+                "VersionId": "f4706b27-cbbe-42ec-98af-ef6ff2c5154d",
+                "PublicName": "Arena:Elimination",
+                "Description": "Respawns disabled. Wipe out the enemy team.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/c6989025-455b-4435-b380-684256a33503/f4706b27-cbbe-42ec-98af-ef6ff2c5154d/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.png",
+                        "images/screenshot2.png",
+                        "images/screenshot3.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/c6989025-455b-4435-b380-684256a33503/f4706b27-cbbe-42ec-98af-ef6ff2c5154d/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 205,
+                    "PlaysAllTime": 205,
+                    "Favorites": 6,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 3,
+                    "AverageRating": 0.0,
+                    "NumberOfRatings": 0
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 0,
+                "Order": 90,
+                "PublishedDate": {
+                    "ISO8601Date": "2024-01-31T21:14:30.259Z"
+                },
+                "VersionNumber": 1,
+                "Admin": "xuid(PLAYER_XUID_HERE)"
+            },
+            {
+                "AssetId": "9989a003-dfa5-448e-9219-d0591c29ee8f",
+                "VersionId": "496f2ac6-c3f1-462e-a68b-9ebaf48b7681",
+                "PublicName": "Arena:FFA Elimination",
+                "Description": "Every Spartan for themselves! You've only got one life. Eliminate the enemy.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/9989a003-dfa5-448e-9219-d0591c29ee8f/496f2ac6-c3f1-462e-a68b-9ebaf48b7681/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/9989a003-dfa5-448e-9219-d0591c29ee8f/496f2ac6-c3f1-462e-a68b-9ebaf48b7681/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 1340,
+                    "PlaysAllTime": 66154,
+                    "Favorites": 1137,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 18,
+                    "AverageRating": 4.114754098360656,
+                    "NumberOfRatings": 61
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 0,
+                "Order": 91,
+                "PublishedDate": {
+                    "ISO8601Date": "2022-11-16T23:40:55.989Z"
+                },
+                "VersionNumber": 6,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "1e8cd10b-1496-423b-8699-f98f6f5db67e",
+                "VersionId": "eeb3072a-9925-414b-a500-6dc1e8d97854",
+                "PublicName": "Arena:Slayer",
+                "Description": "Slay the enemy team.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/1e8cd10b-1496-423b-8699-f98f6f5db67e/eeb3072a-9925-414b-a500-6dc1e8d97854/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.Png",
+                        "images/screenshot1.png",
+                        "images/screenshot2.jpg",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/1e8cd10b-1496-423b-8699-f98f6f5db67e/eeb3072a-9925-414b-a500-6dc1e8d97854/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 191780,
+                    "PlaysAllTime": 46476370,
+                    "Favorites": 191342,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 301,
+                    "AverageRating": 2.8637722407942268,
+                    "NumberOfRatings": 118757
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 0,
+                "Order": 100,
+                "PublishedDate": null,
+                "VersionNumber": 9,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "d5305579-5310-45a8-840e-3d3beb13113f",
+                "VersionId": "67f141be-5b80-401a-9c87-cb581a5e5044",
+                "PublicName": "Arena:FFA Slayer",
+                "Description": "Every Spartan for themselves! Slay the enemy.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/d5305579-5310-45a8-840e-3d3beb13113f/67f141be-5b80-401a-9c87-cb581a5e5044/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/d5305579-5310-45a8-840e-3d3beb13113f/67f141be-5b80-401a-9c87-cb581a5e5044/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 12911,
+                    "PlaysAllTime": 6492931,
+                    "Favorites": 13339,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 72,
+                    "AverageRating": 3.3159952405235424,
+                    "NumberOfRatings": 5883
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 101,
+                "PublishedDate": null,
+                "VersionNumber": 7,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "aca7bbf8-7a18-4aae-8785-1bd3f58275fd",
+                "VersionId": "3685f6b2-2860-4e98-9d13-513087edb465",
+                "PublicName": "Fiesta:Slayer",
+                "Description": "Spawn with random loadouts. Slay the enemy team.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/aca7bbf8-7a18-4aae-8785-1bd3f58275fd/3685f6b2-2860-4e98-9d13-513087edb465/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.png",
+                        "images/screenshot2.Png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/aca7bbf8-7a18-4aae-8785-1bd3f58275fd/3685f6b2-2860-4e98-9d13-513087edb465/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 29728,
+                    "PlaysAllTime": 39691297,
+                    "Favorites": 40550,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 182,
+                    "AverageRating": 3.3844204626758883,
+                    "NumberOfRatings": 33544
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 102,
+                "PublishedDate": {
+                    "ISO8601Date": "2022-03-28T18:39:38.632Z"
+                },
+                "VersionNumber": 7,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "e40e8081-3ed4-4232-9221-d9bacb019015",
+                "VersionId": "a8f0ece2-69d1-429d-96a0-e5eaac1d9826",
+                "PublicName": "Fiesta:FFA Slayer",
+                "Description": "Every Spartan for themselves! Spawn with random loadouts. Slay the enemy team.",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/e40e8081-3ed4-4232-9221-d9bacb019015/a8f0ece2-69d1-429d-96a0-e5eaac1d9826/",
+                    "FileRelativePaths": [
+                        "images/hero.png",
+                        "images/screenshot1.png",
+                        "images/screenshot2.Png",
+                        "images/thumbnail.png"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/e40e8081-3ed4-4232-9221-d9bacb019015/a8f0ece2-69d1-429d-96a0-e5eaac1d9826/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 2129,
+                    "PlaysAllTime": 563661,
+                    "Favorites": 3514,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 71,
+                    "AverageRating": 3.8570281124497994,
+                    "NumberOfRatings": 1245
+                },
+                "InspectionResult": 50,
+                "CloneBehavior": 0,
+                "Order": 103,
+                "PublishedDate": {
+                    "ISO8601Date": "2022-07-26T17:00:01.509Z"
+                },
+                "VersionNumber": 2,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "3e8ff415-f2eb-4418-801f-6fdd49a4e67f",
+                "VersionId": "f8b100f5-606b-49c9-b347-95f120142096",
+                "PublicName": "Arena:Escalation Slayer",
+                "Description": "Score kills to progress through the loadout levels. Complete the final level to win!",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/3e8ff415-f2eb-4418-801f-6fdd49a4e67f/f8b100f5-606b-49c9-b347-95f120142096/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/screenshot1.jpg",
+                        "images/thumbnail.jpg"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/3e8ff415-f2eb-4418-801f-6fdd49a4e67f/f8b100f5-606b-49c9-b347-95f120142096/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 848,
+                    "PlaysAllTime": 428437,
+                    "Favorites": 3743,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 56,
+                    "AverageRating": 3.0544363480497214,
+                    "NumberOfRatings": 2333
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 0,
+                "Order": 104,
+                "PublishedDate": {
+                    "ISO8601Date": "2023-03-07T16:44:11.123Z"
+                },
+                "VersionNumber": 3,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "6227f66f-655d-42df-98cb-f3e7d0e8820e",
+                "VersionId": "c9012478-b89e-41bb-a8e3-f272ad5896d2",
+                "PublicName": "Arena:FFA Escalation Slayer",
+                "Description": "Every Spartan for themselves! Score kills to progress through the loadout levels. Complete the final level to win!",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/6227f66f-655d-42df-98cb-f3e7d0e8820e/c9012478-b89e-41bb-a8e3-f272ad5896d2/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/screenshot1.jpg",
+                        "images/thumbnail.jpg"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/6227f66f-655d-42df-98cb-f3e7d0e8820e/c9012478-b89e-41bb-a8e3-f272ad5896d2/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 587,
+                    "PlaysAllTime": 42648,
+                    "Favorites": 281,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 26,
+                    "AverageRating": 4.419354838709677,
+                    "NumberOfRatings": 31
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 1,
+                "Order": 105,
+                "PublishedDate": {
+                    "ISO8601Date": "2023-03-07T16:45:12.997Z"
+                },
+                "VersionNumber": 2,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "9f86d640-f2f2-4854-8533-9549527b782c",
+                "VersionId": "47eddc77-1216-4ad4-af44-312a7f3b5ffa",
+                "PublicName": "Arena:Infection",
+                "Description": "A Banished AI is on the loose. Will you succumb...or survive?",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/9f86d640-f2f2-4854-8533-9549527b782c/47eddc77-1216-4ad4-af44-312a7f3b5ffa/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/screenshot1.jpg",
+                        "images/thumbnail.jpg"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/9f86d640-f2f2-4854-8533-9549527b782c/47eddc77-1216-4ad4-af44-312a7f3b5ffa/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 23322,
+                    "PlaysAllTime": 501509,
+                    "Favorites": 4029,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 40,
+                    "AverageRating": 4.189256714553404,
+                    "NumberOfRatings": 1601
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 0,
+                "Order": 150,
+                "PublishedDate": {
+                    "ISO8601Date": "2023-06-20T17:29:51.643Z"
+                },
+                "VersionNumber": 4,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            },
+            {
+                "AssetId": "d67d0967-4a00-4edb-8c61-c809d9ca74af",
+                "VersionId": "4f5d147b-5cdc-45c1-9282-e7700372af01",
+                "PublicName": "Minigame",
+                "Description": "A custom community game mode",
+                "Files": {
+                    "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/ugcgamevariant/d67d0967-4a00-4edb-8c61-c809d9ca74af/4f5d147b-5cdc-45c1-9282-e7700372af01/",
+                    "FileRelativePaths": [
+                        "images/hero.jpg",
+                        "images/screenshot1.jpg",
+                        "images/thumbnail.jpg"
+                    ],
+                    "PrefixEndpoint": {
+                        "AuthorityId": "iUgcFiles",
+                        "Path": "/ugcstorage/ugcgamevariant/d67d0967-4a00-4edb-8c61-c809d9ca74af/4f5d147b-5cdc-45c1-9282-e7700372af01/",
+                        "QueryString": null,
+                        "RetryPolicyId": "linearretry",
+                        "TopicName": "",
+                        "AcknowledgementTypeId": 0,
+                        "AuthenticationLifetimeExtensionSupported": false,
+                        "ClearanceAware": false
+                    }
+                },
+                "Contributors": [],
+                "AssetHome": 1,
+                "AssetStats": {
+                    "PlaysRecent": 70,
+                    "PlaysAllTime": 4767,
+                    "Favorites": 123,
+                    "Likes": 0,
+                    "Bookmarks": 0,
+                    "ParentAssetCount": 13,
+                    "AverageRating": 4.5,
+                    "NumberOfRatings": 8
+                },
+                "InspectionResult": 0,
+                "CloneBehavior": 1,
+                "Order": 300,
+                "PublishedDate": {
+                    "ISO8601Date": "2023-06-20T18:43:49.917Z"
+                },
+                "VersionNumber": 1,
+                "Admin": "aaid(5c7909e9-3620-4920-8abf-f18cfb4333b6)"
+            }
+        ],
+        "MapModePairLinks": [],
+        "Tags": [],
+        "ProjectLinks": [],
+        "SearchPresetLinks": [],
+        "AssetId": "aff73c44-0771-468f-b9cf-5c52eee7ab4c",
+        "VersionId": "97786bc0-a544-4925-b103-49fa3ab201a2",
+        "PublicName": "Forge Mode Creator Variants",
+        "Description": "Used for mode creator system inside Forge",
+        "Files": {
+            "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/project/aff73c44-0771-468f-b9cf-5c52eee7ab4c/97786bc0-a544-4925-b103-49fa3ab201a2/",
+            "FileRelativePaths": [],
+            "PrefixEndpoint": {
+                "AuthorityId": "iUgcFiles",
+                "Path": "/ugcstorage/project/aff73c44-0771-468f-b9cf-5c52eee7ab4c/97786bc0-a544-4925-b103-49fa3ab201a2/",
+                "QueryString": null,
+                "RetryPolicyId": "linearretry",
+                "TopicName": "",
+                "AcknowledgementTypeId": 0,
+                "AuthenticationLifetimeExtensionSupported": false,
+                "ClearanceAware": false
+            }
+        },
+        "Contributors": [],
+        "AssetHome": 1,
+        "AssetStats": {
+            "PlaysRecent": 0,
+            "PlaysAllTime": 0,
+            "Favorites": 0,
+            "Likes": 0,
+            "Bookmarks": 0,
+            "ParentAssetCount": 0,
+            "AverageRating": 0.0,
+            "NumberOfRatings": 0
+        },
+        "InspectionResult": 0,
+        "CloneBehavior": 0,
+        "Order": 0,
+        "PublishedDate": {
+            "ISO8601Date": "2024-01-31T21:14:30.273Z"
+        },
+        "VersionNumber": 1,
+        "Admin": "atui(27d5a614-5e32-4ce9-9207-b3a63945b5bb.e0292979-c62c-4390-bb0c-3c5a84629c98)"
+    }
+	</code>
+</example>

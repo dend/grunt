@@ -1,0 +1,28 @@
+﻿// <copyright file="EmblemLocation.cs" company="Den Delimarsky">
+// Developed by Den Delimarsky.
+// Den Delimarsky licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+// The underlying API powering Den.Dev.Grunt is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
+// </copyright>
+
+using Den.Dev.Grunt.Models.HaloInfinite;
+
+namespace Den.Dev.Grunt.Models
+{
+    /// <summary>
+    /// Class for emblem location configuration.
+    /// </summary>
+    [IsAutomaticallySerializable]
+    public class EmblemLocation
+    {
+        /// <summary>
+        /// Gets or sets the location ID.
+        /// </summary>
+        public int? LocationId { get; set; }
+        
+        /// <summary>
+        /// gets or sets the default emblem option.
+        /// </summary>
+        public Emblem? DefaultOption { get; set; }
+    }
+}
