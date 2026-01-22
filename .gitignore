@@ -355,3 +355,4 @@ MigrationBackup/
 ## Misc
 .vscode/
 .DS_Store
+/.claude

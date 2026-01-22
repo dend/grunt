@@ -325,6 +325,58 @@ namespace Den.Dev.Grunt.Core
                 includeRawResponse: this.IncludeRawResponses);
         }
 
+        /// <summary>
+        /// Gets information about items available in a credit sub-store for a given player.
+        /// </summary>
+        /// <remarks>
+        /// Credit sub-stores (creditsubstorefront00 through creditsubstorefront05) contain different
+        /// categories of items purchasable with credits. The storeIndex parameter should be 0-5.
+        /// </remarks>
+        /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetCreditSubStore.xml' path='//example'/>
+        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="storeIndex">The sub-store index (0-5). Maps to creditsubstorefront00 through creditsubstorefront05.</param>
+        /// <returns>If successful, returns an instance of StoreItem containing store offerings. Otherwise, returns null.</returns>
+        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyGetCreditSubStore(string player, int storeIndex)
+        {
+            if (storeIndex < 0 || storeIndex > 5)
+            {
+                throw new ArgumentOutOfRangeException(nameof(storeIndex), "Store index must be between 0 and 5.");
+            }
+
+            return await this.ExecuteAPIRequest<StoreItem>(
+                $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/stores/creditsubstorefront{storeIndex:D2}",
+                HttpMethod.Get,
+                true,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
+
+        /// <summary>
+        /// Gets information about items available in a soft currency (Spartan Points) sub-store for a given player.
+        /// </summary>
+        /// <remarks>
+        /// Soft currency sub-stores (softcurrencysubstorefront00 through softcurrencysubstorefront15) contain
+        /// different categories of items purchasable with Spartan Points on The Exchange.
+        /// The storeIndex parameter should be 0-15.
+        /// </remarks>
+        /// <include file='../APIDocsExamples/HaloInfinite/Economy_GetSoftCurrencySubStore.xml' path='//example'/>
+        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="storeIndex">The sub-store index (0-15). Maps to softcurrencysubstorefront00 through softcurrencysubstorefront15.</param>
+        /// <returns>If successful, returns an instance of StoreItem containing store offerings. Otherwise, returns null.</returns>
+        public async Task<HaloApiResultContainer<StoreItem, RawResponseContainer>> EconomyGetSoftCurrencySubStore(string player, int storeIndex)
+        {
+            if (storeIndex < 0 || storeIndex > 15)
+            {
+                throw new ArgumentOutOfRangeException(nameof(storeIndex), "Store index must be between 0 and 15.");
+            }
+
+            return await this.ExecuteAPIRequest<StoreItem>(
+                $"https://{HaloCoreEndpoints.EconomyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/players/{player}/stores/softcurrencysubstorefront{storeIndex:D2}",
+                HttpMethod.Get,
+                true,
+                true,
+                includeRawResponse: this.IncludeRawResponses);
+        }
 
         /// <summary>
         /// Gets the information about giveaways available for a given player.

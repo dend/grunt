@@ -28,100 +28,100 @@ namespace Den.Dev.Grunt.Zeta
 
             XboxAuthenticationClient manager = new();
 
+            //Task.Run(async () =>
+            //{
+            //    var t = await manager.RequestDeviceToken();
+
+            //    var session = await manager.RequestSISUSession("000000004c25467f", "2043073184", t.Token, new List<string>() { "service::user.auth.xboxlive.com::MBI_SSL" }, "https://login.microsoftonline.com/common/oauth2/nativeclient");
+            //});
+
+            var url = manager.GenerateAuthUrl(clientConfig.ClientId, clientConfig.RedirectUrl);
+
+            HaloAuthenticationClient haloAuthClient = new();
+
+            OAuthToken currentOAuthToken = null;
+
+            var ticket = new XboxTicket();
+            var haloTicket = new XboxTicket();
+            var extendedTicket = new XboxTicket();
+            var haloToken = new SpartanToken();
+
+            if (System.IO.File.Exists("tokens.json"))
+            {
+                Console.WriteLine("Trying to use local tokens...");
+
+                // If a local token file exists, load the file.
+                currentOAuthToken = ConfigurationReader.ReadConfiguration<OAuthToken>("tokens.json");
+            }
+            else
+            {
+                currentOAuthToken = RequestNewToken(url, manager, clientConfig);
+            }
+
             Task.Run(async () =>
             {
-                var t = await manager.RequestDeviceToken();
+                ticket = await manager.RequestUserToken(currentOAuthToken.AccessToken);
+                if (ticket == null)
+                {
+                    // There was a failure to obtain the user token, so likely we need to refresh.
+                    currentOAuthToken = await manager.RefreshOAuthToken(
+                        clientConfig.ClientId,
+                        currentOAuthToken.RefreshToken,
+                        clientConfig.RedirectUrl,
+                        clientConfig.ClientSecret);
 
-                var session = await manager.RequestSISUSession("000000004c25467f", "2043073184", t.Token, new List<string>() { "service::user.auth.xboxlive.com::MBI_SSL" }, "https://login.microsoftonline.com/common/oauth2/nativeclient");
-            });
+                    if (currentOAuthToken == null)
+                    {
+                        Console.WriteLine("Could not get the token even with the refresh token.");
+                        currentOAuthToken = RequestNewToken(url, manager, clientConfig);
+                    }
+                    ticket = await manager.RequestUserToken(currentOAuthToken.AccessToken);
+                }
+            }).GetAwaiter().GetResult();
 
-            //var url = manager.GenerateAuthUrl(clientConfig.ClientId, clientConfig.RedirectUrl);
+            Task.Run(async () =>
+            {
+                haloTicket = await manager.RequestXstsToken(ticket.Token);
+            }).GetAwaiter().GetResult();
 
-            //HaloAuthenticationClient haloAuthClient = new();
+            Task.Run(async () =>
+            {
+                extendedTicket = await manager.RequestXstsToken(ticket.Token, false);
+            }).GetAwaiter().GetResult();
 
-            //OAuthToken currentOAuthToken = null;
+            Task.Run(async () =>
+            {
+                haloToken = await haloAuthClient.GetSpartanToken(haloTicket.Token, 4);
+                Console.WriteLine("Your Halo token:");
+                Console.WriteLine(haloToken.Token);
+            }).GetAwaiter().GetResult();
 
-            //var ticket = new XboxTicket();
-            //var haloTicket = new XboxTicket();
-            //var extendedTicket = new XboxTicket();
-            //var haloToken = new SpartanToken();
-
-            //if (System.IO.File.Exists("tokens.json"))
-            //{
-            //    Console.WriteLine("Trying to use local tokens...");
-
-            //    // If a local token file exists, load the file.
-            //    currentOAuthToken = ConfigurationReader.ReadConfiguration<OAuthToken>("tokens.json");
-            //}
-            //else
-            //{
-            //    currentOAuthToken = RequestNewToken(url, manager, clientConfig);
-            //}
-
-            //Task.Run(async () =>
-            //{
-            //    ticket = await manager.RequestUserToken(currentOAuthToken.AccessToken);
-            //    if (ticket == null)
-            //    {
-            //        // There was a failure to obtain the user token, so likely we need to refresh.
-            //        currentOAuthToken = await manager.RefreshOAuthToken(
-            //            clientConfig.ClientId,
-            //            currentOAuthToken.RefreshToken,
-            //            clientConfig.RedirectUrl,
-            //            clientConfig.ClientSecret);
-
-            //        if (currentOAuthToken == null)
-            //        {
-            //            Console.WriteLine("Could not get the token even with the refresh token.");
-            //            currentOAuthToken = RequestNewToken(url, manager, clientConfig);
-            //        }
-            //        ticket = await manager.RequestUserToken(currentOAuthToken.AccessToken);
-            //    }
-            //}).GetAwaiter().GetResult();
-
-            //Task.Run(async () =>
-            //{
-            //    haloTicket = await manager.RequestXstsToken(ticket.Token);
-            //}).GetAwaiter().GetResult();
-
-            //Task.Run(async () =>
-            //{
-            //    extendedTicket = await manager.RequestXstsToken(ticket.Token, false);
-            //}).GetAwaiter().GetResult();
-
-            //Task.Run(async () =>
-            //{
-            //    haloToken = await haloAuthClient.GetSpartanToken(haloTicket.Token, 4);
-            //    Console.WriteLine("Your Halo token:");
-            //    Console.WriteLine(haloToken.Token);
-            //}).GetAwaiter().GetResult();
-
-            ////Let's create an instance to experiment with the Halo Infinite client.
-            //HaloInfiniteClient client = new(haloToken.Token, extendedTicket.DisplayClaims.Xui[0].XUID);
+            //Let's create an instance to experiment with the Halo Infinite client.
+            HaloInfiniteClient client = new(haloToken.Token, extendedTicket.DisplayClaims.Xui[0].XUID);
 
             ////// Let's also create an instance to experiment with the Halo Waypoint APIs.
             ////WaypointClient waypointClient = new(haloToken.Token, extendedTicket.DisplayClaims.Xui[0].XUID);
 
             ////Console.WriteLine($"Your XUID is {extendedTicket.DisplayClaims.Xui[0].XUID}");
 
-            //// Test getting the clearance for local execution.
-            //string localClearance = string.Empty;
-            //Task.Run(async () =>
-            //{
-            //    // Previous build values:
-            //    // - 222249.22.06.08.1730-0
-            //    var clearance = (await client.SettingsGetClearance("RETAIL", "UNUSED", "245613.23.06.01.1708-0", "1.6")).Result;
-            //    if (clearance != null)
-            //    {
-            //        localClearance = clearance.FlightConfigurationId;
-            //        client.ClearanceToken = localClearance;
-            //        Console.WriteLine($"Your clearance is {localClearance} and it's set in the client.");
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("Could not obtain the clearance.");
-            //    }
-            //}).GetAwaiter().GetResult();
+            // Test getting the clearance for local execution.
+            string localClearance = string.Empty;
+            Task.Run(async () =>
+            {
+                // Previous build values:
+                // - 222249.22.06.08.1730-0
+                var clearance = (await client.SettingsGetClearance("RETAIL", "UNUSED", "268411.25.10.26.1801-0", "1.13")).Result;
+                if (clearance != null)
+                {
+                    localClearance = clearance.FlightConfigurationId;
+                    client.ClearanceToken = localClearance;
+                    Console.WriteLine($"Your clearance is {localClearance} and it's set in the client.");
+                }
+                else
+                {
+                    Console.WriteLine("Could not obtain the clearance.");
+                }
+            }).GetAwaiter().GetResult();
 
             //Task.Run(async () =>
             //{
