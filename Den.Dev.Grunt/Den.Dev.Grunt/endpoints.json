@@ -661,6 +661,66 @@
             "AuthenticationLifetimeExtensionSupported": false,
             "ClearanceAware": true
         },
+        "Economy_GetCreditSubStore00": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/creditsubstorefront00",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetCreditSubStore01": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/creditsubstorefront01",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetCreditSubStore02": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/creditsubstorefront02",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetCreditSubStore03": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/creditsubstorefront03",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetCreditSubStore04": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/creditsubstorefront04",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetCreditSubStore05": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/creditsubstorefront05",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
         "Economy_GetCustomizationStore": {
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/stores/customizationoffers",
@@ -724,6 +784,166 @@
         "Economy_GetSoftCurrencyStore": {
             "AuthorityId": "economy",
             "Path": "/hi/players/{player}/stores/softcurrencyoffers",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore00": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront00",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore01": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront01",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore02": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront02",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore03": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront03",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore04": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront04",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore05": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront05",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore06": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront06",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore07": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront07",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore08": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront08",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore09": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront09",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore10": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront10",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore11": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront11",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore12": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront12",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore13": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront13",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore14": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront14",
+            "QueryString": "",
+            "RetryPolicyId": "economylinearretry",
+            "TopicName": "",
+            "AcknowledgementTypeId": 0,
+            "AuthenticationLifetimeExtensionSupported": false,
+            "ClearanceAware": true
+        },
+        "Economy_GetSoftCurrencySubStore15": {
+            "AuthorityId": "economy",
+            "Path": "/hi/players/{player}/stores/softcurrencysubstorefront15",
             "QueryString": "",
             "RetryPolicyId": "economylinearretry",
             "TopicName": "",
@@ -2044,7 +2264,7 @@
         "Settings_ActiveFlight": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/RETAIL/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.9",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.13",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2054,7 +2274,7 @@
         "Settings_GetClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/{audience}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.9",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.13",
             "RetryPolicyId": "clearanceretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2064,7 +2284,7 @@
         "Settings_GetPlayerClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/{audience}/players/{player}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.9",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.13",
             "RetryPolicyId": "clearanceretry",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
@@ -2074,7 +2294,7 @@
         "Settings_PlayerClearance": {
             "AuthorityId": "settings_st4",
             "Path": "/oban/flight-configurations/titles/hi/audiences/RETAIL/players/{player}/active",
-            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.9",
+            "QueryString": "?sandbox={sandbox}&build={buildNumber}&release=1.13",
             "RetryPolicyId": "linearretry_3",
             "TopicName": "",
             "AcknowledgementTypeId": 0,
