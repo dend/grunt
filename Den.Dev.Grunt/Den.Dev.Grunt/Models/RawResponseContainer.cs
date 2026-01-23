@@ -5,6 +5,8 @@
 // The underlying API powering Den.Dev.Grunt is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
 // </copyright>
 
+using System.Collections.Generic;
+
 namespace Den.Dev.Grunt.Models
 {
     /// <summary>
@@ -21,5 +23,30 @@ namespace Den.Dev.Grunt.Models
         /// Gets or sets the message returned by the API. If the request is successful, the message is the response in raw format.
         /// </summary>
         public string? Message { get; set; }
+
+        /// <summary>
+        /// Gets or sets the full URL of the HTTP request.
+        /// </summary>
+        public string? RequestUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the HTTP method used for the request (GET, POST, etc.).
+        /// </summary>
+        public string? RequestMethod { get; set; }
+
+        /// <summary>
+        /// Gets or sets the HTTP headers sent with the request.
+        /// </summary>
+        public Dictionary<string, string>? RequestHeaders { get; set; }
+
+        /// <summary>
+        /// Gets or sets the body content sent with the request.
+        /// </summary>
+        public string? RequestBody { get; set; }
+
+        /// <summary>
+        /// Gets or sets the HTTP headers received in the response.
+        /// </summary>
+        public Dictionary<string, string>? ResponseHeaders { get; set; }
     }
 }

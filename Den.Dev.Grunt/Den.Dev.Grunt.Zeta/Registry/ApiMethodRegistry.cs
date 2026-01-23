@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Den.Dev.Grunt.Core;
 using Den.Dev.Grunt.Zeta.Models;
@@ -118,25 +117,18 @@ namespace Den.Dev.Grunt.Zeta.Registry
 
         private static string FormatModuleName(string name)
         {
-            // Remove "Module" suffix if present
+            // Remove "Module" suffix if present, preserve original casing
             if (name.EndsWith("Module"))
             {
                 name = name.Substring(0, name.Length - 6);
             }
-            return AddSpacesToPascalCase(name);
+            return name;
         }
 
         private static string FormatMethodName(string name)
         {
-            return AddSpacesToPascalCase(name);
-        }
-
-        private static string AddSpacesToPascalCase(string text)
-        {
-            if (string.IsNullOrEmpty(text))
-                return text;
-
-            return Regex.Replace(text, "([a-z])([A-Z])", "$1 $2");
+            // Preserve original method name
+            return name;
         }
     }
 }

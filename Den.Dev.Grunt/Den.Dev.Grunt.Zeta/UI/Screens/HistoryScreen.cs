@@ -102,7 +102,7 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
 
         private void ShowRecordDetails(ApiCallRecord record)
         {
-            Header.Render(_context, $"{record.ModuleName}.{record.MethodName}");
+            Header.Render(_context, "History", $"{record.ModuleName}.{record.MethodName}");
 
             ResponseRenderer.RenderResponse(record);
 

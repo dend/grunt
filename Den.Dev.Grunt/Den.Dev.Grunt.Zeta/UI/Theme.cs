@@ -32,6 +32,9 @@ namespace Den.Dev.Grunt.Zeta.UI
         public const char BoxBottomLeft = '╰';
         public const char BoxBottomRight = '╯';
 
+        // Breadcrumb styling
+        public const string BreadcrumbSeparator = " › ";
+
         // Selection prompt styling
         public static SelectionPrompt<T> ApplyStyle<T>(this SelectionPrompt<T> prompt) where T : notnull
         {

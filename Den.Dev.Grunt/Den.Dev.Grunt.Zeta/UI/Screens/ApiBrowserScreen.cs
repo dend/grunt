@@ -9,6 +9,7 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
     public class ApiBrowserScreen
     {
         private readonly ExecutionContext _context;
+        private string _currentApiName = string.Empty;
 
         public ApiBrowserScreen(ExecutionContext context)
         {
@@ -19,6 +20,8 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
             IReadOnlyList<ModuleMetadata> modules,
             string apiName)
         {
+            _currentApiName = apiName;
+
             while (true)
             {
                 Header.Render(_context, apiName);
@@ -52,7 +55,7 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
         {
             while (true)
             {
-                Header.Render(_context, module.DisplayName);
+                Header.Render(_context, _currentApiName, module.DisplayName);
 
                 var prompt = new SelectionPrompt<MethodMetadata?>()
                     .PageSize(Theme.LargePageSize)

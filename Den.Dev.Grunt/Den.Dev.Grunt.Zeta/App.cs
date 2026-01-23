@@ -68,6 +68,7 @@ namespace Den.Dev.Grunt.Zeta
             var apiBrowserScreen = new ApiBrowserScreen(_context!);
             var historyScreen = new HistoryScreen(_historyService, _context!);
             var sessionInfoScreen = new SessionInfoScreen(_context!);
+            var settingsScreen = new SettingsScreen(_context!);
 
             while (true)
             {
@@ -91,6 +92,10 @@ namespace Den.Dev.Grunt.Zeta
                         sessionInfoScreen.Show();
                         break;
 
+                    case MainMenuChoice.Settings:
+                        settingsScreen.Show();
+                        break;
+
                     case MainMenuChoice.Exit:
                         return;
                 }
@@ -110,13 +115,13 @@ namespace Den.Dev.Grunt.Zeta
                     return;
                 }
 
-                await ExecuteMethodAsync(module, method);
+                await ExecuteMethodAsync(apiName, module, method);
             }
         }
 
-        private async Task ExecuteMethodAsync(ModuleMetadata module, MethodMetadata method)
+        private async Task ExecuteMethodAsync(string apiName, ModuleMetadata module, MethodMetadata method)
         {
-            Header.Render(_context!, $"{module.DisplayName} > {method.DisplayName}");
+            Header.Render(_context!, apiName, module.DisplayName, method.DisplayName);
 
             // Show parameters info
             if (method.Parameters.Length > 0)
@@ -154,9 +159,9 @@ namespace Den.Dev.Grunt.Zeta
                     record = await _executionService!.ExecuteMethodAsync(module, method, parameters);
                 });
 
-            Header.Render(_context!, $"{module.DisplayName} > {method.DisplayName}");
+            Header.Render(_context!, apiName, module.DisplayName, method.DisplayName);
 
-            ResponseRenderer.RenderResponse(record!);
+            ResponseRenderer.RenderResponse(record!, _context!.VerboseDiagnosticsEnabled);
 
             AnsiConsole.WriteLine();
             AnsiConsole.MarkupLine("[dim]Press any key to continue...[/]");

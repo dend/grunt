@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
@@ -33,6 +34,28 @@ namespace Den.Dev.Grunt.Zeta.Services
                 MethodName = method.Name,
                 Parameters = parameters
             };
+
+            // Capture parameter details for diagnostics
+            for (int i = 0; i < method.Parameters.Length && i < parameters.Length; i++)
+            {
+                var param = method.Parameters[i];
+                var value = parameters[i];
+                record.ParameterDetails.Add(new Models.ApiParameterInfo
+                {
+                    Name = param.Name,
+                    Type = param.ParameterType.Name,
+                    Value = value?.ToString()
+                });
+            }
+
+            try
+            {
+                record.ParametersJson = JsonSerializer.Serialize(parameters, _jsonOptions);
+            }
+            catch
+            {
+                record.ParametersJson = null;
+            }
 
             var stopwatch = Stopwatch.StartNew();
 
@@ -89,6 +112,13 @@ namespace Den.Dev.Grunt.Zeta.Services
                                     }
                                 }
                             }
+
+                            // Extract HTTP diagnostic properties
+                            record.RequestUrl = ExtractStringProperty(response, "RequestUrl");
+                            record.RequestMethod = ExtractStringProperty(response, "RequestMethod");
+                            record.RequestHeaders = ExtractDictionaryProperty(response, "RequestHeaders");
+                            record.RequestBody = ExtractStringProperty(response, "RequestBody");
+                            record.ResponseHeaders = ExtractDictionaryProperty(response, "ResponseHeaders");
                         }
                     }
 
@@ -141,6 +171,16 @@ namespace Den.Dev.Grunt.Zeta.Services
 
             _historyService.AddRecord(record);
             return record;
+        }
+
+        private static string? ExtractStringProperty(object obj, string name)
+        {
+            return obj.GetType().GetProperty(name)?.GetValue(obj) as string;
+        }
+
+        private static Dictionary<string, string>? ExtractDictionaryProperty(object obj, string name)
+        {
+            return obj.GetType().GetProperty(name)?.GetValue(obj) as Dictionary<string, string>;
         }
     }
 }

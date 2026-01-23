@@ -13,5 +13,6 @@ namespace Den.Dev.Grunt.Zeta.Models
         public HaloInfiniteClient? HaloClient { get; set; }
         public WaypointClient? WaypointClient { get; set; }
         public bool IsAuthenticated => HaloClient != null;
+        public bool VerboseDiagnosticsEnabled { get; set; } = false;
     }
 }

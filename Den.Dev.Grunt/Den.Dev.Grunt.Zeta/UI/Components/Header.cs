@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Den.Dev.Grunt.Zeta.Models;
 using Spectre.Console;
 
@@ -6,7 +7,7 @@ namespace Den.Dev.Grunt.Zeta.UI.Components
 {
     public static class Header
     {
-        public static void Render(ExecutionContext context, string? title = null)
+        public static void Render(ExecutionContext context, params string[] breadcrumbs)
         {
             Console.Clear();
 
@@ -16,23 +17,57 @@ namespace Den.Dev.Grunt.Zeta.UI.Components
                 ? "None"
                 : context.ClearanceToken;
 
-            // Compact horizontal header
-            AnsiConsole.MarkupLine(
+            // Build status bar content
+            var statusContent = new Markup(
                 $"[bold cyan]Grunt Zeta[/] [dim]│[/] " +
                 $"[dim]GT:[/] [cyan]{gamertag}[/] [dim]│[/] " +
                 $"[dim]XUID:[/] [cyan]{xuid}[/] [dim]│[/] " +
                 $"[dim]Clearance:[/] [cyan]{Markup.Escape(clearance)}[/]");
 
-            if (!string.IsNullOrEmpty(title))
+            // Wrap in rounded panel with muted border
+            var panel = new Panel(statusContent)
+                .Border(BoxBorder.Rounded)
+                .BorderColor(Theme.Muted)
+                .Padding(0, 0, 0, 0);
+
+            AnsiConsole.Write(panel);
+
+            // Render breadcrumbs if provided
+            if (breadcrumbs.Length > 0)
             {
-                AnsiConsole.Write(new Rule($"[bold]{title}[/]").LeftJustified().RuleStyle("dim"));
-            }
-            else
-            {
-                AnsiConsole.Write(new Rule().RuleStyle("dim"));
+                RenderBreadcrumbs(breadcrumbs);
             }
 
+            AnsiConsole.Write(new Rule().RuleStyle("dim"));
             AnsiConsole.WriteLine();
+        }
+
+        private static void RenderBreadcrumbs(string[] breadcrumbs)
+        {
+            var sb = new StringBuilder();
+
+            for (int i = 0; i < breadcrumbs.Length; i++)
+            {
+                if (i == breadcrumbs.Length - 1)
+                {
+                    // Current segment - highlighted
+                    sb.Append($"[bold cyan]{Markup.Escape(breadcrumbs[i])}[/]");
+                }
+                else
+                {
+                    // Parent segments - muted, separator in yellow
+                    sb.Append($"[dim]{Markup.Escape(breadcrumbs[i])}[/]");
+                    sb.Append($"[yellow]{Theme.BreadcrumbSeparator}[/]");
+                }
+            }
+
+            var breadcrumbContent = new Markup(sb.ToString());
+            var panel = new Panel(breadcrumbContent)
+                .Border(BoxBorder.Rounded)
+                .BorderColor(Theme.Muted)
+                .Padding(0, 0, 0, 0);
+
+            AnsiConsole.Write(panel);
         }
 
         public static void RenderSimple(string? title = null)

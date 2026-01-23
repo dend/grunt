@@ -11,6 +11,7 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
         Waypoint,
         History,
         SessionInfo,
+        Settings,
         Exit
     }
 
@@ -31,18 +32,20 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
                 new SelectionPrompt<string>()
                     .HighlightStyle(new Style(Color.Cyan1))
                     .AddChoices(
-                        "[cyan]›[/] Halo Infinite API",
-                        "[cyan]›[/] Waypoint API",
-                        "[cyan]›[/] History",
-                        "[cyan]›[/] Session Info",
-                        "[dim]× Exit[/]"));
+                        "Halo Infinite API",
+                        "Waypoint API",
+                        "History",
+                        "Session Info",
+                        "Settings",
+                        "[dim]Exit[/]"));
 
             return selection switch
             {
-                "[cyan]›[/] Halo Infinite API" => MainMenuChoice.HaloInfinite,
-                "[cyan]›[/] Waypoint API" => MainMenuChoice.Waypoint,
-                "[cyan]›[/] History" => MainMenuChoice.History,
-                "[cyan]›[/] Session Info" => MainMenuChoice.SessionInfo,
+                "Halo Infinite API" => MainMenuChoice.HaloInfinite,
+                "Waypoint API" => MainMenuChoice.Waypoint,
+                "History" => MainMenuChoice.History,
+                "Session Info" => MainMenuChoice.SessionInfo,
+                "Settings" => MainMenuChoice.Settings,
                 _ => MainMenuChoice.Exit
             };
         }

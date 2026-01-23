@@ -141,6 +141,16 @@ namespace Den.Dev.Grunt.Core.Foundation
                 }
             }
 
+            // Capture request details for diagnostics when includeRawResponse is enabled (via parameter or class property)
+            var captureRawResponse = includeRawResponse || this.IncludeRawResponses;
+            if (captureRawResponse)
+            {
+                resultContainer.Response!.RequestUrl = endpoint;
+                resultContainer.Response.RequestMethod = method.Method;
+                resultContainer.Response.RequestHeaders = CaptureHeaders(request.Headers, request.Content?.Headers);
+                resultContainer.Response.RequestBody = textContent;
+            }
+
             HttpResponseMessage? response = null;
             byte[]? responseData = null;
 
@@ -202,6 +212,12 @@ namespace Den.Dev.Grunt.Core.Foundation
             {
                 resultContainer.Response!.Code = Convert.ToInt32(response!.StatusCode);
 
+                // Capture response headers for diagnostics when includeRawResponse is enabled
+                if (captureRawResponse)
+                {
+                    resultContainer.Response.ResponseHeaders = CaptureHeaders(response.Headers, response.Content?.Headers);
+                }
+
                 if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || enforceSuccess)
                 {
                     if (typeof(T) == typeof(string))
@@ -227,10 +243,20 @@ namespace Den.Dev.Grunt.Core.Foundation
                             var responseString = Encoding.UTF8.GetString(responseData!);
                             if (!string.IsNullOrWhiteSpace(responseString))
                             {
-                                resultContainer.Result = JsonSerializer.Deserialize<T>(responseString, this.serializerOptions);
-                                if (includeRawResponse)
+                                // Capture raw response before attempting deserialization
+                                if (captureRawResponse)
                                 {
                                     resultContainer.Response.Message = responseString;
+                                }
+
+                                try
+                                {
+                                    resultContainer.Result = JsonSerializer.Deserialize<T>(responseString, this.serializerOptions);
+                                }
+                                catch (JsonException)
+                                {
+                                    // Deserialization failed, but HTTP details are preserved in Response
+                                    // Result will remain default, caller can check Response.Message for raw content
                                 }
                             }
                         }
@@ -261,6 +287,25 @@ namespace Den.Dev.Grunt.Core.Foundation
             };
 
             this.cache.Set(cacheKey, new CachedAPIResponse { ETag = eTag, Content = content }, cacheEntryOptions);
+        }
+
+        private static Dictionary<string, string> CaptureHeaders(HttpHeaders headers, HttpContentHeaders? contentHeaders)
+        {
+            var result = new Dictionary<string, string>();
+            foreach (var h in headers)
+            {
+                result[h.Key] = string.Join(", ", h.Value);
+            }
+
+            if (contentHeaders != null)
+            {
+                foreach (var h in contentHeaders)
+                {
+                    result[h.Key] = string.Join(", ", h.Value);
+                }
+            }
+
+            return result;
         }
     }
 }

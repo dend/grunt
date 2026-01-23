@@ -26,7 +26,6 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
             var content = new Markup(
                 $"[dim]Gamertag[/]     [cyan]{Markup.Escape(_context.Gamertag ?? "Unknown")}[/]\n" +
                 $"[dim]XUID[/]         [cyan]{_context.Xuid ?? "N/A"}[/]\n" +
-                $"[dim]Player ID[/]    [cyan]xuid({_context.Xuid})[/]\n" +
                 $"[dim]Clearance[/]    {clearance}\n" +
                 $"[dim]Status[/]       {status}");
 
