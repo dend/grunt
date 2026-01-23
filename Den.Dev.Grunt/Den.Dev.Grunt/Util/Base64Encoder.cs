@@ -1,4 +1,4 @@
-﻿// <copyright file="Base64Encoder.cs" company="Den Delimarsky">
+// <copyright file="Base64Encoder.cs" company="Den Delimarsky">
 // Developed by Den Delimarsky.
 // Den Delimarsky licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
@@ -23,6 +23,16 @@ namespace Den.Dev.Grunt.Util
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '_',
         };
+
+        /// <summary>
+        /// Encodes a byte array using Base64 URL encoding.
+        /// </summary>
+        /// <param name="inArray">Array of bytes (8-bit unsigned integers).</param>
+        /// <returns>If successful, returns a Base64 URL-encoded string.</returns>
+        public static string Encode(byte[] inArray)
+        {
+            return Encode(inArray, 0, inArray?.Length ?? 0);
+        }
 
         /// <summary>
         /// Encodes a subset of an array of 8-bit unsigned integers using Base64 URL encoding.
@@ -86,16 +96,5 @@ namespace Den.Dev.Grunt.Util
 
             return new string(output, 0, j);
         }
-
-        /// <summary>
-        /// Encodes a byte array using Base64 URL encoding.
-        /// </summary>
-        /// <param name="inArray">Array of bytes (8-bit unsigned integers).</param>
-        /// <returns>If successful, returns a Base64 URL-encoded string.</returns>
-        public static string Encode(byte[] inArray)
-        {
-            return Encode(inArray, 0, inArray?.Length ?? 0);
-        }
     }
-
 }

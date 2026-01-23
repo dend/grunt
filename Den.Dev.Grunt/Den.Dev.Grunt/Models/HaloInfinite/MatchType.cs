@@ -8,7 +8,7 @@
 namespace Den.Dev.Grunt.Models.HaloInfinite
 {
     /// <summary>
-    /// Types of matches that a user can query with <see cref="Den.Dev.Grunt.Core.HaloInfiniteClient.StatsGetMatchHistory"/>.
+    /// Types of matches that a user can query with <see cref="Den.Dev.Grunt.Core.Modules.StatsModule.GetMatchHistory"/>.
     /// </summary>
     public enum MatchType
     {

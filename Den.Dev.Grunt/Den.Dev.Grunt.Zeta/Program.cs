@@ -4,7 +4,6 @@ using Den.Dev.Grunt.Models;
 using Den.Dev.Grunt.Models.Security;
 using Den.Dev.Grunt.Util;
 using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -110,7 +109,7 @@ namespace Den.Dev.Grunt.Zeta
             {
                 // Previous build values:
                 // - 222249.22.06.08.1730-0
-                var clearance = (await client.SettingsGetClearance("RETAIL", "UNUSED", "268411.25.10.26.1801-0", "1.13")).Result;
+                var clearance = (await client.Settings.GetClearance("RETAIL", "UNUSED", "268411.25.10.26.1801-0", "1.13")).Result;
                 if (clearance != null)
                 {
                     localClearance = clearance.FlightConfigurationId;

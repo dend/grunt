@@ -128,5 +128,4 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// </summary>
         public int? SeasonNumber { get; set; }
     }
-
 }
