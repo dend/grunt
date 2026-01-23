@@ -8,13 +8,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models.Security;
@@ -29,17 +28,19 @@ namespace Den.Dev.Grunt.Authentication
     public class XboxAuthenticationClient
     {
         private readonly ECDCertificatePoPCryptoProvider popCryptoProvider = new();
-        private readonly HttpClient client = new();
+        private readonly HttpClient client;
         private readonly string codeVerifier;
         private readonly string codeChallenge;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XboxAuthenticationClient"/> class.
         /// </summary>
-        public XboxAuthenticationClient()
+        /// <param name="httpClient">Optional HttpClient instance to use. If not provided, a new instance will be created.</param>
+        public XboxAuthenticationClient(HttpClient? httpClient = null)
         {
-            this.codeVerifier = this.GenerateCodeVerifier();
-            this.codeChallenge = this.GenerateCodeChallenge(this.codeVerifier);
+            this.client = httpClient ?? new HttpClient();
+            this.codeVerifier = GenerateCodeVerifier();
+            this.codeChallenge = GenerateCodeChallenge(this.codeVerifier);
         }
 
         /// <summary>
@@ -87,8 +88,9 @@ namespace Den.Dev.Grunt.Authentication
         /// <param name="clientSecret">Client secret defined for the registered application in the Azure Portal.</param>
         /// <param name="scopes">A list of scopes used for authentication against the Xbox Live APIs.</param>
         /// <param name="useCodeVerifier">Determines whether the code verifier should be used. If not using SISU flows, this can be ignored.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of <see cref="OAuthToken"/> representing the OAuth token used for authentication. Otherwise, returns null.</returns>
-        public async Task<OAuthToken?> RequestOAuthToken(string clientId, string authorizationCode, string redirectUrl, string clientSecret = "", string[]? scopes = null, bool useCodeVerifier = false)
+        public async Task<OAuthToken?> RequestOAuthToken(string clientId, string authorizationCode, string redirectUrl, string clientSecret = "", string[]? scopes = null, bool useCodeVerifier = false, CancellationToken cancellationToken = default)
         {
             Dictionary<string, string> tokenRequestContent = new()
             {
@@ -118,10 +120,10 @@ namespace Den.Dev.Grunt.Authentication
                 tokenRequestContent.Add("code_verifier", this.codeVerifier);
             }
 
-            var response = await this.client.PostAsync(XboxEndpoints.XboxLiveToken, new FormUrlEncodedContent(tokenRequestContent));
+            var response = await this.client.PostAsync(XboxEndpoints.XboxLiveToken, new FormUrlEncodedContent(tokenRequestContent), cancellationToken);
 
             return response.IsSuccessStatusCode
-                ? JsonSerializer.Deserialize<OAuthToken>(response.Content.ReadAsStringAsync().Result)
+                ? JsonSerializer.Deserialize<OAuthToken>(await response.Content.ReadAsStringAsync(cancellationToken))
                 : null;
         }
 
@@ -133,8 +135,9 @@ namespace Den.Dev.Grunt.Authentication
         /// <param name="redirectUrl">Redirect URL defined for the registered application in the Azure Portal.</param>
         /// <param name="clientSecret">Client secret defined for the registered application in the Azure Portal.</param>
         /// <param name="scopes">A list of scopes used for authentication against the Xbox Live APIs.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of <see cref="OAuthToken"/> representing the OAuth token used for authentication. Otherwise, returns null.</returns>
-        public async Task<OAuthToken?> RefreshOAuthToken(string clientId, string refreshToken, string redirectUrl, string clientSecret = "", string[]? scopes = null)
+        public async Task<OAuthToken?> RefreshOAuthToken(string clientId, string refreshToken, string redirectUrl, string clientSecret = "", string[]? scopes = null, CancellationToken cancellationToken = default)
         {
             Dictionary<string, string> tokenRequestContent = new();
 
@@ -157,10 +160,10 @@ namespace Den.Dev.Grunt.Authentication
                 tokenRequestContent.Add("client_secret", clientSecret);
             }
 
-            var response = await this.client.PostAsync(XboxEndpoints.XboxLiveToken, new FormUrlEncodedContent(tokenRequestContent));
+            var response = await this.client.PostAsync(XboxEndpoints.XboxLiveToken, new FormUrlEncodedContent(tokenRequestContent), cancellationToken);
 
             return response.IsSuccessStatusCode
-                ? JsonSerializer.Deserialize<OAuthToken>(response.Content.ReadAsStringAsync().Result)
+                ? JsonSerializer.Deserialize<OAuthToken>(await response.Content.ReadAsStringAsync(cancellationToken))
                 : null;
         }
 
@@ -168,8 +171,9 @@ namespace Den.Dev.Grunt.Authentication
         /// Requests a user token for Xbox Live API authentication.
         /// </summary>
         /// <param name="accessToken">Previously generated Xbox Live OAuth access token.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of <see cref="XboxTicket"/> representing the authentication ticket. Otherwise, returns null.</returns>
-        public async Task<XboxTicket?> RequestUserToken(string accessToken)
+        public async Task<XboxTicket?> RequestUserToken(string accessToken, CancellationToken cancellationToken = default)
         {
             XboxTicketRequest ticketData = new()
             {
@@ -192,8 +196,8 @@ namespace Den.Dev.Grunt.Authentication
 
             request.Headers.Add("x-xbl-contract-version", "1");
 
-            var response = await this.client.SendAsync(request);
-            var responseData = response.Content.ReadAsStringAsync().Result;
+            var response = await this.client.SendAsync(request, cancellationToken);
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
 
             return response.IsSuccessStatusCode
                 ? JsonSerializer.Deserialize<XboxTicket>(responseData)
@@ -208,8 +212,9 @@ namespace Den.Dev.Grunt.Authentication
         /// <param name="deviceToken">Optional device token, if available.</param>
         /// <param name="titleToken">Optional title token, if available.</param>
         /// <param name="customRelyingParty">Add a custom relying party. Only relevant if useHaloRelyingParty is set to false.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of <see cref="XboxTicket"/> representing the authentication ticket. Otherwise, returns null.</returns>
-        public async Task<XboxTicket?> RequestXstsToken(string userToken, bool useHaloRelyingParty = true, string? deviceToken = null, string? titleToken = null, string? customRelyingParty = "")
+        public async Task<XboxTicket?> RequestXstsToken(string userToken, bool useHaloRelyingParty = true, string? deviceToken = null, string? titleToken = null, string? customRelyingParty = "", CancellationToken cancellationToken = default)
         {
             XboxTicketRequest ticketData = new();
 
@@ -249,8 +254,8 @@ namespace Den.Dev.Grunt.Authentication
 
             request.Headers.Add("x-xbl-contract-version", "1");
 
-            var response = await this.client.SendAsync(request);
-            var responseData = response.Content.ReadAsStringAsync().Result;
+            var response = await this.client.SendAsync(request, cancellationToken);
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
 
             return response.IsSuccessStatusCode
                 ? JsonSerializer.Deserialize<XboxTicket>(responseData)
@@ -274,8 +279,9 @@ namespace Den.Dev.Grunt.Authentication
         /// <param name="deviceType">Type of device. Default is Win32.</param>
         /// <param name="version">OS version on the device. Default is 10.0.22000 for Windows 11.</param>
         /// <param name="authMethod">Authentication method used. Default is ProofOfPossession.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of <see cref="XboxTicket"/> that contains the device token. Otherwise, returns null."</returns>
-        public async Task<XboxTicket?> RequestDeviceToken(string deviceType = "Win32", string version = "10.0.22000", string authMethod = "ProofOfPossession")
+        public async Task<XboxTicket?> RequestDeviceToken(string deviceType = "Win32", string version = "10.0.22000", string authMethod = "ProofOfPossession", CancellationToken cancellationToken = default)
         {
             XboxTicketRequest ticketData = new()
             {
@@ -307,8 +313,8 @@ namespace Den.Dev.Grunt.Authentication
             request.Headers.Add("Signature", signature);
             request.Headers.Add("x-xbl-contract-version", "2");
 
-            var response = await this.client.SendAsync(request);
-            var responseData = response.Content.ReadAsStringAsync().Result;
+            var response = await this.client.SendAsync(request, cancellationToken);
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
 
             return response.IsSuccessStatusCode
                 ? JsonSerializer.Deserialize<XboxTicket>(responseData)
@@ -325,8 +331,9 @@ namespace Den.Dev.Grunt.Authentication
         /// <param name="redirectUri">Redirect URI used for authentication.</param>
         /// <param name="tokenType">Token type. Default is "code".</param>
         /// <param name="sandbox">The sandbox to be used. Default is "RETAIL".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of <see cref="SISUAuthenticationResponse"/>. Otherwise, returns null.</returns>
-        public async Task<SISUAuthenticationResponse?> RequestSISUSession(string appId, string titleId, string deviceToken, List<string> offers, string redirectUri, string tokenType = "code", string sandbox = "RETAIL")
+        public async Task<SISUAuthenticationResponse?> RequestSISUSession(string appId, string titleId, string deviceToken, List<string> offers, string redirectUri, string tokenType = "code", string sandbox = "RETAIL", CancellationToken cancellationToken = default)
         {
             XboxTicketRequest ticketData = new()
             {
@@ -361,8 +368,8 @@ namespace Den.Dev.Grunt.Authentication
             request.Headers.Add("Signature", signature);
             request.Headers.Add("x-xbl-contract-version", "2");
 
-            var response = await this.client.SendAsync(request);
-            var responseData = response.Content.ReadAsStringAsync().Result;
+            var response = await this.client.SendAsync(request, cancellationToken);
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
 
             SISUAuthenticationResponse? authResponse = null;
 
@@ -395,8 +402,9 @@ namespace Den.Dev.Grunt.Authentication
         /// <param name="sandbox">Sandbox to be used. Default value is "RETAIL".</param>
         /// <param name="siteName">Site name to be used for the request. Default value is "user.auth.xboxlive.com".</param>
         /// <param name="useModernGamertag">Determines whether modern gamertags are used. Default value is true.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of <see cref="SISUAuthorizationResponse"/> that contains device, authorization, user, and title tokens. Otherwise, returns null.</returns>
-        public async Task<SISUAuthorizationResponse?> RequestSISUTokens(string deviceToken, string accessToken, string appId, string? sessionId = null, string sandbox = "RETAIL", string siteName = "user.auth.xboxlive.com", bool useModernGamertag = true)
+        public async Task<SISUAuthorizationResponse?> RequestSISUTokens(string deviceToken, string accessToken, string appId, string? sessionId = null, string sandbox = "RETAIL", string siteName = "user.auth.xboxlive.com", bool useModernGamertag = true, CancellationToken cancellationToken = default)
         {
             XboxTicketRequest ticketData = new()
             {
@@ -426,8 +434,8 @@ namespace Den.Dev.Grunt.Authentication
             request.Headers.Add("Signature", signature);
             request.Headers.Add("x-xbl-contract-version", "2");
 
-            var response = await this.client.SendAsync(request);
-            var responseData = response.Content.ReadAsStringAsync().Result;
+            var response = await this.client.SendAsync(request, cancellationToken);
+            var responseData = await response.Content.ReadAsStringAsync(cancellationToken);
 
             return response.IsSuccessStatusCode
                 ? (JsonSerializer.Deserialize<SISUAuthorizationResponse>(responseData) ?? new SISUAuthorizationResponse())
@@ -437,13 +445,13 @@ namespace Den.Dev.Grunt.Authentication
 
         private string SignRequest(string reqUri, string token, string body)
         {
-            var timestamp = this.GetWindowsTimestamp();
-            var data = this.GenerateSigningPayload(timestamp, reqUri, token, body);
+            var timestamp = GetWindowsTimestamp();
+            var data = GenerateSigningPayload(timestamp, reqUri, token, body);
             var signature = this.Sign(timestamp, data);
             return Convert.ToBase64String(signature);
         }
 
-        private byte[] GenerateSigningPayload(ulong windowsTimestamp, string uri, string token, string payload)
+        private static byte[] GenerateSigningPayload(ulong windowsTimestamp, string uri, string token, string payload)
         {
             var pathAndQuery = new Uri(uri).PathAndQuery;
 
@@ -456,20 +464,10 @@ namespace Den.Dev.Grunt.Authentication
                 payload.Length + 1;
             var bytes = new byte[allocSize];
 
-            var policyVersion = BitConverter.GetBytes(1);
-            if (BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(policyVersion);
-            }
-
+            var policyVersion = GetBigEndianBytes(1);
             Array.Copy(policyVersion, 0, bytes, 0, 4);
 
-            var windowsTimestampBytes = BitConverter.GetBytes(windowsTimestamp);
-            if (BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(windowsTimestampBytes);
-            }
-
+            var windowsTimestampBytes = GetBigEndianBytes(windowsTimestamp);
             Array.Copy(windowsTimestampBytes, 0, bytes, 5, 8);
 
             var strs =
@@ -483,28 +481,40 @@ namespace Den.Dev.Grunt.Authentication
             return bytes;
         }
 
-        private ulong GetWindowsTimestamp()
+        private static ulong GetWindowsTimestamp()
         {
             var unixTimestamp = (ulong)DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             ulong windowsTimestamp = (unixTimestamp + 11644473600u) * 10000000u;
             return windowsTimestamp;
         }
 
+        private static byte[] GetBigEndianBytes(int value)
+        {
+            var bytes = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(bytes);
+            }
+
+            return bytes;
+        }
+
+        private static byte[] GetBigEndianBytes(ulong value)
+        {
+            var bytes = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(bytes);
+            }
+
+            return bytes;
+        }
+
         private byte[] Sign(ulong windowsTimestamp, byte[] bytes)
         {
             var signature = this.popCryptoProvider.Sign(bytes);
-
-            var policyVersion = BitConverter.GetBytes(1);
-            if (BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(policyVersion);
-            }
-
-            var windowsTimestampBytes = BitConverter.GetBytes(windowsTimestamp);
-            if (BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(windowsTimestampBytes);
-            }
+            var policyVersion = GetBigEndianBytes(1);
+            var windowsTimestampBytes = GetBigEndianBytes(windowsTimestamp);
 
             var header = new byte[signature.Length + 12];
             Array.Copy(policyVersion, 0, header, 0, 4);
@@ -514,31 +524,25 @@ namespace Den.Dev.Grunt.Authentication
             return header;
         }
 
-        private string GenerateCodeVerifier()
+        private static string GenerateCodeVerifier()
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRTSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            var random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var nonce = new char[32];
             for (int i = 0; i < nonce.Length; i++)
             {
-                nonce[i] = chars[random.Next(chars.Length)];
+                nonce[i] = chars[RandomNumberGenerator.GetInt32(chars.Length)];
             }
 
-            var data = new string(nonce);
-
-            char[] padding = { '=' };
-
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes(data)).TrimEnd(padding).Replace('+', '-').Replace('/', '_');
+            return Base64Encoder.Encode(Encoding.UTF8.GetBytes(new string(nonce)));
         }
 
-        private string GenerateCodeChallenge(string codeVerifier)
+        private static string GenerateCodeChallenge(string codeVerifier)
         {
             var hash = SHA256.HashData(Encoding.UTF8.GetBytes(codeVerifier));
-            var b64Hash = Convert.ToBase64String(hash);
-            var code = Regex.Replace(b64Hash, "\\+", "-");
-            code = Regex.Replace(code, "\\/", "_");
-            code = Regex.Replace(code, "=+$", string.Empty);
-            return code;
+            return Convert.ToBase64String(hash)
+                .Replace('+', '-')
+                .Replace('/', '_')
+                .TrimEnd('=');
         }
     }
 }

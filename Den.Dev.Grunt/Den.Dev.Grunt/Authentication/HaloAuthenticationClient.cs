@@ -6,10 +6,10 @@
 // </copyright>
 
 using System;
-using System.Globalization;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models.Security;
@@ -23,15 +23,25 @@ namespace Den.Dev.Grunt.Authentication
     /// </summary>
     public class HaloAuthenticationClient
     {
-        private readonly HttpClient client = new();
+        private readonly HttpClient client;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HaloAuthenticationClient"/> class.
+        /// </summary>
+        /// <param name="httpClient">Optional HttpClient instance to use. If not provided, a new instance will be created.</param>
+        public HaloAuthenticationClient(HttpClient? httpClient = null)
+        {
+            this.client = httpClient ?? new HttpClient();
+        }
 
         /// <summary>
         /// Gets the Spartan V4 token.
         /// </summary>
         /// <param name="xstsToken">XSTS token from the Xbox Live authentication flow.</param>
         /// <param name="version">Version for the Spartan token to be obtained. Halo Infinite uses 4, while Halo 5 uses 3.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of <see cref="SpartanToken"/> representing the authentication token. Otherwise, returns null.</returns>
-        public async Task<SpartanToken?> GetSpartanToken(string xstsToken, int version = 4)
+        public async Task<SpartanToken?> GetSpartanToken(string xstsToken, int version = 4, CancellationToken cancellationToken = default)
         {
             string? data = string.Empty;
 
@@ -69,10 +79,10 @@ namespace Den.Dev.Grunt.Authentication
                 request.Headers.Add("X-343-Authorization-XBL3", $"XBL3.0 x=*;{xstsToken}");
             }
 
-            var response = await this.client.SendAsync(request);
+            var response = await this.client.SendAsync(request, cancellationToken);
 
             return response.IsSuccessStatusCode
-                ? JsonSerializer.Deserialize<SpartanToken>(await response.Content.ReadAsStringAsync())
+                ? JsonSerializer.Deserialize<SpartanToken>(await response.Content.ReadAsStringAsync(cancellationToken))
                 : null;
         }
     }
