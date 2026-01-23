@@ -11,18 +11,21 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
     {
         private readonly HistoryService _historyService;
         private readonly ExecutionContext _context;
+        private readonly ConsoleLayout _layout;
 
-        public HistoryScreen(HistoryService historyService, ExecutionContext context)
+        public HistoryScreen(HistoryService historyService, ExecutionContext context, ConsoleLayout layout)
         {
             _historyService = historyService;
             _context = context;
+            _layout = layout;
         }
 
         public ApiCallRecord? Show()
         {
             while (true)
             {
-                Header.Render(_context, "History");
+                _layout.ClearContent();
+                _layout.SetBreadcrumbs("History");
 
                 var history = _historyService.History.ToList();
 
@@ -102,7 +105,8 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
 
         private void ShowRecordDetails(ApiCallRecord record)
         {
-            Header.Render(_context, "History", $"{record.ModuleName}.{record.MethodName}");
+            _layout.ClearContent();
+            _layout.SetBreadcrumbs("History", $"{record.ModuleName}.{record.MethodName}");
 
             ResponseRenderer.RenderResponse(record);
 

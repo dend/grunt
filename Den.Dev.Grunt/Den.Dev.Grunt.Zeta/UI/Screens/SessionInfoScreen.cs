@@ -1,6 +1,5 @@
 using System;
 using Den.Dev.Grunt.Zeta.Models;
-using Den.Dev.Grunt.Zeta.UI.Components;
 using Spectre.Console;
 
 namespace Den.Dev.Grunt.Zeta.UI.Screens
@@ -8,15 +7,18 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
     public class SessionInfoScreen
     {
         private readonly ExecutionContext _context;
+        private readonly ConsoleLayout _layout;
 
-        public SessionInfoScreen(ExecutionContext context)
+        public SessionInfoScreen(ExecutionContext context, ConsoleLayout layout)
         {
             _context = context;
+            _layout = layout;
         }
 
         public void Show()
         {
-            Header.Render(_context, "Session Info");
+            _layout.ClearContent();
+            _layout.SetBreadcrumbs("Session Info");
 
             var status = _context.IsAuthenticated ? "[green]● Authenticated[/]" : "[red]● Not authenticated[/]";
             var clearance = string.IsNullOrEmpty(_context.ClearanceToken)
@@ -40,11 +42,8 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
             if (!string.IsNullOrEmpty(_context.SpartanToken))
             {
                 AnsiConsole.WriteLine();
-                var truncatedToken = _context.SpartanToken.Length > 80
-                    ? _context.SpartanToken.Substring(0, 80) + "..."
-                    : _context.SpartanToken;
 
-                var tokenPanel = new Panel($"[dim]{Markup.Escape(truncatedToken)}[/]")
+                var tokenPanel = new Panel($"[dim]{Markup.Escape(_context.SpartanToken)}[/]")
                     .Border(BoxBorder.Rounded)
                     .BorderColor(Color.Grey)
                     .Header("[dim]Spartan Token[/]")

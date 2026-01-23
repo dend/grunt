@@ -1,6 +1,4 @@
-using System;
 using Den.Dev.Grunt.Zeta.Models;
-using Den.Dev.Grunt.Zeta.UI.Components;
 using Spectre.Console;
 
 namespace Den.Dev.Grunt.Zeta.UI.Screens
@@ -18,16 +16,16 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
     public class MainMenuScreen
     {
         private readonly ExecutionContext _context;
+        private readonly ConsoleLayout _layout;
 
-        public MainMenuScreen(ExecutionContext context)
+        public MainMenuScreen(ExecutionContext context, ConsoleLayout layout)
         {
             _context = context;
+            _layout = layout;
         }
 
         public MainMenuChoice Show()
         {
-            Header.Render(_context);
-
             var selection = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .HighlightStyle(new Style(Color.Cyan1))

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Den.Dev.Grunt.Zeta.Models;
 using Spectre.Console;
@@ -64,8 +63,7 @@ namespace Den.Dev.Grunt.Zeta.UI.Components
                     sb.AppendLine("[dim]Request Headers:[/]");
                     foreach (var header in record.RequestHeaders)
                     {
-                        var value = MaskSensitiveHeader(header.Key, header.Value);
-                        sb.AppendLine($"  [yellow]{Markup.Escape(header.Key)}:[/] [white]{Markup.Escape(value)}[/]");
+                        sb.AppendLine($"  [yellow]{Markup.Escape(header.Key)}:[/] [white]{Markup.Escape(header.Value)}[/]");
                     }
                 }
 
@@ -95,18 +93,6 @@ namespace Den.Dev.Grunt.Zeta.UI.Components
                 .Padding(1, 0, 1, 0);
 
             AnsiConsole.Write(panel);
-        }
-
-        private static string MaskSensitiveHeader(string headerName, string headerValue)
-        {
-            var sensitiveHeaders = new[] { "x-343-authorization-spartan", "authorization", "x-api-key" };
-            if (sensitiveHeaders.Any(h => headerName.Equals(h, StringComparison.OrdinalIgnoreCase)))
-            {
-                if (headerValue.Length <= 8)
-                    return new string('*', headerValue.Length);
-                return headerValue.Substring(0, 4) + "..." + headerValue.Substring(headerValue.Length - 4);
-            }
-            return headerValue;
         }
 
         private static void RenderResponseHeaders(Dictionary<string, string> headers)

@@ -16,14 +16,18 @@ namespace Den.Dev.Grunt.Zeta
     {
         private readonly AuthenticationService _authService;
         private readonly HistoryService _historyService;
+        private readonly SettingsService _settingsService;
         private readonly ApiMethodRegistry _registry;
         private ApiExecutionService? _executionService;
         private ExecutionContext? _context;
+        private ConsoleLayout? _layout;
 
         public App()
         {
             _authService = new AuthenticationService();
             _historyService = new HistoryService();
+            _historyService.Load();
+            _settingsService = new SettingsService();
             _registry = new ApiMethodRegistry();
         }
 
@@ -31,8 +35,7 @@ namespace Den.Dev.Grunt.Zeta
         {
             Console.Title = "Grunt Zeta";
 
-            Header.RenderSimple("Grunt Zeta");
-            AnsiConsole.MarkupLine("[dim]Halo Infinite API Testing Tool[/]");
+            Header.RenderSimple("Halo Infinite API Testing Tool");
             AnsiConsole.WriteLine();
 
             _context = await _authService.AuthenticateAsync();
@@ -41,6 +44,14 @@ namespace Den.Dev.Grunt.Zeta
                 AnsiConsole.MarkupLine("[red]●[/] Authentication failed.");
                 return;
             }
+
+            // Load and apply saved settings
+            var settings = _settingsService.Load();
+            _context.VerboseDiagnosticsEnabled = settings.VerboseDiagnosticsEnabled;
+            if (_context.HaloClient != null)
+                _context.HaloClient.IncludeRawResponses = settings.VerboseDiagnosticsEnabled;
+            if (_context.WaypointClient != null)
+                _context.WaypointClient.IncludeRawResponses = settings.VerboseDiagnosticsEnabled;
 
             _executionService = new ApiExecutionService(_historyService);
 
@@ -59,19 +70,31 @@ namespace Den.Dev.Grunt.Zeta
             AnsiConsole.MarkupLine($"[green]●[/] Discovered [cyan]{totalMethods}[/] API methods");
             System.Threading.Thread.Sleep(500);
 
-            await MainLoopAsync();
+            _layout = new ConsoleLayout();
+            _layout.Initialize(_context);
+
+            try
+            {
+                await MainLoopAsync();
+            }
+            finally
+            {
+                _layout.Dispose();
+            }
         }
 
         private async Task MainLoopAsync()
         {
-            var mainMenuScreen = new MainMenuScreen(_context!);
-            var apiBrowserScreen = new ApiBrowserScreen(_context!);
-            var historyScreen = new HistoryScreen(_historyService, _context!);
-            var sessionInfoScreen = new SessionInfoScreen(_context!);
-            var settingsScreen = new SettingsScreen(_context!);
+            var mainMenuScreen = new MainMenuScreen(_context!, _layout!);
+            var apiBrowserScreen = new ApiBrowserScreen(_context!, _layout!);
+            var historyScreen = new HistoryScreen(_historyService, _context!, _layout!);
+            var sessionInfoScreen = new SessionInfoScreen(_context!, _layout!);
+            var settingsScreen = new SettingsScreen(_context!, _settingsService, _layout!);
 
             while (true)
             {
+                _layout!.ClearContent();
+                _layout!.SetBreadcrumbs("Main Menu");
                 var choice = mainMenuScreen.Show();
 
                 switch (choice)
@@ -85,14 +108,17 @@ namespace Den.Dev.Grunt.Zeta
                         break;
 
                     case MainMenuChoice.History:
+                        _layout!.SetBreadcrumbs("History");
                         historyScreen.Show();
                         break;
 
                     case MainMenuChoice.SessionInfo:
+                        _layout!.SetBreadcrumbs("Session Info");
                         sessionInfoScreen.Show();
                         break;
 
                     case MainMenuChoice.Settings:
+                        _layout!.SetBreadcrumbs("Settings");
                         settingsScreen.Show();
                         break;
 
@@ -107,6 +133,8 @@ namespace Den.Dev.Grunt.Zeta
             IReadOnlyList<ModuleMetadata> modules,
             string apiName)
         {
+            _layout!.SetBreadcrumbs(apiName);
+
             while (true)
             {
                 var (module, method) = browser.Browse(modules, apiName);
@@ -121,26 +149,47 @@ namespace Den.Dev.Grunt.Zeta
 
         private async Task ExecuteMethodAsync(string apiName, ModuleMetadata module, MethodMetadata method)
         {
-            Header.Render(_context!, apiName, module.DisplayName, method.DisplayName);
+            _layout!.ClearContent();
+            _layout!.SetBreadcrumbs(apiName, module.DisplayName, method.DisplayName);
 
-            // Show parameters info
+            // Method title
+            AnsiConsole.MarkupLine($"[bold cyan]{Markup.Escape(method.DisplayName)}[/]");
+            AnsiConsole.WriteLine();
+
+            // Parameter table (if any)
             if (method.Parameters.Length > 0)
             {
-                AnsiConsole.MarkupLine("[dim]Parameters:[/]");
+                var table = new Table()
+                    .Border(TableBorder.Rounded)
+                    .AddColumn("[dim]Parameter[/]")
+                    .AddColumn("[dim]Type[/]")
+                    .AddColumn("[dim]Status[/]");
+
                 foreach (var p in method.Parameters)
                 {
-                    var optional = p.IsOptional ? " [yellow](optional)[/]" : "";
-                    AnsiConsole.MarkupLine($"  [cyan]{p.Name}[/] : [dim]{p.ParameterType.Name}[/]{optional}");
+                    table.AddRow(
+                        $"[cyan]{p.Name}[/]",
+                        $"[dim]{p.ParameterType.Name}[/]",
+                        p.IsOptional ? "[yellow]Optional[/]" : "[green]Required[/]");
                 }
+                AnsiConsole.Write(table);
+                AnsiConsole.WriteLine();
             }
             else
             {
                 AnsiConsole.MarkupLine("[dim]No parameters required[/]");
+                AnsiConsole.WriteLine();
             }
 
-            AnsiConsole.WriteLine();
+            // Cancellable parameter collection
+            var result = ParameterForm.CollectParametersWithCancel(method.Parameters, _context!.Xuid);
 
-            var parameters = ParameterForm.CollectParameters(method.Parameters, _context!.Xuid);
+            if (result.WasCancelled)
+            {
+                AnsiConsole.MarkupLine("[yellow]Cancelled[/]");
+                System.Threading.Thread.Sleep(300);
+                return; // Back to method selection
+            }
 
             AnsiConsole.WriteLine();
             if (!AnsiConsole.Confirm("Execute API call?", true))
@@ -156,10 +205,11 @@ namespace Den.Dev.Grunt.Zeta
                 .StartAsync($"[yellow]Executing API call[/]", async ctx =>
                 {
                     ctx.Status($"[bold blue]Calling {method.DisplayName}[/]");
-                    record = await _executionService!.ExecuteMethodAsync(module, method, parameters);
+                    record = await _executionService!.ExecuteMethodAsync(module, method, result.Values);
                 });
 
-            Header.Render(_context!, apiName, module.DisplayName, method.DisplayName);
+            _layout!.ClearContent();
+            _layout!.SetBreadcrumbs(apiName, module.DisplayName, method.DisplayName);
 
             ResponseRenderer.RenderResponse(record!, _context!.VerboseDiagnosticsEnabled);
 

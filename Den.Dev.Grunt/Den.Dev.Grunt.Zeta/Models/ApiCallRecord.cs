@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Den.Dev.Grunt.Zeta.Models
 {
@@ -8,6 +9,7 @@ namespace Den.Dev.Grunt.Zeta.Models
         public DateTime Timestamp { get; set; } = DateTime.Now;
         public string ModuleName { get; set; } = string.Empty;
         public string MethodName { get; set; } = string.Empty;
+        [JsonIgnore]
         public object?[]? Parameters { get; set; }
         public string? ParametersJson { get; set; }
         public List<ApiParameterInfo> ParameterDetails { get; set; } = new();

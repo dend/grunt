@@ -106,7 +106,14 @@ namespace Den.Dev.Grunt.Core.Foundation
                 RequestUri = new Uri(endpoint),
                 Method = method,
             };
-            
+
+            // Request JSON responses by default, unless caller specifies a custom Accept header
+            var hasCustomAccept = customHeaders?.Exists(h => h.Key.Equals("Accept", StringComparison.OrdinalIgnoreCase)) ?? false;
+            if (!hasCustomAccept)
+            {
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+
             if (!string.IsNullOrEmpty(textContent))
             {
                 request.Content = new StringContent(textContent, Encoding.UTF8, contentTypeAttribute!);

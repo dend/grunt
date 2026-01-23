@@ -1,5 +1,5 @@
 using Den.Dev.Grunt.Zeta.Models;
-using Den.Dev.Grunt.Zeta.UI.Components;
+using Den.Dev.Grunt.Zeta.Services;
 using Spectre.Console;
 
 namespace Den.Dev.Grunt.Zeta.UI.Screens
@@ -7,17 +7,22 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
     public class SettingsScreen
     {
         private readonly ExecutionContext _context;
+        private readonly SettingsService _settingsService;
+        private readonly ConsoleLayout _layout;
 
-        public SettingsScreen(ExecutionContext context)
+        public SettingsScreen(ExecutionContext context, SettingsService settingsService, ConsoleLayout layout)
         {
             _context = context;
+            _settingsService = settingsService;
+            _layout = layout;
         }
 
         public void Show()
         {
             while (true)
             {
-                Header.Render(_context, "Settings");
+                _layout.ClearContent();
+                _layout.SetBreadcrumbs("Settings");
 
                 // Show current setting status
                 var statusText = _context.VerboseDiagnosticsEnabled
@@ -48,6 +53,7 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
                         _context.HaloClient.IncludeRawResponses = true;
                     if (_context.WaypointClient != null)
                         _context.WaypointClient.IncludeRawResponses = true;
+                    SaveSettings();
                 }
                 else if (selection.Contains("Disable"))
                 {
@@ -56,12 +62,22 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
                         _context.HaloClient.IncludeRawResponses = false;
                     if (_context.WaypointClient != null)
                         _context.WaypointClient.IncludeRawResponses = false;
+                    SaveSettings();
                 }
                 else
                 {
                     return;
                 }
             }
+        }
+
+        private void SaveSettings()
+        {
+            var settings = new AppSettings
+            {
+                VerboseDiagnosticsEnabled = _context.VerboseDiagnosticsEnabled
+            };
+            _settingsService.Save(settings);
         }
     }
 }
