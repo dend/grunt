@@ -47,32 +47,22 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
                     $"[dim]Avg:[/] [yellow]{avgDuration:F0}ms[/]");
                 AnsiConsole.WriteLine();
 
-                // Build choices as simple strings
-                var displayChoices = history
-                    .Take(15)
-                    .Select(r =>
-                    {
-                        var status = r.IsSuccess ? "[green]OK[/]" : "[red]ERR[/]";
-                        return $"{status} {r.ModuleName}.{r.MethodName} ({r.Duration.TotalMilliseconds:F0}ms)";
-                    })
-                    .ToList();
+                var prompt = new SelectionPrompt<object?>()
+                    .PageSize(18)
+                    .WrapAround(true)
+                    .HighlightStyle(Theme.Highlight)
+                    .EnableSearch()
+                    .UseConverter(FormatHistoryChoice)
+                    .AddChoices(history.Take(15).Cast<object?>().Append("clear").Append(null));
 
-                displayChoices.Add("Clear History");
-                displayChoices.Add(".. Back");
+                var selection = AnsiConsole.Prompt(prompt);
 
-                var selection = AnsiConsole.Prompt(
-                    new SelectionPrompt<string>()
-                        .Title("Select a call to view details")
-                        .HighlightStyle(new Style(Color.Cyan1))
-                        .PageSize(18)
-                        .AddChoices(displayChoices));
-
-                if (selection == ".. Back")
+                if (selection == null)
                 {
                     return null;
                 }
 
-                if (selection == "Clear History")
+                if (selection is string s && s == "clear")
                 {
                     if (AnsiConsole.Confirm("Clear all history?", false))
                     {
@@ -81,13 +71,33 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
                     continue;
                 }
 
-                // Find the record by matching
-                var index = displayChoices.IndexOf(selection);
-                if (index >= 0 && index < history.Count)
+                if (selection is ApiCallRecord record)
                 {
-                    ShowRecordDetails(history[index]);
+                    ShowRecordDetails(record);
                 }
             }
+        }
+
+        private static string FormatHistoryChoice(object? item)
+        {
+            if (item == null)
+            {
+                return "[dim]← Back[/]";
+            }
+
+            if (item is string s && s == "clear")
+            {
+                return "[yellow]Clear history[/]";
+            }
+
+            if (item is ApiCallRecord r)
+            {
+                var indicator = r.IsSuccess ? "[green]●[/]" : "[red]●[/]";
+                var ms = r.Duration.TotalMilliseconds;
+                return $"{indicator} {r.ModuleName}.[cyan]{r.MethodName}[/]  [dim]•[/]  [dim]{ms:F0}ms[/]";
+            }
+
+            return item.ToString() ?? "";
         }
 
         private void ShowRecordDetails(ApiCallRecord record)

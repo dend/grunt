@@ -8,6 +8,7 @@ namespace Den.Dev.Grunt.Zeta
     {
         static async Task Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             try
             {
                 var app = new App();

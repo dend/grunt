@@ -45,7 +45,7 @@ namespace Den.Dev.Grunt.Zeta.Services
 
             await AnsiConsole.Status()
                 .AutoRefresh(true)
-                .Spinner(Spinner.Known.Circle)
+                .Spinner(Theme.Spinner)
                 .StartAsync("[yellow]Initializing authentication[/]", async ctx =>
                 {
                     // User token
@@ -189,7 +189,7 @@ namespace Den.Dev.Grunt.Zeta.Services
 
             await AnsiConsole.Status()
                 .AutoRefresh(true)
-                .Spinner(Spinner.Known.Circle)
+                .Spinner(Theme.Spinner)
                 .StartAsync("[yellow]Refreshing OAuth token[/]", async ctx =>
                 {
                     WriteLog("Contacting Microsoft identity service");
@@ -237,7 +237,7 @@ namespace Den.Dev.Grunt.Zeta.Services
 
             await AnsiConsole.Status()
                 .AutoRefresh(true)
-                .Spinner(Spinner.Known.Circle)
+                .Spinner(Theme.Spinner)
                 .StartAsync("[yellow]Requesting OAuth token[/]", async ctx =>
                 {
                     WriteLog("Exchanging authorization code");

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Den.Dev.Grunt.Zeta": {
+      "commandName": "Project",
+      "console": "integratedTerminal"
+    }
+  }
+}

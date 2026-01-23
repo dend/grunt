@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Den.Dev.Grunt.Zeta.Models;
@@ -24,38 +23,27 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
             {
                 Header.Render(_context, apiName);
 
-                var choices = modules
-                    .Select(m => $"{m.DisplayName} [dim]({m.Methods.Count})[/]")
-                    .Append("[dim]Back[/]")
-                    .ToList();
-
-                var prompt = new SelectionPrompt<string>()
-                    .PageSize(15)
+                var prompt = new SelectionPrompt<ModuleMetadata?>()
+                    .PageSize(Theme.DefaultPageSize)
                     .WrapAround(true)
-                    .HighlightStyle(new Style(Color.Cyan1))
+                    .HighlightStyle(Theme.Highlight)
                     .EnableSearch()
-                    .SearchPlaceholderText("[dim]Type to search...[/]")
-                    .AddChoices(choices);
+                    .UseConverter(m => m == null
+                        ? "[dim]← Back[/]"
+                        : $"[white]{m.DisplayName}[/] [dim]({m.Methods.Count})[/]")
+                    .AddChoices(modules.Cast<ModuleMetadata?>().Append(null));
 
                 var selection = AnsiConsole.Prompt(prompt);
 
-                if (selection == "[dim]Back[/]")
+                if (selection == null)
                 {
                     return (null, null);
                 }
 
-                var moduleName = selection.Split(" [dim]")[0];
-                var selectedModule = modules.FirstOrDefault(m => m.DisplayName == moduleName);
-
-                if (selectedModule == null)
-                {
-                    continue;
-                }
-
-                var method = SelectMethod(selectedModule);
+                var method = SelectMethod(selection);
                 if (method != null)
                 {
-                    return (selectedModule, method);
+                    return (selection, method);
                 }
             }
         }
@@ -66,35 +54,36 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
             {
                 Header.Render(_context, module.DisplayName);
 
-                var choices = module.Methods
-                    .Select(m =>
-                    {
-                        var paramInfo = m.Parameters.Length == 0
-                            ? "[dim]()[/]"
-                            : $"[dim]({string.Join(", ", m.Parameters.Select(p => p.Name))})[/]";
-                        return $"{m.DisplayName}{paramInfo}";
-                    })
-                    .Append("[dim]Back[/]")
-                    .ToList();
-
-                var prompt = new SelectionPrompt<string>()
-                    .PageSize(20)
+                var prompt = new SelectionPrompt<MethodMetadata?>()
+                    .PageSize(Theme.LargePageSize)
                     .WrapAround(true)
-                    .HighlightStyle(new Style(Color.Cyan1))
+                    .HighlightStyle(Theme.Highlight)
                     .EnableSearch()
-                    .SearchPlaceholderText("[dim]Type to search...[/]")
-                    .AddChoices(choices);
+                    .UseConverter(m => m == null
+                        ? "[dim]← Back[/]"
+                        : FormatMethod(m))
+                    .AddChoices(module.Methods.Cast<MethodMetadata?>().Append(null));
 
                 var selection = AnsiConsole.Prompt(prompt);
 
-                if (selection == "[dim]Back[/]")
+                if (selection == null)
                 {
                     return null;
                 }
 
-                var methodName = selection.Split("[dim]")[0];
-                return module.Methods.FirstOrDefault(m => m.DisplayName == methodName);
+                return selection;
             }
+        }
+
+        private static string FormatMethod(MethodMetadata m)
+        {
+            if (m.Parameters.Length == 0)
+            {
+                return $"[cyan]{m.DisplayName}[/][dim]()[/]";
+            }
+
+            var paramNames = string.Join(", ", m.Parameters.Select(p => p.Name));
+            return $"[cyan]{m.DisplayName}[/][dim]({paramNames})[/]";
         }
     }
 }

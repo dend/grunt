@@ -17,6 +17,13 @@ namespace Den.Dev.Grunt.Zeta.UI
         public static readonly Color Error = Color.Red;
         public static readonly Color Warning = Color.Yellow;
 
+        // Highlight style for selection prompts
+        public static readonly Style Highlight = new Style(Color.Cyan1);
+
+        // Page sizes
+        public const int DefaultPageSize = 15;
+        public const int LargePageSize = 20;
+
         // Box drawing
         public const char BoxHorizontal = '─';
         public const char BoxVertical = '│';

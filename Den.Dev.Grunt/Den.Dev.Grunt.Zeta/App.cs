@@ -46,7 +46,7 @@ namespace Den.Dev.Grunt.Zeta
 
             AnsiConsole.Status()
                 .AutoRefresh(true)
-                .Spinner(Spinner.Known.Circle)
+                .Spinner(Theme.Spinner)
                 .Start("[yellow]Discovering API methods[/]", ctx =>
                 {
                     ctx.Status("[bold blue]Scanning Halo Infinite modules[/]");
@@ -147,7 +147,7 @@ namespace Den.Dev.Grunt.Zeta
 
             await AnsiConsole.Status()
                 .AutoRefresh(true)
-                .Spinner(Spinner.Known.Circle)
+                .Spinner(Theme.Spinner)
                 .StartAsync($"[yellow]Executing API call[/]", async ctx =>
                 {
                     ctx.Status($"[bold blue]Calling {method.DisplayName}[/]");

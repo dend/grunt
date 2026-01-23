@@ -31,18 +31,18 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
                 new SelectionPrompt<string>()
                     .HighlightStyle(new Style(Color.Cyan1))
                     .AddChoices(
-                        "Halo Infinite API",
-                        "Waypoint API",
-                        "History",
-                        "Session Info",
-                        "Exit"));
+                        "[cyan]›[/] Halo Infinite API",
+                        "[cyan]›[/] Waypoint API",
+                        "[cyan]›[/] History",
+                        "[cyan]›[/] Session Info",
+                        "[dim]× Exit[/]"));
 
             return selection switch
             {
-                "Halo Infinite API" => MainMenuChoice.HaloInfinite,
-                "Waypoint API" => MainMenuChoice.Waypoint,
-                "History" => MainMenuChoice.History,
-                "Session Info" => MainMenuChoice.SessionInfo,
+                "[cyan]›[/] Halo Infinite API" => MainMenuChoice.HaloInfinite,
+                "[cyan]›[/] Waypoint API" => MainMenuChoice.Waypoint,
+                "[cyan]›[/] History" => MainMenuChoice.History,
+                "[cyan]›[/] Session Info" => MainMenuChoice.SessionInfo,
                 _ => MainMenuChoice.Exit
             };
         }
