@@ -94,7 +94,7 @@ namespace Den.Dev.Grunt.Zeta.UI
             var panel = new Panel(statusContent)
                 .Border(BoxBorder.Rounded)
                 .BorderColor(Theme.Muted)
-                .Padding(0, 0, 0, 0);
+                .Padding(1, 0, 1, 0);
 
             AnsiConsole.Write(panel);
             AnsiConsole.Write(new Rule().RuleStyle("dim"));

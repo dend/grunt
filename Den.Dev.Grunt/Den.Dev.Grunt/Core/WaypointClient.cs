@@ -220,43 +220,5 @@ namespace Den.Dev.Grunt.Core
                 false,
                 GlobalConstants.WEB_USER_AGENT);
         }
-
-        /// <summary>
-        /// Sets featured <see href="https://www.halowaypoint.com/">Halo Waypoint</see> service awards in a user's profile.
-        /// </summary>
-        /// <remarks>
-        /// When passing an instance of <see cref="ServiceAwardSnapshot"/> ensure that only the <see cref="ServiceAwardSnapshot.FeaturedAwards"/> property is set. Setting other properties will result in a HTTP 400 Bad Request response.
-        /// </remarks>
-        /// <include file='../APIDocsExamples/Waypoint/PutFeaturedServiceAwards.xml' path='//example'/>
-        /// <param name="awards">Instance of <see cref="ServiceAwardSnapshot"/> containing the list of service awards to feature.</param>
-        /// <returns>If successful, returns an instance of <see cref="ServiceAwardSnapshot"/> confirming the setting. Otherwise, returns a null object and the error details.</returns>
-        public async Task<HaloApiResultContainer<ServiceAwardSnapshot, RawResponseContainer>> PutFeaturedServiceAwards(ServiceAwardSnapshot awards)
-        {
-            string requestBody = JsonSerializer.Serialize(awards);
-
-            return await this.ExecuteAPIRequest<ServiceAwardSnapshot>(
-                $"https://{WaypointEndpoints.ProfileEndpoint}.{WaypointEndpoints.ServiceDomain}/users/me/service-awards/featured-awards",
-                HttpMethod.Put,
-                true,
-                false,
-                requestBody,
-                contentType: APIContentType.Json);
-        }
-
-        /// <summary>
-        /// Gets <see href="https://www.halowaypoint.com/">Halo Waypoint</see> service award details.
-        /// </summary>
-        /// <include file='../APIDocsExamples/Waypoint/GetServiceAward.xml' path='//example'/>
-        /// <param name="slug">Service award slug.</param>
-        /// <returns>If successful, returns an instance of <see cref="ServiceAward"/>. Otherwise, returns a null object and the error details.</returns>
-        public async Task<HaloApiResultContainer<ServiceAward, RawResponseContainer>> GetServiceAward(string slug)
-        {
-            return await this.ExecuteAPIRequest<ServiceAward>(
-                $"https://{WaypointEndpoints.WPContentEndpoint}.{WaypointEndpoints.ServiceDomain}/service-awards/{slug}",
-                HttpMethod.Get,
-                false,
-                false,
-                GlobalConstants.WEB_USER_AGENT);
-        }
     }
 }
