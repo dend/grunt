@@ -12,11 +12,30 @@ namespace Den.Dev.Grunt.Zeta.UI
 
         private string[] _currentBreadcrumbs = Array.Empty<string>();
         private ExecutionContext? _context;
+        private int _lastWidth;
+        private int _lastHeight;
 
         public void Initialize(ExecutionContext context)
         {
             _context = context;
+            _lastWidth = Console.WindowWidth;
+            _lastHeight = Console.WindowHeight;
             SetupLayout();
+        }
+
+        public bool CheckAndHandleResize()
+        {
+            int currentWidth = Console.WindowWidth;
+            int currentHeight = Console.WindowHeight;
+
+            if (currentWidth != _lastWidth || currentHeight != _lastHeight)
+            {
+                _lastWidth = currentWidth;
+                _lastHeight = currentHeight;
+                Refresh();
+                return true;
+            }
+            return false;
         }
 
         public void SetBreadcrumbs(params string[] breadcrumbs)

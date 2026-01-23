@@ -222,21 +222,6 @@ namespace Den.Dev.Grunt.Core
         }
 
         /// <summary>
-        /// Gets the list of a player's service awards associated with <see href="https://www.halowaypoint.com/">Halo Waypoint</see>.
-        /// </summary>
-        /// <include file='../APIDocsExamples/Waypoint/GetServiceAwards.xml' path='//example'/>
-        /// <returns>If successful, returns an instance of <see cref="ServiceAwardSnapshot"/> containing service award information. Otherwise, returns a null object and the error details.</returns>
-        public async Task<HaloApiResultContainer<ServiceAwardSnapshot, RawResponseContainer>> GetServiceAwards()
-        {
-            return await this.ExecuteAPIRequest<ServiceAwardSnapshot>(
-                $"https://{WaypointEndpoints.ProfileEndpoint}.{WaypointEndpoints.ServiceDomain}/users/me/service-awards",
-                HttpMethod.Get,
-                true,
-                false,
-                GlobalConstants.WEB_USER_AGENT);
-        }
-
-        /// <summary>
         /// Sets featured <see href="https://www.halowaypoint.com/">Halo Waypoint</see> service awards in a user's profile.
         /// </summary>
         /// <remarks>

@@ -24,6 +24,7 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
         {
             while (true)
             {
+                _layout.CheckAndHandleResize();
                 _layout.ClearContent();
                 _layout.SetBreadcrumbs("History");
 
@@ -108,11 +109,8 @@ namespace Den.Dev.Grunt.Zeta.UI.Screens
             _layout.ClearContent();
             _layout.SetBreadcrumbs("History", $"{record.ModuleName}.{record.MethodName}");
 
-            ResponseRenderer.RenderResponse(record);
-
-            AnsiConsole.WriteLine();
-            AnsiConsole.MarkupLine("[dim]Press any key to return...[/]");
-            Console.ReadKey(true);
+            var viewer = new ScrollableContentViewer(_layout);
+            viewer.ShowResponse(record, verboseDiagnostics: false);
         }
     }
 }

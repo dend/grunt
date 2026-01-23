@@ -93,6 +93,7 @@ namespace Den.Dev.Grunt.Zeta
 
             while (true)
             {
+                _layout!.CheckAndHandleResize();
                 _layout!.ClearContent();
                 _layout!.SetBreadcrumbs("Main Menu");
                 var choice = mainMenuScreen.Show();
@@ -211,11 +212,8 @@ namespace Den.Dev.Grunt.Zeta
             _layout!.ClearContent();
             _layout!.SetBreadcrumbs(apiName, module.DisplayName, method.DisplayName);
 
-            ResponseRenderer.RenderResponse(record!, _context!.VerboseDiagnosticsEnabled);
-
-            AnsiConsole.WriteLine();
-            AnsiConsole.MarkupLine("[dim]Press any key to continue...[/]");
-            Console.ReadKey(true);
+            var viewer = new ScrollableContentViewer(_layout!);
+            viewer.ShowResponse(record!, _context!.VerboseDiagnosticsEnabled);
         }
     }
 }
