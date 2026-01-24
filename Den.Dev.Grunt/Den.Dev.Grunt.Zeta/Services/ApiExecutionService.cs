@@ -42,7 +42,7 @@ namespace Den.Dev.Grunt.Zeta.Services
                 var value = parameters[i];
                 record.ParameterDetails.Add(new Models.ApiParameterInfo
                 {
-                    Name = param.Name,
+                    Name = param.Name ?? string.Empty,
                     Type = param.ParameterType.Name,
                     Value = value?.ToString()
                 });

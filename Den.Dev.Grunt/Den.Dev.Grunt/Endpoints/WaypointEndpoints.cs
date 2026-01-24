@@ -22,17 +22,17 @@ namespace Den.Dev.Grunt.Endpoints
         /// <summary>
         /// Origin responsible for APIs for code redemption.
         /// </summary>
-        internal static readonly string VoucherEndpoint = "voucher";
+        public static readonly string VoucherEndpoint = "voucher";
 
         /// <summary>
         /// Origin responsible for APIs for profile information.
         /// </summary>
-        internal static readonly string ProfileEndpoint = "profile";
+        public static readonly string ProfileEndpoint = "profile";
 
         /// <summary>
         /// Origin responsible for content published on <see href="https://www.halowaypoint.com/">Halo Waypoint</see>.
         /// </summary>
-        internal static readonly string WPContentEndpoint = "wpcontent";
+        public static readonly string WPContentEndpoint = "wpcontent";
 
         // ====================
         // Service domains
@@ -41,6 +41,6 @@ namespace Den.Dev.Grunt.Endpoints
         /// <summary>
         /// Halo Waypoint service domain used for all Halo API calls.
         /// </summary>
-        internal static readonly string ServiceDomain = "svc.halowaypoint.com";
+        public static readonly string ServiceDomain = "svc.halowaypoint.com";
     }
 }

@@ -50,7 +50,14 @@ namespace Den.Dev.Grunt.Zeta.Services
                 {
                     // User token
                     ctx.Status("[bold blue]Requesting user token[/]");
-                    userTicket = await _xboxAuthClient.RequestUserToken(oauthToken.AccessToken);
+                    var accessToken = oauthToken.AccessToken;
+                    if (string.IsNullOrEmpty(accessToken))
+                    {
+                        WriteLog("[red]Access token is null or empty[/]");
+                        return;
+                    }
+
+                    userTicket = await _xboxAuthClient.RequestUserToken(accessToken);
 
                     if (userTicket == null)
                     {
@@ -62,10 +69,17 @@ namespace Den.Dev.Grunt.Zeta.Services
 
                     // XSTS tokens
                     ctx.Status("[bold blue]Requesting XSTS tokens[/]");
+                    var userToken = userTicket.Token;
+                    if (string.IsNullOrEmpty(userToken))
+                    {
+                        WriteLog("[red]User token is null or empty[/]");
+                        return;
+                    }
+
                     WriteLog("Requesting Halo XSTS token");
-                    haloTicket = await _xboxAuthClient.RequestXstsToken(userTicket.Token);
+                    haloTicket = await _xboxAuthClient.RequestXstsToken(userToken);
                     WriteLog("Requesting extended XSTS token");
-                    extendedTicket = await _xboxAuthClient.RequestXstsToken(userTicket.Token, false);
+                    extendedTicket = await _xboxAuthClient.RequestXstsToken(userToken, false);
 
                     if (haloTicket == null || extendedTicket == null)
                     {
@@ -77,7 +91,14 @@ namespace Den.Dev.Grunt.Zeta.Services
 
                     // Spartan token
                     ctx.Status("[bold blue]Requesting Spartan token[/]");
-                    spartanToken = await _haloAuthClient.GetSpartanToken(haloTicket.Token, 4);
+                    var xstsToken = haloTicket.Token;
+                    if (string.IsNullOrEmpty(xstsToken))
+                    {
+                        WriteLog("[red]XSTS token is null or empty[/]");
+                        return;
+                    }
+
+                    spartanToken = await _haloAuthClient.GetSpartanToken(xstsToken);
 
                     if (spartanToken == null)
                     {
@@ -87,9 +108,9 @@ namespace Den.Dev.Grunt.Zeta.Services
 
                     WriteLog("Spartan token [green]acquired[/]");
 
-                    context.SpartanToken = spartanToken.Token;
+                    context.SpartanToken = spartanToken.Token ?? string.Empty;
                     context.Xuid = extendedTicket.DisplayClaims?.Xui?[0]?.XUID ?? string.Empty;
-                    context.Gamertag = extendedTicket.DisplayClaims?.Xui?[0]?.Gamertag;
+                    context.Gamertag = extendedTicket.DisplayClaims?.Xui?[0]?.Gamertag ?? string.Empty;
 
                     // Create clients
                     ctx.Status("[bold blue]Initializing API clients[/]");
@@ -105,7 +126,7 @@ namespace Den.Dev.Grunt.Zeta.Services
                         var clearance = (await context.HaloClient.Settings.GetClearance("RETAIL", "UNUSED", "268411.25.10.26.1801-0", "1.13")).Result;
                         if (clearance != null)
                         {
-                            context.ClearanceToken = clearance.FlightConfigurationId;
+                            context.ClearanceToken = clearance.FlightConfigurationId ?? string.Empty;
                             context.HaloClient.ClearanceToken = context.ClearanceToken;
                             WriteLog("Clearance [green]granted[/]");
                         }
@@ -125,12 +146,21 @@ namespace Den.Dev.Grunt.Zeta.Services
             {
                 AnsiConsole.MarkupLine("[red]●[/] User token failed");
                 AnsiConsole.MarkupLine("[dim]Token expired, refreshing...[/]");
-                oauthToken = await RefreshTokenAsync(clientConfig, oauthToken.RefreshToken);
+                var refreshToken = oauthToken.RefreshToken;
+                if (!string.IsNullOrEmpty(refreshToken))
+                {
+                    oauthToken = await RefreshTokenAsync(clientConfig, refreshToken);
+                }
+
                 if (oauthToken == null)
                 {
                     oauthToken = await RequestNewTokenAsync(clientConfig);
                 }
-                if (oauthToken == null) return null;
+
+                if (oauthToken == null)
+                {
+                    return null;
+                }
 
                 context.OAuthToken = oauthToken;
                 return await AuthenticateAsync(); // Retry
@@ -194,10 +224,10 @@ namespace Den.Dev.Grunt.Zeta.Services
                 {
                     WriteLog("Contacting Microsoft identity service");
                     token = await _xboxAuthClient.RefreshOAuthToken(
-                        clientConfig.ClientId,
+                        clientConfig.ClientId ?? string.Empty,
                         refreshToken,
-                        clientConfig.RedirectUrl,
-                        clientConfig.ClientSecret);
+                        clientConfig.RedirectUrl ?? string.Empty,
+                        clientConfig.ClientSecret ?? string.Empty);
 
                     if (token != null)
                     {
@@ -215,7 +245,11 @@ namespace Den.Dev.Grunt.Zeta.Services
 
         private async Task<OAuthToken?> RequestNewTokenAsync(ClientConfiguration clientConfig)
         {
-            var url = _xboxAuthClient.GenerateAuthUrl(clientConfig.ClientId, clientConfig.RedirectUrl);
+            var clientId = clientConfig.ClientId ?? string.Empty;
+            var redirectUrl = clientConfig.RedirectUrl ?? string.Empty;
+            var clientSecret = clientConfig.ClientSecret ?? string.Empty;
+
+            var url = _xboxAuthClient.GenerateAuthUrl(clientId, redirectUrl);
 
             var panel = new Panel(
                 $"Visit the URL below to authenticate:\n\n" +
@@ -242,10 +276,10 @@ namespace Den.Dev.Grunt.Zeta.Services
                 {
                     WriteLog("Exchanging authorization code");
                     token = await _xboxAuthClient.RequestOAuthToken(
-                        clientConfig.ClientId,
+                        clientId,
                         code,
-                        clientConfig.RedirectUrl,
-                        clientConfig.ClientSecret);
+                        redirectUrl,
+                        clientSecret);
 
                     if (token != null)
                     {

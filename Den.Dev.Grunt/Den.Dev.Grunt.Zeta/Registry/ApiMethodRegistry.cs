@@ -50,42 +50,35 @@ namespace Den.Dev.Grunt.Zeta.Registry
                 }
             }
 
-            // Add the GetApiSettingsContainer method from the client itself
-            var clientModule = new ModuleMetadata
-            {
-                Name = "Utility",
-                DisplayName = "Utility",
-                Instance = client
-            };
-
-            var settingsMethod = typeof(HaloInfiniteClient).GetMethod("GetApiSettingsContainer");
-            if (settingsMethod != null)
-            {
-                clientModule.Methods.Add(CreateMethodMetadata(settingsMethod));
-            }
-
-            if (clientModule.Methods.Count > 0)
-            {
-                _haloModules.Add(clientModule);
-            }
-
             _haloModules.Sort((a, b) => string.Compare(a.DisplayName, b.DisplayName, StringComparison.Ordinal));
         }
 
         private void DiscoverWaypointMethods(WaypointClient client)
         {
-            var waypointModule = new ModuleMetadata
-            {
-                Name = "Waypoint",
-                DisplayName = "Waypoint",
-                Instance = client
-            };
+            var moduleProperties = typeof(WaypointClient)
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.PropertyType.Name.EndsWith("Module"));
 
-            DiscoverModuleMethods(waypointModule, typeof(WaypointClient));
-            if (waypointModule.Methods.Count > 0)
+            foreach (var prop in moduleProperties)
             {
-                _waypointModules.Add(waypointModule);
+                var moduleInstance = prop.GetValue(client);
+                if (moduleInstance == null) continue;
+
+                var module = new ModuleMetadata
+                {
+                    Name = prop.Name,
+                    DisplayName = FormatModuleName(prop.Name),
+                    Instance = moduleInstance
+                };
+
+                DiscoverModuleMethods(module, moduleInstance.GetType());
+                if (module.Methods.Count > 0)
+                {
+                    _waypointModules.Add(module);
+                }
             }
+
+            _waypointModules.Sort((a, b) => string.Compare(a.DisplayName, b.DisplayName, StringComparison.Ordinal));
         }
 
         private void DiscoverModuleMethods(ModuleMetadata module, Type moduleType)

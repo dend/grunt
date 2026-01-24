@@ -1,4 +1,10 @@
-﻿using Den.Dev.Grunt.Authentication;
+﻿#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8601 // Possible null reference assignment.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8603 // Possible null reference return.
+#pragma warning disable CS8604 // Possible null reference argument.
+
+using Den.Dev.Grunt.Authentication;
 using Den.Dev.Grunt.Composer.Models;
 using Den.Dev.Grunt.Core;
 using Den.Dev.Grunt.Models;

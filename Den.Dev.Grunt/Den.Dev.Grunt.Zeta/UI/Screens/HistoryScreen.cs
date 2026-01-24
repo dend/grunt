@@ -5,6 +5,8 @@ using Den.Dev.Grunt.Zeta.Services;
 using Den.Dev.Grunt.Zeta.UI.Components;
 using Spectre.Console;
 
+#pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability doesn't match 'notnull' constraint.
+
 namespace Den.Dev.Grunt.Zeta.UI.Screens
 {
     public class HistoryScreen

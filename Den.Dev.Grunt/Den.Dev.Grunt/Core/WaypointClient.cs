@@ -5,16 +5,8 @@
 // The underlying API powering Den.Dev.Grunt is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
 // </copyright>
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Den.Dev.Grunt.Core.Foundation;
-using Den.Dev.Grunt.Endpoints;
-using Den.Dev.Grunt.Models;
-using Den.Dev.Grunt.Models.Waypoint;
-using Den.Dev.Grunt.Util;
+using Den.Dev.Grunt.Core.Modules.Waypoint;
 
 namespace Den.Dev.Grunt.Core
 {
@@ -34,6 +26,8 @@ namespace Den.Dev.Grunt.Core
             this.SpartanToken = spartanToken;
             this.Xuid = xuid;
             this.ClearanceToken = clearanceToken;
+
+            this.InitializeModules();
         }
 
         /// <summary>
@@ -41,184 +35,29 @@ namespace Den.Dev.Grunt.Core
         /// </summary>
         public WaypointClient()
         {
+            this.InitializeModules();
         }
 
         /// <summary>
-        /// Redeems a Halo Waypoint code.
+        /// Gets the Profile module for user settings and profile APIs.
         /// </summary>
-        /// <remarks>
-        /// The codes redeemable here can be those that are obtained through Xbox Game Pass perks, but can also be outside the scope of that particular program.
-        /// </remarks>
-        /// <include file='../APIDocsExamples/Waypoint/RedeemCode.xml' path='//example'/>
-        /// <param name="code">Code to be redeemed.</param>
-        /// <returns>If call is successful, returns an instance of <see cref="CodeRedemptionResult"/> that contains information about the redeemed code. Otherwise, returns a null object and error details.</returns>
-        public async Task<HaloApiResultContainer<CodeRedemptionResult, RawResponseContainer>> RedeemCode(string code)
-        {
-            RedeemableCode container = new()
-            {
-                Code = code,
-            };
-
-            return await this.ExecuteAPIRequest<CodeRedemptionResult>(
-                $"https://{WaypointEndpoints.VoucherEndpoint}.{WaypointEndpoints.ServiceDomain}/users/me/codes",
-                HttpMethod.Post,
-                true,
-                false,
-                JsonSerializer.Serialize(container));
-        }
+        public ProfileModule Profile { get; private set; } = null!;
 
         /// <summary>
-        /// Gets information about a user's Halo Waypoint settings.
+        /// Gets the Redemption module for code redemption APIs.
         /// </summary>
-        /// <remarks>
-        /// Settings are obtained for the user associated with the Spartan token passed to the request.
-        /// </remarks>
-        /// <include file='../APIDocsExamples/Waypoint/GetUserSettings.xml' path='//example'/>
-        /// <returns>If successful, returns an instance of <see cref="UserSettings"/> containing user configuration information. Otherwise, returns a null object and error details.</returns>
-        public async Task<HaloApiResultContainer<UserSettings, RawResponseContainer>> GetUserSettings()
-        {
-            return await this.ExecuteAPIRequest<UserSettings>(
-                $"https://{WaypointEndpoints.ProfileEndpoint}.{WaypointEndpoints.ServiceDomain}/users/me/settings",
-                HttpMethod.Post,
-                true,
-                false,
-                GlobalConstants.WEB_USER_AGENT);
-        }
+        public RedemptionModule Redemption { get; private set; } = null!;
 
         /// <summary>
-        /// Gets information about your own Halo Waypoint profile.
+        /// Gets the Content module for article and content APIs.
         /// </summary>
-        /// <remarks>
-        /// Profile is obtained for the user associated with the Spartan token passed to the request.
-        /// </remarks>
-        /// <include file='../APIDocsExamples/Waypoint/GetMyProfile.xml' path='//example'/>
-        /// <returns>If successful, returns an instance of <see cref="UserProfile"/> containing profile information. Otherwise, returns a null object and error details.</returns>
-        public async Task<HaloApiResultContainer<UserProfile, RawResponseContainer>> GetMyProfile()
+        public ContentModule Content { get; private set; } = null!;
+
+        private void InitializeModules()
         {
-            return await this.ExecuteAPIRequest<UserProfile>(
-                $"https://{WaypointEndpoints.ProfileEndpoint}.{WaypointEndpoints.ServiceDomain}/users/me",
-                HttpMethod.Post,
-                true,
-                false,
-                GlobalConstants.WEB_USER_AGENT);
-        }
-
-        /// <summary>
-        /// Gets information about a user's Halo Waypoint profile.
-        /// </summary>
-        /// <include file='../APIDocsExamples/Waypoint/GetUserProfile.xml' path='//example'/>
-        /// <param name="userId">User identifier. Can be a XUID or Gamertag. If XUID is used, then <paramref name="isXuid"/> should be set to true.</param>
-        /// <param name="isXuid">Determines whether the user ID specified in <paramref name="userId"/> is a XUID or not.</param>
-        /// <returns>If successful, returns an instance of <see cref="UserProfile"/> containing profile information. Otherwise, returns a null object and error details.</returns>
-        public async Task<HaloApiResultContainer<UserProfile, RawResponseContainer>> GetUserProfile(string userId, bool isXuid)
-        {
-            string composedId = isXuid ? $"xuid({userId})" : $"gt({userId})";
-
-            return await this.ExecuteAPIRequest<UserProfile>(
-                $"https://{WaypointEndpoints.ProfileEndpoint}.{WaypointEndpoints.ServiceDomain}/users/me/{composedId}",
-                HttpMethod.Post,
-                true,
-                false,
-                GlobalConstants.WEB_USER_AGENT);
-        }
-
-        /// <summary>
-        /// Gets the list of articles published on <see href="https://www.halowaypoint.com/">Halo Waypoint</see>.
-        /// </summary>
-        /// <include file='../APIDocsExamples/Waypoint/GetArticles.xml' path='//example'/>
-        /// <param name="language">Article language. Example value is "en".</param>
-        /// <param name="offset">Offset (number of articles to skip) from which to start the query.</param>
-        /// <param name="count">Number of articles to retrieve.</param>
-        /// <param name="order">Order in which articles are returned. Example values are "asc" or "desc".</param>
-        /// <param name="categories">List of categories for which to return the articles.</param>
-        /// <returns>If successful, returns the list of articles, each represented as <see cref="Article"/>. Otherwise, returns the details about the error.</returns>
-        public async Task<HaloApiResultContainer<List<Article>, RawResponseContainer>> GetArticles(string language = "", int offset = -1, int count = -1, string order = "", List<int>? categories = null)
-        {
-            string urlBase = $"https://{WaypointEndpoints.WPContentEndpoint}.{WaypointEndpoints.ServiceDomain}/articles?";
-
-            if (!string.IsNullOrWhiteSpace(language))
-            {
-                urlBase += $"lang={language}&";
-            }
-
-            if (offset > 0)
-            {
-                urlBase += $"offset={offset}&";
-            }
-
-            if (count > 0)
-            {
-                urlBase += $"count={count}&";
-            }
-
-            if (!string.IsNullOrWhiteSpace(order))
-            {
-                urlBase += $"order={order}&";
-            }
-
-            if (categories != null && categories.Count > 0)
-            {
-                urlBase += $"categories={string.Join(",", categories)}&";
-            }
-
-            return await this.ExecuteAPIRequest<List<Article>>(
-                urlBase,
-                HttpMethod.Get,
-                false,
-                false,
-                GlobalConstants.WEB_USER_AGENT);
-        }
-
-        /// <summary>
-        /// Gets a single article published on <see href="https://www.halowaypoint.com/">Halo Waypoint</see>.
-        /// </summary>
-        /// <include file='../APIDocsExamples/Waypoint/GetArticle.xml' path='//example'/>
-        /// <param name="slug">Slug associated with the article. Example value is "halo-waypoint-content-browser".</param>
-        /// <returns>If successful, returns an instance of <see cref="Article"/>. Otherwise, returns a null object and error details.</returns>
-        public async Task<HaloApiResultContainer<Article, RawResponseContainer>> GetArticle(string slug)
-        {
-            return await this.ExecuteAPIRequest<Article>(
-                $"https://{WaypointEndpoints.WPContentEndpoint}.{WaypointEndpoints.ServiceDomain}/articles/{slug}",
-                HttpMethod.Get,
-                false,
-                false,
-                GlobalConstants.WEB_USER_AGENT);
-        }
-
-        /// <summary>
-        /// Gets a list of article categories that are available on <see href="https://www.halowaypoint.com/">Halo Waypoint</see>.
-        /// </summary>
-        /// <include file='../APIDocsExamples/Waypoint/GetArticleCategories.xml' path='//example'/>
-        /// <param name="language">Language in which the categories should be displayed. Example value is "en".</param>
-        /// <returns>If successful, returns a list of <see cref="ArticleCategory"/> containing publishing categories. Otherwise, returns a null object and the error details.</returns>
-        public async Task<HaloApiResultContainer<List<ArticleCategory>, RawResponseContainer>> GetArticleCategories(string language = "")
-        {
-            return await this.ExecuteAPIRequest<List<ArticleCategory>>(
-                $"https://{WaypointEndpoints.WPContentEndpoint}.{WaypointEndpoints.ServiceDomain}/taxonomy/article_category?" + (!string.IsNullOrEmpty(language) ? $"lang={language}" : string.Empty),
-                HttpMethod.Get,
-                false,
-                false,
-                GlobalConstants.WEB_USER_AGENT);
-        }
-
-        /// <summary>
-        /// Gets the details on a single article category published on <see href="https://www.halowaypoint.com/">Halo Waypoint</see>.
-        /// </summary>
-        /// <remarks>
-        /// If you specify a category that does not exist, the response will be a HTTP 200 OK but with a `null` body.
-        /// </remarks>
-        /// <include file='../APIDocsExamples/Waypoint/GetArticleCategory.xml' path='//example'/>
-        /// <param name="id">ID of the category. Must be an integer.</param>
-        /// <param name="language">Language in which the category should be displayed. Example value is "en".</param>
-        /// <returns>If successful, returns an instance of <see cref="ArticleCategory"/> containing category information. Otherwise, returns a null object and the error details.</returns>
-        public async Task<HaloApiResultContainer<ArticleCategory, RawResponseContainer>> GetArticleCategory(int id, string language = "")
-        {
-            return await this.ExecuteAPIRequest<ArticleCategory>(
-                $"https://{WaypointEndpoints.WPContentEndpoint}.{WaypointEndpoints.ServiceDomain}/taxonomy/article_category/{id}?" + (!string.IsNullOrEmpty(language) ? $"lang={language}" : string.Empty),
-                HttpMethod.Get,
-                false,
-                false,
-                GlobalConstants.WEB_USER_AGENT);
+            this.Profile = new ProfileModule(this);
+            this.Redemption = new RedemptionModule(this);
+            this.Content = new ContentModule(this);
         }
     }
 }

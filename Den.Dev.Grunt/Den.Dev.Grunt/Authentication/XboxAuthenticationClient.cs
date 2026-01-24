@@ -443,14 +443,6 @@ namespace Den.Dev.Grunt.Authentication
                 : new SISUAuthorizationResponse { ErrorCode = response.StatusCode, ErrorMessage = responseData };
         }
 
-        private string SignRequest(string reqUri, string token, string body)
-        {
-            var timestamp = GetWindowsTimestamp();
-            var data = GenerateSigningPayload(timestamp, reqUri, token, body);
-            var signature = this.Sign(timestamp, data);
-            return Convert.ToBase64String(signature);
-        }
-
         private static byte[] GenerateSigningPayload(ulong windowsTimestamp, string uri, string token, string payload)
         {
             var pathAndQuery = new Uri(uri).PathAndQuery;
@@ -510,20 +502,6 @@ namespace Den.Dev.Grunt.Authentication
             return bytes;
         }
 
-        private byte[] Sign(ulong windowsTimestamp, byte[] bytes)
-        {
-            var signature = this.popCryptoProvider.Sign(bytes);
-            var policyVersion = GetBigEndianBytes(1);
-            var windowsTimestampBytes = GetBigEndianBytes(windowsTimestamp);
-
-            var header = new byte[signature.Length + 12];
-            Array.Copy(policyVersion, 0, header, 0, 4);
-            Array.Copy(windowsTimestampBytes, 0, header, 4, 8);
-            Array.Copy(signature, 0, header, 12, signature.Length);
-
-            return header;
-        }
-
         private static string GenerateCodeVerifier()
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -543,6 +521,28 @@ namespace Den.Dev.Grunt.Authentication
                 .Replace('+', '-')
                 .Replace('/', '_')
                 .TrimEnd('=');
+        }
+
+        private string SignRequest(string reqUri, string token, string body)
+        {
+            var timestamp = GetWindowsTimestamp();
+            var data = GenerateSigningPayload(timestamp, reqUri, token, body);
+            var signature = this.Sign(timestamp, data);
+            return Convert.ToBase64String(signature);
+        }
+
+        private byte[] Sign(ulong windowsTimestamp, byte[] bytes)
+        {
+            var signature = this.popCryptoProvider.Sign(bytes);
+            var policyVersion = GetBigEndianBytes(1);
+            var windowsTimestampBytes = GetBigEndianBytes(windowsTimestamp);
+
+            var header = new byte[signature.Length + 12];
+            Array.Copy(policyVersion, 0, header, 0, 4);
+            Array.Copy(windowsTimestampBytes, 0, header, 4, 8);
+            Array.Copy(signature, 0, header, 12, signature.Length);
+
+            return header;
         }
     }
 }

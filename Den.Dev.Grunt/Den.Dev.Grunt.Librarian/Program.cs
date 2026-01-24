@@ -24,7 +24,7 @@ namespace Den.Dev.Grunt.Librarian
 
             Task.Run(async () =>
             {
-                container = (await client.GetApiSettingsContainer()).Result!;
+                container = (await client.Configuration.GetApiSettingsContainer()).Result!;
             }).GetAwaiter().GetResult();
 
             if (container != null && container.Endpoints != null)

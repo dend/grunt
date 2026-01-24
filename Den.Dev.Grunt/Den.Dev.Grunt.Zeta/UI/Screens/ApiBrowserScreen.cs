@@ -3,6 +3,9 @@ using System.Linq;
 using Den.Dev.Grunt.Zeta.Models;
 using Spectre.Console;
 
+#pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability doesn't match 'notnull' constraint.
+#pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate.
+
 namespace Den.Dev.Grunt.Zeta.UI.Screens
 {
     public class ApiBrowserScreen

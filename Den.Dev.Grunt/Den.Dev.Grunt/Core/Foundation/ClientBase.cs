@@ -1,4 +1,4 @@
-﻿// <copyright file="ClientBase.cs" company="Den Delimarsky">
+// <copyright file="ClientBase.cs" company="Den Delimarsky">
 // Developed by Den Delimarsky.
 // Den Delimarsky licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
@@ -25,6 +25,15 @@ namespace Den.Dev.Grunt.Core.Foundation
     /// </summary>
     public abstract class ClientBase
     {
+        private const int MaxRetries = 3;
+        private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(30);
+        private static readonly TimeSpan[] RetryDelays =
+        {
+            TimeSpan.FromMilliseconds(200),
+            TimeSpan.FromMilliseconds(500),
+            TimeSpan.FromSeconds(1),
+        };
+
         private readonly MemoryCache cache = new(new MemoryCacheOptions());
 
         private readonly JsonSerializerOptions serializerOptions = new()
@@ -40,13 +49,33 @@ namespace Den.Dev.Grunt.Core.Foundation
         };
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ClientBase"/> class with the default HttpClient.
+        /// </summary>
+        protected ClientBase()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientBase"/> class with a custom HttpClient.
+        /// </summary>
+        /// <param name="httpClient">The HttpClient instance to use for API requests.</param>
+        /// <exception cref="ArgumentNullException">Thrown when httpClient is null.</exception>
+        protected ClientBase(HttpClient httpClient)
+        {
+            this.Client = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+        }
+
+        /// <summary>
         /// Gets or sets the instance of the HTTP client that handles processing of API requests and responses.
         /// </summary>
         public HttpClient Client { get; set; } = new HttpClient(new HttpClientHandler
         {
             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli,
             MaxConnectionsPerServer = 16,
-        });
+        })
+        {
+            Timeout = DefaultTimeout,
+        };
 
         /// <summary>
         /// Gets or sets the Spartan token used to authenticate against the Halo Infinite API.
@@ -97,9 +126,230 @@ namespace Den.Dev.Grunt.Core.Foundation
             List<KeyValuePair<string, string>>? customHeaders = null,
             bool enforceSuccess = true)
         {
-            var contentTypeAttribute = contentType.GetHeaderValue();
-
             HaloApiResultContainer<T, RawResponseContainer> resultContainer = new(default!, new RawResponseContainer());
+
+            var request = this.BuildRequest(
+                endpoint,
+                method,
+                textContent,
+                binaryContent,
+                contentType,
+                useSpartanToken,
+                useClearance,
+                customHeaders);
+
+            // Capture request details for diagnostics when includeRawResponse is enabled
+            var captureRawResponse = includeRawResponse || this.IncludeRawResponses;
+            if (captureRawResponse)
+            {
+                resultContainer.Response!.RequestUrl = endpoint;
+                resultContainer.Response.RequestMethod = method.Method;
+                resultContainer.Response.RequestHeaders = CaptureHeaders(request.Headers, request.Content?.Headers);
+                resultContainer.Response.RequestBody = textContent;
+            }
+
+            HttpResponseMessage? response = null;
+            byte[]? responseData = null;
+
+            try
+            {
+                (response, responseData) = await this.SendWithCacheAsync(request, endpoint, enforceSuccess);
+            }
+            catch (HttpRequestException ex)
+            {
+                resultContainer.Response!.Message = ex.Message;
+
+                if (ex.InnerException is WebException webException)
+                {
+                    if (webException.Response is HttpWebResponse httpWebResponse)
+                    {
+                        resultContainer.Response!.Code = (int)httpWebResponse.StatusCode;
+                    }
+                }
+            }
+
+            if (response != null)
+            {
+                resultContainer.Response!.Code = Convert.ToInt32(response!.StatusCode);
+
+                if (captureRawResponse)
+                {
+                    resultContainer.Response.ResponseHeaders = CaptureHeaders(response.Headers, response.Content?.Headers);
+                }
+
+                if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || enforceSuccess)
+                {
+                    resultContainer.Result = this.DeserializeResponse<T>(
+                        responseData!,
+                        response,
+                        resultContainer.Response,
+                        captureRawResponse);
+                }
+
+                if (response.Content != null)
+                {
+                    resultContainer.Response.Message = await response.Content.ReadAsStringAsync();
+                }
+            }
+
+            return resultContainer;
+        }
+
+        private static bool IsTransientError(HttpResponseMessage? response, Exception? ex)
+        {
+            if (ex is HttpRequestException or TaskCanceledException)
+            {
+                return true;
+            }
+
+            if (response == null)
+            {
+                return false;
+            }
+
+            var code = (int)response.StatusCode;
+            return code >= 500 || code == 408 || code == 429;
+        }
+
+        private static async Task<HttpRequestMessage> CloneHttpRequestMessageAsync(HttpRequestMessage request)
+        {
+            var clone = new HttpRequestMessage(request.Method, request.RequestUri);
+
+            // Copy headers
+            foreach (var header in request.Headers)
+            {
+                clone.Headers.TryAddWithoutValidation(header.Key, header.Value);
+            }
+
+            // Copy content if present
+            if (request.Content != null)
+            {
+                var contentBytes = await request.Content.ReadAsByteArrayAsync();
+                clone.Content = new ByteArrayContent(contentBytes);
+
+                // Copy content headers
+                foreach (var header in request.Content.Headers)
+                {
+                    clone.Content.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                }
+            }
+
+            return clone;
+        }
+
+        private static Dictionary<string, string> CaptureHeaders(HttpHeaders headers, HttpContentHeaders? contentHeaders)
+        {
+            var result = new Dictionary<string, string>();
+            foreach (var h in headers)
+            {
+                result[h.Key] = string.Join(", ", h.Value);
+            }
+
+            if (contentHeaders != null)
+            {
+                foreach (var h in contentHeaders)
+                {
+                    result[h.Key] = string.Join(", ", h.Value);
+                }
+            }
+
+            return result;
+        }
+
+        private async Task UpdateCacheAsync(string cacheKey, HttpResponseMessage response)
+        {
+            var eTag = response.Headers.ETag?.ToString();
+            var content = await response.Content.ReadAsByteArrayAsync();
+
+            var cacheEntryOptions = new MemoryCacheEntryOptions
+            {
+                AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(60),
+            };
+
+            this.cache.Set(cacheKey, new CachedAPIResponse { ETag = eTag, Content = content }, cacheEntryOptions);
+        }
+
+        private async Task<HttpResponseMessage> SendWithRetryAsync(HttpRequestMessage request)
+        {
+            HttpResponseMessage? response = null;
+            Exception? lastException = null;
+
+            for (int attempt = 0; attempt <= MaxRetries; attempt++)
+            {
+                try
+                {
+                    // Clone the request for retries (HttpRequestMessage can only be sent once)
+                    HttpRequestMessage requestToSend;
+                    if (attempt == 0)
+                    {
+                        requestToSend = request;
+                    }
+                    else
+                    {
+                        requestToSend = await CloneHttpRequestMessageAsync(request);
+                    }
+
+                    response = await this.Client.SendAsync(requestToSend);
+
+                    if (!IsTransientError(response, null))
+                    {
+                        return response;
+                    }
+
+                    // Transient error, will retry if attempts remain
+                    lastException = null;
+                }
+                catch (HttpRequestException ex)
+                {
+                    lastException = ex;
+                    if (!IsTransientError(null, ex))
+                    {
+                        throw;
+                    }
+                }
+                catch (TaskCanceledException ex)
+                {
+                    lastException = ex;
+                    if (!IsTransientError(null, ex))
+                    {
+                        throw;
+                    }
+                }
+
+                // Don't delay after the last attempt
+                if (attempt < MaxRetries)
+                {
+                    await Task.Delay(RetryDelays[attempt]);
+                }
+            }
+
+            // If we have a response (transient error), return it
+            if (response != null)
+            {
+                return response;
+            }
+
+            // If we have an exception, rethrow it
+            if (lastException != null)
+            {
+                throw lastException;
+            }
+
+            // This shouldn't happen, but just in case
+            throw new InvalidOperationException("Retry loop completed without response or exception");
+        }
+
+        private HttpRequestMessage BuildRequest(
+            string endpoint,
+            HttpMethod method,
+            string textContent,
+            byte[]? binaryContent,
+            APIContentType contentType,
+            bool useSpartanToken,
+            bool useClearance,
+            List<KeyValuePair<string, string>>? customHeaders)
+        {
+            var contentTypeAttribute = contentType.GetHeaderValue();
 
             var request = new HttpRequestMessage()
             {
@@ -148,171 +398,105 @@ namespace Den.Dev.Grunt.Core.Foundation
                 }
             }
 
-            // Capture request details for diagnostics when includeRawResponse is enabled (via parameter or class property)
-            var captureRawResponse = includeRawResponse || this.IncludeRawResponses;
-            if (captureRawResponse)
-            {
-                resultContainer.Response!.RequestUrl = endpoint;
-                resultContainer.Response.RequestMethod = method.Method;
-                resultContainer.Response.RequestHeaders = CaptureHeaders(request.Headers, request.Content?.Headers);
-                resultContainer.Response.RequestBody = textContent;
-            }
+            return request;
+        }
 
+        private async Task<(HttpResponseMessage? Response, byte[]? Data)> SendWithCacheAsync(
+            HttpRequestMessage request,
+            string cacheKey,
+            bool enforceSuccess)
+        {
             HttpResponseMessage? response = null;
             byte[]? responseData = null;
 
-            try
+            if (this.cache.TryGetValue(cacheKey, out CachedAPIResponse? cachedResponse))
             {
-                if (this.cache.TryGetValue(endpoint, out CachedAPIResponse? cachedResponse))
+                if (cachedResponse != null)
                 {
-                    if (cachedResponse != null)
+                    var eTagHeader = cachedResponse.ETag;
+                    request.Headers.Add("If-None-Match", eTagHeader);
+                    response = await this.SendWithRetryAsync(request);
+
+                    if (response.StatusCode == HttpStatusCode.NotModified)
                     {
-                        var eTagHeader = cachedResponse.ETag;
-                        request.Headers.Add("If-None-Match", eTagHeader);
-                        response = await this.Client.SendAsync(request);
-
-                        if (response.StatusCode == HttpStatusCode.NotModified)
-                        {
-                            responseData = cachedResponse.Content;
-                        }
-                        else
-                        {
-                            // We only want to update cache if the request is successful
-                            // or the developer explicitly wants to enforce a successful response
-                            // policy (which means that even error codes are considered success)
-                            if (response.IsSuccessStatusCode || enforceSuccess)
-                            {
-                                this.UpdateCache(endpoint, response);
-                            }
-
-                            responseData = await response.Content.ReadAsByteArrayAsync();
-                        }
-                    }
-                }
-                else
-                {
-                    response = await this.Client.SendAsync(request);
-
-                    if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || enforceSuccess)
-                    {
-                        this.UpdateCache(endpoint, response);
-                    }
-
-                    responseData = await response.Content.ReadAsByteArrayAsync();
-                }
-            }
-            catch (HttpRequestException ex)
-            {
-                resultContainer.Response!.Message = ex.Message;
-
-                if (ex.InnerException is WebException webException)
-                {
-                    if (webException.Response is HttpWebResponse httpWebResponse)
-                    {
-                        // Extract HTTP status code from the response
-                        resultContainer.Response!.Code = (int)httpWebResponse.StatusCode;
-                    }
-                }
-            }
-
-            if (response != null)
-            {
-                resultContainer.Response!.Code = Convert.ToInt32(response!.StatusCode);
-
-                // Capture response headers for diagnostics when includeRawResponse is enabled
-                if (captureRawResponse)
-                {
-                    resultContainer.Response.ResponseHeaders = CaptureHeaders(response.Headers, response.Content?.Headers);
-                }
-
-                if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || enforceSuccess)
-                {
-                    if (typeof(T) == typeof(string))
-                    {
-                        resultContainer.Result = (T)Convert.ChangeType(Encoding.UTF8.GetString(responseData!), typeof(T));
-                    }
-                    else if (typeof(T) == typeof(byte[]))
-                    {
-                        resultContainer.Result = (T)Convert.ChangeType(responseData!, typeof(T));
-                    }
-                    else if (typeof(T) == typeof(bool))
-                    {
-                        resultContainer.Result = (T)(object)response.IsSuccessStatusCode;
+                        responseData = cachedResponse.Content;
                     }
                     else
                     {
-                        // We will check whether the type is either one of the supported types or is
-                        // a generic type, which means we're directly casting data to something that is usable
-                        // without much custom model wrapping.
-                        if (Attribute.GetCustomAttribute(typeof(T), typeof(IsAutomaticallySerializableAttribute)) != null ||
-                            typeof(T).IsGenericType)
+                        if (response.IsSuccessStatusCode || enforceSuccess)
                         {
-                            var responseString = Encoding.UTF8.GetString(responseData!);
-                            if (!string.IsNullOrWhiteSpace(responseString))
-                            {
-                                // Capture raw response before attempting deserialization
-                                if (captureRawResponse)
-                                {
-                                    resultContainer.Response.Message = responseString;
-                                }
+                            await this.UpdateCacheAsync(cacheKey, response);
+                        }
 
-                                try
-                                {
-                                    resultContainer.Result = JsonSerializer.Deserialize<T>(responseString, this.serializerOptions);
-                                }
-                                catch (JsonException)
-                                {
-                                    // Deserialization failed, but HTTP details are preserved in Response
-                                    // Result will remain default, caller can check Response.Message for raw content
-                                }
-                            }
-                        }
-                        else
-                        {
-                            throw new NotSupportedException("The specified type is not supported. You can only get results in string or byte array formats.");
-                        }
+                        responseData = await response.Content.ReadAsByteArrayAsync();
                     }
                 }
+            }
+            else
+            {
+                response = await this.SendWithRetryAsync(request);
 
-                if (response.Content != null)
+                if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || enforceSuccess)
                 {
-                    resultContainer.Response.Message = await response.Content.ReadAsStringAsync();
+                    await this.UpdateCacheAsync(cacheKey, response);
                 }
+
+                responseData = await response.Content.ReadAsByteArrayAsync();
             }
 
-            return resultContainer;
+            return (response, responseData);
         }
 
-        private void UpdateCache(string cacheKey, HttpResponseMessage response)
+        private T? DeserializeResponse<T>(
+            byte[] responseData,
+            HttpResponseMessage response,
+            RawResponseContainer rawResponse,
+            bool captureRaw)
         {
-            var eTag = response.Headers.ETag?.ToString();
-            var content = response.Content.ReadAsByteArrayAsync().Result;
-
-            var cacheEntryOptions = new MemoryCacheEntryOptions
+            if (typeof(T) == typeof(string))
             {
-                AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(60),
-            };
-
-            this.cache.Set(cacheKey, new CachedAPIResponse { ETag = eTag, Content = content }, cacheEntryOptions);
-        }
-
-        private static Dictionary<string, string> CaptureHeaders(HttpHeaders headers, HttpContentHeaders? contentHeaders)
-        {
-            var result = new Dictionary<string, string>();
-            foreach (var h in headers)
-            {
-                result[h.Key] = string.Join(", ", h.Value);
+                return (T)Convert.ChangeType(Encoding.UTF8.GetString(responseData), typeof(T));
             }
 
-            if (contentHeaders != null)
+            if (typeof(T) == typeof(byte[]))
             {
-                foreach (var h in contentHeaders)
+                return (T)Convert.ChangeType(responseData, typeof(T));
+            }
+
+            if (typeof(T) == typeof(bool))
+            {
+                return (T)(object)response.IsSuccessStatusCode;
+            }
+
+            // Check whether the type is either one of the supported types or is a generic type
+            if (Attribute.GetCustomAttribute(typeof(T), typeof(IsAutomaticallySerializableAttribute)) != null ||
+                typeof(T).IsGenericType)
+            {
+                var responseString = Encoding.UTF8.GetString(responseData);
+                if (!string.IsNullOrWhiteSpace(responseString))
                 {
-                    result[h.Key] = string.Join(", ", h.Value);
+                    if (captureRaw)
+                    {
+                        rawResponse.Message = responseString;
+                    }
+
+                    try
+                    {
+                        return JsonSerializer.Deserialize<T>(responseString, this.serializerOptions);
+                    }
+                    catch (JsonException)
+                    {
+                        // Deserialization failed, but HTTP details are preserved in Response
+                        return default;
+                    }
                 }
             }
+            else
+            {
+                throw new NotSupportedException("The specified type is not supported. You can only get results in string or byte array formats.");
+            }
 
-            return result;
+            return default;
         }
     }
 }
