@@ -24,7 +24,7 @@ jobs:
       working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt
       run: dotnet build --configuration Release
     - name: Download mdoc
-      run: Invoke-WebRequest https://github.com/mono/api-doc-tools/releases/download/mdoc-5.8.3/mdoc-5.8.3.zip -OutFile mdoc.zip
+      run: Invoke-WebRequest https://github.com/mono/api-doc-tools/releases/download/mdoc-5.9.6/mdoc-5.9.6.zip -OutFile mdoc.zip
     - name: Download ECMA2YAML
       run: Invoke-WebRequest https://www.nuget.org/api/v2/package/Microsoft.DocAsCode.ECMA2Yaml/1.0.916 -OutFile ecma2yaml.zip
     - name: Extract mdoc
