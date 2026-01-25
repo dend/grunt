@@ -19,6 +19,7 @@ namespace Den.Dev.Grunt.Librarian.Services
         private readonly TemplateRenderer templateRenderer;
         private readonly string outputDirectory;
         private readonly bool dryRun;
+        private readonly ConsoleUI ui;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeGenerator"/> class.
@@ -26,11 +27,13 @@ namespace Den.Dev.Grunt.Librarian.Services
         /// <param name="templateRenderer">The template renderer to use.</param>
         /// <param name="outputDirectory">The directory to write generated files.</param>
         /// <param name="dryRun">If true, only previews output without writing files.</param>
-        public CodeGenerator(TemplateRenderer templateRenderer, string outputDirectory, bool dryRun = false)
+        /// <param name="ui">The console UI service.</param>
+        public CodeGenerator(TemplateRenderer templateRenderer, string outputDirectory, bool dryRun, ConsoleUI ui)
         {
             this.templateRenderer = templateRenderer ?? throw new ArgumentNullException(nameof(templateRenderer));
             this.outputDirectory = outputDirectory ?? throw new ArgumentNullException(nameof(outputDirectory));
             this.dryRun = dryRun;
+            this.ui = ui ?? throw new ArgumentNullException(nameof(ui));
         }
 
         /// <summary>
@@ -38,7 +41,7 @@ namespace Den.Dev.Grunt.Librarian.Services
         /// </summary>
         /// <param name="modules">The modules to generate.</param>
         /// <returns>A summary of the generation results.</returns>
-        public GenerationResult GenerateModules(IEnumerable<ModuleDefinition> modules)
+        public GenerationResult GenerateModules(IReadOnlyList<ModuleDefinition> modules)
         {
             var result = new GenerationResult();
 
@@ -48,7 +51,7 @@ namespace Den.Dev.Grunt.Librarian.Services
                 Directory.CreateDirectory(this.outputDirectory);
             }
 
-            foreach (var module in modules)
+            this.ui.WithProgress("Generating modules", modules, module =>
             {
                 try
                 {
@@ -57,14 +60,13 @@ namespace Den.Dev.Grunt.Librarian.Services
 
                     if (this.dryRun)
                     {
-                        Console.WriteLine($"[DRY RUN] Would generate: {module.FileName}");
-                        Console.WriteLine($"  Methods: {module.Methods.Count}");
+                        this.ui.WriteDryRunModule(module.FileName, module.Methods.Count);
                         result.FilesGenerated.Add(module.FileName);
                     }
                     else
                     {
                         File.WriteAllText(filePath, code);
-                        Console.WriteLine($"Generated: {module.FileName} ({module.Methods.Count} methods)");
+                        this.ui.WriteGeneratedModule(module.FileName, module.Methods.Count);
                         result.FilesGenerated.Add(filePath);
                     }
 
@@ -72,10 +74,10 @@ namespace Den.Dev.Grunt.Librarian.Services
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error generating {module.FileName}: {ex.Message}");
+                    this.ui.WriteModuleError(module.FileName, ex.Message);
                     result.Errors.Add($"{module.FileName}: {ex.Message}");
                 }
-            }
+            });
 
             return result;
         }

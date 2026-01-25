@@ -20,55 +20,59 @@ namespace Den.Dev.Grunt.Librarian
     {
         private static async Task<int> Main(string[] args)
         {
-            Console.WriteLine("Den.Dev.Grunt Librarian - Halo Infinite API Code Generator");
-            Console.WriteLine("Developed by Den Delimarsky. Part of https://gruntapi.com");
-            Console.WriteLine();
+            var ui = new ConsoleUI();
+            ui.WriteHeader();
 
             // Parse command line arguments
             var options = ParseArguments(args);
 
             if (options.ShowHelp)
             {
-                ShowHelp();
+                ui.WriteHelp();
                 return 0;
             }
 
-            Console.WriteLine($"Output directory: {options.OutputDirectory}");
-            Console.WriteLine($"Response types file: {options.ResponseTypesFile ?? "(none)"}");
-            Console.WriteLine($"Dry run: {options.DryRun}");
-            Console.WriteLine();
+            // Gap analysis mode
+            if (options.AnalyzeGaps)
+            {
+                return await RunGapAnalysis(options, ui);
+            }
+
+            ui.WriteConfiguration(options.OutputDirectory, options.ResponseTypesFile, options.DryRun);
 
             try
             {
                 // Initialize the Halo client to fetch endpoint configuration
-                Console.WriteLine("Fetching endpoint configuration...");
                 var client = new HaloInfiniteClient(string.Empty, string.Empty);
-                var configResult = await client.Configuration.GetApiSettingsContainer();
+                var configResult = await ui.WithSpinnerAsync("Fetching endpoint configuration...", async () =>
+                {
+                    return await client.Configuration.GetApiSettingsContainer();
+                });
 
                 if (configResult?.Result?.Endpoints == null)
                 {
-                    Console.WriteLine("Error: Failed to fetch endpoint configuration.");
+                    ui.WriteError("Failed to fetch endpoint configuration.");
                     return 1;
                 }
 
                 var container = configResult.Result;
-                Console.WriteLine($"Found {container.Endpoints.Count} endpoints.");
+                ui.WriteSuccess($"Found {container.Endpoints.Count} endpoints.");
 
                 // Initialize services
                 var typeResolver = new ResponseTypeResolver(options.ResponseTypesFile);
                 if (typeResolver.MappingCount > 0)
                 {
-                    Console.WriteLine($"Loaded {typeResolver.MappingCount} response type mappings.");
+                    ui.WriteSuccess($"Loaded {typeResolver.MappingCount} response type mappings.");
                 }
 
                 var endpointParser = new EndpointParser(typeResolver);
                 var endpoints = endpointParser.ParseEndpoints(container);
-                Console.WriteLine($"Parsed {endpoints.Count} endpoints.");
+                ui.WriteSuccess($"Parsed {endpoints.Count} endpoints.");
 
                 // Group endpoints into modules
                 var modules = ModuleGrouper.GroupByModule(endpoints);
-                Console.WriteLine($"Grouped into {modules.Count} modules.");
-                Console.WriteLine();
+                ui.WriteSuccess($"Grouped into {modules.Count} modules.");
+                ui.WriteLine();
 
                 // Initialize template renderer
                 var templateDirectory = Path.Combine(AppContext.BaseDirectory, "Templates");
@@ -91,46 +95,91 @@ namespace Den.Dev.Grunt.Librarian
 
                 if (!Directory.Exists(templateDirectory))
                 {
-                    Console.WriteLine($"Error: Templates directory not found. Searched in:");
-                    Console.WriteLine($"  - {Path.Combine(AppContext.BaseDirectory, "Templates")}");
-                    Console.WriteLine($"  - {Path.Combine(Directory.GetCurrentDirectory(), "Templates")}");
+                    ui.WriteError("Templates directory not found. Searched in:");
+                    ui.WriteError($"  - {Path.Combine(AppContext.BaseDirectory, "Templates")}");
+                    ui.WriteError($"  - {Path.Combine(Directory.GetCurrentDirectory(), "Templates")}");
                     return 1;
                 }
 
                 var templateRenderer = new TemplateRenderer(templateDirectory);
 
                 // Generate code
-                var codeGenerator = new CodeGenerator(templateRenderer, options.OutputDirectory, options.DryRun);
-                var result = codeGenerator.GenerateModules(modules.Values.OrderBy(m => m.Name));
+                var codeGenerator = new CodeGenerator(templateRenderer, options.OutputDirectory, options.DryRun, ui);
+                var modulesList = modules.Values.OrderBy(m => m.Name).ToList();
+                var result = codeGenerator.GenerateModules(modulesList);
 
-                Console.WriteLine();
-                Console.WriteLine("=== Generation Summary ===");
-                Console.WriteLine($"Files generated: {result.FilesGenerated.Count}");
-                Console.WriteLine($"Total methods: {result.TotalMethodsGenerated}");
+                ui.WriteGenerationSummary(result, options.OutputDirectory, options.DryRun);
 
-                if (result.Errors.Count > 0)
+                return result.Success ? 0 : 1;
+            }
+            catch (Exception ex)
+            {
+                ui.WriteFatalError(ex.Message, ex.StackTrace);
+                return 1;
+            }
+        }
+
+        /// <summary>
+        /// Runs the gap analysis mode.
+        /// </summary>
+        private static async Task<int> RunGapAnalysis(CommandLineOptions options, ConsoleUI ui)
+        {
+            ui.WriteInfo("Running gap analysis...");
+            ui.WriteLine();
+
+            try
+            {
+                // Initialize the Halo client to fetch endpoint configuration
+                var client = new HaloInfiniteClient(string.Empty, string.Empty);
+                var configResult = await ui.WithSpinnerAsync("Fetching endpoint configuration...", async () =>
                 {
-                    Console.WriteLine($"Errors: {result.Errors.Count}");
-                    foreach (var error in result.Errors)
-                    {
-                        Console.WriteLine($"  - {error}");
-                    }
+                    return await client.Configuration.GetApiSettingsContainer();
+                });
 
+                if (configResult?.Result?.Endpoints == null)
+                {
+                    ui.WriteError("Failed to fetch endpoint configuration.");
                     return 1;
                 }
 
-                if (!options.DryRun)
+                var container = configResult.Result;
+                ui.WriteSuccess($"Found {container.Endpoints.Count} endpoints.");
+
+                // Initialize services
+                var typeResolver = new ResponseTypeResolver(options.ResponseTypesFile);
+                if (typeResolver.MappingCount > 0)
                 {
-                    Console.WriteLine();
-                    Console.WriteLine($"Generated files written to: {options.OutputDirectory}");
+                    ui.WriteSuccess($"Loaded {typeResolver.MappingCount} response type mappings.");
+                }
+
+                var endpointParser = new EndpointParser(typeResolver);
+                var endpoints = endpointParser.ParseEndpoints(container);
+                ui.WriteSuccess($"Parsed {endpoints.Count} endpoints.");
+                ui.WriteLine();
+
+                // Run coverage analysis
+                var analyzer = new CoverageAnalyzer(typeResolver);
+                var report = analyzer.Analyze(endpoints, options.ModulesPath);
+
+                // Generate and output report
+                var reportGenerator = new ReportGenerator();
+                bool includeImplementationAnalysis = !string.IsNullOrEmpty(options.ModulesPath);
+
+                if (!string.IsNullOrEmpty(options.OutputReport))
+                {
+                    reportGenerator.WriteToFile(report, options.OutputReport, includeImplementationAnalysis);
+                    ui.WriteSuccess($"Report written to: {options.OutputReport}");
+                }
+                else
+                {
+                    ui.WriteCoverageReport(report, includeImplementationAnalysis);
                 }
 
                 return 0;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Fatal error: {ex.Message}");
-                Console.WriteLine(ex.StackTrace);
+                ui.WriteFatalError(ex.Message, ex.StackTrace);
                 return 1;
             }
         }
@@ -174,30 +223,31 @@ namespace Den.Dev.Grunt.Librarian
                     case "-d":
                         options.DryRun = true;
                         break;
+
+                    case "--analyze-gaps":
+                        options.AnalyzeGaps = true;
+                        break;
+
+                    case "--modules-path":
+                    case "-m":
+                        if (i + 1 < args.Length)
+                        {
+                            options.ModulesPath = args[++i];
+                        }
+
+                        break;
+
+                    case "--output-report":
+                        if (i + 1 < args.Length)
+                        {
+                            options.OutputReport = args[++i];
+                        }
+
+                        break;
                 }
             }
 
             return options;
-        }
-
-        /// <summary>
-        /// Shows help information.
-        /// </summary>
-        private static void ShowHelp()
-        {
-            Console.WriteLine("Usage: Den.Dev.Grunt.Librarian [options]");
-            Console.WriteLine();
-            Console.WriteLine("Options:");
-            Console.WriteLine("  --output, -o <directory>       Output directory for generated files");
-            Console.WriteLine("                                 Default: ./Output/Generated");
-            Console.WriteLine("  --response-types, -r <file>    Path to response-types.json mapping file");
-            Console.WriteLine("  --dry-run, -d                  Preview output without writing files");
-            Console.WriteLine("  --help, -h                     Show this help message");
-            Console.WriteLine();
-            Console.WriteLine("Examples:");
-            Console.WriteLine("  dotnet run                     Generate to default output directory");
-            Console.WriteLine("  dotnet run --output C:\\Code    Generate to custom directory");
-            Console.WriteLine("  dotnet run --dry-run           Preview what would be generated");
         }
     }
 
@@ -225,5 +275,20 @@ namespace Den.Dev.Grunt.Librarian
         /// Gets or sets a value indicating whether to show help.
         /// </summary>
         public bool ShowHelp { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to run gap analysis.
+        /// </summary>
+        public bool AnalyzeGaps { get; set; }
+
+        /// <summary>
+        /// Gets or sets the path to module source files for implementation analysis.
+        /// </summary>
+        public string? ModulesPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the output file path for the gap analysis report.
+        /// </summary>
+        public string? OutputReport { get; set; }
     }
 }
