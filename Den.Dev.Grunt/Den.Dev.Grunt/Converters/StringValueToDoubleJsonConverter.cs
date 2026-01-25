@@ -25,32 +25,58 @@ namespace Den.Dev.Grunt.Converters
         /// <param name="reader">Instance of <see cref="Utf8JsonReader"/> used to read the JSON content.</param>
         /// <param name="typeToConvert">JSON data to convert.</param>
         /// <param name="options">JSON serialization options.</param>
-        /// <returns>If successful, returns an instance of <see cref="double"/> containing the date and time. Otherwise, returns null.</returns>
+        /// <returns>If successful, returns an instance of <see cref="double"/> containing the value. Otherwise, returns null.</returns>
         public override double? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            double? result;
-
-            try
+            // Handle string values like "NaN" that the API may return
+            if (reader.TokenType == JsonTokenType.String)
             {
-                result = reader.GetDouble();
+                var stringValue = reader.GetString();
+                if (string.IsNullOrEmpty(stringValue) ||
+                    stringValue.Equals("NaN", StringComparison.OrdinalIgnoreCase))
+                {
+                    return null;
+                }
+
+                if (double.TryParse(stringValue, out var parsedValue))
+                {
+                    return parsedValue;
+                }
+
+                return null;
             }
-            catch 
+
+            // Handle null token
+            if (reader.TokenType == JsonTokenType.Null)
             {
                 return null;
             }
 
-            return result;
+            // Handle numeric values
+            if (reader.TokenType == JsonTokenType.Number)
+            {
+                return reader.GetDouble();
+            }
+
+            return null;
         }
 
         /// <summary>
         /// Writes content through a JSON parser.
         /// </summary>
         /// <param name="writer">Instance of <see cref="Utf8JsonWriter"/> that will be writing the JSON data.</param>
-        /// <param name="value">Instance of <see cref="double"/> containing the date and time to be written into JSON.</param>
+        /// <param name="value">Instance of <see cref="double"/> containing the value to be written into JSON.</param>
         /// <param name="options">JSON serialization options.</param>
         public override void Write(Utf8JsonWriter writer, double? value, JsonSerializerOptions options)
         {
-            writer.WriteStringValue(value.ToString());
+            if (value.HasValue)
+            {
+                writer.WriteNumberValue(value.Value);
+            }
+            else
+            {
+                writer.WriteNullValue();
+            }
         }
     }
 }

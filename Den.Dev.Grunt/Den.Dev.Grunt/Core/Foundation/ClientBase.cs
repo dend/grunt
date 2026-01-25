@@ -34,7 +34,25 @@ namespace Den.Dev.Grunt.Core.Foundation
             TimeSpan.FromSeconds(1),
         };
 
-        private readonly MemoryCache cache = new(new MemoryCacheOptions());
+        /// <summary>
+        /// Shared HttpClient instance for all ClientBase instances that don't provide their own.
+        /// HttpClient is designed to be instantiated once and reused throughout the application lifecycle.
+        /// </summary>
+        private static readonly HttpClient SharedHttpClient = new(new HttpClientHandler
+        {
+            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli,
+            MaxConnectionsPerServer = 16,
+        })
+        {
+            Timeout = DefaultTimeout,
+        };
+
+        /// <summary>
+        /// Shared MemoryCache instance for all ClientBase instances.
+        /// </summary>
+        private static readonly MemoryCache SharedCache = new(new MemoryCacheOptions());
+
+        private readonly MemoryCache cache;
 
         private readonly JsonSerializerOptions serializerOptions = new()
         {
@@ -49,10 +67,12 @@ namespace Den.Dev.Grunt.Core.Foundation
         };
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClientBase"/> class with the default HttpClient.
+        /// Initializes a new instance of the <see cref="ClientBase"/> class with the shared HttpClient and MemoryCache.
         /// </summary>
         protected ClientBase()
         {
+            this.Client = SharedHttpClient;
+            this.cache = SharedCache;
         }
 
         /// <summary>
@@ -63,19 +83,25 @@ namespace Den.Dev.Grunt.Core.Foundation
         protected ClientBase(HttpClient httpClient)
         {
             this.Client = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            this.cache = SharedCache;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientBase"/> class with a custom HttpClient and MemoryCache.
+        /// </summary>
+        /// <param name="httpClient">The HttpClient instance to use for API requests.</param>
+        /// <param name="memoryCache">The MemoryCache instance to use for caching responses.</param>
+        /// <exception cref="ArgumentNullException">Thrown when httpClient or memoryCache is null.</exception>
+        protected ClientBase(HttpClient httpClient, MemoryCache memoryCache)
+        {
+            this.Client = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            this.cache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
         }
 
         /// <summary>
         /// Gets or sets the instance of the HTTP client that handles processing of API requests and responses.
         /// </summary>
-        public HttpClient Client { get; set; } = new HttpClient(new HttpClientHandler
-        {
-            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli,
-            MaxConnectionsPerServer = 16,
-        })
-        {
-            Timeout = DefaultTimeout,
-        };
+        public HttpClient Client { get; set; }
 
         /// <summary>
         /// Gets or sets the Spartan token used to authenticate against the Halo Infinite API.
@@ -104,7 +130,7 @@ namespace Den.Dev.Grunt.Core.Foundation
         /// </summary>
         /// <param name="endpoint">The API endpoint to which the request is sent.</param>
         /// <param name="method">HTTP method to be used for the request.</param>
-        /// <param name="useSpartanToken">Determines whether a Spartan token needs to be applied to teh request.</param>
+        /// <param name="useSpartanToken">Determines whether a Spartan token needs to be applied to the request.</param>
         /// <param name="useClearance">Determines whether a clearance/flight ID needs to be applied to the request.</param>
         /// <param name="textContent">If the request contains data to be sent to the Halo Waypoint service, include it here. Expected format is JSON.</param>
         /// <param name="binaryContent">Binary content to be passed to the API. Either this or textContent should be used, but not both. Binary content takes priority.</param>
