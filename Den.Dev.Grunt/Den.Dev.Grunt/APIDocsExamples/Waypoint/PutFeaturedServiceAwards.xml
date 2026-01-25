@@ -2,7 +2,7 @@
 	Here is an example response from the API, as snapshotted on 11/7/2022:
 	<code>
     {
-        "xuid": "2533274855333605",
+        "xuid": "0000000000000000",
         "haloGamerscore": 4332,
         "featuredAwards": [
             "hi-event-ritualEagleStrike",

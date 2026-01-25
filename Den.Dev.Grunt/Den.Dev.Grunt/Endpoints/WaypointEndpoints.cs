@@ -34,6 +34,11 @@ namespace Den.Dev.Grunt.Endpoints
         /// </summary>
         public static readonly string WPContentEndpoint = "wpcontent";
 
+        /// <summary>
+        /// Origin responsible for communication and notification APIs.
+        /// </summary>
+        public static readonly string CommsEndpoint = "comms";
+
         // ====================
         // Service domains
         // ====================

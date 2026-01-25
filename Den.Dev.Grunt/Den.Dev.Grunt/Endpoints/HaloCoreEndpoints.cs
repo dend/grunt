@@ -10,12 +10,12 @@ namespace Den.Dev.Grunt.Endpoints
     /// <summary>
     /// Container for Halo API endpoints.
     /// </summary>
-    internal class HaloCoreEndpoints
+    public class HaloCoreEndpoints
     {
         /// <summary>
         /// Relying party for use with the Xbox Live authentication flow, associated with the Halo Waypoint service.
         /// </summary>
-        internal static readonly string HaloWaypointXstsRelyingParty = "https://prod.xsts.halowaypoint.com/";
+        public static readonly string HaloWaypointXstsRelyingParty = "https://prod.xsts.halowaypoint.com/";
 
         // ====================
         // Origins

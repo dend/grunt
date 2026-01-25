@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Den.Dev.Grunt.Converters;
+using Den.Dev.Conch.Converters;
 
 namespace Den.Dev.Grunt.Models.Waypoint
 {

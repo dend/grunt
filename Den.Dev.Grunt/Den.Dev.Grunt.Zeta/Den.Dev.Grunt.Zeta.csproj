@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Den.Dev.Grunt\Den.Dev.Grunt.csproj" />
+    <ProjectReference Include="..\..\..\conch\Den.Dev.Conch\Den.Dev.Conch\Den.Dev.Conch.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,8 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Maui.Graphics" Version="9.0.30" />
-    <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="9.0.30" />
     <PackageReference Include="Spectre.Console" Version="0.54.0" />
     <PackageReference Include="Spectre.Console.Json" Version="0.54.0" />
   </ItemGroup>

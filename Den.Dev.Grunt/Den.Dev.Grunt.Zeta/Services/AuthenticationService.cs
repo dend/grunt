@@ -2,8 +2,11 @@ using System;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Den.Dev.Conch.Authentication;
+using Den.Dev.Conch.Models.Security;
 using Den.Dev.Grunt.Authentication;
 using Den.Dev.Grunt.Core;
+using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models;
 using Den.Dev.Grunt.Models.Security;
 using Den.Dev.Grunt.Util;
@@ -77,9 +80,9 @@ namespace Den.Dev.Grunt.Zeta.Services
                     }
 
                     WriteLog("Requesting Halo XSTS token");
-                    haloTicket = await _xboxAuthClient.RequestXstsToken(userToken);
+                    haloTicket = await _xboxAuthClient.RequestXstsToken(userToken, HaloCoreEndpoints.HaloWaypointXstsRelyingParty);
                     WriteLog("Requesting extended XSTS token");
-                    extendedTicket = await _xboxAuthClient.RequestXstsToken(userToken, false);
+                    extendedTicket = await _xboxAuthClient.RequestXstsToken(userToken);
 
                     if (haloTicket == null || extendedTicket == null)
                     {

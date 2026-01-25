@@ -62,5 +62,27 @@ namespace Den.Dev.Grunt.Core.Modules.Waypoint
             string composedId = isXuid ? $"xuid({userId})" : $"gt({userId})";
             return await this.PostAsync<UserProfile>($"/users/me/{composedId}", useSpartanToken: true);
         }
+
+        /// <summary>
+        /// Gets the list of a player's service awards associated with <see href="https://www.halowaypoint.com/">Halo Waypoint</see>.
+        /// </summary>
+        /// <returns>If successful, returns an instance of <see cref="ServiceAwardSnapshot"/> containing service award information. Otherwise, returns a null object and the error details.</returns>
+        public async Task<HaloApiResultContainer<ServiceAwardSnapshot, RawResponseContainer>> GetServiceAwards()
+        {
+            return await this.GetAsync<ServiceAwardSnapshot>("/users/me/service-awards", useSpartanToken: true);
+        }
+
+        /// <summary>
+        /// Sets featured <see href="https://www.halowaypoint.com/">Halo Waypoint</see> service awards in a user's profile.
+        /// </summary>
+        /// <remarks>
+        /// When passing an instance of <see cref="ServiceAwardSnapshot"/> ensure that only the <see cref="ServiceAwardSnapshot.FeaturedAwards"/> property is set. Setting other properties will result in a HTTP 400 Bad Request response.
+        /// </remarks>
+        /// <param name="awards">Instance of <see cref="ServiceAwardSnapshot"/> containing the list of service awards to feature.</param>
+        /// <returns>If successful, returns an instance of <see cref="ServiceAwardSnapshot"/> confirming the setting. Otherwise, returns a null object and the error details.</returns>
+        public async Task<HaloApiResultContainer<ServiceAwardSnapshot, RawResponseContainer>> PutFeaturedServiceAwards(ServiceAwardSnapshot awards)
+        {
+            return await this.PutJsonAsync<ServiceAwardSnapshot, ServiceAwardSnapshot>("/users/me/service-awards/featured-awards", awards, useSpartanToken: true);
+        }
     }
 }

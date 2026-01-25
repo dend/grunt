@@ -53,11 +53,17 @@ namespace Den.Dev.Grunt.Core
         /// </summary>
         public ContentModule Content { get; private set; } = null!;
 
+        /// <summary>
+        /// Gets the Comms module for communication and notification APIs.
+        /// </summary>
+        public CommsModule Comms { get; private set; } = null!;
+
         private void InitializeModules()
         {
             this.Profile = new ProfileModule(this);
             this.Redemption = new RedemptionModule(this);
             this.Content = new ContentModule(this);
+            this.Comms = new CommsModule(this);
         }
     }
 }

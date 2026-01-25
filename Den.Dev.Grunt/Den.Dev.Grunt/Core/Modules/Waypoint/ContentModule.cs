@@ -119,5 +119,15 @@ namespace Den.Dev.Grunt.Core.Modules.Waypoint
 
             return await this.GetAsync<ArticleCategory>(path, useSpartanToken: false);
         }
+
+        /// <summary>
+        /// Gets <see href="https://www.halowaypoint.com/">Halo Waypoint</see> service award details.
+        /// </summary>
+        /// <param name="slug">Service award slug.</param>
+        /// <returns>If successful, returns an instance of <see cref="ServiceAward"/>. Otherwise, returns a null object and the error details.</returns>
+        public async Task<HaloApiResultContainer<ServiceAward, RawResponseContainer>> GetServiceAward(string slug)
+        {
+            return await this.GetAsync<ServiceAward>($"/service-awards/{slug}", useSpartanToken: false);
+        }
     }
 }

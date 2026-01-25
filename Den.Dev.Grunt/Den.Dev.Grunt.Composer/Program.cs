@@ -4,9 +4,12 @@
 #pragma warning disable CS8603 // Possible null reference return.
 #pragma warning disable CS8604 // Possible null reference argument.
 
+using Den.Dev.Conch.Authentication;
+using Den.Dev.Conch.Models.Security;
 using Den.Dev.Grunt.Authentication;
 using Den.Dev.Grunt.Composer.Models;
 using Den.Dev.Grunt.Core;
+using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models;
 using Den.Dev.Grunt.Models.HaloInfinite;
 using Den.Dev.Grunt.Models.Security;
@@ -931,12 +934,12 @@ namespace Den.Dev.Grunt.Composer
 
             Task.Run(async () =>
             {
-                haloTicket = await manager.RequestXstsToken(ticket.Token);
+                haloTicket = await manager.RequestXstsToken(ticket.Token, HaloCoreEndpoints.HaloWaypointXstsRelyingParty);
             }).GetAwaiter().GetResult();
 
             Task.Run(async () =>
             {
-                extendedTicket = await manager.RequestXstsToken(ticket.Token, false);
+                extendedTicket = await manager.RequestXstsToken(ticket.Token);
             }).GetAwaiter().GetResult();
 
             Task.Run(async () =>

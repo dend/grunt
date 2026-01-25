@@ -1,5 +1,5 @@
+using Den.Dev.Conch.Models.Security;
 using Den.Dev.Grunt.Core;
-using Den.Dev.Grunt.Models.Security;
 
 namespace Den.Dev.Grunt.Zeta.Models
 {

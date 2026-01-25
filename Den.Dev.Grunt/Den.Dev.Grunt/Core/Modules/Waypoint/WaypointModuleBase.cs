@@ -124,5 +124,27 @@ namespace Den.Dev.Grunt.Core.Modules.Waypoint
                 useClearance: false,
                 textContent: JsonSerializer.Serialize(body),
                 includeRawResponse: this.Client.IncludeRawResponses);
+
+        /// <summary>
+        /// Executes a PUT request with JSON serialized body.
+        /// </summary>
+        /// <typeparam name="T">The expected response type.</typeparam>
+        /// <typeparam name="TBody">The type of the request body.</typeparam>
+        /// <param name="path">The relative API path.</param>
+        /// <param name="body">The object to serialize as JSON.</param>
+        /// <param name="useSpartanToken">Whether to include the Spartan token. Defaults to true.</param>
+        /// <returns>The API response container.</returns>
+        protected Task<HaloApiResultContainer<T, RawResponseContainer>> PutJsonAsync<T, TBody>(
+            string path,
+            TBody body,
+            bool useSpartanToken = true) =>
+            this.Client.ExecuteAPIRequest<T>(
+                this.BuildUrl(path),
+                HttpMethod.Put,
+                useSpartanToken,
+                useClearance: false,
+                textContent: JsonSerializer.Serialize(body),
+                contentType: APIContentType.Json,
+                includeRawResponse: this.Client.IncludeRawResponses);
     }
 }

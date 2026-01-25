@@ -422,7 +422,7 @@
             "HttpEvent_ExcludedStatusCodes": "[404]",
             "HttpEvent_RequestHeaders": "[\"If-None-Match\",\"If-Modified-Since\",\"VND.343i.Content-Disposition\",\"VND.343i.tickettrack.project\",\"VND.343i.tickettrack.title\",\"VND.343i.tickettrack.build\",\"VND.343i.tickettrack.test_option\",\"VND.343i.tickettrack.platform\",\"VND.343i.tickettrack.osversion\",\"VND.343i.tickettrack.incident_type\",\"VND.343i.tickettrack.incident_name\",\"VND.343i.tickettrack.executionplatform\",\"VND.343i.tickettrack.mission_segment\",\"VND.343i.tickettrack.zone_set\",\"VND.343i.tickettrack.localPlayerXUID_00\",\"VND.343i.tickettrack.systemid\",\"VND.343i.tickettrack.sessionid\"]",
             "HttpEvent_ResponseHeaders": "[\"E2EActivity\", \"X-XblCorrelationId\", \"Transaction-ID\", \"MS-CV\", \"X-343-Exception\", \"ETag\", \"Last-Modified\"]",
-            "HttpEvent_UsersLoggingEnabled": "[2814648798129555]",
+            "HttpEvent_UsersLoggingEnabled": "[0000000000000000]",
             "HttpEvent_UsersPercentageUpload": "1",
             "PlayfabTitleId": "C7537",
             "PurchasePollFrequencyInSeconds": "120",
