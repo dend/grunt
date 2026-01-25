@@ -11,7 +11,7 @@ using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models;
 using Den.Dev.Grunt.Models.HaloInfinite;
 
-namespace Den.Dev.Grunt.Core.Modules
+namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
 {
     /// <summary>
     /// Module for settings-related API operations including clearances and flights.
@@ -42,7 +42,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Returns the currently active clearance.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Settings_ActiveClearance.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Settings_ActiveClearance.xml' path='example'/>
         /// <param name="release">Release identifier. Examples seen are 1.4, 1.5, and 1.6.</param>
         /// <returns>If successful, returns an instance of <see cref="PlayerClearance"/>. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> ActiveClearance(string release)
@@ -55,7 +55,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Returns the currently active flight.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Settings_ActiveFlight.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Settings_ActiveFlight.xml' path='example'/>
         /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
         /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>
         /// <param name="release">Release identifier. Examples seen are 1.4 and 1.5.</param>
@@ -69,7 +69,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the currently assigned clearance/flight ID.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Settings_GetClearance.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Settings_GetClearance.xml' path='example'/>
         /// <param name="audience">Audience that the request is targeting. Standard value is RETAIL.</param>
         /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
         /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>
@@ -84,7 +84,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the player clearance/flight ID.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Settings_GetPlayerClearance.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Settings_GetPlayerClearance.xml' path='example'/>
         /// <param name="audience">Audience that the request is targeting. Standard value is RETAIL.</param>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
@@ -101,7 +101,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the player clearance/flight ID for RETAIL audience.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Settings_PlayerClearance.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Settings_PlayerClearance.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
         /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>

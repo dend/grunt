@@ -11,7 +11,7 @@ using Den.Dev.Grunt.Core.Foundation;
 using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models;
 
-namespace Den.Dev.Grunt.Core.Modules
+namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
 {
     /// <summary>
     /// Generated module for {{ module.name }}-related API operations.

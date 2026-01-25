@@ -11,7 +11,7 @@ using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models;
 using Den.Dev.Grunt.Models.ApiIngress;
 
-namespace Den.Dev.Grunt.Core.Modules
+namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
 {
     /// <summary>
     /// Module for configuration and endpoint discovery APIs.

@@ -13,7 +13,7 @@ using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models;
 using Den.Dev.Grunt.Models.HaloInfinite;
 
-namespace Den.Dev.Grunt.Core.Modules
+namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
 {
     /// <summary>
     /// Module for lobby-related API operations including QoS servers and presence.
@@ -32,7 +32,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets a list of available lobby servers.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Lobby_GetQosServers.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Lobby_GetQosServers.xml' path='example'/>
         /// <returns>A list of Server instances if the request is successful. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<List<Server>, RawResponseContainer>> GetQosServers()
         {
@@ -42,7 +42,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the player presence status.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Lobby_Presence.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Lobby_Presence.xml' path='example'/>
         /// <param name="presenceRequest">Presence request, containing a list of Xuids representing Xbox Live players.</param>
         /// <returns>If successful, an instance of <see cref="LobbyPresenceContainer"/> representing the lobby details. Otherwise, null.</returns>
         public async Task<HaloApiResultContainer<LobbyPresenceContainer, RawResponseContainer>> Presence(LobbyPresenceRequestContainer presenceRequest)
@@ -55,7 +55,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets a third-party join handle for a lobby.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Lobby_ThirdPartyJoinHandle.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Lobby_ThirdPartyJoinHandle.xml' path='example'/>
         /// <param name="lobbyId">Unique lobby ID.</param>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="handleAudience">Audience for the join handle. Example value is "Friends".</param>
@@ -72,7 +72,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Bootstraps a new lobby.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Lobby_JoinLobby.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Lobby_JoinLobby.xml' path='example'/>
         /// <param name="lobbyId">Unique lobby ID.</param>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="auth">Authentication to be used. "st" represents Spartan token.</param>

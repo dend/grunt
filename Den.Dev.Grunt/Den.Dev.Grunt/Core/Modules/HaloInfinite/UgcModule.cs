@@ -15,7 +15,7 @@ using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models;
 using Den.Dev.Grunt.Models.HaloInfinite;
 
-namespace Den.Dev.Grunt.Core.Modules
+namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
 {
     /// <summary>
     /// Module for UGC (User Generated Content) authoring API operations including asset management, favorites, and ratings.
@@ -34,7 +34,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Grants or revokes permissions for a player in relation to an in-game asset.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_GrantOrRevokePermissions.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_GrantOrRevokePermissions.xml' path='example'/>
         /// <param name="title">Title associated with an asset. Example value is "hi" for Halo Infinite.</param>
         /// <param name="assetType">Type of asset to modify permissions for. Example value is "ugcGameVariants".</param>
         /// <param name="assetId">Unique asset ID. Example value is "3895f3d4-2493-4b84-ae18-876ad3ab344d" for a UGC game variant.</param>
@@ -52,7 +52,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Checks whether the player has favorited a specific asset.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_CheckAssetPlayerBookmark.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_CheckAssetPlayerBookmark.xml' path='example'/>
         /// <param name="title">Title for which the asset should be obtained. An example value is "hi".</param>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
@@ -67,7 +67,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Creates a new version of an asset as part of a working editing session.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_CreateAssetVersionAgnostic.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_CreateAssetVersionAgnostic.xml' path='example'/>
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
@@ -142,7 +142,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// This method expects a JSON body, but I don't yet know what the underlying data structure is.
         /// </remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_FavoriteAnAsset.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_FavoriteAnAsset.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
@@ -157,7 +157,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets authoring metadata about a specific asset.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_GetAsset.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_GetAsset.xml' path='example'/>
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
@@ -186,7 +186,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// Interestingly enough, this API call did not contain the Film suffix in the name. I added it for explicit identification because otherwise it would be confusing.
         /// </remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_GetLatestAssetVersionFilm.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_GetLatestAssetVersionFilm.xml' path='example'/>
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If successful, returns an instance of AuthoringAssetVersion containing film data in the CustomData property. Otherwise, returns null.</returns>
@@ -203,7 +203,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// Certain asset types, such as engine game variants, might return a 403 response code for the API, therefore you will not get a real version here.
         /// </remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_GetLatestAssetVersionAgnostic.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_GetLatestAssetVersionAgnostic.xml' path='example'/>
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
@@ -218,7 +218,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Returns a published version of the asset.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_GetPublishedVersion.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_GetPublishedVersion.xml' path='example'/>
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
@@ -233,7 +233,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets metadata related to a concrete version of a specified asset.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_GetSpecificAssetVersion.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_GetSpecificAssetVersion.xml' path='example'/>
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
@@ -251,7 +251,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// The underlying request supports specifying parameters that limit the search, such as ?start=number, however that is not yet implemented in this version of the API wrapper.
         /// </remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_ListAllVersions.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_ListAllVersions.xml' path='example'/>
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
@@ -268,7 +268,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// The underlying request supports specifying parameters that limit the search, such as ?start=number, however that is not yet implemented in this version of the API wrapper.
         /// </remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_ListPlayerAssets.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_ListPlayerAssets.xml' path='example'/>
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="start">Number of results from which to start the iteration.</param>
@@ -298,7 +298,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// The underlying request supports specifying parameters that limit the search, such as ?start=number, however that is not yet implemented in this version of the API wrapper.
         /// </remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_ListPlayerFavorites.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_ListPlayerFavorites.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <returns>If successful, returns an instance of AuthoringFavoritesContainer containing the list of favorites. Otherwise, returns null.</returns>
@@ -315,7 +315,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// The underlying request supports specifying parameters that limit the search, such as ?start=number, however that is not yet implemented in this version of the API wrapper.
         /// </remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_ListPlayerFavoritesAgnostic.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_ListPlayerFavoritesAgnostic.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <returns>If successful, returns an instance of AuthoringFavoritesContainer containing the list of favorites. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<AuthoringFavoritesContainer, RawResponseContainer>> ListPlayerFavoritesAgnostic(string player)
@@ -328,7 +328,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Update an existing asset version.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_PatchAssetVersion.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_PatchAssetVersion.xml' path='example'/>
         /// <param name="title">Title for the game for which the authoring session needs to be spawned. Example variant is "hi" for "Halo Infinite".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
@@ -368,7 +368,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// This API is actually not captured in the endpoint catalog, but it seems to return values anyway.
         /// </remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_GetAssetRatings.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_GetAssetRatings.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
@@ -382,7 +382,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Rates an asset the player has access to.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_RateAnAsset.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_RateAnAsset.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
@@ -398,7 +398,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Reports an asset.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_ReportAnAsset.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_ReportAnAsset.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
@@ -419,7 +419,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// still up to discovery to figure out what the values for the POST request are.
         /// TODO: Need to figure out what the actual data model is for the POST request.
         /// </remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_SpawnAsset.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_SpawnAsset.xml' path='example'/>
         /// <param name="title">Title for the game for which the authoring session needs to be spawned. Example variant is "hi" for "Halo Infinite".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants", "Maps", or "Prefabs".</param>
         /// <param name="asset">Asset definition, containing information about the asset to be created.</param>
@@ -442,7 +442,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// It also seems that using `includeContainerSas` results in a 403 response, but without it a session can be created.
         /// </remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_StartSessionAgnostic.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_StartSessionAgnostic.xml' path='example'/>
         /// <param name="title">Title for the game for which the authoring session needs to be spawned. Example variant is "hi" for "Halo Infinite".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>
@@ -464,7 +464,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// For now, an empty JSON is passed to the PATCH request. In the future, analysis needs to be done to understand more about how the request actually
         /// can be used to modify the data, since that's what a PATCH is usually about.
         /// </remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_ExtendSessionAgnostic.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_ExtendSessionAgnostic.xml' path='example'/>
         /// <param name="title">Title for the game for which the authoring session needs to be spawned. Example variant is "hi" for "Halo Infinite".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>

@@ -13,7 +13,7 @@ using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models;
 using Den.Dev.Grunt.Models.HaloInfinite;
 
-namespace Den.Dev.Grunt.Core.Modules
+namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
 {
     /// <summary>
     /// Module for skill-related API operations including CSR and match skill information.
@@ -35,7 +35,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// Method supports returning results in XML behind the scenes. Class names map to XML data model.
         /// </remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Skill_GetMatchPlayerResult.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Skill_GetMatchPlayerResult.xml' path='example'/>
         /// <param name="matchId">The unique match ID.</param>
         /// <param name="playerIds">List of numeric XUIDs for the players.</param>
         /// <returns>An instance of <see cref="MatchSkillInfo"/> representing player skills if the request was successful. Otherwise, returns null.</returns>
@@ -50,7 +50,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets playlist Competitive Skill Rank (CSR) for a player or a set of players.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Skill_GetPlaylistCsr.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Skill_GetPlaylistCsr.xml' path='example'/>
         /// <param name="playlistId">Unique ID for the playlist.</param>
         /// <param name="playerIds">List of numeric XUIDs for the players.</param>
         /// <param name="seasonId">Season identifier. Example value is "CsrSeason2-3".</param>

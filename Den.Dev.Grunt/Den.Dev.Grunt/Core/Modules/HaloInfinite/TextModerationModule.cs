@@ -11,7 +11,7 @@ using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models;
 using Den.Dev.Grunt.Models.HaloInfinite;
 
-namespace Den.Dev.Grunt.Core.Modules
+namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
 {
     /// <summary>
     /// Module for text moderation related API operations.
@@ -30,7 +30,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets a specific moderation proof signing key.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/TextModeration_GetSigningKey.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/TextModeration_GetSigningKey.xml' path='example'/>
         /// <param name="keyId">Key ID. Full list can be obtained by a call to GetSigningKeys.</param>
         /// <returns>An instance of Key containing a single signing key data if request was successful. Return value is null otherwise.</returns>
         public async Task<HaloApiResultContainer<Key, RawResponseContainer>> GetSigningKey(string keyId)
@@ -43,7 +43,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets a list of available moderation proof signing keys.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/TextModeration_GetSigningKeys.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/TextModeration_GetSigningKeys.xml' path='example'/>
         /// <returns>An instance of ModerationProofKeys containing signing key data if request was successful. Return value is null otherwise.</returns>
         public async Task<HaloApiResultContainer<ModerationProofKeys, RawResponseContainer>> GetSigningKeys()
         {

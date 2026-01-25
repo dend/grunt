@@ -11,7 +11,7 @@ using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models;
 using Den.Dev.Grunt.Models.HaloInfinite;
 
-namespace Den.Dev.Grunt.Core.Modules
+namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
 {
     /// <summary>
     /// Module for stats-related API operations including match history and service records.
@@ -30,7 +30,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets challenge decks that are available for a player.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Stats_GetChallengeDecks.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetChallengeDecks.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <returns>An instance of ChallengeDecksResponse containing deck information if request was successful. Return value is null otherwise.</returns>
         public async Task<HaloApiResultContainer<ChallengeDecksResponse, RawResponseContainer>> GetChallengeDecks(string player)
@@ -41,7 +41,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the summary on number of played matches.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Stats_GetMatchCount.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetMatchCount.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <returns>An instance of PlayerMatchCount containing match counts if request was successful. Return value is null otherwise.</returns>
         public async Task<HaloApiResultContainer<PlayerMatchCount, RawResponseContainer>> GetMatchCount(string player)
@@ -52,7 +52,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets match history for a player.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Stats_GetMatchHistory.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetMatchHistory.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="start">Start value for the counter, from which data should be returned.</param>
         /// <param name="count">Number of matches to return. Maximum is 25. Going beyond 25 will result in only 25 values being returned.</param>
@@ -67,7 +67,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets stats for a specific match.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Stats_GetMatchStats.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetMatchStats.xml' path='example'/>
         /// <param name="matchId">Match ID in GUID format.</param>
         /// <returns>An instance of MatchStats containing match metadata if request was successful. Return value is null otherwise.</returns>
         public async Task<HaloApiResultContainer<MatchStats, RawResponseContainer>> GetMatchStats(string matchId)
@@ -78,7 +78,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Get challenge progression associated with a given match.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Stats_GetPlayerMatchProgression.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetPlayerMatchProgression.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="matchId">Match ID in GUID format.</param>
         /// <returns>An instance of MatchProgression containing match challenge progression metadata if request was successful. Return value is null otherwise.</returns>
@@ -91,7 +91,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets match privacy settings for a given player.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Stats_MatchPrivacy.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_MatchPrivacy.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <returns>An instance of MatchesPrivacy containing match privacy metadata if request was successful. Return value is null otherwise.</returns>
         public async Task<HaloApiResultContainer<MatchesPrivacy, RawResponseContainer>?> MatchPrivacy(string player)
@@ -103,7 +103,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// Gets the service record for a player.
         /// </summary>
         /// <remarks>By tweaking season IDs, you can obtain season-specific information such as number of matches played, wins, losses, and others.</remarks>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Stats_GetPlayerServiceRecord.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetPlayerServiceRecord.xml' path='example'/>
         /// <param name="playerId">Player ID. Can be a XUID or a gamertag. Example value is "BreadKrtek".</param>
         /// <param name="mode">Type of games for which to get the service record.</param>
         /// <param name="seasonId">The ID of the season for which additional stats are pulled. Example value is "Seasons/Season7.json".</param>
@@ -119,7 +119,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the daily custom experience for a player.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Stats_GetPlayerDailyCustomExperience.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetPlayerDailyCustomExperience.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <returns>An instance of <see cref="PlayerDailyCustomExperience"/> containing daily experience if request was successful. Return value is null otherwise.</returns>
         public async Task<HaloApiResultContainer<PlayerDailyCustomExperience, RawResponseContainer>> GetPlayerDailyCustomExperience(string player)

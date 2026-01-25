@@ -8,6 +8,7 @@
 using System.Net.Http;
 using Den.Dev.Grunt.Core.Foundation;
 using Den.Dev.Grunt.Core.Modules;
+using Den.Dev.Grunt.Core.Modules.HaloInfinite;
 
 namespace Den.Dev.Grunt.Core
 {

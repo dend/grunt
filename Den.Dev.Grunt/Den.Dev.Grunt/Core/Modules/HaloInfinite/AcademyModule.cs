@@ -11,7 +11,7 @@ using Den.Dev.Grunt.Endpoints;
 using Den.Dev.Grunt.Models;
 using Den.Dev.Grunt.Models.HaloInfinite;
 
-namespace Den.Dev.Grunt.Core.Modules
+namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
 {
     /// <summary>
     /// Module for Academy-related API operations including bot customization and drills.
@@ -30,7 +30,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Get bot customization information.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Academy_GetBotCustomization.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Academy_GetBotCustomization.xml' path='example'/>
         /// <param name="flightId">ID of the flight/clearance associated with the request.</param>
         /// <returns>If successful, returns an instance of BotCustomizationData that contains bot customization information. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<BotCustomizationData, RawResponseContainer>> GetBotCustomization(string flightId)
@@ -43,7 +43,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the client manifest for the Academy.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Academy_GetContent.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Academy_GetContent.xml' path='example'/>
         /// <returns>If successful, returns an instance of AcademyClientManifest that contains the definition of drills available in the Academy. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<AcademyClientManifest, RawResponseContainer>> GetContent()
         {
@@ -55,7 +55,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the client manifest for the Academy. From the endpoint name we can infer that this is test data.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Academy_GetContentTest.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Academy_GetContentTest.xml' path='example'/>
         /// <param name="clearanceId">ID of the flight/clearance associated with the request.</param>
         /// <returns>If successful, returns an instance of TestAcademyClientManifest that contains the definition of drills available in the Academy. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<TestAcademyClientManifest, RawResponseContainer>> GetContentTest(string clearanceId)
@@ -67,7 +67,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets definitions for stars awarded in the Academy. This call breaks if a user agent is specified.
         /// </summary>
-        /// <include file='../../APIDocsExamples/HaloInfinite/Academy_GetStarDefinitions.xml' path='example'/>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Academy_GetStarDefinitions.xml' path='example'/>
         /// <returns>If successful, returns an instance of AcademyStarDefinitions that contains definitions for stars awarded in the Academy. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<AcademyStarDefinitions, RawResponseContainer>> GetStarDefinitions()
         {
