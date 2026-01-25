@@ -6,7 +6,7 @@
 		<RepositoryUrl>https://github.com/dend/grunt</RepositoryUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageTags>halo,halo-api,api,halo-infinite,halo-mcc,halo-5,halo-wars,halo-4</PackageTags>
-		<PackageIcon>Grunt-logo.png</PackageIcon>
+		<PackageIcon>grunt-logo.png</PackageIcon>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<TransformOnBuild>true</TransformOnBuild>
 		<TransformOutOfDateOnly>false</TransformOutOfDateOnly>
@@ -23,8 +23,7 @@
 		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<AssemblyVersion>1.0.65</AssemblyVersion>
-		<FileVersion>1.0.65</FileVersion>
+		<Version>0.0.0-local</Version>
 		<Title>Den.Dev.Grunt</Title>
 	</PropertyGroup>
 
@@ -41,7 +40,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\..\media\Grunt-logo.png">
+		<None Include="..\..\media\grunt-logo.png">
 		  <Pack>True</Pack>
 		  <PackagePath>\</PackagePath>
 		</None>

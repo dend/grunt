@@ -1,4 +1,4 @@
-![Den.Dev.Grunt logo](media/grunt-logo.png)
+![Den.Dev.Grunt logo](https://raw.githubusercontent.com/dend/grunt/main/media/grunt-logo.png)
 
 # 🪐 Grunt - The Halo API Wrapper
 
@@ -138,7 +138,7 @@ If you want to bring your own token, you carry the responsibility of acquiring a
 
 Look for API calls that return JSON data, and in some of the request headers you will notice a particularly interesting one - `x-343-authorization-spartan`. That's what you need.
 
-![Acquiring the Spartan token from the Halo Waypoint website](../media/spartan-token.png) 
+![Acquiring the Spartan token from the Halo Waypoint website](https://raw.githubusercontent.com/dend/grunt/main/media/spartan-token.png) 
 
 I'll say it again - this token is not long-lived and if you see calls failing with `401 Unauthorized`, that means you need a new token.
 
@@ -175,7 +175,7 @@ With the application created, in the `Den.Dev.Grunt.Zeta` project create a `clie
 
 When you add the configuration file to your project, make sure that it's `Build Action` is set to `None` and `Copy to Output Directory` is `Copy if newer`.
 
-![Configuration file for Den.Dev.Grunt.Zeta](https://raw.githubusercontent.com/OpenSpartan/Den.Dev.Grunt/main/media/Den.Dev.Grunt-zeta-config.png)
+![Configuration file for Den.Dev.Grunt.Zeta](https://raw.githubusercontent.com/dend/grunt/main/media/grunt-zeta-config.png)
 
 With the file there, you can now run through the authentication flow, that is powered by Den.Dev.Grunt's helper methods:
 

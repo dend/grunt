@@ -41,7 +41,7 @@ jobs:
       run: dotnet test --configuration Release --no-build
     - name: Pack
       working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt
-      run: dotnet pack -p:PackageVersion=${{ env.RELEASE_VERSION }} --configuration Release --no-build --output .
+      run: dotnet pack -p:Version=${{ env.RELEASE_VERSION }} --configuration Release --no-build --output .
     - name: Add NuGet source
       working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt
       run: dotnet nuget add source --username dend --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/dend/index.json"
