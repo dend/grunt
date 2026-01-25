@@ -1,0 +1,45 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 6/21/2023:
+	<code>
+    {
+        "RewardTracks": [
+            {
+                "Id": "xuid(PLAYER_XUID_HERE)",
+                "ResultCode": "Success",
+                "Result": {
+                    "RewardTrackPath": "RewardTracks/CareerRanks/careerRank1.json",
+                    "TrackType": "CareerRank",
+                    "CurrentProgress": {
+                        "Rank": 0,
+                        "PartialProgress": 0
+                    }
+                }
+            },
+            {
+                "Id": "xuid(PLAYER_XUID_HERE)",
+                "ResultCode": "Success",
+                "Result": {
+                    "RewardTrackPath": "RewardTracks/CareerRanks/careerRank1.json",
+                    "TrackType": "CareerRank",
+                    "CurrentProgress": {
+                        "Rank": 0,
+                        "PartialProgress": 0
+                    }
+                }
+            },
+            {
+                "Id": "xuid(PLAYER_XUID_HERE)",
+                "ResultCode": "Success",
+                "Result": {
+                    "RewardTrackPath": "RewardTracks/CareerRanks/careerRank1.json",
+                    "TrackType": "CareerRank",
+                    "CurrentProgress": {
+                        "Rank": 0,
+                        "PartialProgress": 0
+                    }
+                }
+            }
+        ]
+    }
+	</code>
+</example>

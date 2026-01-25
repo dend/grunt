@@ -1,0 +1,11 @@
+﻿<example>
+	The API is likely in the works and not yet fully implemented. Here is an example response from the API, as snapshotted on 6/21/2023:
+	<code>
+    {
+        "type": "https://tools.ietf.org/html/rfc7231#section-6.5.4",
+        "title": "Not Found",
+        "status": 404,
+        "traceId": "00-801311412a2822c5293a1c4d31af10d8-3c92920cda4910ed-00"
+    }
+	</code>
+</example>

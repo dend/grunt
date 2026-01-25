@@ -1,0 +1,39 @@
+<example>
+	Here is an example response from the API, as snapshotted on 1/22/2026:
+	<code>
+    {
+        "StoreId": "SoftCurrencySubStorefront00",
+        "StorefrontExpirationDate": {
+            "ISO8601Date": "2031-06-28T17:00:00Z"
+        },
+        "StorefrontDisplayPath": "StoreContent/Display/Storefront/Exchange-Category00.json",
+        "Offerings": [
+            {
+                "OfferingId": "20230101-01",
+                "OfferingDisplayPath": "StoreContent/Display/Offerings/20230101-01.json",
+                "OfferingExpirationDate": null,
+                "IncludedItems": [
+                    {
+                        "Amount": 1,
+                        "ItemPath": "Inventory/Armor/Coatings/001-001-example.json",
+                        "ItemType": "ArmorCoating"
+                    }
+                ],
+                "Prices": [
+                    {
+                        "Cost": 5000,
+                        "CurrencyPath": "Currency/Currencies/softcurrency.json"
+                    }
+                ],
+                "IncludedCurrencies": [],
+                "IncludedRewardTracks": [],
+                "BoostPath": null,
+                "OperationXp": 0,
+                "EventXp": 0,
+                "MatchBoosts": null,
+                "RewardTrackAdjustments": []
+            }
+        ]
+    }
+	</code>
+</example>

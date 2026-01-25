@@ -1,0 +1,309 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 11/8/2022:
+	<code>
+    {
+        "CustomData": {
+            "FilmLength": 508266,
+            "Chunks": [
+                {
+                    "Index": 0,
+                    "ChunkStartTimeOffsetMilliseconds": 0,
+                    "DurationMilliseconds": 4817,
+                    "ChunkSize": 354198,
+                    "FileRelativePath": "/filmChunk0",
+                    "ChunkType": 1
+                },
+                {
+                    "Index": 1,
+                    "ChunkStartTimeOffsetMilliseconds": 0,
+                    "DurationMilliseconds": 19983,
+                    "ChunkSize": 123878,
+                    "FileRelativePath": "/filmChunk1",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 2,
+                    "ChunkStartTimeOffsetMilliseconds": 19983,
+                    "DurationMilliseconds": 20004,
+                    "ChunkSize": 233460,
+                    "FileRelativePath": "/filmChunk2",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 3,
+                    "ChunkStartTimeOffsetMilliseconds": 39987,
+                    "DurationMilliseconds": 20008,
+                    "ChunkSize": 318359,
+                    "FileRelativePath": "/filmChunk3",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 4,
+                    "ChunkStartTimeOffsetMilliseconds": 59995,
+                    "DurationMilliseconds": 20014,
+                    "ChunkSize": 308092,
+                    "FileRelativePath": "/filmChunk4",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 5,
+                    "ChunkStartTimeOffsetMilliseconds": 80009,
+                    "DurationMilliseconds": 20013,
+                    "ChunkSize": 335263,
+                    "FileRelativePath": "/filmChunk5",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 6,
+                    "ChunkStartTimeOffsetMilliseconds": 100023,
+                    "DurationMilliseconds": 20003,
+                    "ChunkSize": 323824,
+                    "FileRelativePath": "/filmChunk6",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 7,
+                    "ChunkStartTimeOffsetMilliseconds": 120027,
+                    "DurationMilliseconds": 20001,
+                    "ChunkSize": 285112,
+                    "FileRelativePath": "/filmChunk7",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 8,
+                    "ChunkStartTimeOffsetMilliseconds": 140029,
+                    "DurationMilliseconds": 20002,
+                    "ChunkSize": 323533,
+                    "FileRelativePath": "/filmChunk8",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 9,
+                    "ChunkStartTimeOffsetMilliseconds": 160032,
+                    "DurationMilliseconds": 20003,
+                    "ChunkSize": 314691,
+                    "FileRelativePath": "/filmChunk9",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 10,
+                    "ChunkStartTimeOffsetMilliseconds": 180036,
+                    "DurationMilliseconds": 20002,
+                    "ChunkSize": 334668,
+                    "FileRelativePath": "/filmChunk10",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 11,
+                    "ChunkStartTimeOffsetMilliseconds": 200039,
+                    "DurationMilliseconds": 20002,
+                    "ChunkSize": 330443,
+                    "FileRelativePath": "/filmChunk11",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 12,
+                    "ChunkStartTimeOffsetMilliseconds": 220042,
+                    "DurationMilliseconds": 20002,
+                    "ChunkSize": 296726,
+                    "FileRelativePath": "/filmChunk12",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 13,
+                    "ChunkStartTimeOffsetMilliseconds": 240045,
+                    "DurationMilliseconds": 20003,
+                    "ChunkSize": 305941,
+                    "FileRelativePath": "/filmChunk13",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 14,
+                    "ChunkStartTimeOffsetMilliseconds": 260048,
+                    "DurationMilliseconds": 20003,
+                    "ChunkSize": 315883,
+                    "FileRelativePath": "/filmChunk14",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 15,
+                    "ChunkStartTimeOffsetMilliseconds": 280052,
+                    "DurationMilliseconds": 20004,
+                    "ChunkSize": 307589,
+                    "FileRelativePath": "/filmChunk15",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 16,
+                    "ChunkStartTimeOffsetMilliseconds": 300056,
+                    "DurationMilliseconds": 20003,
+                    "ChunkSize": 314071,
+                    "FileRelativePath": "/filmChunk16",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 17,
+                    "ChunkStartTimeOffsetMilliseconds": 320059,
+                    "DurationMilliseconds": 20003,
+                    "ChunkSize": 320038,
+                    "FileRelativePath": "/filmChunk17",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 18,
+                    "ChunkStartTimeOffsetMilliseconds": 340063,
+                    "DurationMilliseconds": 20002,
+                    "ChunkSize": 330927,
+                    "FileRelativePath": "/filmChunk18",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 19,
+                    "ChunkStartTimeOffsetMilliseconds": 360066,
+                    "DurationMilliseconds": 20003,
+                    "ChunkSize": 323646,
+                    "FileRelativePath": "/filmChunk19",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 20,
+                    "ChunkStartTimeOffsetMilliseconds": 380070,
+                    "DurationMilliseconds": 20002,
+                    "ChunkSize": 320331,
+                    "FileRelativePath": "/filmChunk20",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 21,
+                    "ChunkStartTimeOffsetMilliseconds": 400073,
+                    "DurationMilliseconds": 20003,
+                    "ChunkSize": 328298,
+                    "FileRelativePath": "/filmChunk21",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 22,
+                    "ChunkStartTimeOffsetMilliseconds": 420076,
+                    "DurationMilliseconds": 20004,
+                    "ChunkSize": 272733,
+                    "FileRelativePath": "/filmChunk22",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 23,
+                    "ChunkStartTimeOffsetMilliseconds": 440080,
+                    "DurationMilliseconds": 20002,
+                    "ChunkSize": 308483,
+                    "FileRelativePath": "/filmChunk23",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 24,
+                    "ChunkStartTimeOffsetMilliseconds": 460082,
+                    "DurationMilliseconds": 20004,
+                    "ChunkSize": 321864,
+                    "FileRelativePath": "/filmChunk24",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 25,
+                    "ChunkStartTimeOffsetMilliseconds": 480086,
+                    "DurationMilliseconds": 20002,
+                    "ChunkSize": 287568,
+                    "FileRelativePath": "/filmChunk25",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 26,
+                    "ChunkStartTimeOffsetMilliseconds": 500088,
+                    "DurationMilliseconds": 3372,
+                    "ChunkSize": 40479,
+                    "FileRelativePath": "/filmChunk26",
+                    "ChunkType": 2
+                },
+                {
+                    "Index": 27,
+                    "ChunkStartTimeOffsetMilliseconds": 503461,
+                    "DurationMilliseconds": 2,
+                    "ChunkSize": 166716,
+                    "FileRelativePath": "/filmChunk27",
+                    "ChunkType": 3
+                }
+            ],
+            "HasGameEnded": true,
+            "ManifestRefreshSeconds": 30,
+            "MatchId": "b6135d03-7c55-4113-b033-19cfe24b8249",
+            "FilmMajorVersion": 30
+        },
+        "Tags": [],
+        "MapLink": null,
+        "UgcGameVariantLink": null,
+        "AssetId": "d3e2a6fb-4b5a-4144-b999-a3bb5d534639",
+        "VersionId": "e9964bd1-54a0-4776-9148-a59eecaac307",
+        "PublicName": "New Film",
+        "Description": "",
+        "Files": {
+            "Prefix": "https://blobs-infiniteugc.svc.halowaypoint.com/ugcstorage/film/d3e2a6fb-4b5a-4144-b999-a3bb5d534639/e9964bd1-54a0-4776-9148-a59eecaac307/",
+            "FileRelativePaths": [
+                "filmChunk0",
+                "filmChunk1",
+                "filmChunk10",
+                "filmChunk11",
+                "filmChunk12",
+                "filmChunk13",
+                "filmChunk14",
+                "filmChunk15",
+                "filmChunk16",
+                "filmChunk17",
+                "filmChunk18",
+                "filmChunk19",
+                "filmChunk2",
+                "filmChunk20",
+                "filmChunk21",
+                "filmChunk22",
+                "filmChunk23",
+                "filmChunk24",
+                "filmChunk25",
+                "filmChunk26",
+                "filmChunk27",
+                "filmChunk3",
+                "filmChunk4",
+                "filmChunk5",
+                "filmChunk6",
+                "filmChunk7",
+                "filmChunk8",
+                "filmChunk9"
+            ],
+            "PrefixEndpoint": {
+                "AuthorityId": "iUgcFiles",
+                "Path": "/ugcstorage/film/d3e2a6fb-4b5a-4144-b999-a3bb5d534639/e9964bd1-54a0-4776-9148-a59eecaac307/",
+                "QueryString": null,
+                "RetryPolicyId": "linearretry",
+                "TopicName": "",
+                "AcknowledgementTypeId": 0,
+                "AuthenticationLifetimeExtensionSupported": false,
+                "ClearanceAware": false
+            }
+        },
+        "Contributors": [],
+        "AssetHome": 2,
+        "AssetStats": {
+            "PlaysRecent": 0,
+            "PlaysAllTime": 0,
+            "Favorites": 0,
+            "Likes": 0,
+            "Bookmarks": 0,
+            "ParentAssetCount": 0,
+            "AverageRating": 0.0,
+            "NumberOfRatings": 0
+        },
+        "InspectionResult": 0,
+        "CloneBehavior": 0,
+        "Order": 0
+    }
+	</code>
+	To use this function in your code:
+	<code>
+	var result = (await client.HIUGCDiscoveryGetFilm("d3e2a6fb-4b5a-4144-b999-a3bb5d534639"));
+	</code>
+</example>

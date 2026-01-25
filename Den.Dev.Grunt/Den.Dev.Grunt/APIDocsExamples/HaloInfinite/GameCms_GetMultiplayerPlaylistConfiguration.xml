@@ -1,0 +1,17 @@
+﻿<example>
+	Here is an example response from the API, as snapshotted on 10/5/2022:
+	<code>
+    {
+        "NameHint": "bot_arena",
+        "UgcPlaylistVersion": "ac9b3a8e-e585-40ea-9bd7-b03b2a19b114",
+        "PlatformMatchmakingHopperId": "GA-RETAIL_bot_arena",
+        "GameStartRulesId": "arenaRules",
+        "ThunderheadContentConfiguration": "NonCampaign",
+        "ThunderheadVmSize": "Medium",
+        "TrueMatchSettings": "singleTeamLoose.json",
+        "HasCsr": false,
+        "PlaylistExperience": "PveBots",
+        "MatchmakingDelaySec": 0
+    }
+	</code>
+</example>
