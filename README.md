@@ -18,6 +18,7 @@ And more!
 ## Table of contents
 
 - [Components](#components)
+- [Librarian - API Code Generator](#librarian---api-code-generator)
 - [Setup & usage](#setup--usage)
 	- [Bring your own token](#bring-your-own-token)
 	- [Authenticate yourself](#authenticate-yourself)
@@ -32,7 +33,95 @@ And more!
 |:--------------------------|:------------|
 | `Den.Dev.Grunt`           | The core library, written in C#, that wraps the Halo Infinite web APIs. |
 | `Den.Dev.Grunt.Zeta`      | Experimental ground for the Den.Dev.Grunt library. It's a project where wrapped APIs from Den.Dev.Grunt are tested in a more real scenario. |
-| `Den.Dev.Grunt.Librarian` | Tool used to auto-generate code stubs for Halo Infinite API endpoints. It's a very "brute"-ish way to produce the code, but it works for now. |
+| `Den.Dev.Grunt.Librarian` | Code generator that produces production-quality API client modules from endpoint definitions. Uses Scriban templates to generate strongly-typed C# code with XML documentation. |
+
+## Librarian - API Code Generator
+
+The Librarian is a tool that automatically generates production-quality API client code from the Halo Infinite endpoint definitions. It fetches the latest endpoint configuration from the Halo API and generates strongly-typed C# module classes.
+
+### Features
+
+- **Automatic endpoint discovery** - Fetches all 177+ endpoints from the live Halo API
+- **Strongly-typed responses** - Maps endpoints to specific response types via `response-types.json`
+- **HTTP method inference** - Intelligently detects GET, POST, PUT, DELETE based on method names
+- **XML documentation** - Generates proper `<summary>`, `<param>`, and `<returns>` tags
+- **Module grouping** - Organizes endpoints into logical modules (Economy, Stats, GameCms, etc.)
+- **Scriban templates** - Clean, maintainable template syntax for code generation
+- **CLI support** - Configurable output directory, dry-run mode, and response type mappings
+
+### Usage
+
+```bash
+# Navigate to the Librarian project
+cd Den.Dev.Grunt/Den.Dev.Grunt.Librarian
+
+# Generate to default output directory (./Output/Generated)
+dotnet run
+
+# Generate with response type mappings
+dotnet run -- --response-types response-types.json
+
+# Preview without writing files
+dotnet run -- --dry-run
+
+# Generate to a custom directory
+dotnet run -- --output C:\MyGeneratedCode
+```
+
+### Command Line Options
+
+| Option | Short | Description |
+|:-------|:------|:------------|
+| `--output` | `-o` | Output directory for generated files (default: `./Output/Generated`) |
+| `--response-types` | `-r` | Path to `response-types.json` mapping file |
+| `--dry-run` | `-d` | Preview output without writing files |
+| `--help` | `-h` | Show help message |
+
+### Response Type Mappings
+
+The `response-types.json` file maps endpoint IDs to their response types:
+
+```json
+{
+  "Economy_GetActiveBoosts": "ActiveBoostsContainer",
+  "Economy_AiCoreCustomization": "AiCore",
+  "Stats_GetMatchHistory": "MatchHistoryResponse"
+}
+```
+
+Endpoints without explicit mappings default to `object` with a TODO comment for manual review.
+
+### Generated Output
+
+The Librarian generates partial class files that can be integrated into the main `Den.Dev.Grunt` project:
+
+```
+Output/Generated/
+├── EconomyModule.Generated.cs
+├── GameCmsModule.Generated.cs
+├── StatsModule.Generated.cs
+├── UgcModule.Generated.cs
+├── UgcDiscoveryModule.Generated.cs
+└── ...
+```
+
+Each generated file follows the existing module patterns with proper inheritance from `ModuleBase`, XML documentation, and strongly-typed return values.
+
+### Example Generated Code
+
+```csharp
+/// <summary>
+/// Calls the Economy_GetActiveBoosts endpoint.
+/// </summary>
+/// <param name="player">The player identifier in the format "xuid(XUID_VALUE)".</param>
+/// <returns>An instance of HaloApiResultContainer containing the response.</returns>
+public async Task<HaloApiResultContainer<ActiveBoostsContainer, RawResponseContainer>> GetActiveBoosts(string player)
+{
+    return await this.GetAsync<ActiveBoostsContainer>(
+        $"/hi/players/{player}/boosts",
+        useClearance: true);
+}
+```
 
 ## Setup & usage
 
