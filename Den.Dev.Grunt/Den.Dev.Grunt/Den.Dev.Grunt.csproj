@@ -7,7 +7,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageTags>halo,halo-api,api,halo-infinite,halo-mcc,halo-5,halo-wars,halo-4</PackageTags>
 		<PackageIcon>grunt-logo.png</PackageIcon>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<TransformOnBuild>true</TransformOnBuild>
 		<TransformOutOfDateOnly>false</TransformOutOfDateOnly>
 		<Nullable>enable</Nullable>
