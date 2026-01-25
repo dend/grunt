@@ -1,4 +1,4 @@
-![Den.Dev.Grunt logo](https://github.com/dend/grunt/blob/master/media/grunt-logo.png?raw=true)
+![Den.Dev.Grunt logo](https://raw.githubusercontent.com/dend/grunt/master/media/grunt-logo.png)
 
 # 🪐 Grunt - The Halo API Wrapper
 
@@ -138,7 +138,7 @@ If you want to bring your own token, you carry the responsibility of acquiring a
 
 Look for API calls that return JSON data, and in some of the request headers you will notice a particularly interesting one - `x-343-authorization-spartan`. That's what you need.
 
-![Acquiring the Spartan token from the Halo Waypoint website](https://github.com/dend/grunt/blob/master/media/spartan-token.png?raw=true) 
+![Acquiring the Spartan token from the Halo Waypoint website](https://raw.githubusercontent.com/dend/grunt/master/media/spartan-token.png) 
 
 I'll say it again - this token is not long-lived and if you see calls failing with `401 Unauthorized`, that means you need a new token.
 
@@ -147,12 +147,12 @@ Some API calls are also requiring you include another header - `343-clearance`. 
 Once you have the Spartan and clearance tokens, you are good to go, and can now call the API endpoints from `Den.Dev.Grunt`:
 
 ```csharp
-HaloInfiniteClient client = new(<YOUR_SPARTAN_TOKEN>, <YOUR_CLEARANCE_TOKEN>, <YOUR_XUID_REQUIRED_ONLY_FOR_SOME_CALLS>);
+HaloInfiniteClient client = new("<YOUR_SPARTAN_TOKEN>", clearanceToken: "<YOUR_CLEARANCE_TOKEN>");
 
 // Try getting actual Halo Infinite data.
 Task.Run(async () =>
 {
-    var example = await client.StatsGetMatchStats("21416434-4717-4966-9902-af7097469f74");
+    var example = await client.Stats.GetMatchStats("21416434-4717-4966-9902-af7097469f74");
     Console.WriteLine("You have data.");
 }).GetAwaiter().GetResult();
 ```
@@ -175,7 +175,7 @@ With the application created, in the `Den.Dev.Grunt.Zeta` project create a `clie
 
 When you add the configuration file to your project, make sure that it's `Build Action` is set to `None` and `Copy to Output Directory` is `Copy if newer`.
 
-![Configuration file for Den.Dev.Grunt.Zeta](https://github.com/dend/grunt/blob/master/media/grunt-zeta-config.png?raw=true)
+![Configuration file for Den.Dev.Grunt.Zeta](https://raw.githubusercontent.com/dend/grunt/master/media/grunt-zeta-config.png)
 
 With the file there, you can now run through the authentication flow, that is powered by Den.Dev.Grunt's helper methods:
 
@@ -252,7 +252,7 @@ HaloInfiniteClient client = new(haloToken.Token, extendedTicket.DisplayClaims.Xu
 string localClearance = string.Empty;
 Task.Run(async () =>
 {
-    var clearance = (await client.SettingsGetClearance("RETAIL", "UNUSED", "222249.22.06.08.1730-0")).Result;
+    var clearance = (await client.Settings.ActiveClearance("1.6")).Result;
     if (clearance != null)
     {
         localClearance = clearance.FlightConfigurationId;
@@ -268,7 +268,7 @@ Task.Run(async () =>
 // Try getting actual Halo Infinite data.
 Task.Run(async () =>
 {
-    var example = await client.StatsGetMatchStats("21416434-4717-4966-9902-af7097469f74");
+    var example = await client.Stats.GetMatchStats("21416434-4717-4966-9902-af7097469f74");
     Console.WriteLine("You have stats.");
 }).GetAwaiter().GetResult();
 ```
@@ -289,7 +289,7 @@ Complete list of endpoints can be obtained by querying the official Halo Infinit
 https://settings.svc.halowaypoint.com/settings/hipc/e2a0a7c6-6efe-42af-9283-c2ab73250c48
 ```
 
-The endpoint above does not require authentication and can be queried in the open. You can also peruse an offline version of the API response [in the library](https://github.com/dend/Den.Dev.Grunt/blob/main/Den.Dev.Grunt/Den.Dev.Grunt/endpoints.json).
+The endpoint above does not require authentication and can be queried in the open. You can also peruse an offline version of the API response [in the library](https://github.com/dend/grunt/blob/master/Den.Dev.Grunt/Den.Dev.Grunt/endpoints.json).
 
 ## Documentation
 
@@ -307,11 +307,11 @@ Don't use any of this code in production. It's nowhere near stable, and will nev
 
 **Q3: Some API endpoint is not working anymore or returns an unexpected result. What's up with that?**
 
-[Open an issue](https://github.com/dend/Den.Dev.Grunt/issues) so that I can investigate.
+[Open an issue](https://github.com/dend/grunt/issues) so that I can investigate.
 
 **Q4: How do I contact the author?**
 
-[Open an issue](https://github.com/dend/Den.Dev.Grunt/issues) or reach out [on Twitter](https://twitter.com/denniscode).
+[Open an issue](https://github.com/dend/grunt/issues) or reach out [on the website](https://den.dev).
 
 **Q5: Can this be used for commercial purposes?**
 
@@ -319,4 +319,4 @@ _Absolutely not_. This project is exploratory in nature. It has no guarantees, i
 
 ## Contributions
 
-Contributions are welcome, but please first [open an issue](https://github.com/dend/Den.Dev.Grunt/issues) so that we can discuss before writing any code.
+Contributions are welcome, but please first [open an issue](https://github.com/dend/grunt/issues) so that we can discuss before writing any code.
