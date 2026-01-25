@@ -359,3 +359,6 @@ MigrationBackup/
 
 # Librarian generated output
 Den.Dev.Grunt/Den.Dev.Grunt.Librarian/Output/Generated/
+
+# Sensitive configuration files
+client.json
