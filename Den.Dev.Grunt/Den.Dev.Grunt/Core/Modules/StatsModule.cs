@@ -108,5 +108,16 @@ namespace Den.Dev.Grunt.Core.Modules
             return await this.GetAsync<PlayerServiceRecord>(
                 $"/hi/players/{playerId}/{mode}/servicerecord{seasonMarker}");
         }
+
+        /// <summary>
+        /// Gets the daily custom experience for a player.
+        /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/Stats_GetPlayerDailyCustomExperience.xml' path='example'/>
+        /// <param name="player">The player identifier in the format "xuid(PLAYER_XUID_HERE)".</param>
+        /// <returns>An instance of <see cref="PlayerDailyCustomExperience"/> containing daily experience if request was successful. Return value is null otherwise.</returns>
+        public async Task<HaloApiResultContainer<PlayerDailyCustomExperience, RawResponseContainer>> GetPlayerDailyCustomExperience(string player)
+        {
+            return await this.GetAsync<PlayerDailyCustomExperience>($"/hi/players/{player}/customexperience");
+        }
     }
 }

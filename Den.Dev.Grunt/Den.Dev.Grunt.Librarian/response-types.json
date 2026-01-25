@@ -153,6 +153,7 @@
   "Stats_GetMatchCount": "PlayerMatchCount",
   "Stats_GetMatchHistory": "MatchHistoryResponse",
   "Stats_GetMatchStats": "MatchStats",
+  "Stats_GetPlayerDailyCustomExperience": "PlayerDailyCustomExperience",
   "Stats_GetPlayerMatchProgression": "MatchProgression",
   "Stats_GetPlayerServiceRecord": "PlayerServiceRecord",
   "Stats_MatchPrivacy": "MatchesPrivacy",

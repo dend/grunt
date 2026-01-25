@@ -1,0 +1,8 @@
+<example>
+	Here is an example response from the API:
+	<code>
+    {
+        "DailyExperience": 0
+    }
+	</code>
+</example>
