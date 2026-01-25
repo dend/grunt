@@ -8,6 +8,9 @@ on:
       - master
     paths:
       - 'docs/**'
+      - 'Den.Dev.Grunt/Den.Dev.Grunt/Core/Modules/**'
+      - 'Den.Dev.Grunt/Den.Dev.Grunt/APIDocsExamples/**'
+      - 'Den.Dev.Grunt/Den.Dev.Grunt/Models/**'
   workflow_dispatch:
 
 permissions:
