@@ -35,6 +35,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// In the query result the entity will include a link to self. The authority ID ("spartanstats") there is incorrect, as the ban summary needs to be obtained from the "banprocessor" authority.
         /// In some quick tests, it seems that including Authenticated(Device) in the request results in 401 Unauthorized if called outside the game. Additional work might be required to understand how to validate the device.
         /// </remarks>
+        /// <include file='../../APIDocsExamples/HaloInfinite/BanProcessor_BanSummary.xml' path='example'/>
         /// <param name="targetlist">A list of targets that need to be checked. Authenticated devices can be included as "Authenticated(Device)". Individual players can be specified as "xuid(XUID_VALUE)".</param>
         /// <returns>An instance of BanSummary containing applicable ban information if request was successful. Return value is null otherwise.</returns>
         public async Task<HaloApiResultContainer<BansSummaryQueryResult, RawResponseContainer>> BanSummary(List<string> targetlist)

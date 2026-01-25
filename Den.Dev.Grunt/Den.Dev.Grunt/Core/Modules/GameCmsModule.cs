@@ -31,6 +31,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the contents of a store offering based on a given path.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetStoreOffering.xml' path='example'/>
         /// <param name="offeringPath">Path to a store offering, for example 'StoreContent/Display/Offerings/20240410-01.json'.</param>
         /// <returns>If successful, returns an instance of <see cref="StoreOffering"/> containing offering details. Otherwise, returns null with a description of the error.</returns>
         public async Task<HaloApiResultContainer<StoreOffering, RawResponseContainer>> GetStoreOffering(string offeringPath)
@@ -43,6 +44,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the fallback playlist for the Play Now button.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetPlayNowButtonSettings.xml' path='example'/>
         /// <returns>If successful, returns an instance of <see cref="FallbackPlaylist"/>. Otherwise, returns null with a description of the error.</returns>
         public async Task<HaloApiResultContainer<FallbackPlaylist, RawResponseContainer>> GetPlayNowButtonSettings()
         {
@@ -57,6 +59,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// Keep in mind that this is not a list of achievements that the player has unlocked - it's just an aggregation of all available achievements in Halo Infinite.
         /// </remarks>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetAchievements.xml' path='example'/>
         /// <returns>If successful, returns an instance of AchievementCollection that contains the list of available achievements. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<AchievementCollection, RawResponseContainer>> GetAchievements()
         {
@@ -68,6 +71,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets information about active async compute overrides. Unknown what the concrete purpose of this API is yet.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetAsyncComputeOverrides.xml' path='example'/>
         /// <returns>If successful, returns an instance of AsyncComputeOverrides containing override metadata. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<AsyncComputeOverrides, RawResponseContainer>> GetAsyncComputeOverrides()
         {
@@ -79,6 +83,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Returns information about an existing challenge.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetChallenge.xml' path='example'/>
         /// <param name="challengePath">Path to the challenge file. Example is "ChallengeContent/ClientChallengeDefinitions/S1RotationalSet1Challenges/Normal/NTeamSlayerPlay.json".</param>
         /// <param name="flightId">The unique ID for the currently active flight.</param>
         /// <returns>If successful, returns an instance of Challenge containing challenge information. Otherwise, returns null.</returns>
@@ -92,6 +97,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the information about a specific challenge deck.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetChallengeDeck.xml' path='example'/>
         /// <param name="challengeDeckPath">Path to the challenge deck. An example value is "ChallengeContent/ClientChallengeDeckDefinitions/S2EntrenchedWeeklyDeck2.json".</param>
         /// <param name="flightId">Unique identifier for the currently active flight.</param>
         /// <returns>If successful, returns an instance of ChallengeDeckDefinition containing challenge deck metadata. Otherwise, returns null.</returns>
@@ -105,6 +111,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the information about a specific currency type.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetCurrency.xml' path='example'/>
         /// <param name="currencyPath">Path to the currency. An example is "currency/currencies/cr.json".</param>
         /// <param name="flightId">Unique identifier for the currently active flight.</param>
         /// <returns>If successful, returns an instance of CurrencyDefinition containing information about the specified currency. Otherwise, returns null.</returns>
@@ -122,6 +129,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// Based on the "claw" terminology, these are likely accounts with access to clawback services (for transaction refunds).
         /// At least one of the accounts returned for this API call is flagged as a member of the Xbox Scarlett team, so it's likely these are accounts that have a more direct access to Halo services.
         /// </remarks>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetClawAccess.xml' path='example'/>
         /// <param name="flightId">Unique identifier for the currently active flight.</param>
         /// <returns>If successful, returns an instance of ClawAccessSnapshot containing relevant XUID lists. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<ClawAccessSnapshot, RawResponseContainer>> GetClawAccess(string flightId)
@@ -134,6 +142,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the pre-defined CPU presets for different game performance configurations.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetCpuPresets.xml' path='example'/>
         /// <returns>If successful, returns an instance of CPUPresetSnapshot containing preset information. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<CPUPresetSnapshot, RawResponseContainer>> GetCpuPresets()
         {
@@ -145,6 +154,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Returns the parameters for new custom games started in Halo Infinite.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetCustomGameDefaults.xml' path='example'/>
         /// <returns>If successful, returns an instance of CustomGameDefinition containing game parameters. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<CustomGameDefinition, RawResponseContainer>> GetCustomGameDefaults()
         {
@@ -156,6 +166,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the full list of existing in-game items.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetCustomizationCatalog.xml' path='example'/>
         /// <param name="flightId">Unique identifier for the currently active flight.</param>
         /// <returns>If successful, returns an instance of InventoryDefinition containing the full list of available items. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<InventoryDefinition, RawResponseContainer>> GetCustomizationCatalog(string flightId)
@@ -171,6 +182,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// The exact purpose of this function is unknown at this time, and requires additional investigation.
         /// </remarks>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetDevicePresetOverrides.xml' path='example'/>
         /// <returns>If successful, an instance of DevicePresetOverrides. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<DevicePresetOverrides, RawResponseContainer>> GetDevicePresetOverrides()
         {
@@ -182,6 +194,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets information about an in-game event.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetEvent.xml' path='example'/>
         /// <param name="eventPath">The path to the event file. An example value is "RewardTracks/Events/Rituals/ritualEagleStrike.json".</param>
         /// <param name="flightId">Unique identifier for the currently active flight.</param>
         /// <returns>If successful, an instance of RewardTrackMetadata is returned. Otherwise, returns null.</returns>
@@ -195,6 +208,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the queries used to obtain override values for graphic device specifications.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetGraphicsSpecControlOverrides.xml' path='example'/>
         /// <returns>If successful, returns an instance of OverrideQueryDefinition containing query definitions. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<OverrideQueryDefinition, RawResponseContainer>> GetGraphicsSpecControlOverrides()
         {
@@ -235,6 +249,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// For example, you may find that you can get the data about an armor emblem with the path "/inventory/armor/emblems/013-001-363f4a25.json".
         /// </remarks>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetItem.xml' path='example'/>
         /// <param name="itemPath">Path to the item to be obtained. Example is "/inventory/armor/emblems/013-001-363f4a25.json".</param>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of InGameItem. Otherwise, null.</returns>
@@ -248,6 +263,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the list of possible error messages that a player can get when attempting to join multiplayer games.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetLobbyErrorMessages.xml' path='example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, returns an instance of LobbyHopperErrorMessageList that contains possible errors. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<LobbyHopperErrorMessageList, RawResponseContainer>> GetLobbyErrorMessages(string flightId)
@@ -260,6 +276,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Returns metadata on currently available in-game manufacturers and currencies.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetMetadata.xml' path='example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of Metadata containing the information about in-game manufacturers and currencies. Otherwise, null.</returns>
         public async Task<HaloApiResultContainer<Metadata, RawResponseContainer>> GetMetadata(string flightId)
@@ -272,6 +289,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Returns the network configuration for the current flight.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetNetworkConfiguration.xml' path='example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, returns an instance of NetworkConfiguration. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<NetworkConfiguration, RawResponseContainer>> GetNetworkConfiguration(string flightId)
@@ -284,6 +302,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Returns the currently relevant news.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetNews.xml' path='example'/>
         /// <param name="filePath">Path to the news collection. Example is "/articles/articles.json".</param>
         /// <returns>If successful, returns a News instance containing the currently active news. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<News, RawResponseContainer>> GetNews(string filePath)
@@ -297,6 +316,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// Returns information about a message that is displayed when, I assume, authentication fails.
         /// </summary>
         /// <remarks>It's unclear where this is actually used because the sample response is a test one, without any relevant context.</remarks>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetNotAllowedInTitleMessage.xml' path='example'/>
         /// <returns>If successful, an instance of OEConfiguration containing the message. Otherwise, null.</returns>
         public async Task<HaloApiResultContainer<OEConfiguration, RawResponseContainer>> GetNotAllowedInTitleMessage()
         {
@@ -321,6 +341,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Get recommended drivers for the current version of Halo Infinite.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetRecommendedDrivers.xml' path='example'/>
         /// <returns>If successful, returns an instance of DriverManifest that contains details on supported drivers. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<DriverManifest, RawResponseContainer>> GetRecommendedDrivers()
         {
@@ -335,6 +356,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <remarks>
         /// Keep in mind that the season numbers do not align cleanly with the public season numbers. For example, public Season 2 is Season 7 in this API. That is caused by a number of test season that 343 added to the product ahead of release.
         /// </remarks>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetSeasonRewardTrack.xml' path='example'/>
         /// <param name="seasonPath">The path to the season. Typical example is "Seasons/Season7.json" for the Lone Wolves season.</param>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of SeasonRewardTrack containing season information. Otherwise, returns null.</returns>
@@ -348,6 +370,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the list of available career ranks for a given career path ID.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetCareerRanks.xml' path='example'/>
         /// <param name="careerPathId">Unique identifier for the career path. Example value is "careerRank1".</param>
         /// <returns>If successful, returns an instance of <see cref="CareerTrackContainer"/>. Otherwise, returns null with associated error details in <see cref="RawResponseContainer"/> within the result.</returns>
         public async Task<HaloApiResultContainer<CareerTrackContainer, RawResponseContainer>> GetCareerRanks(string careerPathId)
@@ -360,6 +383,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the currently available season calendar.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetSeasonCalendar.xml' path='example'/>
         /// <returns>If successful, returns an instance of <see cref="SeasonCalendar"/> that contains pointers to season details. Otherwise, returns null with associated error details in <see cref="RawResponseContainer"/> within the result.</returns>
         public async Task<HaloApiResultContainer<SeasonCalendar, RawResponseContainer>> GetSeasonCalendar()
         {
@@ -371,6 +395,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the currently available CSR season calendar. This is applicable for ranked games and usually delineates when the rank reset will happen.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetCSRCalendar.xml' path='example'/>
         /// <returns>If successful, returns an instance of <see cref="SeasonCalendar"/> that contains pointers to season details. Otherwise, returns null with associated error details in <see cref="RawResponseContainer"/> within the result.</returns>
         public async Task<HaloApiResultContainer<SeasonCalendar, RawResponseContainer>> GetCSRCalendar()
         {
@@ -382,6 +407,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets a list of all available image files currently used by the multiplayer service.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetGuide_Images.xml' path='example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of GuideContainer containing file information. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<GuideContainer, RawResponseContainer>> GetGuideImages(string flightId)
@@ -394,6 +420,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets a list of all available multiplayer files currently used by the multiplayer service.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetGuide_Multiplayer.xml' path='example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of GuideContainer containing file information. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<GuideContainer, RawResponseContainer>> GetGuideMultiplayer(string flightId)
@@ -406,6 +433,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets a list of all available news files currently used by the multiplayer service.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetGuide_News.xml' path='example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of GuideContainer containing file information. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<GuideContainer, RawResponseContainer>> GetGuideNews(string flightId)
@@ -418,6 +446,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets a list of all available progression files currently used by the multiplayer service.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetGuide_Progression.xml' path='example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of GuideContainer containing file information. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<GuideContainer, RawResponseContainer>> GetGuideProgression(string flightId)
@@ -430,6 +459,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets a list of all available spec files currently used by the multiplayer service.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetGuide_Specs.xml' path='example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of GuideContainer containing file information. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<GuideContainer, RawResponseContainer>> GetGuideSpecs(string flightId)
@@ -442,6 +472,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets a list of all available title authorization files currently used by the multiplayer service.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetGuide_TitleAuthorization.xml' path='example'/>
         /// <param name="flightId">Unique ID for the currently active flight.</param>
         /// <returns>If successful, an instance of GuideContainer containing file information. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<GuideContainer, RawResponseContainer>> GetGuideTitleAuthorization(string flightId)
@@ -454,6 +485,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets a list of all available medals and their metadata.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetMedalMetadata.xml' path='example'/>
         /// <returns>If successful, an instance of <see cref="MedalMetadata"/> containing medal information. Otherwise, returns null and error details.</returns>
         public async Task<HaloApiResultContainer<MedalMetadata, RawResponseContainer>> GetMedalMetadata()
         {
@@ -463,6 +495,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets the detailed configuration for a Halo Infinite playlist.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetMultiplayerPlaylistConfiguration.xml' path='example'/>
         /// <param name="playlistFile">JSON file associated with a playlist. Example is "a446725e-b281-414c-a21e-31b8700e95a1.json".</param>
         /// <returns>If successful, an instance of <see cref="PlaylistConfiguration"/> containing playlist configuration. Otherwise, returns null and error details.</returns>
         public async Task<HaloApiResultContainer<PlaylistConfiguration, RawResponseContainer>> GetMultiplayerPlaylistConfiguration(string playlistFile)
@@ -474,6 +507,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <summary>
         /// Gets emblem mapping configuration.
         /// </summary>
+        /// <include file='../../APIDocsExamples/HaloInfinite/GameCms_GetEmblemMapping.xml' path='example'/>
         /// <returns>If successful, an instance of <see cref="Dictionary{String, Dictionary}"/> with emblem mapping. Otherwise, returns null and error details.</returns>
         public async Task<HaloApiResultContainer<Dictionary<string, Dictionary<string, EmblemMapping>>, RawResponseContainer>> GetEmblemMapping()
         {
