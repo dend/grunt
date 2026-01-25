@@ -38,13 +38,13 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <param name="title">Title associated with an asset. Example value is "hi" for Halo Infinite.</param>
         /// <param name="assetType">Type of asset to modify permissions for. Example value is "ugcGameVariants".</param>
         /// <param name="assetId">Unique asset ID. Example value is "3895f3d4-2493-4b84-ae18-876ad3ab344d" for a UGC game variant.</param>
-        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <param name="permission">A <see cref="Permission"/> object with the AuthoringRole set to the desired permission level.</param>
         /// <returns>If successful, returns an instance of <see cref="Permission"/> with permission details. Otherwise, returns a null result object with attached error details.</returns>
         public async Task<HaloApiResultContainer<Permission, RawResponseContainer>> GrantOrRevokePermissions(string title, string assetType, string assetId, string player, Permission permission)
         {
             return await this.PatchJsonAsync<Permission, Permission>(
-                $"/{title}/{assetType}/{assetId}/permissions/{player}",
+                $"/{title}/{assetType}/{assetId}/permissions/xuid({player})",
                 permission,
                 useClearance: true);
         }
@@ -54,14 +54,14 @@ namespace Den.Dev.Grunt.Core.Modules
         /// </summary>
         /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_CheckAssetPlayerBookmark.xml' path='example'/>
         /// <param name="title">Title for which the asset should be obtained. An example value is "hi".</param>
-        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "373f3d27-cb4c-4d7b-b6c9-7757de3c1133" for "Arena:King of the Hill".</param>
         /// <returns>If successful, returns an instance of FavoriteAsset containing asset information. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<FavoriteAsset, RawResponseContainer>> CheckAssetPlayerBookmark(string title, string player, string assetType, string assetId)
         {
             return await this.GetAsync<FavoriteAsset>(
-                $"/{title}/players/{player}/favorites/{assetType}/{assetId}");
+                $"/{title}/players/xuid({player})/favorites/{assetType}/{assetId}");
         }
 
         /// <summary>
@@ -143,14 +143,14 @@ namespace Den.Dev.Grunt.Core.Modules
         /// This method expects a JSON body, but I don't yet know what the underlying data structure is.
         /// </remarks>
         /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_FavoriteAnAsset.xml' path='example'/>
-        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If successful, returns an instance of FavoriteAsset confirming the addition of the asset to favorites. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<FavoriteAsset, RawResponseContainer>> FavoriteAnAsset(string player, string assetType, string assetId)
         {
             return await this.PutAsync<FavoriteAsset>(
-                $"/hi/players/{player}/favorites/{assetType}/{assetId}",
+                $"/hi/players/xuid({player})/favorites/{assetType}/{assetId}",
                 "{}");
         }
 
@@ -270,7 +270,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// </remarks>
         /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_ListPlayerAssets.xml' path='example'/>
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
-        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <param name="start">Number of results from which to start the iteration.</param>
         /// <param name="count">Number of assets to return. Maximum is 25. Going beyond 25 will result in only 25 values being returned.</param>
         /// <param name="includeTimes">Include times for asset modification.</param>
@@ -288,7 +288,7 @@ namespace Den.Dev.Grunt.Core.Modules
             }
 
             return await this.GetAsync<AuthoringAssetContainer>(
-                $"/{title}/players/{player}/assets?start={start}&count={count}&include-times={includeTimes}&sort={sort}&order={order}&keywords={formattedKeywordList}&kind={kind}",
+                $"/{title}/players/xuid({player})/assets?start={start}&count={count}&include-times={includeTimes}&sort={sort}&order={order}&keywords={formattedKeywordList}&kind={kind}",
                 useClearance: true);
         }
 
@@ -299,13 +299,13 @@ namespace Den.Dev.Grunt.Core.Modules
         /// The underlying request supports specifying parameters that limit the search, such as ?start=number, however that is not yet implemented in this version of the API wrapper.
         /// </remarks>
         /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_ListPlayerFavorites.xml' path='example'/>
-        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <returns>If successful, returns an instance of AuthoringFavoritesContainer containing the list of favorites. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<AuthoringFavoritesContainer, RawResponseContainer>> ListPlayerFavorites(string player, string assetType)
         {
             return await this.GetAsync<AuthoringFavoritesContainer>(
-                $"/hi/players/{player}/favorites/{assetType}",
+                $"/hi/players/xuid({player})/favorites/{assetType}",
                 useClearance: true);
         }
 
@@ -316,12 +316,12 @@ namespace Den.Dev.Grunt.Core.Modules
         /// The underlying request supports specifying parameters that limit the search, such as ?start=number, however that is not yet implemented in this version of the API wrapper.
         /// </remarks>
         /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_ListPlayerFavoritesAgnostic.xml' path='example'/>
-        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <returns>If successful, returns an instance of AuthoringFavoritesContainer containing the list of favorites. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<AuthoringFavoritesContainer, RawResponseContainer>> ListPlayerFavoritesAgnostic(string player)
         {
             return await this.GetAsync<AuthoringFavoritesContainer>(
-                $"/hi/players/{player}/favorites",
+                $"/hi/players/xuid({player})/favorites",
                 useClearance: true);
         }
 
@@ -369,21 +369,21 @@ namespace Den.Dev.Grunt.Core.Modules
         /// This API is actually not captured in the endpoint catalog, but it seems to return values anyway.
         /// </remarks>
         /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_GetAssetRatings.xml' path='example'/>
-        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <returns>If successful, returns an instance of AuthoringAssetRating containing rating information. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<AuthoringAssetRating, RawResponseContainer>> GetAssetRatings(string player, string assetType, string assetId)
         {
             return await this.GetAsync<AuthoringAssetRating>(
-                $"/hi/players/{player}/ratings/{assetType}/{assetId}");
+                $"/hi/players/xuid({player})/ratings/{assetType}/{assetId}");
         }
 
         /// <summary>
         /// Rates an asset the player has access to.
         /// </summary>
         /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_RateAnAsset.xml' path='example'/>
-        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="rating">An object containing asset rating information. Rating should be set in CustomData.</param>
@@ -391,7 +391,7 @@ namespace Den.Dev.Grunt.Core.Modules
         public async Task<HaloApiResultContainer<AuthoringAssetRating, RawResponseContainer>> RateAnAsset(string player, string assetType, string assetId, AuthoringAssetRating rating)
         {
             return await this.PutJsonAsync<AuthoringAssetRating, AuthoringAssetRating>(
-                $"/hi/players/{player}/ratings/{assetType}/{assetId}",
+                $"/hi/players/xuid({player})/ratings/{assetType}/{assetId}",
                 rating);
         }
 
@@ -399,7 +399,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// Reports an asset.
         /// </summary>
         /// <include file='../../APIDocsExamples/HaloInfinite/HIUGC_ReportAnAsset.xml' path='example'/>
-        /// <param name="player">The unique player XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="report">Instance of <see cref="AssetReport"/> containing the report for the asset.</param>
@@ -407,7 +407,7 @@ namespace Den.Dev.Grunt.Core.Modules
         public async Task<HaloApiResultContainer<AssetReport, RawResponseContainer>> ReportAnAsset(string player, string assetType, string assetId, AssetReport report)
         {
             return await this.PutJsonAsync<AssetReport, AssetReport>(
-                $"/hi/players/{player}/reports/{assetType}/{assetId}",
+                $"/hi/players/xuid({player})/reports/{assetType}/{assetId}",
                 report);
         }
 

@@ -349,7 +349,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <param name="sort">Property by which to sort the results. Example is "PlaysRecent".</param>
         /// <param name="order">Determines whether results are ordered in descending or ascending order.</param>
         /// <param name="assetKinds">List of asset kinds to be included in the search.</param>
-        /// <param name="author">The unique author XUID, in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="author">The author's numeric XUID.</param>
         /// <returns>If successful, returns an instance of SearchResultsContainer containing assets. Otherwise, returns null.</returns>
         public async Task<HaloApiResultContainer<SearchResultsContainer, RawResponseContainer>> Search(int start = 0, int count = 12, bool includeTimes = true, string sort = "DatePublishedUtc", ResultOrder order = ResultOrder.Desc, List<AssetKind>? assetKinds = null, string? author = null)
         {
@@ -357,7 +357,7 @@ namespace Den.Dev.Grunt.Core.Modules
 
             if (!string.IsNullOrEmpty(author))
             {
-                baseSearchString += $"&author={author}";
+                baseSearchString += $"&author=xuid({author})";
             }
 
             if (assetKinds != null && assetKinds.Any())

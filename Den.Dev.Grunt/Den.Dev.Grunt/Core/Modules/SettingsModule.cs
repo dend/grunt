@@ -86,7 +86,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// </summary>
         /// <include file='../../APIDocsExamples/HaloInfinite/Settings_GetPlayerClearance.xml' path='example'/>
         /// <param name="audience">Audience that the request is targeting. Standard value is RETAIL.</param>
-        /// <param name="player">The player identifier in the format "xuid(PLAYER_XUID_HERE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
         /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>
         /// <param name="release">Release identifier. Examples seen are 1.4 and 1.5.</param>
@@ -94,7 +94,7 @@ namespace Den.Dev.Grunt.Core.Modules
         public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> GetPlayerClearance(string audience, string player, string sandbox, string buildNumber, string release)
         {
             return await this.GetAsync<PlayerClearance>(
-                $"/oban/flight-configurations/titles/hi/audiences/{audience}/players/{player}/active?sandbox={sandbox}&build={buildNumber}&release={release}",
+                $"/oban/flight-configurations/titles/hi/audiences/{audience}/players/xuid({player})/active?sandbox={sandbox}&build={buildNumber}&release={release}",
                 useClearance: true);
         }
 
@@ -102,7 +102,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// Gets the player clearance/flight ID for RETAIL audience.
         /// </summary>
         /// <include file='../../APIDocsExamples/HaloInfinite/Settings_PlayerClearance.xml' path='example'/>
-        /// <param name="player">The player identifier in the format "xuid(PLAYER_XUID_HERE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <param name="sandbox">Identifier associated with the sandbox. Typical value is UNUSED.</param>
         /// <param name="buildNumber">Number of the game build the data is requested for. Example value is 211755.22.01.23.0549-0.</param>
         /// <param name="release">Release identifier. Examples seen are 1.4 and 1.5.</param>
@@ -110,7 +110,7 @@ namespace Den.Dev.Grunt.Core.Modules
         public async Task<HaloApiResultContainer<PlayerClearance, RawResponseContainer>> PlayerClearance(string player, string sandbox, string buildNumber, string release)
         {
             return await this.GetAsync<PlayerClearance>(
-                $"/oban/flight-configurations/titles/hi/audiences/RETAIL/players/{player}/active?sandbox={sandbox}&build={buildNumber}&release={release}");
+                $"/oban/flight-configurations/titles/hi/audiences/RETAIL/players/xuid({player})/active?sandbox={sandbox}&build={buildNumber}&release={release}");
         }
     }
 }

@@ -57,7 +57,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// </summary>
         /// <include file='../../APIDocsExamples/HaloInfinite/Lobby_ThirdPartyJoinHandle.xml' path='example'/>
         /// <param name="lobbyId">Unique lobby ID.</param>
-        /// <param name="player">Player ID in the format of "xuid(XUID_VALUE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <param name="handleAudience">Audience for the join handle. Example value is "Friends".</param>
         /// <param name="handlePlatform">Platform for the join handle. Example value is "Discord".</param>
         /// <returns>An instance of LobbyJoinHandle if the request is successful. Otherwise, returns null.</returns>
@@ -65,7 +65,7 @@ namespace Den.Dev.Grunt.Core.Modules
         public async Task<HaloApiResultContainer<LobbyJoinHandle, RawResponseContainer>> ThirdPartyJoinHandle(string lobbyId, string player, string handleAudience, string handlePlatform)
         {
             return await this.GetAsyncFullUrl<LobbyJoinHandle>(
-                $"https://{HaloCoreEndpoints.HaloInfiniteLobbyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/lobbies/{lobbyId}/players/{player}/thirdPartyJoinHandle?audience={handleAudience}&platform={handlePlatform}",
+                $"https://{HaloCoreEndpoints.HaloInfiniteLobbyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/lobbies/{lobbyId}/players/xuid({player})/thirdPartyJoinHandle?audience={handleAudience}&platform={handlePlatform}",
                 customHeaders: new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("Accept-Language", "en-us") });
         }
 
@@ -74,14 +74,14 @@ namespace Den.Dev.Grunt.Core.Modules
         /// </summary>
         /// <include file='../../APIDocsExamples/HaloInfinite/Lobby_JoinLobby.xml' path='example'/>
         /// <param name="lobbyId">Unique lobby ID.</param>
-        /// <param name="player">Player ID in the format of "xuid(XUID_VALUE)".</param>
+        /// <param name="player">The player's numeric XUID.</param>
         /// <param name="auth">Authentication to be used. "st" represents Spartan token.</param>
         /// <param name="lobbyBootstrapPayload">Binary payload (Bond-encoded) that contains the lobby bootstrap logic.</param>
         /// <returns>An instance of <see cref="JoinLobbyResponse"/> in the response container if successful. Otherwise, a null.</returns>
         public async Task<HaloApiResultContainer<JoinLobbyResponse, RawResponseContainer>> JoinLobby(string lobbyId, string player, string auth, byte[] lobbyBootstrapPayload)
         {
             return await this.Client.ExecuteAPIRequest<JoinLobbyResponse>(
-                $"https://{HaloCoreEndpoints.HaloInfiniteLobbyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/lobbies/{lobbyId}/players/{player}?auth={auth}",
+                $"https://{HaloCoreEndpoints.HaloInfiniteLobbyOrigin}.{HaloCoreEndpoints.ServiceDomain}/hi/lobbies/{lobbyId}/players/xuid({player})?auth={auth}",
                 System.Net.Http.HttpMethod.Put,
                 true,
                 true,
