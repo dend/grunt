@@ -360,5 +360,9 @@ MigrationBackup/
 # Librarian generated output
 Den.Dev.Grunt/Den.Dev.Grunt.Librarian/Output/Generated/
 
+# DocFX generated output
+docs/_site/
+docs/api/
+
 # Sensitive configuration files
 client.json

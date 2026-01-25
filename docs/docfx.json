@@ -1,0 +1,30 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": ["Den.Dev.Grunt/Den.Dev.Grunt/Den.Dev.Grunt.csproj"],
+          "src": ".."
+        }
+      ],
+      "dest": "api"
+    }
+  ],
+  "build": {
+    "content": [
+      { "files": ["api/**.yml", "api/index.md"] },
+      { "files": ["**.md"] },
+      { "files": ["toc.yml"] }
+    ],
+    "resource": [
+      { "files": ["media/**"] }
+    ],
+    "dest": "_site",
+    "template": ["default", "modern"],
+    "globalMetadata": {
+      "_appTitle": "Den.Dev.Grunt API",
+      "_appFooter": "Den Delimarsky",
+      "_enableSearch": true
+    }
+  }
+}
