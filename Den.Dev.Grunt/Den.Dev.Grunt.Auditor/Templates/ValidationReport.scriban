@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Model Validation Report</title>
+    <style>
+        :root {
+            --color-pass: #22c55e;
+            --color-pass-bg: #dcfce7;
+            --color-warning: #eab308;
+            --color-warning-bg: #fef9c3;
+            --color-fail: #ef4444;
+            --color-fail-bg: #fee2e2;
+            --color-skip: #6b7280;
+            --color-skip-bg: #f3f4f6;
+            --color-error: #dc2626;
+            --color-error-bg: #fecaca;
+            --color-border: #e5e7eb;
+            --color-bg: #ffffff;
+            --color-bg-alt: #f9fafb;
+            --color-text: #111827;
+            --color-text-muted: #6b7280;
+            --color-code-bg: #1f2937;
+            --color-code-text: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--color-bg-alt);
+            color: var(--color-text);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .timestamp {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-card {
+            background: var(--color-bg);
+            padding: 1.25rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid;
+        }
+
+        .summary-card.pass { border-color: var(--color-pass); }
+        .summary-card.warning { border-color: var(--color-warning); }
+        .summary-card.fail { border-color: var(--color-fail); }
+        .summary-card.skip { border-color: var(--color-skip); }
+        .summary-card.error { border-color: var(--color-error); }
+
+        .summary-card .count {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .summary-card.pass .count { color: var(--color-pass); }
+        .summary-card.warning .count { color: var(--color-warning); }
+        .summary-card.fail .count { color: var(--color-fail); }
+        .summary-card.skip .count { color: var(--color-skip); }
+        .summary-card.error .count { color: var(--color-error); }
+
+        .summary-card .label {
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Coverage Bar */
+        .coverage-section {
+            background: var(--color-bg);
+            padding: 1.25rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .coverage-label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .coverage-bar {
+            height: 12px;
+            background: var(--color-border);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .coverage-bar .segment {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .coverage-bar .pass { background: var(--color-pass); }
+        .coverage-bar .warning { background: var(--color-warning); }
+        .coverage-bar .fail { background: var(--color-fail); }
+        .coverage-bar .skip { background: var(--color-skip); }
+        .coverage-bar .error { background: var(--color-error); }
+
+        /* Controls */
+        .controls {
+            background: var(--color-bg);
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            background: var(--color-bg);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: var(--color-bg-alt);
+        }
+
+        .filter-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        /* Results Table */
+        .results-section {
+            background: var(--color-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .results-table th {
+            background: var(--color-bg-alt);
+            padding: 0.875rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-muted);
+            border-bottom: 1px solid var(--color-border);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .results-table th:hover {
+            background: #e5e7eb;
+        }
+
+        .results-table th .sort-icon {
+            margin-left: 0.5rem;
+            opacity: 0.5;
+        }
+
+        .results-table th.sorted .sort-icon {
+            opacity: 1;
+        }
+
+        .results-table td {
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid var(--color-border);
+            vertical-align: top;
+        }
+
+        .results-table tr:hover {
+            background: var(--color-bg-alt);
+        }
+
+        .results-table tr.expanded {
+            background: #f0f9ff;
+        }
+
+        .endpoint-row {
+            cursor: pointer;
+        }
+
+        .expand-icon {
+            display: inline-block;
+            width: 20px;
+            transition: transform 0.2s;
+        }
+
+        .endpoint-row.expanded .expand-icon {
+            transform: rotate(90deg);
+        }
+
+        .endpoint-name {
+            font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+        }
+
+        .model-name {
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-badge.pass {
+            background: var(--color-pass-bg);
+            color: #166534;
+        }
+
+        .status-badge.warning {
+            background: var(--color-warning-bg);
+            color: #854d0e;
+        }
+
+        .status-badge.fail {
+            background: var(--color-fail-bg);
+            color: #991b1b;
+        }
+
+        .status-badge.skip {
+            background: var(--color-skip-bg);
+            color: #374151;
+        }
+
+        .status-badge.error {
+            background: var(--color-error-bg);
+            color: #991b1b;
+        }
+
+        /* Detail Row */
+        .detail-row {
+            display: none;
+        }
+
+        .detail-row.visible {
+            display: table-row;
+        }
+
+        .detail-row td {
+            padding: 0;
+            background: #f8fafc;
+        }
+
+        .detail-content {
+            padding: 1.5rem;
+        }
+
+        /* Discrepancy Cards */
+        .discrepancy-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .discrepancy-card {
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .discrepancy-header {
+            padding: 0.75rem 1rem;
+            background: var(--color-bg-alt);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .discrepancy-path {
+            font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            color: #0369a1;
+        }
+
+        .discrepancy-type {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .discrepancy-type.unexpected {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .discrepancy-type.type-mismatch {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .discrepancy-type.missing {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .discrepancy-type.nullability {
+            background: #f3e8ff;
+            color: #7c3aed;
+        }
+
+        .discrepancy-type.deserialization {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .discrepancy-body {
+            padding: 1rem;
+        }
+
+        .discrepancy-message {
+            margin-bottom: 0.75rem;
+            color: var(--color-text);
+        }
+
+        .discrepancy-details {
+            display: grid;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .discrepancy-detail {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .discrepancy-detail .label {
+            color: var(--color-text-muted);
+            min-width: 100px;
+        }
+
+        .discrepancy-detail .value {
+            font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+            color: var(--color-text);
+        }
+
+        .suggested-fix {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: var(--color-code-bg);
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        .suggested-fix code {
+            font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            color: var(--color-code-text);
+        }
+
+        /* Error/Skip Message */
+        .info-message {
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .info-message.error {
+            background: var(--color-error-bg);
+            color: #991b1b;
+        }
+
+        .info-message.skip {
+            background: var(--color-skip-bg);
+            color: #374151;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* No results */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .results-table th:nth-child(3),
+            .results-table td:nth-child(3) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>API Model Validation Report</h1>
+            <div class="timestamp">Generated: {{ report.timestamp | date.to_string "%B %d, %Y at %I:%M %p" }} UTC</div>
+        </header>
+
+        <section class="summary-grid">
+            <div class="summary-card pass">
+                <div class="count">{{ report.passed_count }}</div>
+                <div class="label">Passed</div>
+            </div>
+            <div class="summary-card warning">
+                <div class="count">{{ report.warning_count }}</div>
+                <div class="label">Warnings</div>
+            </div>
+            <div class="summary-card fail">
+                <div class="count">{{ report.failed_count }}</div>
+                <div class="label">Failed</div>
+            </div>
+            <div class="summary-card skip">
+                <div class="count">{{ report.skipped_count }}</div>
+                <div class="label">Skipped</div>
+            </div>
+            <div class="summary-card error">
+                <div class="count">{{ report.error_count }}</div>
+                <div class="label">Errors</div>
+            </div>
+        </section>
+
+        {{ $validated = report.passed_count + report.warning_count + report.failed_count }}
+        {{ $total_non_skipped = $validated + report.error_count }}
+        {{ if $total_non_skipped > 0 }}
+            {{ $coverage = ($validated * 100) / report.total_count }}
+        {{ else }}
+            {{ $coverage = 0 }}
+        {{ end }}
+
+        <section class="coverage-section">
+            <div class="coverage-label">
+                Validation Coverage: {{ report.passed_count }} of {{ report.total_count }} endpoints passed ({{ math.round $coverage }}%)
+            </div>
+            <div class="coverage-bar">
+                {{ if report.total_count > 0 }}
+                    <div class="segment pass" style="width: {{ (report.passed_count * 100) / report.total_count }}%"></div>
+                    <div class="segment warning" style="width: {{ (report.warning_count * 100) / report.total_count }}%"></div>
+                    <div class="segment fail" style="width: {{ (report.failed_count * 100) / report.total_count }}%"></div>
+                    <div class="segment error" style="width: {{ (report.error_count * 100) / report.total_count }}%"></div>
+                    <div class="segment skip" style="width: {{ (report.skipped_count * 100) / report.total_count }}%"></div>
+                {{ end }}
+            </div>
+        </section>
+
+        <section class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search endpoints..." onkeyup="filterResults()">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All ({{ report.total_count }})</button>
+                <button class="filter-btn" data-filter="pass" onclick="setFilter('pass')">Pass ({{ report.passed_count }})</button>
+                <button class="filter-btn" data-filter="warning" onclick="setFilter('warning')">Warn ({{ report.warning_count }})</button>
+                <button class="filter-btn" data-filter="fail" onclick="setFilter('fail')">Fail ({{ report.failed_count }})</button>
+                <button class="filter-btn" data-filter="skip" onclick="setFilter('skip')">Skip ({{ report.skipped_count }})</button>
+                <button class="filter-btn" data-filter="error" onclick="setFilter('error')">Error ({{ report.error_count }})</button>
+            </div>
+        </section>
+
+        <section class="results-section">
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">Endpoint <span class="sort-icon">&#x25B2;</span></th>
+                        <th onclick="sortTable(1)">Model <span class="sort-icon">&#x25B2;</span></th>
+                        <th onclick="sortTable(2)">HTTP <span class="sort-icon">&#x25B2;</span></th>
+                        <th onclick="sortTable(3)">Status <span class="sort-icon">&#x25B2;</span></th>
+                        <th>Issues</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                    {{ for result in report.results }}
+                    <tr class="endpoint-row" data-status="{{ result.status }}" data-endpoint="{{ result.endpoint_id }}" onclick="toggleDetail('{{ result.endpoint_id }}')">
+                        <td>
+                            <span class="expand-icon">&#x25B6;</span>
+                            <span class="endpoint-name">{{ result.endpoint_id }}</span>
+                        </td>
+                        <td><span class="model-name">{{ result.model_type }}</span></td>
+                        <td>{{ if result.http_status_code }}{{ result.http_status_code }}{{ else }}-{{ end }}</td>
+                        <td>
+                            <span class="status-badge {{ result.status }}">
+                                {{ if result.status == "pass" }}Pass
+                                {{ else if result.status == "warning" }}Warn
+                                {{ else if result.status == "fail" }}Fail
+                                {{ else if result.status == "skip" }}Skip
+                                {{ else if result.status == "error" }}Error
+                                {{ end }}
+                            </span>
+                        </td>
+                        <td>
+                            {{ if result.discrepancies.size > 0 }}
+                                {{ result.discrepancies.size }} issue{{ if result.discrepancies.size != 1 }}s{{ end }}
+                            {{ else if result.skip_reason }}
+                                <span style="color: var(--color-text-muted);">{{ result.skip_reason }}</span>
+                            {{ else if result.error_message }}
+                                <span style="color: var(--color-error);">Error</span>
+                            {{ else }}
+                                -
+                            {{ end }}
+                        </td>
+                    </tr>
+                    <tr class="detail-row" id="detail-{{ result.endpoint_id }}">
+                        <td colspan="5">
+                            <div class="detail-content">
+                                {{ if result.error_message }}
+                                    <div class="info-message error">
+                                        <strong>Error:</strong> {{ result.error_message }}
+                                    </div>
+                                {{ else if result.skip_reason }}
+                                    <div class="info-message skip">
+                                        <strong>Skipped:</strong> {{ result.skip_reason }}
+                                    </div>
+                                {{ else if result.discrepancies.size > 0 }}
+                                    <div class="discrepancy-list">
+                                        {{ for disc in result.discrepancies }}
+                                        <div class="discrepancy-card">
+                                            <div class="discrepancy-header">
+                                                <span class="discrepancy-path">{{ disc.path }}</span>
+                                                <span class="discrepancy-type {{ if disc.type == "UnexpectedProperty" }}unexpected{{ else if disc.type == "TypeMismatch" }}type-mismatch{{ else if disc.type == "MissingProperty" }}missing{{ else if disc.type == "NullabilityIssue" }}nullability{{ else }}deserialization{{ end }}">
+                                                    {{ if disc.type == "UnexpectedProperty" }}Unexpected Property
+                                                    {{ else if disc.type == "TypeMismatch" }}Type Mismatch
+                                                    {{ else if disc.type == "MissingProperty" }}Missing Property
+                                                    {{ else if disc.type == "NullabilityIssue" }}Nullability Issue
+                                                    {{ else if disc.type == "DeserializationFailure" }}Deserialization Failure
+                                                    {{ else if disc.type == "DeserializationWarning" }}Deserialization Warning
+                                                    {{ else }}{{ disc.type }}
+                                                    {{ end }}
+                                                </span>
+                                            </div>
+                                            <div class="discrepancy-body">
+                                                <div class="discrepancy-message">{{ disc.message }}</div>
+                                                <div class="discrepancy-details">
+                                                    {{ if disc.json_type }}
+                                                    <div class="discrepancy-detail">
+                                                        <span class="label">API Type:</span>
+                                                        <span class="value">{{ disc.json_type }}</span>
+                                                    </div>
+                                                    {{ end }}
+                                                    {{ if disc.expected_type }}
+                                                    <div class="discrepancy-detail">
+                                                        <span class="label">Model Type:</span>
+                                                        <span class="value">{{ disc.expected_type }}</span>
+                                                    </div>
+                                                    {{ end }}
+                                                    {{ if disc.actual_value }}
+                                                    <div class="discrepancy-detail">
+                                                        <span class="label">Sample Value:</span>
+                                                        <span class="value">{{ disc.actual_value }}</span>
+                                                    </div>
+                                                    {{ end }}
+                                                </div>
+                                                {{ if disc.type == "UnexpectedProperty" }}
+                                                <div class="suggested-fix">
+                                                    <code>// Suggested fix: Add this property to the model<br>public {{ if disc.json_type == "string" }}string?{{ else if disc.json_type == "integer" }}int{{ else if disc.json_type == "number" }}double{{ else if disc.json_type == "boolean" }}bool{{ else if disc.json_type == "array" }}List&lt;object&gt;?{{ else if disc.json_type == "object" }}object?{{ else }}object?{{ end }} {{ disc.property_name }}{{ if !disc.property_name }} /* from {{ disc.path }} */{{ end }} { get; set; }</code>
+                                                </div>
+                                                {{ else if disc.type == "TypeMismatch" }}
+                                                <div class="suggested-fix">
+                                                    <code>// Suggested fix: Change property type from {{ disc.expected_type }} to {{ if disc.json_type == "string" }}string{{ else if disc.json_type == "integer" }}int{{ else if disc.json_type == "number" }}double{{ else if disc.json_type == "boolean" }}bool{{ else }}{{ disc.json_type }}{{ end }}</code>
+                                                </div>
+                                                {{ end }}
+                                            </div>
+                                        </div>
+                                        {{ end }}
+                                    </div>
+                                {{ else }}
+                                    <div class="info-message" style="background: var(--color-pass-bg); color: #166534;">
+                                        All properties matched successfully. The C# model accurately reflects the API response.
+                                    </div>
+                                {{ end }}
+                            </div>
+                        </td>
+                    </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+            <div class="no-results" id="noResults" style="display: none;">
+                No endpoints match the current filter.
+            </div>
+        </section>
+
+        <footer class="footer">
+            Generated by <a href="https://github.com/dend/grunt">Den.Dev.Grunt.Auditor</a>
+        </footer>
+    </div>
+
+    <script>
+        let currentFilter = 'all';
+        let currentSort = { column: 3, ascending: true }; // Default sort by status
+
+        function toggleDetail(endpointId) {
+            const detailRow = document.getElementById('detail-' + endpointId);
+            const endpointRow = document.querySelector(`tr[data-endpoint="${endpointId}"]`);
+
+            if (detailRow.classList.contains('visible')) {
+                detailRow.classList.remove('visible');
+                endpointRow.classList.remove('expanded');
+            } else {
+                detailRow.classList.add('visible');
+                endpointRow.classList.add('expanded');
+            }
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === filter) {
+                    btn.classList.add('active');
+                }
+            });
+
+            filterResults();
+        }
+
+        function filterResults() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('.endpoint-row');
+            let visibleCount = 0;
+
+            rows.forEach(row => {
+                const status = row.dataset.status;
+                const endpoint = row.dataset.endpoint.toLowerCase();
+                const detailRow = document.getElementById('detail-' + row.dataset.endpoint);
+
+                const matchesFilter = currentFilter === 'all' || status === currentFilter;
+                const matchesSearch = endpoint.includes(searchTerm);
+
+                if (matchesFilter && matchesSearch) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                    detailRow.classList.remove('visible');
+                    row.classList.remove('expanded');
+                }
+
+                // Always hide detail row if parent is hidden
+                if (row.style.display === 'none') {
+                    detailRow.style.display = 'none';
+                } else {
+                    detailRow.style.display = '';
+                }
+            });
+
+            // Show/hide no results message
+            document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        function sortTable(columnIndex) {
+            const tbody = document.getElementById('resultsBody');
+            const rows = Array.from(tbody.querySelectorAll('.endpoint-row'));
+
+            // Toggle sort direction if same column
+            if (currentSort.column === columnIndex) {
+                currentSort.ascending = !currentSort.ascending;
+            } else {
+                currentSort.column = columnIndex;
+                currentSort.ascending = true;
+            }
+
+            // Update header sort icons
+            document.querySelectorAll('.results-table th').forEach((th, idx) => {
+                th.classList.remove('sorted');
+                if (idx === columnIndex) {
+                    th.classList.add('sorted');
+                    th.querySelector('.sort-icon').innerHTML = currentSort.ascending ? '&#x25B2;' : '&#x25BC;';
+                }
+            });
+
+            // Status sort order
+            const statusOrder = { 'fail': 0, 'error': 1, 'warning': 2, 'pass': 3, 'skip': 4 };
+
+            rows.sort((a, b) => {
+                let aVal, bVal;
+
+                switch (columnIndex) {
+                    case 0: // Endpoint
+                        aVal = a.dataset.endpoint;
+                        bVal = b.dataset.endpoint;
+                        break;
+                    case 1: // Model
+                        aVal = a.cells[1].textContent;
+                        bVal = b.cells[1].textContent;
+                        break;
+                    case 2: // HTTP
+                        aVal = parseInt(a.cells[2].textContent) || 0;
+                        bVal = parseInt(b.cells[2].textContent) || 0;
+                        break;
+                    case 3: // Status
+                        aVal = statusOrder[a.dataset.status] || 999;
+                        bVal = statusOrder[b.dataset.status] || 999;
+                        break;
+                    default:
+                        return 0;
+                }
+
+                if (aVal < bVal) return currentSort.ascending ? -1 : 1;
+                if (aVal > bVal) return currentSort.ascending ? 1 : -1;
+                return 0;
+            });
+
+            // Reorder DOM
+            rows.forEach(row => {
+                const detailRow = document.getElementById('detail-' + row.dataset.endpoint);
+                tbody.appendChild(row);
+                tbody.appendChild(detailRow);
+            });
+        }
+
+        // Initial sort by status (showing failures first)
+        document.addEventListener('DOMContentLoaded', function() {
+            sortTable(3);
+        });
+    </script>
+</body>
+</html>

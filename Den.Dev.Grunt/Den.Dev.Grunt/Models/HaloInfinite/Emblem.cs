@@ -27,5 +27,10 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the emblem path. Alternative to <see cref="EmblemPath"/>, which needs to be validated.
         /// </summary>
         public string? Path { get; set; }
+
+        /// <summary>
+        /// Gets or sets the location ID for the emblem.
+        /// </summary>
+        public int? LocationId { get; set; }
     }
 }

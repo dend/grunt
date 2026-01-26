@@ -113,3 +113,102 @@ dotnet build
 ```
 
 Ensure there are 0 warnings and 0 errors.
+
+## API Model Validation (Auditor)
+
+The Auditor tool validates C# response models against live API responses, ensuring models stay in sync with the actual API.
+
+### Prerequisites
+
+1. A `client.json` file with Azure AD credentials:
+   ```json
+   {
+     "client_id": "your-client-id",
+     "client_secret": "your-client-secret",
+     "redirect_url": "https://localhost"
+   }
+   ```
+
+### Commands
+
+#### Discover Parameters
+Authenticates and discovers available test parameters (match IDs, asset IDs, etc.):
+
+```bash
+cd Den.Dev.Grunt.Auditor
+dotnet run -- discover --config client.json
+```
+
+#### Validate Endpoints
+Validates all configured endpoints against their models:
+
+```bash
+dotnet run -- validate --config client.json
+```
+
+Validate a specific endpoint:
+```bash
+dotnet run -- validate --endpoint Stats_GetMatchStats
+```
+
+Generate JSON report:
+```bash
+dotnet run -- validate --output report.json
+```
+
+#### Update Snapshots
+Refreshes XMLDocsExamples files with fresh API responses:
+
+```bash
+dotnet run -- update-snapshots --config client.json
+```
+
+Update specific endpoint:
+```bash
+dotnet run -- update-snapshots --endpoint Stats_GetMatchHistory
+```
+
+#### Offline JSON Validation
+Validates a JSON file against a model without live API:
+
+```bash
+dotnet run -- validate-json --model MatchStats --input response.json
+```
+
+### Configuration
+
+The `Config/endpoint-test-config.json` file defines:
+- **discoveryChain**: Endpoints called to discover parameters (match IDs, etc.)
+- **validationTargets**: Endpoints to validate with their expected models
+- **skipEndpoints**: Patterns for endpoints to skip (destructive operations)
+
+### Validation Report
+
+The validator reports:
+- **Pass**: Model matches JSON structure
+- **Warning**: Unexpected properties in JSON (potential data loss)
+- **Fail**: Type mismatches or deserialization failures
+- **Skipped**: Missing parameters or destructive operation
+- **Error**: API call failed
+
+### Recommended Workflow
+
+1. **Weekly validation**: Run `validate` to catch model drift
+2. **Review discrepancies**:
+   - `UnexpectedProperty` → Add missing properties to models
+   - `TypeMismatch` → Fix property type in model
+3. **Update snapshots**: Run `update-snapshots` to refresh XMLDocsExamples
+4. **Commit together**: Model changes + snapshot updates
+
+### Adding New Endpoints to Validation
+
+1. Add entry to `Config/endpoint-test-config.json`:
+   ```json
+   {
+     "endpointId": "Module_MethodName",
+     "method": "Module.MethodName",
+     "args": { "player": "$playerXuid" },
+     "expectedModel": "ModelName"
+   }
+   ```
+2. Run validation to verify: `dotnet run -- validate --endpoint Module_MethodName`
