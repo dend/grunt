@@ -124,6 +124,11 @@ namespace Den.Dev.Grunt.Core.Foundation
         public bool IncludeRawResponses { get; set; } = false;
 
         /// <summary>
+        /// Gets or sets the User-Agent header value to use for outbound requests.
+        /// </summary>
+        public string UserAgent { get; set; } = string.Empty;
+
+        /// <summary>
         /// Executes an API request in a standard way against a given API endpoint. This is a helper method that's put
         /// in place to simplify how the API calls are made because most requests against the Halo Infinite API are
         /// pretty repetitive.
@@ -422,6 +427,11 @@ namespace Den.Dev.Grunt.Core.Foundation
                 {
                     request.Headers.Add(header.Key, header.Value);
                 }
+            }
+
+            if (!string.IsNullOrEmpty(this.UserAgent))
+            {
+                request.Headers.UserAgent.ParseAdd(this.UserAgent);
             }
 
             return request;

@@ -44,12 +44,14 @@ namespace Den.Dev.Grunt.Core
         /// <param name="xuid">Optional Xbox User ID.</param>
         /// <param name="clearanceToken">Optional clearance token for flighted content.</param>
         /// <param name="includeRawResponses">Whether to include raw API responses in results.</param>
-        public HaloInfiniteClient(string spartanToken, string xuid = "", string clearanceToken = "", bool includeRawResponses = false)
+        /// <param name="userAgent">Optional User-Agent header value for outbound requests.</param>
+        public HaloInfiniteClient(string spartanToken, string xuid = "", string clearanceToken = "", bool includeRawResponses = false, string userAgent = "")
         {
             this.SpartanToken = spartanToken;
             this.Xuid = xuid;
             this.ClearanceToken = clearanceToken;
             this.IncludeRawResponses = includeRawResponses;
+            this.UserAgent = userAgent;
 
             this.InitializeModules();
         }
@@ -62,18 +64,21 @@ namespace Den.Dev.Grunt.Core
         /// <param name="xuid">Optional Xbox User ID.</param>
         /// <param name="clearanceToken">Optional clearance token for flighted content.</param>
         /// <param name="includeRawResponses">Whether to include raw API responses in results.</param>
+        /// <param name="userAgent">Optional User-Agent header value for outbound requests.</param>
         public HaloInfiniteClient(
             HttpClient httpClient,
             string spartanToken,
             string xuid = "",
             string clearanceToken = "",
-            bool includeRawResponses = false)
+            bool includeRawResponses = false,
+            string userAgent = "")
             : base(httpClient)
         {
             this.SpartanToken = spartanToken;
             this.Xuid = xuid;
             this.ClearanceToken = clearanceToken;
             this.IncludeRawResponses = includeRawResponses;
+            this.UserAgent = userAgent;
 
             this.InitializeModules();
         }

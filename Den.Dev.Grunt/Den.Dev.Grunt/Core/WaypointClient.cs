@@ -21,11 +21,13 @@ namespace Den.Dev.Grunt.Core
         /// <param name="spartanToken">The Spartan token used to authenticate against the Halo Infinite API.</param>
         /// <param name="xuid">The player identifier in the format "xuid(XUID_VALUE)".</param>
         /// <param name="clearanceToken">ID of the flight/clearance currently active for the player. Optional when first instantiating the client.</param>
-        public WaypointClient(string spartanToken, string xuid = "", string clearanceToken = "")
+        /// <param name="userAgent">Optional User-Agent header value for outbound requests.</param>
+        public WaypointClient(string spartanToken, string xuid = "", string clearanceToken = "", string userAgent = "")
         {
             this.SpartanToken = spartanToken;
             this.Xuid = xuid;
             this.ClearanceToken = clearanceToken;
+            this.UserAgent = userAgent;
 
             this.InitializeModules();
         }
@@ -33,8 +35,11 @@ namespace Den.Dev.Grunt.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="WaypointClient"/> class, used to access the Halo Waypoint API.
         /// </summary>
-        public WaypointClient()
+        /// <param name="userAgent">Optional User-Agent header value for outbound requests.</param>
+        public WaypointClient(string userAgent = "")
         {
+            this.UserAgent = userAgent;
+
             this.InitializeModules();
         }
 
