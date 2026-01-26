@@ -19,5 +19,10 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the list of AI cores.
         /// </summary>
         public List<AiCore>? Cores { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of AI cores. Alternative property name used by some endpoints.
+        /// </summary>
+        public List<AiCore>? AiCores { get; set; }
     }
 }

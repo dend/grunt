@@ -231,7 +231,7 @@ namespace Den.Dev.Grunt.Auditor.Services
                         ExpectedType = expectedType.Name,
                         JsonType = "array",
                         Message = $"Expected {expectedType.Name}, got array with {element.GetArrayLength()} elements",
-                        ActualValue = GetArrayPreview(element),
+                        ActualValue = GetFullJson(element),
                     });
                 }
 
@@ -282,7 +282,7 @@ namespace Den.Dev.Grunt.Auditor.Services
                                 Path = $"{path}.{prop.Name}",
                                 JsonType = prop.Value.ValueKind.ToString(),
                                 Message = $"Property '{prop.Name}' exists in JSON but not in model {underlyingType.Name}",
-                                ActualValue = TruncateValue(prop.Value),
+                                ActualValue = GetFullJson(prop.Value),
                             });
                         }
                         else
@@ -349,7 +349,7 @@ namespace Den.Dev.Grunt.Auditor.Services
                     ExpectedType = expectedType.Name,
                     JsonType = jsonType,
                     Message = $"Type mismatch: expected {expectedType.Name}, got JSON {jsonType}",
-                    ActualValue = TruncateValue(element),
+                    ActualValue = GetFullJson(element),
                 });
             }
         }
@@ -417,90 +417,9 @@ namespace Den.Dev.Grunt.Auditor.Services
             return null;
         }
 
-        private string TruncateValue(JsonElement element)
+        private string GetFullJson(JsonElement element)
         {
-            var value = element.ValueKind switch
-            {
-                JsonValueKind.String => element.GetString(),
-                JsonValueKind.Number => element.GetRawText(),
-                JsonValueKind.True => "true",
-                JsonValueKind.False => "false",
-                JsonValueKind.Null => "null",
-                JsonValueKind.Array => GetArrayPreview(element),
-                JsonValueKind.Object => GetObjectPreview(element),
-                _ => element.GetRawText(),
-            };
-
-            if (value != null && value.Length > 100)
-            {
-                return value.Substring(0, 97) + "...";
-            }
-
-            return value ?? string.Empty;
-        }
-
-        private string GetArrayPreview(JsonElement element)
-        {
-            var items = element.EnumerateArray().Take(3).ToList();
-            if (items.Count == 0)
-            {
-                return "[]";
-            }
-
-            var previews = items.Select(GetElementPreview).ToList();
-            var result = "[" + string.Join(", ", previews);
-
-            if (element.GetArrayLength() > 3)
-            {
-                result += $", ... ({element.GetArrayLength()} total)";
-            }
-
-            return result + "]";
-        }
-
-        private string GetObjectPreview(JsonElement element)
-        {
-            var props = element.EnumerateObject().Take(5).ToList();
-            if (props.Count == 0)
-            {
-                return "{}";
-            }
-
-            var previews = props.Select(p => $"{p.Name}: {GetElementPreview(p.Value)}").ToList();
-            var result = "{" + string.Join(", ", previews);
-
-            var totalProps = element.EnumerateObject().Count();
-            if (totalProps > 5)
-            {
-                result += $", ... ({totalProps} props total)";
-            }
-
-            return result + "}";
-        }
-
-        private string GetElementPreview(JsonElement element)
-        {
-            return element.ValueKind switch
-            {
-                JsonValueKind.String => $"\"{Truncate(element.GetString(), 20)}\"",
-                JsonValueKind.Number => element.GetRawText(),
-                JsonValueKind.True => "true",
-                JsonValueKind.False => "false",
-                JsonValueKind.Null => "null",
-                JsonValueKind.Array => $"[{element.GetArrayLength()} items]",
-                JsonValueKind.Object => $"{{{element.EnumerateObject().Count()} props}}",
-                _ => "?",
-            };
-        }
-
-        private static string Truncate(string? value, int maxLength)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                return string.Empty;
-            }
-
-            return value.Length <= maxLength ? value : value.Substring(0, maxLength - 3) + "...";
+            return element.GetRawText();
         }
     }
 }

@@ -47,5 +47,10 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the boost experience (XP) amount awarded with the reward track.
         /// </summary>
         public int? BoostXp { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the player has reached the maximum rank.
+        /// </summary>
+        public bool? HasReachedMaxRank { get; set; }
     }
 }

@@ -5,6 +5,7 @@
 // The underlying API powering Den.Dev.Grunt is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
 // </copyright>
 
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Den.Dev.Grunt.Models.HaloInfinite
@@ -51,6 +52,6 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the <see href="https://en.wikipedia.org/wiki/X.509">X.509</see> certificate chain.
         /// </summary>
         [JsonPropertyName("x5c")]
-        public string? X509CertificateChain { get; set; }
+        public List<string>? X509CertificateChain { get; set; }
     }
 }

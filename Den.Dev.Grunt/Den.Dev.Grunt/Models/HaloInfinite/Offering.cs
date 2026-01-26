@@ -73,6 +73,6 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the reward track adjustments.
         /// </summary>
-        public dynamic? RewardTrackAdjustments { get; set; }
+        public List<RewardTrackAdjustment>? RewardTrackAdjustments { get; set; }
     }
 }

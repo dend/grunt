@@ -44,7 +44,7 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the authoring asset version number.
         /// </summary>
-        public int VersionNumber { get; set; }
+        public new int VersionNumber { get; set; }
 
         /// <summary>
         /// Gets or sets the authoring asset version note.

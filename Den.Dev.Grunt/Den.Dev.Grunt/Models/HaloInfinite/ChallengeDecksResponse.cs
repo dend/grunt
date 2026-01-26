@@ -29,5 +29,10 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the currently active reward track.
         /// </summary>
         public RewardTrack? ActiveRewardTrack { get; set; }
+
+        /// <summary>
+        /// Gets or sets the scheduled reward track.
+        /// </summary>
+        public RewardTrack? ScheduledRewardTrack { get; set; }
     }
 }

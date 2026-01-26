@@ -5,6 +5,8 @@
 // The underlying API powering Den.Dev.Grunt is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
 // </copyright>
 
+using System;
+
 namespace Den.Dev.Grunt.Models.HaloInfinite
 {
     /// <summary>
@@ -37,5 +39,20 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the composite string for the description, including translations.
         /// </summary>
         public DisplayString? Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the game variant path.
+        /// </summary>
+        public string? GameVariant { get; set; }
+
+        /// <summary>
+        /// Gets or sets the map variant path.
+        /// </summary>
+        public string? MapVariant { get; set; }
+
+        /// <summary>
+        /// Gets or sets the gameplay GUID.
+        /// </summary>
+        public Guid? GameplayGUID { get; set; }
     }
 }

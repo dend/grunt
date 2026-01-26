@@ -67,6 +67,11 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         public string? ArmorFxPath { get; set; }
 
         /// <summary>
+        /// Gets or sets the list of paths to armor effects.
+        /// </summary>
+        public List<string>? ArmorFxPaths { get; set; }
+
+        /// <summary>
         /// Gets or sets the path to the mythic effect.
         /// </summary>
         public string? MythicFxPath { get; set; }

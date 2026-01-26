@@ -34,5 +34,10 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the description string ID.
         /// </summary>
         public string? DescriptionStringID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the drill title.
+        /// </summary>
+        public string? Title { get; set; }
     }
 }

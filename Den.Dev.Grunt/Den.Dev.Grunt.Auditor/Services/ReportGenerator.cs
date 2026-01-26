@@ -311,7 +311,7 @@ namespace Den.Dev.Grunt.Auditor.Services
                     json_type = d.JsonType,
                     expected_type = d.ExpectedType,
                     message = d.Message,
-                    actual_value = TruncateValue(d.ActualValue, 100),
+                    actual_value = d.ActualValue,
                     property_name = propertyName,
                 };
             }

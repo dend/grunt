@@ -45,5 +45,15 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets a list of map mode pairs available for the game through the selected custom game project.
         /// </summary>
         public List<AssetLink>? MapModePairLinks { get; set; }
+
+        /// <summary>
+        /// Gets or sets a list of project links.
+        /// </summary>
+        public List<AssetLink>? ProjectLinks { get; set; }
+
+        /// <summary>
+        /// Gets or sets a list of search preset links.
+        /// </summary>
+        public List<AssetLink>? SearchPresetLinks { get; set; }
     }
 }

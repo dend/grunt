@@ -29,5 +29,15 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the challenge progress state after the match.
         /// </summary>
         public List<ChallengeProgressState>? ChallengeProgressState { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of reward IDs.
+        /// </summary>
+        public List<string>? RewardIds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the custom XP eligibility reason.
+        /// </summary>
+        public string? CustomXpEligibilityReason { get; set; }
     }
 }

@@ -30,5 +30,10 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets a list of version ratings associated with the asset.
         /// </summary>
         public List<VersionRating>? VersionRatings { get; set; }
+
+        /// <summary>
+        /// Gets or sets the searchable metadata for the asset.
+        /// </summary>
+        public SearchableData? SearchableData { get; set; }
     }
 }

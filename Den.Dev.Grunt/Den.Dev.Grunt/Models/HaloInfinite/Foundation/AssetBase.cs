@@ -92,5 +92,25 @@ namespace Den.Dev.Grunt.Models.HaloInfinite.Foundation
         /// Gets or sets the asset stats.
         /// </summary>
         public PlayAssetStats? AssetStats { get; set; }
+
+        /// <summary>
+        /// Gets or sets the published date.
+        /// </summary>
+        public APIFormattedDate? PublishedDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the version number.
+        /// </summary>
+        public int? VersionNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets the admin player identifier.
+        /// </summary>
+        public string? Admin { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display owner override.
+        /// </summary>
+        public string? DisplayOwnerOverride { get; set; }
     }
 }
