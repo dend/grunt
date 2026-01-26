@@ -1,5 +1,10 @@
 ![Den.Dev.Grunt logo](https://raw.githubusercontent.com/dend/grunt/master/media/grunt-logo.png)
 
+[![Publish NuGet Package](https://github.com/dend/grunt/actions/workflows/package.yml/badge.svg)](https://github.com/dend/grunt/actions/workflows/package.yml)
+[![Publish API Documentation](https://github.com/dend/grunt/actions/workflows/apidocs.yml/badge.svg)](https://github.com/dend/grunt/actions/workflows/apidocs.yml)
+[![NuGet](https://img.shields.io/nuget/v/Den.Dev.Grunt)](https://www.nuget.org/packages/Den.Dev.Grunt)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Den.Dev.Grunt)](https://www.nuget.org/packages/Den.Dev.Grunt)
+
 # 🪐 Grunt - The Halo API Wrapper
 
 Welcome to **Den.Dev.Grunt API** - the unofficial way to use official undocumented Halo APIs. Here be **a lot of dragons**.
