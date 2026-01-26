@@ -27,5 +27,10 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets whether the reward track is owned by the player.
         /// </summary>
         public bool? IsOwned { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the player has reached the maximum rank.
+        /// </summary>
+        public bool? HasReachedMaxRank { get; set; }
     }
 }

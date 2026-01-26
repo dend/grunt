@@ -47,5 +47,10 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the voice ID.
         /// </summary>
         public int Voice { get; set; }
+
+        /// <summary>
+        /// Gets or sets the path to the voice asset.
+        /// </summary>
+        public string? VoicePath { get; set; }
     }
 }

@@ -20,5 +20,11 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// </summary>
         [JsonPropertyName("spec_control_async_compute")]
         public bool? SpecControlAsyncCompute { get; set; }
+
+        /// <summary>
+        /// Gets or sets the basic spec control level.
+        /// </summary>
+        [JsonPropertyName("spec_control_basic")]
+        public string? SpecControlBasic { get; set; }
     }
 }

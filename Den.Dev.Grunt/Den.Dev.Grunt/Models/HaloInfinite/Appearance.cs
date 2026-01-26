@@ -47,5 +47,10 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the intro emote path.
         /// </summary>
         public string? IntroEmotePath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the player title path.
+        /// </summary>
+        public string? PlayerTitlePath { get; set; }
     }
 }

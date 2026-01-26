@@ -57,5 +57,10 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the default game variant.
         /// </summary>
         public GenericAsset? DefaultGameVariant { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to create an EAC session.
+        /// </summary>
+        public bool? CreateEacSession { get; set; }
     }
 }

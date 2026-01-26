@@ -651,5 +651,115 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the presence refresh time in seconds.
         /// </summary>
         public int PresenceRefreshTimeSeconds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the network telemetry interval size in milliseconds.
+        /// </summary>
+        public int NetworkTelemetryIntervalSizeMs { get; set; }
+
+        /// <summary>
+        /// Gets or sets the client latency compensation extrapolation begin time in milliseconds.
+        /// </summary>
+        public int ClientLatencyCompensationExtrapolationBeginMs { get; set; }
+
+        /// <summary>
+        /// Gets or sets the client latency compensation extrapolation begin time in milliseconds for competitive modes.
+        /// </summary>
+        public int ClientLatencyCompensationExtrapolationBeginMsCompetitive { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stream growth simulation authority maximum RTT increase in milliseconds.
+        /// </summary>
+        public int StreamGrowthSimulationAuthorityMaximumRTTIncreaseMs { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stream growth simulation client maximum RTT increase in milliseconds.
+        /// </summary>
+        public int StreamGrowthSimulationClientMaximumRTTIncreaseMs { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stream non-growth simulation authority maximum RTT increase in milliseconds.
+        /// </summary>
+        public int StreamNonGrowthSimulationAuthorityMaximumRTTIncreaseMs { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stream non-growth simulation client maximum RTT increase in milliseconds.
+        /// </summary>
+        public int StreamNonGrowthSimulationClientMaximumRTTIncreaseMs { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether stream is delayed by total stability.
+        /// </summary>
+        public bool? StreamDelayedByTotalStability { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stream congest unstable receive threshold.
+        /// </summary>
+        public int StreamCongestUnstableReceiveThreshold { get; set; }
+
+        /// <summary>
+        /// Gets or sets the bad hitch threshold for server in milliseconds.
+        /// </summary>
+        public int BadHitchThresholdServerMs { get; set; }
+
+        /// <summary>
+        /// Gets or sets the command buffering update period.
+        /// </summary>
+        public int CommandBufferingUpdatePeriod { get; set; }
+
+        /// <summary>
+        /// Gets or sets the command buffering history window.
+        /// </summary>
+        public int CommandBufferingHistoryWindow { get; set; }
+
+        /// <summary>
+        /// Gets or sets the command buffering startup duration.
+        /// </summary>
+        public int CommandBufferingStartupDuration { get; set; }
+
+        /// <summary>
+        /// Gets or sets the command buffer cumulative threshold.
+        /// </summary>
+        public int CommandBufferCumulativeThreshold { get; set; }
+
+        /// <summary>
+        /// Gets or sets the server latency compensation backtracking threshold.
+        /// </summary>
+        public int ServerLatencyCompensationBacktrackingThreshold { get; set; }
+
+        /// <summary>
+        /// Gets or sets the auto aim level trust angle threshold in degrees.
+        /// </summary>
+        public int AutoAimLevelTrustAngleThresholdDegrees { get; set; }
+
+        /// <summary>
+        /// Gets or sets the auto aim level trust delta threshold.
+        /// </summary>
+        public int AutoAimLevelTrustDeltaThreshold { get; set; }
+
+        /// <summary>
+        /// Gets or sets the auto aim level trust angle threshold in degrees for AI.
+        /// </summary>
+        public int AutoAimLevelTrustAngleThresholdDegreesAI { get; set; }
+
+        /// <summary>
+        /// Gets or sets the auto aim level trust delta threshold for AI.
+        /// </summary>
+        public int AutoAimLevelTrustDeltaThresholdAI { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether message queue uses legacy sequencing.
+        /// </summary>
+        public bool? MessageQueueUseLegacySequencing { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether packet uses legacy sequencing.
+        /// </summary>
+        public bool? PacketUseLegacySequencing { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum economy retries on store failure.
+        /// </summary>
+        public int MaxEconomyRetriesOnStoreFailure { get; set; }
     }
 }

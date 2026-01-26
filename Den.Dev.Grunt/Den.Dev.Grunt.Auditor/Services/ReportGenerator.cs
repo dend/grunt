@@ -120,7 +120,7 @@ namespace Den.Dev.Grunt.Auditor.Services
                         .GroupBy(d => NormalizePathPattern(d.Path) + "|" + d.Type + "|" + d.Message)
                         .ToList();
 
-                    foreach (var group in groupedDiscrepancies.Take(10))
+                    foreach (var group in groupedDiscrepancies)
                     {
                         var first = group.First();
                         var count = group.Count();
@@ -146,11 +146,6 @@ namespace Den.Dev.Grunt.Auditor.Services
                         {
                             AnsiConsole.MarkupLine($"    [dim]Expected type:[/] {Markup.Escape(first.ExpectedType)}");
                         }
-                    }
-
-                    if (groupedDiscrepancies.Count > 10)
-                    {
-                        AnsiConsole.MarkupLine($"  [dim]... and {groupedDiscrepancies.Count - 10} more unique issues[/]");
                     }
 
                     AnsiConsole.WriteLine();

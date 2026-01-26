@@ -43,7 +43,7 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// <summary>
         /// Gets or sets the date range for the track.
         /// </summary>
-        public APIFormattedDate? DateRange { get; set; }
+        public DisplayString? DateRange { get; set; }
 
         /// <summary>
         /// Gets or sets whether the career track is a ritual.
@@ -64,5 +64,10 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the volume of XP granted per rank in the track.
         /// </summary>
         public int? XpPerRank { get; set; }
+
+        /// <summary>
+        /// Gets or sets the background image path.
+        /// </summary>
+        public string? BackgroundImagePath { get; set; }
     }
 }

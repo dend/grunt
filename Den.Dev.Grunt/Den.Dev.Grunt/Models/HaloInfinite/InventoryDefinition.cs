@@ -6,6 +6,7 @@
 // </copyright>
 
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Den.Dev.Grunt.Models.HaloInfinite
 {
@@ -244,5 +245,14 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         /// Gets or sets the list of consumables.
         /// </summary>
         public List<PlayerItem>? Consumables { get; set; }
+
+        /// <summary>
+        /// Gets or sets the count of ownable weapon cores (alternate).
+        /// </summary>
+        /// <remarks>
+        /// This appears to be a duplicate of <see cref="WeaponCoresOwnableCount"/> with a typo in the API ("Corers" instead of "Cores").
+        /// </remarks>
+        [JsonPropertyName("WeaponCorersOwnableCount")]
+        public int WeaponCoresOwnableCountAlt { get; set; }
     }
 }
