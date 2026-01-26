@@ -118,12 +118,12 @@ Each generated file follows the existing module patterns with proper inheritance
 /// <summary>
 /// Calls the Economy_GetActiveBoosts endpoint.
 /// </summary>
-/// <param name="player">The player identifier in the format "xuid(XUID_VALUE)".</param>
+/// <param name="player">The player's numeric XUID.</param>
 /// <returns>An instance of HaloApiResultContainer containing the response.</returns>
 public async Task<HaloApiResultContainer<ActiveBoostsContainer, RawResponseContainer>> GetActiveBoosts(string player)
 {
     return await this.GetAsync<ActiveBoostsContainer>(
-        $"/hi/players/{player}/boosts",
+        $"/hi/players/xuid({player})/boosts",
         useClearance: true);
 }
 ```
@@ -298,7 +298,7 @@ The endpoint above does not require authentication and can be queried in the ope
 
 ## Documentation
 
-You can read the docs on the [Den.Dev.Grunt docs website](https://docs.Den.Dev.Gruntapi.com).
+You can read the docs on the [Den.Dev.Grunt docs website](https://docs.gruntapi.com).
 
 ## FAQ
 
