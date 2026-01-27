@@ -100,20 +100,37 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         }
 
         /// <summary>
-        /// Gets the service record for a player.
+        /// Gets the service record for a player by their XUID.
         /// </summary>
         /// <remarks>By tweaking season IDs, you can obtain season-specific information such as number of matches played, wins, losses, and others.</remarks>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetPlayerServiceRecord.xml' path='example'/>
-        /// <param name="playerId">Player ID. Can be a XUID or a gamertag. Example value is "BreadKrtek".</param>
+        /// <param name="xuid">The player's numeric XUID. Example value is "2533274855333605".</param>
         /// <param name="mode">Type of games for which to get the service record.</param>
         /// <param name="seasonId">The ID of the season for which additional stats are pulled. Example value is "Seasons/Season7.json".</param>
         /// <returns>If successful, an instance of <see cref="PlayerServiceRecord"/> containing service record information. Otherwise, returns null with additional details about the error.</returns>
-        public async Task<HaloApiResultContainer<PlayerServiceRecord, RawResponseContainer>?> GetPlayerServiceRecord(string playerId, LifecycleMode mode, string seasonId = "")
+        public async Task<HaloApiResultContainer<PlayerServiceRecord, RawResponseContainer>?> GetPlayerServiceRecordByXuid(string xuid, LifecycleMode mode, string seasonId = "")
         {
             var seasonMarker = !string.IsNullOrWhiteSpace(seasonId) ? $"?seasonId={seasonId}" : string.Empty;
 
             return await this.GetAsync<PlayerServiceRecord>(
-                $"/hi/players/{playerId}/{mode}/servicerecord{seasonMarker}");
+                $"/hi/players/xuid({xuid})/{mode}/servicerecord{seasonMarker}");
+        }
+
+        /// <summary>
+        /// Gets the service record for a player by their gamertag.
+        /// </summary>
+        /// <remarks>By tweaking season IDs, you can obtain season-specific information such as number of matches played, wins, losses, and others.</remarks>
+        /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetPlayerServiceRecord.xml' path='example'/>
+        /// <param name="gamertag">The player's gamertag. Example value is "BreadKrtek".</param>
+        /// <param name="mode">Type of games for which to get the service record.</param>
+        /// <param name="seasonId">The ID of the season for which additional stats are pulled. Example value is "Seasons/Season7.json".</param>
+        /// <returns>If successful, an instance of <see cref="PlayerServiceRecord"/> containing service record information. Otherwise, returns null with additional details about the error.</returns>
+        public async Task<HaloApiResultContainer<PlayerServiceRecord, RawResponseContainer>?> GetPlayerServiceRecordByGamertag(string gamertag, LifecycleMode mode, string seasonId = "")
+        {
+            var seasonMarker = !string.IsNullOrWhiteSpace(seasonId) ? $"?seasonId={seasonId}" : string.Empty;
+
+            return await this.GetAsync<PlayerServiceRecord>(
+                $"/hi/players/{gamertag}/{mode}/servicerecord{seasonMarker}");
         }
 
         /// <summary>
