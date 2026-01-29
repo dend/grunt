@@ -1,5 +1,5 @@
 {
-  "name": "@dendev/grunt",
+  "name": "@dendotdev/grunt",
   "version": "0.1.0",
   "description": "Unofficial TypeScript client library for the Halo Infinite API",
   "main": "./dist/index.js",

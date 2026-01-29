@@ -1,4 +1,4 @@
-# @dendev/grunt
+# @dendotdev/grunt
 
 Unofficial TypeScript client library for the Halo Infinite API.
 
@@ -7,7 +7,13 @@ This is the TypeScript implementation of the Grunt library, providing type-safe 
 ## Installation
 
 ```bash
-npm install @dendev/grunt
+npm install @dendotdev/grunt
+```
+
+For authenticated API access, you'll also need the Xbox authentication library:
+
+```bash
+npm install @dendotdev/conch
 ```
 
 ## Quick Start
@@ -18,7 +24,7 @@ import {
   MatchType,
   LifecycleMode,
   isSuccess,
-} from '@dendev/grunt';
+} from '@dendotdev/grunt';
 
 // Create a client with your Spartan token
 const client = new HaloInfiniteClient({
@@ -44,35 +50,84 @@ if (isSuccess(history)) {
 
 ## Authentication
 
-To use authenticated endpoints, you need a Spartan token. The authentication flow is:
+To use authenticated endpoints, you need a Spartan token. The complete authentication flow is:
 
-1. Authenticate with Xbox Live to get an XSTS token
-2. Exchange the XSTS token for a Spartan token using `HaloAuthenticationClient`
+1. Authenticate with Xbox Live using OAuth to get an access token
+2. Exchange the access token for an Xbox Live user token
+3. Exchange the user token for an XSTS token (using the Halo Waypoint relying party)
+4. Exchange the XSTS token for a Spartan token using `HaloAuthenticationClient`
+
+The Xbox authentication steps (1-3) are handled by [`@dendotdev/conch`](https://github.com/dend/conch). Here's a complete example:
 
 ```typescript
-import { HaloAuthenticationClient, HaloInfiniteClient } from '@dendev/grunt';
+import { XboxAuthenticationClient } from '@dendotdev/conch';
+import { HaloAuthenticationClient, HaloInfiniteClient, isSuccess } from '@dendotdev/grunt';
 
-// Create auth client
-const authClient = new HaloAuthenticationClient();
+// Step 1: Set up Xbox authentication
+const xboxClient = new XboxAuthenticationClient();
 
-// Exchange XSTS token for Spartan token
-// (You need to obtain the XSTS token through Xbox Live authentication first)
-const spartanToken = await authClient.getSpartanToken(xstsToken);
+// Generate the OAuth URL for the user to authorize
+const clientId = 'your-azure-ad-client-id';
+const redirectUrl = 'https://localhost:3000/callback';
+const authUrl = xboxClient.generateAuthUrl(clientId, redirectUrl);
 
-if (spartanToken) {
-  // Create the API client with the Spartan token
-  const client = new HaloInfiniteClient({
-    spartanToken: spartanToken.token!,
-    xuid: 'your-xuid',
-  });
+// User visits authUrl and authorizes your app, then gets redirected with a code
+// ... handle the OAuth redirect and extract the authorization code ...
+
+// Step 2: Exchange the authorization code for OAuth tokens
+const oauthToken = await xboxClient.requestOAuthToken(clientId, authorizationCode, redirectUrl);
+
+if (!oauthToken?.access_token) {
+  throw new Error('Failed to get OAuth token');
+}
+
+// Step 3: Get Xbox Live user token
+const userToken = await xboxClient.requestUserToken(oauthToken.access_token);
+
+if (!userToken?.Token) {
+  throw new Error('Failed to get user token');
+}
+
+// Step 4: Get XSTS token with Halo Waypoint relying party
+const relyingParty = HaloAuthenticationClient.getRelyingParty();
+const xstsToken = await xboxClient.requestXstsToken(userToken.Token, relyingParty);
+
+if (!xstsToken?.Token) {
+  throw new Error('Failed to get XSTS token');
+}
+
+// Step 5: Exchange XSTS token for Spartan token
+const haloAuthClient = new HaloAuthenticationClient();
+const spartanToken = await haloAuthClient.getSpartanToken(xstsToken.Token);
+
+if (!spartanToken?.token) {
+  throw new Error('Failed to get Spartan token');
+}
+
+// Step 6: Create the Halo Infinite API client
+const xuid = xstsToken.DisplayClaims?.xui?.[0]?.xid;
+const client = new HaloInfiniteClient({
+  spartanToken: spartanToken.token,
+  xuid: xuid,
+});
+
+// Now you can make authenticated API calls
+const history = await client.stats.getMatchHistory(xuid, 0, 25);
+
+if (isSuccess(history)) {
+  console.log(`Found ${history.result.resultCount} matches`);
 }
 ```
 
-The XSTS token must be obtained using the Halo Waypoint relying party:
-```typescript
-const relyingParty = HaloAuthenticationClient.getRelyingParty();
-// Returns: 'https://prod.xsts.halowaypoint.com/'
-```
+### OAuth Setup
+
+To use this authentication flow, you'll need to register an application in Azure AD:
+
+1. Go to the [Azure Portal](https://portal.azure.com) and navigate to Azure Active Directory
+2. Register a new application with a redirect URI
+3. Note your Application (client) ID - this is your `clientId`
+
+For more details on Xbox authentication, see the [@dendotdev/conch documentation](https://github.com/dend/conch).
 
 ## API Overview
 
@@ -160,7 +215,7 @@ if (isSuccess(inventory)) {
 ### Search UGC Maps
 
 ```typescript
-import { AssetKind } from '@dendev/grunt';
+import { AssetKind } from '@dendotdev/grunt';
 
 const maps = await client.ugcDiscovery.search({
   assetKinds: [AssetKind.Map],
@@ -178,7 +233,7 @@ if (isSuccess(maps)) {
 ### Get News Articles (No Auth Required)
 
 ```typescript
-import { WaypointClient, isSuccess } from '@dendev/grunt';
+import { WaypointClient, isSuccess } from '@dendotdev/grunt';
 
 const client = new WaypointClient(); // No auth needed
 
@@ -205,7 +260,7 @@ import {
   isNotModified,  // 304 (cached response valid)
   isClientError,  // 4xx errors
   isServerError,  // 5xx errors
-} from '@dendev/grunt';
+} from '@dendotdev/grunt';
 
 const result = await client.stats.getMatchStats('match-id');
 
