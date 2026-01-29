@@ -12,6 +12,7 @@ jobs:
 
     permissions:
       contents: read
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -45,9 +46,7 @@ jobs:
 
       - name: Publish to npm
         working-directory: src/node
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public --provenance
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
