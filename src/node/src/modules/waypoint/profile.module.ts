@@ -16,7 +16,7 @@ import type {
  * const profile = await client.profile.getMyProfile();
  *
  * // Get another user's profile
- * const otherProfile = await client.profile.getUserProfile('2533274855333605', true);
+ * const otherProfile = await client.profile.getUserProfile('xuid', true);
  * ```
  */
 export class ProfileModule extends WaypointModuleBase {

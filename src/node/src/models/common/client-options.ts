@@ -8,7 +8,7 @@
  * ```typescript
  * const client = new HaloInfiniteClient({
  *   spartanToken: 'your-spartan-token',
- *   xuid: '2533274855333605',
+ *   xuid: 'xuid',
  *   clearanceToken: 'flight-clearance-id',
  *   includeRawResponses: true, // Enable for debugging
  * });
@@ -25,7 +25,7 @@ export interface HaloInfiniteClientOptions {
    * Xbox User ID (XUID) in numeric format.
    * Used for player-specific API calls.
    *
-   * @example '2533274855333605'
+   * @example 'xuid'
    */
   xuid?: string;
 

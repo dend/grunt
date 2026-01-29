@@ -29,12 +29,12 @@ import {
 // Create a client with your Spartan token
 const client = new HaloInfiniteClient({
   spartanToken: 'your-spartan-token',
-  xuid: '2533274855333605', // Your Xbox User ID
+  xuid: 'xuid', // Your Xbox User ID
 });
 
 // Get match history
 const history = await client.stats.getMatchHistory(
-  '2533274855333605',
+  'xuid',
   0,    // start index
   25,   // count (max 25)
   MatchType.All
@@ -167,7 +167,7 @@ Client for Halo Waypoint APIs:
 
 ```typescript
 const record = await client.stats.getPlayerServiceRecordByXuid(
-  '2533274855333605',
+  'xuid',
   LifecycleMode.Matchmade
 );
 
@@ -193,7 +193,7 @@ if (isSuccess(match)) {
 ```typescript
 const csr = await client.skill.getPlaylistCsr(
   'playlist-guid',
-  ['2533274855333605']
+  ['xuid']
 );
 
 if (isSuccess(csr)) {
@@ -205,7 +205,7 @@ if (isSuccess(csr)) {
 ### Get Player Inventory
 
 ```typescript
-const inventory = await client.economy.getInventoryItems('2533274855333605');
+const inventory = await client.economy.getInventoryItems('xuid');
 
 if (isSuccess(inventory)) {
   console.log(`Items owned: ${inventory.result.items?.length}`);
@@ -284,7 +284,7 @@ const client = new HaloInfiniteClient({
   spartanToken: 'your-spartan-token',
 
   // Optional
-  xuid: '2533274855333605',        // Your Xbox User ID
+  xuid: 'xuid',        // Your Xbox User ID
   clearanceToken: 'flight-id',     // For flighted/preview content
   includeRawResponses: true,       // Include full request/response in results
   userAgent: 'MyApp/1.0',          // Custom User-Agent header

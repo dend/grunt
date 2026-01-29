@@ -20,7 +20,7 @@ import { CommsModule } from '../modules/waypoint/comms.module';
  * // Create client with authentication
  * const client = new WaypointClient({
  *   spartanToken: 'your-spartan-token',
- *   xuid: '2533274855333605',
+ *   xuid: 'xuid',
  * });
  *
  * // Get my profile

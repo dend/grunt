@@ -104,7 +104,7 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// </summary>
         /// <remarks>By tweaking season IDs, you can obtain season-specific information such as number of matches played, wins, losses, and others.</remarks>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetPlayerServiceRecord.xml' path='example'/>
-        /// <param name="xuid">The player's numeric XUID. Example value is "2533274855333605".</param>
+        /// <param name="xuid">The player's numeric XUID.</param>
         /// <param name="mode">Type of games for which to get the service record.</param>
         /// <param name="seasonId">The ID of the season for which additional stats are pulled. Example value is "Seasons/Season7.json".</param>
         /// <returns>If successful, an instance of <see cref="PlayerServiceRecord"/> containing service record information. Otherwise, returns null with additional details about the error.</returns>

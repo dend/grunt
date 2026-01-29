@@ -25,13 +25,13 @@ import type { MatchesPrivacy, PlayerDailyCustomExperience } from '../../models/h
  * @example
  * ```typescript
  * // Get match history
- * const history = await client.stats.getMatchHistory('2533274855333605', 0, 25, MatchType.All);
+ * const history = await client.stats.getMatchHistory('xuid', 0, 25, MatchType.All);
  *
  * // Get specific match details
  * const match = await client.stats.getMatchStats('match-guid-here');
  *
  * // Get player service record
- * const record = await client.stats.getPlayerServiceRecordByXuid('2533274855333605', LifecycleMode.Matchmade);
+ * const record = await client.stats.getPlayerServiceRecordByXuid('xuid', LifecycleMode.Matchmade);
  * ```
  */
 export class StatsModule extends ModuleBase {

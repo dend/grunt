@@ -28,21 +28,21 @@ import { UgcDiscoveryModule } from '../modules/halo-infinite/ugc-discovery.modul
  * // Create client with authentication
  * const client = new HaloInfiniteClient({
  *   spartanToken: 'your-spartan-token',
- *   xuid: '2533274855333605',
+ *   xuid: 'xuid',
  *   clearanceToken: 'flight-clearance-id',
  * });
  *
  * // Get match history
- * const history = await client.stats.getMatchHistory('2533274855333605', 0, 25, MatchType.All);
+ * const history = await client.stats.getMatchHistory('xuid', 0, 25, MatchType.All);
  * if (isSuccess(history)) {
  *   console.log(`Found ${history.result.resultCount} matches`);
  * }
  *
  * // Get player inventory
- * const inventory = await client.economy.getInventoryItems('2533274855333605');
+ * const inventory = await client.economy.getInventoryItems('xuid');
  *
  * // Get CSR for a playlist
- * const csr = await client.skill.getPlaylistCsr('playlist-id', ['2533274855333605']);
+ * const csr = await client.skill.getPlaylistCsr('playlist-id', ['xuid']);
  *
  * // Search for UGC maps
  * const maps = await client.ugcDiscovery.search({
@@ -75,7 +75,7 @@ export class HaloInfiniteClient extends ClientBase {
    * ```typescript
    * const client = new HaloInfiniteClient({
    *   spartanToken: 'your-spartan-token',
-   *   xuid: '2533274855333605',
+   *   xuid: 'xuid',
    *   includeRawResponses: true, // Enable for debugging
    * });
    * ```

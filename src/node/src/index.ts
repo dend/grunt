@@ -17,12 +17,12 @@
  * // Create a client with your Spartan token
  * const client = new HaloInfiniteClient({
  *   spartanToken: 'your-spartan-token',
- *   xuid: '2533274855333605',
+ *   xuid: 'xuid',
  * });
  *
  * // Get match history
  * const history = await client.stats.getMatchHistory(
- *   '2533274855333605',
+ *   'xuid',
  *   0,
  *   25,
  *   MatchType.All
@@ -36,7 +36,7 @@
  *
  * // Get player service record
  * const record = await client.stats.getPlayerServiceRecordByXuid(
- *   '2533274855333605',
+ *   'xuid',
  *   LifecycleMode.Matchmade
  * );
  * ```

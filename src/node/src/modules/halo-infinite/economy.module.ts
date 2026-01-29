@@ -40,13 +40,13 @@ import type { RewardTrackResultContainer } from '../../models/halo-infinite/prog
  * @example
  * ```typescript
  * // Get player inventory
- * const inventory = await client.economy.getInventoryItems('2533274855333605');
+ * const inventory = await client.economy.getInventoryItems('xuid');
  *
  * // Get armor customization
- * const armor = await client.economy.armorCoresCustomization('2533274855333605');
+ * const armor = await client.economy.armorCoresCustomization('xuid');
  *
  * // Get currency balances
- * const currencies = await client.economy.getVirtualCurrencyBalances('2533274855333605');
+ * const currencies = await client.economy.getVirtualCurrencyBalances('xuid');
  * ```
  */
 export class EconomyModule extends ModuleBase {
