@@ -3,14 +3,14 @@ name: Publish API Documentation
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
+      - 'dotnet-[0-9]+.[0-9]+.[0-9]+'
     branches:
       - master
     paths:
       - 'docs/**'
-      - 'Den.Dev.Grunt/Den.Dev.Grunt/Core/Modules/**'
-      - 'Den.Dev.Grunt/Den.Dev.Grunt/APIDocsExamples/**'
-      - 'Den.Dev.Grunt/Den.Dev.Grunt/Models/**'
+      - 'src/dotnet/Den.Dev.Grunt/Den.Dev.Grunt/Core/Modules/**'
+      - 'src/dotnet/Den.Dev.Grunt/Den.Dev.Grunt/APIDocsExamples/**'
+      - 'src/dotnet/Den.Dev.Grunt/Den.Dev.Grunt/Models/**'
   workflow_dispatch:
 
 permissions:

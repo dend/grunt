@@ -3,7 +3,7 @@ name: Publish NuGet Package
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
+      - 'dotnet-[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
 
 permissions:
@@ -21,13 +21,13 @@ jobs:
       with:
         dotnet-version: '10.0.x'
     - name: Set version from tag
-      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/tags/dotnet-}" >> $GITHUB_ENV
     - name: Build
-      working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt
+      working-directory: ./src/dotnet/Den.Dev.Grunt/Den.Dev.Grunt
       run: dotnet build --configuration Release
     - name: Pack
-      working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt
+      working-directory: ./src/dotnet/Den.Dev.Grunt/Den.Dev.Grunt
       run: dotnet pack -p:Version=${{ env.RELEASE_VERSION }} --configuration Release --no-build --output .
     - name: Push to NuGet.org
-      working-directory: ./Den.Dev.Grunt/Den.Dev.Grunt
+      working-directory: ./src/dotnet/Den.Dev.Grunt/Den.Dev.Grunt
       run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

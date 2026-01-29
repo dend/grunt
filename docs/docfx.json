@@ -3,7 +3,7 @@
     {
       "src": [
         {
-          "files": ["Den.Dev.Grunt/Den.Dev.Grunt/Den.Dev.Grunt.csproj"],
+          "files": ["src/dotnet/Den.Dev.Grunt/Den.Dev.Grunt/Den.Dev.Grunt.csproj"],
           "src": ".."
         }
       ],

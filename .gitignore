@@ -350,7 +350,7 @@ MigrationBackup/
 .ionide/
 
 # *****************************
-# Custom for Den.Dev.Grunt
+# Custom for Grunt
 # *****************************
 ## Misc
 .vscode/
@@ -358,7 +358,7 @@ MigrationBackup/
 /.claude
 
 # Librarian generated output
-Den.Dev.Grunt/Den.Dev.Grunt.Librarian/Output/Generated/
+src/dotnet/Den.Dev.Grunt/Den.Dev.Grunt.Librarian/Output/Generated/
 
 # DocFX generated output
 docs/_site/
@@ -366,3 +366,6 @@ docs/api/
 
 # Sensitive configuration files
 client.json
+
+# Node.js
+src/node/dist/
