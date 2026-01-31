@@ -200,6 +200,6 @@ export class UgcDiscoveryModule extends ModuleBase {
    */
   getFilmByMatchId(matchId: string): Promise<HaloApiResult<AuthoringAsset>> {
     this.assertNotEmpty(matchId, 'matchId');
-    return this.get<AuthoringAsset>(`/hi/films/matches/${matchId}`);
+    return this.get<AuthoringAsset>(`/hi/films/matches/${matchId}/spectate`);
   }
 }
