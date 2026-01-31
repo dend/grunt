@@ -336,7 +336,7 @@ export class GameCmsModule extends ModuleBase {
    */
   getImage(filePath: string): Promise<HaloApiResult<Uint8Array>> {
     this.assertNotEmpty(filePath, 'filePath');
-    return this.get<Uint8Array>(`/hi/images/file/${filePath}`);
+    return this.get<Uint8Array>(`/hi/images/file/${filePath}`, { returnRaw: true });
   }
 
   /**
@@ -347,7 +347,7 @@ export class GameCmsModule extends ModuleBase {
    */
   getGenericFile(filePath: string): Promise<HaloApiResult<Uint8Array>> {
     this.assertNotEmpty(filePath, 'filePath');
-    return this.get<Uint8Array>(`/hi/Progression/file/${filePath}`);
+    return this.get<Uint8Array>(`/hi/Progression/file/${filePath}`, { returnRaw: true });
   }
 
   /**

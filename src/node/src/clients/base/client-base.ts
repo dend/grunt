@@ -161,8 +161,13 @@ export abstract class ClientBase {
 
       // Handle 304 Not Modified - use cached content
       if (response.status === 304 && cached) {
-        result.result = this.deserializeResponse<T>(cached.content);
-        result.response.message = '304 Not Modified - using cached response';
+        if (options.returnRaw) {
+          result.result = cached.content as unknown as T;
+          result.response.message = `304 Not Modified - cached binary: ${cached.content.length} bytes`;
+        } else {
+          result.result = this.deserializeResponse<T>(cached.content);
+          result.response.message = '304 Not Modified - using cached response';
+        }
         return result;
       }
 
@@ -176,13 +181,19 @@ export abstract class ClientBase {
         this.cache.set(cacheKey, { etag, content: bodyBytes });
       }
 
-      // Capture raw response message
-      const bodyText = new TextDecoder().decode(bodyBytes);
-      result.response.message = bodyText;
+      // For raw binary responses, skip text decoding and deserialization
+      if (options.returnRaw) {
+        result.result = bodyBytes as unknown as T;
+        result.response.message = `Binary response: ${bodyBytes.length} bytes`;
+      } else {
+        // Capture raw response message
+        const bodyText = new TextDecoder().decode(bodyBytes);
+        result.response.message = bodyText;
 
-      // Deserialize response
-      if (response.ok || options.enforceSuccess !== false) {
-        result.result = this.deserializeResponse<T>(bodyBytes);
+        // Deserialize response
+        if (response.ok || options.enforceSuccess !== false) {
+          result.result = this.deserializeResponse<T>(bodyBytes);
+        }
       }
     } catch (error) {
       result.response.code = 0;

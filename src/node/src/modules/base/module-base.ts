@@ -69,12 +69,14 @@ export abstract class ModuleBase {
       useClearance?: boolean;
       useSpartanToken?: boolean;
       customHeaders?: Record<string, string>;
+      returnRaw?: boolean;
     } = {}
   ): Promise<HaloApiResult<T>> {
     return this.client.executeRequest<T>(this.buildUrl(path), 'GET', {
       useSpartanToken: options.useSpartanToken ?? true,
       useClearance: options.useClearance ?? false,
       customHeaders: options.customHeaders,
+      returnRaw: options.returnRaw,
     });
   }
 
@@ -96,6 +98,7 @@ export abstract class ModuleBase {
       useSpartanToken?: boolean;
       customHeaders?: Record<string, string>;
       enforceSuccess?: boolean;
+      returnRaw?: boolean;
     } = {}
   ): Promise<HaloApiResult<T>> {
     return this.client.executeRequest<T>(fullUrl, 'GET', {
@@ -103,6 +106,7 @@ export abstract class ModuleBase {
       useClearance: options.useClearance ?? false,
       customHeaders: options.customHeaders,
       enforceSuccess: options.enforceSuccess ?? true,
+      returnRaw: options.returnRaw,
     });
   }
 

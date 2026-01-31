@@ -553,6 +553,6 @@ export class UgcModule extends ModuleBase {
   getBlob(blobPath: string): Promise<HaloApiResult<Uint8Array>> {
     this.assertNotEmpty(blobPath, 'blobPath');
     const blobUrl = `https://${HALO_CORE_ENDPOINTS.BLOBS_ORIGIN}.${HALO_CORE_ENDPOINTS.SERVICE_DOMAIN}${blobPath}`;
-    return this.getFullUrl<Uint8Array>(blobUrl, { useSpartanToken: false });
+    return this.getFullUrl<Uint8Array>(blobUrl, { useSpartanToken: false, returnRaw: true });
   }
 }

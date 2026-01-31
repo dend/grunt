@@ -167,4 +167,12 @@ export interface RequestOptions {
    * @default true
    */
   enforceSuccess?: boolean;
+
+  /**
+   * Return raw bytes instead of deserializing the response.
+   * Use this for binary data like images, blobs, and film chunks.
+   *
+   * @default false
+   */
+  returnRaw?: boolean;
 }
