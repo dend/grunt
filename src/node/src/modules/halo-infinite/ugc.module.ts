@@ -2,7 +2,6 @@ import { ModuleBase } from '../base/module-base';
 import type { ClientBase } from '../../clients/base/client-base';
 import type { HaloApiResult } from '../../models/common/api-result';
 import { HALO_CORE_ENDPOINTS } from '../../endpoints/halo-core-endpoints';
-import type { AssetKind } from '../../models/halo-infinite/enums/asset-kind';
 import type {
   AuthoringAsset,
   AuthoringAssetVersion,
@@ -57,7 +56,7 @@ export class UgcModule extends ModuleBase {
    */
   getAsset(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string
   ): Promise<HaloApiResult<AuthoringAsset>> {
     this.assertNotEmpty(title, 'title');
@@ -75,7 +74,7 @@ export class UgcModule extends ModuleBase {
    */
   getLatestAssetVersion(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string
   ): Promise<HaloApiResult<AuthoringAssetVersion>> {
     this.assertNotEmpty(title, 'title');
@@ -94,7 +93,7 @@ export class UgcModule extends ModuleBase {
    */
   getSpecificAssetVersion(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string,
     versionId: string
   ): Promise<HaloApiResult<AuthoringAssetVersion>> {
@@ -116,7 +115,7 @@ export class UgcModule extends ModuleBase {
    */
   getPublishedVersion(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string
   ): Promise<HaloApiResult<AuthoringAssetVersion>> {
     this.assertNotEmpty(title, 'title');
@@ -134,7 +133,7 @@ export class UgcModule extends ModuleBase {
    */
   listAllVersions(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string
   ): Promise<HaloApiResult<AuthoringAssetVersionContainer>> {
     this.assertNotEmpty(title, 'title');
@@ -155,7 +154,7 @@ export class UgcModule extends ModuleBase {
   listPlayerAssets(
     title: string,
     player: string,
-    assetType: AssetKind,
+    assetType: string,
     start: number = 0,
     count: number = 25
   ): Promise<HaloApiResult<AuthoringAssetContainer>> {
@@ -180,12 +179,12 @@ export class UgcModule extends ModuleBase {
    */
   favoriteAnAsset(
     player: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string
   ): Promise<HaloApiResult<FavoriteAsset>> {
     this.assertNotEmpty(player, 'player');
     this.assertNotEmpty(assetId, 'assetId');
-    return this.postJson<FavoriteAsset, { assetId: string; assetKind: AssetKind }>(
+    return this.postJson<FavoriteAsset, { assetId: string; assetKind: string }>(
       `/hi/players/xuid(${player})/favorites`,
       { assetId, assetKind: assetType }
     );
@@ -203,7 +202,7 @@ export class UgcModule extends ModuleBase {
   checkAssetPlayerBookmark(
     title: string,
     player: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string
   ): Promise<HaloApiResult<FavoriteAsset>> {
     this.assertNotEmpty(title, 'title');
@@ -223,7 +222,7 @@ export class UgcModule extends ModuleBase {
    */
   listPlayerFavorites(
     player: string,
-    assetType: AssetKind
+    assetType: string
   ): Promise<HaloApiResult<AuthoringFavoritesContainer>> {
     this.assertNotEmpty(player, 'player');
     return this.get<AuthoringFavoritesContainer>(
@@ -258,7 +257,7 @@ export class UgcModule extends ModuleBase {
    */
   getAssetRatings(
     player: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string
   ): Promise<HaloApiResult<AuthoringAssetRating>> {
     this.assertNotEmpty(player, 'player');
@@ -279,7 +278,7 @@ export class UgcModule extends ModuleBase {
    */
   rateAnAsset(
     player: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string,
     rating: AuthoringAssetRating
   ): Promise<HaloApiResult<AuthoringAssetRating>> {
@@ -302,7 +301,7 @@ export class UgcModule extends ModuleBase {
    */
   reportAnAsset(
     player: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string,
     report: AssetReport
   ): Promise<HaloApiResult<AssetReport>> {
@@ -328,7 +327,7 @@ export class UgcModule extends ModuleBase {
    */
   deleteAllVersions(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string
   ): Promise<HaloApiResult<boolean>> {
     this.assertNotEmpty(title, 'title');
@@ -347,7 +346,7 @@ export class UgcModule extends ModuleBase {
    */
   deleteVersion(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string,
     versionId: string
   ): Promise<HaloApiResult<boolean>> {
@@ -367,7 +366,7 @@ export class UgcModule extends ModuleBase {
    * @returns Success status
    */
   publishAssetVersion(
-    assetType: AssetKind,
+    assetType: string,
     assetId: string,
     versionId: string,
     clearanceId: string
@@ -387,7 +386,7 @@ export class UgcModule extends ModuleBase {
    * @returns Success status
    */
   unpublishAsset(
-    assetType: AssetKind,
+    assetType: string,
     assetId: string
   ): Promise<HaloApiResult<boolean>> {
     this.assertNotEmpty(assetId, 'assetId');
@@ -410,7 +409,7 @@ export class UgcModule extends ModuleBase {
    */
   grantOrRevokePermissions(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string,
     player: string,
     permission: Permission
@@ -439,7 +438,7 @@ export class UgcModule extends ModuleBase {
    */
   startSession(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string,
     includeContainerSas: boolean = false
   ): Promise<HaloApiResult<AssetAuthoringSession>> {
@@ -461,7 +460,7 @@ export class UgcModule extends ModuleBase {
    */
   extendSession(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string,
     includeContainerSas: boolean = false
   ): Promise<HaloApiResult<AssetAuthoringSession>> {
@@ -483,7 +482,7 @@ export class UgcModule extends ModuleBase {
    */
   endSession(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string
   ): Promise<HaloApiResult<boolean>> {
     this.assertNotEmpty(title, 'title');
@@ -502,7 +501,7 @@ export class UgcModule extends ModuleBase {
    */
   createAssetVersion(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string,
     starter: AuthoringSessionSourceStarter
   ): Promise<HaloApiResult<AuthoringAssetVersion>> {
@@ -526,7 +525,7 @@ export class UgcModule extends ModuleBase {
    */
   patchAssetVersion(
     title: string,
-    assetType: AssetKind,
+    assetType: string,
     assetId: string,
     versionId: string,
     patchedAsset: Partial<AuthoringAssetVersion>
