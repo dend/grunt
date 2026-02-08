@@ -37,6 +37,7 @@ export type {
   OnlineUriReference,
   SettingsConfig,
   FlightedFeatureFlags,
+  PlayerClearance,
 } from './configuration';
 
 export type {

@@ -83,6 +83,22 @@ export class UgcModule extends ModuleBase {
   }
 
   /**
+   * Get the latest version of a film asset.
+   *
+   * @param title - Game title
+   * @param assetId - Film asset GUID
+   * @returns Latest film asset version
+   */
+  getLatestAssetVersionFilm(
+    title: string,
+    assetId: string
+  ): Promise<HaloApiResult<AuthoringAssetVersion>> {
+    this.assertNotEmpty(title, 'title');
+    this.assertNotEmpty(assetId, 'assetId');
+    return this.get<AuthoringAssetVersion>(`/${title}/films/${assetId}/versions/latest`);
+  }
+
+  /**
    * Get a specific version of an asset.
    *
    * @param title - Game title
@@ -318,7 +334,25 @@ export class UgcModule extends ModuleBase {
   // ─────────────────────────────────────────────────────────────────
 
   /**
-   * Delete an asset and all its versions.
+   * Delete an asset.
+   *
+   * @param title - Game title
+   * @param assetType - Type of asset
+   * @param assetId - Asset GUID
+   * @returns Success status
+   */
+  deleteAsset(
+    title: string,
+    assetType: string,
+    assetId: string
+  ): Promise<HaloApiResult<boolean>> {
+    this.assertNotEmpty(title, 'title');
+    this.assertNotEmpty(assetId, 'assetId');
+    return this.delete<boolean>(`/${title}/${assetType}/${assetId}`);
+  }
+
+  /**
+   * Delete all versions of an asset.
    *
    * @param title - Game title
    * @param assetType - Type of asset
@@ -332,7 +366,7 @@ export class UgcModule extends ModuleBase {
   ): Promise<HaloApiResult<boolean>> {
     this.assertNotEmpty(title, 'title');
     this.assertNotEmpty(assetId, 'assetId');
-    return this.delete<boolean>(`/${title}/${assetType}/${assetId}`);
+    return this.delete<boolean>(`/${title}/${assetType}/${assetId}/versions`);
   }
 
   /**
@@ -354,6 +388,45 @@ export class UgcModule extends ModuleBase {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
     return this.delete<boolean>(`/${title}/${assetType}/${assetId}/versions/${versionId}`);
+  }
+
+  /**
+   * Undelete a previously deleted asset.
+   *
+   * @param title - Game title
+   * @param assetType - Type of asset
+   * @param assetId - Asset GUID
+   * @returns Success status
+   */
+  undeleteAsset(
+    title: string,
+    assetType: string,
+    assetId: string
+  ): Promise<HaloApiResult<boolean>> {
+    this.assertNotEmpty(title, 'title');
+    this.assertNotEmpty(assetId, 'assetId');
+    return this.post<boolean>(`/${title}/${assetType}/${assetId}/recover`);
+  }
+
+  /**
+   * Undelete a previously deleted asset version.
+   *
+   * @param title - Game title
+   * @param assetType - Type of asset
+   * @param assetId - Asset GUID
+   * @param versionId - Version GUID
+   * @returns Success status
+   */
+  undeleteVersion(
+    title: string,
+    assetType: string,
+    assetId: string,
+    versionId: string
+  ): Promise<HaloApiResult<boolean>> {
+    this.assertNotEmpty(title, 'title');
+    this.assertNotEmpty(assetId, 'assetId');
+    this.assertNotEmpty(versionId, 'versionId');
+    return this.post<boolean>(`/${title}/${assetType}/${assetId}/versions/${versionId}/recover`);
   }
 
   /**
@@ -488,6 +561,26 @@ export class UgcModule extends ModuleBase {
     this.assertNotEmpty(title, 'title');
     this.assertNotEmpty(assetId, 'assetId');
     return this.delete<boolean>(`/${title}/${assetType}/${assetId}/sessions`);
+  }
+
+  /**
+   * Spawn (create) a new asset.
+   *
+   * @param title - Game title
+   * @param assetType - Type of asset (e.g., "UgcGameVariants", "Maps", "Prefabs")
+   * @param asset - Asset definition
+   * @returns Created asset
+   */
+  spawnAsset(
+    title: string,
+    assetType: string,
+    asset: Record<string, unknown>
+  ): Promise<HaloApiResult<AuthoringAsset>> {
+    this.assertNotEmpty(title, 'title');
+    return this.postJson<AuthoringAsset, Record<string, unknown>>(
+      `/${title}/${assetType}`,
+      asset
+    );
   }
 
   /**

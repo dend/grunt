@@ -111,3 +111,11 @@ export interface FlightedFeatureFlags {
   /** Feature flags */
   flags?: Record<string, boolean>;
 }
+
+/**
+ * Player clearance/flight configuration ID.
+ */
+export interface PlayerClearance {
+  /** Flight configuration identifier */
+  flightConfigurationId?: string;
+}

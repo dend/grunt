@@ -253,6 +253,55 @@ export class EconomyModule extends ModuleBase {
     );
   }
 
+  /**
+   * Get customization for multiple players.
+   *
+   * @param playerIds - List of player XUIDs
+   * @returns Player customization collection
+   */
+  getMultiplePlayersCustomization(
+    playerIds: string[]
+  ): Promise<HaloApiResult<CustomizationData>> {
+    if (!playerIds.length) {
+      throw new Error('playerIds cannot be empty');
+    }
+    const formattedPlayers = playerIds.map((id) => `xuid(${id})`).join(',');
+    return this.get<CustomizationData>(`/hi/customization?players=${formattedPlayers}`);
+  }
+
+  // ─────────────────────────────────────────────────────────────────
+  // Cores
+  // ─────────────────────────────────────────────────────────────────
+
+  /**
+   * Get details about all owned cores for a player.
+   *
+   * @param player - Player's numeric XUID
+   * @returns All player cores
+   */
+  getAllOwnedCoresDetails(
+    player: string
+  ): Promise<HaloApiResult<Record<string, unknown>>> {
+    this.assertNotEmpty(player, 'player');
+    return this.get<Record<string, unknown>>(`/hi/players/xuid(${player})/cores`);
+  }
+
+  /**
+   * Get details about a specific owned core.
+   *
+   * @param player - Player's numeric XUID
+   * @param coreId - Core identifier
+   * @returns Core details
+   */
+  getOwnedCoreDetails(
+    player: string,
+    coreId: string
+  ): Promise<HaloApiResult<Record<string, unknown>>> {
+    this.assertNotEmpty(player, 'player');
+    this.assertNotEmpty(coreId, 'coreId');
+    return this.get<Record<string, unknown>>(`/hi/players/xuid(${player})/cores/${coreId}`);
+  }
+
   // ─────────────────────────────────────────────────────────────────
   // Stores
   // ─────────────────────────────────────────────────────────────────
@@ -321,6 +370,73 @@ export class EconomyModule extends ModuleBase {
   getOperationsStore(player: string): Promise<HaloApiResult<StoreItem>> {
     this.assertNotEmpty(player, 'player');
     return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/operations`);
+  }
+
+  /**
+   * Get the operation reward levels store.
+   *
+   * @param player - Player's numeric XUID
+   * @returns Store items
+   */
+  getOperationRewardLevelsStore(player: string): Promise<HaloApiResult<StoreItem>> {
+    this.assertNotEmpty(player, 'player');
+    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/operationrewardlevels`);
+  }
+
+  /**
+   * Get the XP grants store.
+   *
+   * @param player - Player's numeric XUID
+   * @returns Store items
+   */
+  getXpGrantsStore(player: string): Promise<HaloApiResult<StoreItem>> {
+    this.assertNotEmpty(player, 'player');
+    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/xpgrants`);
+  }
+
+  /**
+   * Get items from a credit sub-store.
+   *
+   * Credit sub-stores (0-5) contain different categories of items
+   * purchasable with credits.
+   *
+   * @param player - Player's numeric XUID
+   * @param storeIndex - Sub-store index (0-5)
+   * @returns Store items
+   */
+  getCreditSubStore(player: string, storeIndex: number): Promise<HaloApiResult<StoreItem>> {
+    this.assertNotEmpty(player, 'player');
+    if (storeIndex < 0 || storeIndex > 5) {
+      throw new Error('storeIndex must be between 0 and 5');
+    }
+    const paddedIndex = storeIndex.toString().padStart(2, '0');
+    return this.get<StoreItem>(
+      `/hi/players/xuid(${player})/stores/creditsubstorefront${paddedIndex}`
+    );
+  }
+
+  /**
+   * Get items from a soft currency (Spartan Points) sub-store.
+   *
+   * Soft currency sub-stores (0-15) contain different categories of items
+   * purchasable with Spartan Points on The Exchange.
+   *
+   * @param player - Player's numeric XUID
+   * @param storeIndex - Sub-store index (0-15)
+   * @returns Store items
+   */
+  getSoftCurrencySubStore(
+    player: string,
+    storeIndex: number
+  ): Promise<HaloApiResult<StoreItem>> {
+    this.assertNotEmpty(player, 'player');
+    if (storeIndex < 0 || storeIndex > 15) {
+      throw new Error('storeIndex must be between 0 and 15');
+    }
+    const paddedIndex = storeIndex.toString().padStart(2, '0');
+    return this.get<StoreItem>(
+      `/hi/players/xuid(${player})/stores/softcurrencysubstorefront${paddedIndex}`
+    );
   }
 
   /**

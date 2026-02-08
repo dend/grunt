@@ -361,4 +361,259 @@ export class GameCmsModule extends ModuleBase {
     this.assertNotEmpty(filePath, 'filePath');
     return this.get<T>(`/hi/Progression/file/${filePath}`);
   }
+
+  // ─────────────────────────────────────────────────────────────────
+  // Achievements & Settings
+  // ─────────────────────────────────────────────────────────────────
+
+  /**
+   * Get all available achievements.
+   *
+   * @returns Achievement collection
+   */
+  getAchievements(): Promise<HaloApiResult<Record<string, unknown>>> {
+    return this.get<Record<string, unknown>>('/hi/Multiplayer/file/Live/Achievements.json');
+  }
+
+  /**
+   * Get the Play Now button settings (fallback playlist).
+   *
+   * @returns Fallback playlist settings
+   */
+  getPlayNowButtonSettings(): Promise<HaloApiResult<Record<string, unknown>>> {
+    return this.get<Record<string, unknown>>(
+      '/hi/Multiplayer/file/playlists/playNowButton/settings.json'
+    );
+  }
+
+  /**
+   * Get custom game default settings.
+   *
+   * @returns Custom game definition
+   */
+  getCustomGameDefaults(): Promise<HaloApiResult<Record<string, unknown>>> {
+    return this.get<Record<string, unknown>>('/hi/Multiplayer/file/NonMatchmaking/customgame.json');
+  }
+
+  /**
+   * Get lobby error messages.
+   *
+   * @param flightId - Flight ID
+   * @returns Lobby error message list
+   */
+  getLobbyErrorMessages(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
+    this.assertNotEmpty(flightId, 'flightId');
+    return this.get<Record<string, unknown>>(
+      `/hi/Multiplayer/file/gameStartErrorMessages/LobbyHoppperErrorMessageList.json?flight=${flightId}`
+    );
+  }
+
+  /**
+   * Get network configuration.
+   *
+   * @param flightId - Flight ID
+   * @returns Network configuration
+   */
+  getNetworkConfiguration(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
+    this.assertNotEmpty(flightId, 'flightId');
+    return this.get<Record<string, unknown>>(
+      `/hi/Multiplayer/file/network/config.json?flight=${flightId}`
+    );
+  }
+
+  /**
+   * Get a multiplayer playlist configuration.
+   *
+   * @param playlistFile - Playlist file name (e.g., "uuid.json")
+   * @returns Playlist configuration
+   */
+  getMultiplayerPlaylistConfiguration(
+    playlistFile: string
+  ): Promise<HaloApiResult<Record<string, unknown>>> {
+    this.assertNotEmpty(playlistFile, 'playlistFile');
+    return this.get<Record<string, unknown>>(
+      `/hi/Multiplayer/file/playlists/assets/${playlistFile}`
+    );
+  }
+
+  // ─────────────────────────────────────────────────────────────────
+  // Graphics & Specs
+  // ─────────────────────────────────────────────────────────────────
+
+  /**
+   * Get async compute overrides.
+   *
+   * @returns Async compute override configuration
+   */
+  getAsyncComputeOverrides(): Promise<HaloApiResult<Record<string, unknown>>> {
+    return this.get<Record<string, unknown>>('/hi/Specs/file/graphics/AsyncComputeOverrides.json');
+  }
+
+  /**
+   * Get CPU presets.
+   *
+   * @returns CPU preset configuration
+   */
+  getCpuPresets(): Promise<HaloApiResult<Record<string, unknown>>> {
+    return this.get<Record<string, unknown>>('/hi/Specs/file/cpu/presets.json');
+  }
+
+  /**
+   * Get device preset overrides.
+   *
+   * @returns Device preset overrides
+   */
+  getDevicePresetOverrides(): Promise<HaloApiResult<Record<string, unknown>>> {
+    return this.get<Record<string, unknown>>('/hi/Specs/file/graphics/DevicePresetOverrides.json');
+  }
+
+  /**
+   * Get graphics spec control overrides.
+   *
+   * @returns Graphics spec control overrides
+   */
+  getGraphicsSpecControlOverrides(): Promise<HaloApiResult<Record<string, unknown>>> {
+    return this.get<Record<string, unknown>>(
+      '/hi/Specs/file/graphics/GraphicsSpecControlOverrides.json'
+    );
+  }
+
+  /**
+   * Get graphics specs/overrides.
+   *
+   * @returns Graphics overrides
+   */
+  getGraphicSpecs(): Promise<HaloApiResult<string>> {
+    return this.get<string>('/hi/Specs/file/graphics/overrides.json');
+  }
+
+  /**
+   * Get recommended drivers.
+   *
+   * @returns Driver manifest
+   */
+  getRecommendedDrivers(): Promise<HaloApiResult<Record<string, unknown>>> {
+    return this.get<Record<string, unknown>>('/hi/Specs/file/graphics/RecommendedDrivers.json');
+  }
+
+  // ─────────────────────────────────────────────────────────────────
+  // Title Authorization & Access
+  // ─────────────────────────────────────────────────────────────────
+
+  /**
+   * Get claw (clawback) access list.
+   *
+   * @param flightId - Flight ID
+   * @returns Claw access snapshot
+   */
+  getClawAccess(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
+    this.assertNotEmpty(flightId, 'flightId');
+    return this.get<Record<string, unknown>>(
+      `/hi/TitleAuthorization/file/claw/access.json?flight=${flightId}`
+    );
+  }
+
+  /**
+   * Get not allowed in title message.
+   *
+   * @returns OE configuration message
+   */
+  getNotAllowedInTitleMessage(): Promise<HaloApiResult<Record<string, unknown>>> {
+    const url = `https://${HALO_CORE_ENDPOINTS.GAME_CMS_ORIGIN}.${HALO_CORE_ENDPOINTS.SERVICE_DOMAIN}/branches/hi/OEConfiguration/data/authfail/Default.json`;
+    return this.getFullUrl<Record<string, unknown>>(url, { useSpartanToken: false });
+  }
+
+  // ─────────────────────────────────────────────────────────────────
+  // Guides (File Listings)
+  // ─────────────────────────────────────────────────────────────────
+
+  /**
+   * Get guide for images files.
+   *
+   * @param flightId - Flight ID
+   * @returns Guide container with file listings
+   */
+  getGuideImages(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
+    this.assertNotEmpty(flightId, 'flightId');
+    return this.get<Record<string, unknown>>(`/hi/images/guide/xo?flight=${flightId}`);
+  }
+
+  /**
+   * Get guide for multiplayer files.
+   *
+   * @param flightId - Flight ID
+   * @returns Guide container with file listings
+   */
+  getGuideMultiplayer(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
+    this.assertNotEmpty(flightId, 'flightId');
+    return this.get<Record<string, unknown>>(`/hi/Multiplayer/guide/xo?flight=${flightId}`);
+  }
+
+  /**
+   * Get guide for news files.
+   *
+   * @param flightId - Flight ID
+   * @returns Guide container with file listings
+   */
+  getGuideNews(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
+    this.assertNotEmpty(flightId, 'flightId');
+    return this.get<Record<string, unknown>>(`/hi/News/guide/xo?flight=${flightId}`);
+  }
+
+  /**
+   * Get guide for progression files.
+   *
+   * @param flightId - Flight ID
+   * @returns Guide container with file listings
+   */
+  getGuideProgression(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
+    this.assertNotEmpty(flightId, 'flightId');
+    return this.get<Record<string, unknown>>(`/hi/Progression/guide/xo?flight=${flightId}`);
+  }
+
+  /**
+   * Get guide for spec files.
+   *
+   * @param flightId - Flight ID
+   * @returns Guide container with file listings
+   */
+  getGuideSpecs(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
+    this.assertNotEmpty(flightId, 'flightId');
+    return this.get<Record<string, unknown>>(`/hi/Specs/guide/xo?flight=${flightId}`);
+  }
+
+  /**
+   * Get guide for title authorization files.
+   *
+   * @param flightId - Flight ID
+   * @returns Guide container with file listings
+   */
+  getGuideTitleAuthorization(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
+    this.assertNotEmpty(flightId, 'flightId');
+    return this.get<Record<string, unknown>>(`/hi/TitleAuthorization/guide/xo?flight=${flightId}`);
+  }
+
+  // ─────────────────────────────────────────────────────────────────
+  // Waypoint Files
+  // ─────────────────────────────────────────────────────────────────
+
+  /**
+   * Get emblem mapping configuration.
+   *
+   * @returns Emblem mapping dictionary
+   */
+  getEmblemMapping(): Promise<HaloApiResult<Record<string, unknown>>> {
+    return this.get<Record<string, unknown>>('/hi/Waypoint/file/images/emblems/mapping.json');
+  }
+
+  /**
+   * Get a generic file from Waypoint service.
+   *
+   * @param filePath - Path to the file
+   * @returns File data as bytes
+   */
+  getGenericWaypointFile(filePath: string): Promise<HaloApiResult<Uint8Array>> {
+    this.assertNotEmpty(filePath, 'filePath');
+    return this.get<Uint8Array>(`/hi/Waypoint/file/${filePath}`, { returnRaw: true });
+  }
 }
