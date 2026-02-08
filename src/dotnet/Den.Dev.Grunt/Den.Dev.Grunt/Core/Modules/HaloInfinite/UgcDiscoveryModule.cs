@@ -5,6 +5,7 @@
 // The underlying API powering Den.Dev.Grunt is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
 // </copyright>
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -350,8 +351,17 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="order">Determines whether results are ordered in descending or ascending order.</param>
         /// <param name="assetKinds">List of asset kinds to be included in the search.</param>
         /// <param name="author">The author's numeric XUID.</param>
+        /// <param name="term">Search term. Optional.</param>
+        /// <param name="tags">List of tags. Multiple tags are applied with an OR operator. Optional.</param>
+        /// <param name="averageRatingMin">Minimum average rating between 0 and 5. Optional.</param>
+        /// <param name="fromDateCreatedUtc">Minimum date created. Optional.</param>
+        /// <param name="toDateCreatedUtc">Maximum date created. Optional.</param>
+        /// <param name="fromDateModifiedUtc">Minimum date modified. Optional.</param>
+        /// <param name="toDateModifiedUtc">Maximum date modified. Optional.</param>
+        /// <param name="fromDatePublishedUtc">Minimum date published. Optional.</param>
+        /// <param name="toDatePublishedUtc">Maximum date published. Optional.</param>
         /// <returns>If successful, returns an instance of SearchResultsContainer containing assets. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<SearchResultsContainer, RawResponseContainer>> Search(int start = 0, int count = 12, bool includeTimes = true, string sort = "DatePublishedUtc", ResultOrder order = ResultOrder.Desc, List<AssetKind>? assetKinds = null, string? author = null)
+        public async Task<HaloApiResultContainer<SearchResultsContainer, RawResponseContainer>> Search(int start = 0, int count = 12, bool includeTimes = true, string sort = "DatePublishedUtc", ResultOrder order = ResultOrder.Desc, List<AssetKind>? assetKinds = null, string? author = null, string? term = null, List<string>? tags = null, decimal? averageRatingMin = null, DateTime? fromDateCreatedUtc = null, DateTime? toDateCreatedUtc = null, DateTime? fromDateModifiedUtc = null, DateTime? toDateModifiedUtc = null, DateTime? fromDatePublishedUtc = null, DateTime? toDatePublishedUtc = null)
         {
             var baseSearchString = $"/hi/search?start={start}&count={count}&include-times={includeTimes}&sort={sort}&order={order}&";
 
@@ -364,6 +374,54 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
             {
                 baseSearchString += "&assetKind=";
                 baseSearchString += string.Join("&assetKind=", assetKinds.ToArray());
+            }
+
+            if (!string.IsNullOrEmpty(term))
+            {
+                baseSearchString += $"&term={Uri.EscapeDataString(term)}";
+            }
+
+            if (tags != null && tags.Any())
+            {
+                foreach (var tag in tags)
+                {
+                    baseSearchString += $"&tags={Uri.EscapeDataString(tag)}";
+                }
+            }
+
+            if (averageRatingMin.HasValue)
+            {
+                baseSearchString += $"&averageRatingMin={averageRatingMin.Value}";
+            }
+
+            if (fromDateCreatedUtc.HasValue)
+            {
+                baseSearchString += $"&fromDateCreatedUtc={Uri.EscapeDataString(fromDateCreatedUtc.Value.ToString("o"))}";
+            }
+
+            if (toDateCreatedUtc.HasValue)
+            {
+                baseSearchString += $"&toDateCreatedUtc={Uri.EscapeDataString(toDateCreatedUtc.Value.ToString("o"))}";
+            }
+
+            if (fromDateModifiedUtc.HasValue)
+            {
+                baseSearchString += $"&fromDateModifiedUtc={Uri.EscapeDataString(fromDateModifiedUtc.Value.ToString("o"))}";
+            }
+
+            if (toDateModifiedUtc.HasValue)
+            {
+                baseSearchString += $"&toDateModifiedUtc={Uri.EscapeDataString(toDateModifiedUtc.Value.ToString("o"))}";
+            }
+
+            if (fromDatePublishedUtc.HasValue)
+            {
+                baseSearchString += $"&fromDatePublishedUtc={Uri.EscapeDataString(fromDatePublishedUtc.Value.ToString("o"))}";
+            }
+
+            if (toDatePublishedUtc.HasValue)
+            {
+                baseSearchString += $"&toDatePublishedUtc={Uri.EscapeDataString(toDatePublishedUtc.Value.ToString("o"))}";
             }
 
             return await this.GetAsync<SearchResultsContainer>(
