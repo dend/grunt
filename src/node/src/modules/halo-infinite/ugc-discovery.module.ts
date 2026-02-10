@@ -62,6 +62,20 @@ export class UgcDiscoveryModule extends ModuleBase {
     count?: number;
     /** Starting offset */
     start?: number;
+    /** Minimum average rating between 0 and 5 */
+    averageRatingMin?: number;
+    /** Minimum date created */
+    fromDateCreatedUtc?: Date;
+    /** Maximum date created */
+    toDateCreatedUtc?: Date;
+    /** Minimum date modified */
+    fromDateModifiedUtc?: Date;
+    /** Maximum date modified */
+    toDateModifiedUtc?: Date;
+    /** Minimum date published */
+    fromDatePublishedUtc?: Date;
+    /** Maximum date published */
+    toDatePublishedUtc?: Date;
   }): Promise<HaloApiResult<UgcSearchResult>> {
     const queryParts: string[] = [];
 
@@ -92,6 +106,27 @@ export class UgcDiscoveryModule extends ModuleBase {
     }
     if (params.start !== undefined) {
       queryParts.push(`start=${params.start}`);
+    }
+    if (params.averageRatingMin !== undefined) {
+      queryParts.push(`averageRatingMin=${params.averageRatingMin}`);
+    }
+    if (params.fromDateCreatedUtc) {
+      queryParts.push(`fromDateCreatedUtc=${encodeURIComponent(params.fromDateCreatedUtc.toISOString())}`);
+    }
+    if (params.toDateCreatedUtc) {
+      queryParts.push(`toDateCreatedUtc=${encodeURIComponent(params.toDateCreatedUtc.toISOString())}`);
+    }
+    if (params.fromDateModifiedUtc) {
+      queryParts.push(`fromDateModifiedUtc=${encodeURIComponent(params.fromDateModifiedUtc.toISOString())}`);
+    }
+    if (params.toDateModifiedUtc) {
+      queryParts.push(`toDateModifiedUtc=${encodeURIComponent(params.toDateModifiedUtc.toISOString())}`);
+    }
+    if (params.fromDatePublishedUtc) {
+      queryParts.push(`fromDatePublishedUtc=${encodeURIComponent(params.fromDatePublishedUtc.toISOString())}`);
+    }
+    if (params.toDatePublishedUtc) {
+      queryParts.push(`toDatePublishedUtc=${encodeURIComponent(params.toDatePublishedUtc.toISOString())}`);
     }
 
     const queryString = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
