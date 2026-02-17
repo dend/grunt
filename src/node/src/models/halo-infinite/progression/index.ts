@@ -9,6 +9,7 @@ export type {
   ChallengeDeckDefinition,
   ChallengeDecksResponse,
   RewardTrack,
+  RewardTrackProgress,
   RewardTrackMetadata,
   OperationRewardTrackSnapshot,
 } from './challenges';

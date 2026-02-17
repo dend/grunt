@@ -101,25 +101,39 @@ export interface ChallengeDecksResponse {
 }
 
 /**
- * Reward track (battle pass / operation).
+ * Reward track progress measurement.
+ */
+export interface RewardTrackProgress {
+  /** Reward track rank */
+  Rank?: number;
+  /** Partial progress within rank */
+  PartialProgress?: number;
+  /** Whether the reward track is owned */
+  IsOwned?: boolean;
+  /** Whether maximum rank has been reached */
+  HasReachedMaxRank?: boolean;
+}
+
+/**
+ * Reward track (battle pass / operation / career rank).
  */
 export interface RewardTrack {
-  /** Track identifier */
-  id?: string;
-  /** Track path */
-  path?: string;
-  /** Current rank */
-  currentRank?: number;
-  /** Current progress in rank */
-  currentProgress?: number;
-  /** XP for next rank */
-  xpForNextRank?: number;
-  /** Total XP earned */
-  totalXpEarned?: number;
-  /** Whether track is completed */
-  isCompleted?: boolean;
-  /** Whether track is active */
-  isActive?: boolean;
+  /** Path to the reward track */
+  RewardTrackPath?: string;
+  /** Type of reward track */
+  TrackType?: string;
+  /** Current progress */
+  CurrentProgress?: RewardTrackProgress;
+  /** Previous progress */
+  PreviousProgress?: RewardTrackProgress;
+  /** Whether the player owns the reward track */
+  IsOwned?: boolean;
+  /** Base XP amount */
+  BaseXp?: number;
+  /** Boost XP amount */
+  BoostXp?: number;
+  /** Whether maximum rank has been reached */
+  HasReachedMaxRank?: boolean;
 }
 
 /**
