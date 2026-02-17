@@ -57,6 +57,8 @@ export class UgcDiscoveryModule extends ModuleBase {
     count?: number;
     /** Starting offset */
     start?: number;
+    /** Include modification timestamps */
+    includeTimes?: boolean;
     /** Minimum average rating between 0 and 5 */
     averageRatingMin?: number;
     /** Minimum date created */
@@ -74,6 +76,9 @@ export class UgcDiscoveryModule extends ModuleBase {
   }): Promise<HaloApiResult<UgcSearchResult>> {
     const queryParts: string[] = [];
 
+    if (params.includeTimes !== undefined) {
+      queryParts.push(`include-times=${params.includeTimes}`);
+    }
     if (params.term) {
       queryParts.push(`term=${encodeURIComponent(params.term)}`);
     }

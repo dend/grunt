@@ -15,6 +15,8 @@ import type {
   AssetAuthoringSession,
   AuthoringSessionSourceStarter,
 } from '../../models/halo-infinite/ugc';
+import type { ResultOrder } from '../../models/halo-infinite/enums/result-order';
+import type { AssetKind } from '../../models/halo-infinite/enums/asset-kind';
 
 /**
  * UGC (User Generated Content) module for authoring operations.
@@ -79,7 +81,9 @@ export class UgcModule extends ModuleBase {
   ): Promise<HaloApiResult<AuthoringAssetVersion>> {
     this.assertNotEmpty(title, 'title');
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAssetVersion>(`/${title}/${assetType}/${assetId}/versions/latest`);
+    return this.get<AuthoringAssetVersion>(`/${title}/${assetType}/${assetId}/versions/latest`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -95,7 +99,9 @@ export class UgcModule extends ModuleBase {
   ): Promise<HaloApiResult<AuthoringAssetVersion>> {
     this.assertNotEmpty(title, 'title');
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAssetVersion>(`/${title}/films/${assetId}/versions/latest`);
+    return this.get<AuthoringAssetVersion>(`/${title}/films/${assetId}/versions/latest`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -136,7 +142,9 @@ export class UgcModule extends ModuleBase {
   ): Promise<HaloApiResult<AuthoringAssetVersion>> {
     this.assertNotEmpty(title, 'title');
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAssetVersion>(`/${title}/${assetType}/${assetId}/versions/published`);
+    return this.get<AuthoringAssetVersion>(`/${title}/${assetType}/${assetId}/versions/published`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -162,22 +170,32 @@ export class UgcModule extends ModuleBase {
    *
    * @param title - Game title
    * @param player - Player XUID
-   * @param assetType - Type of asset
    * @param start - Starting offset
    * @param count - Number of results
+   * @param includeTimes - Include modification timestamps
+   * @param sort - Sort field (e.g., 'PlaysRecent')
+   * @param order - Sort order
+   * @param keywords - Keywords to filter by
+   * @param kind - Asset kind to filter by
    * @returns Player's assets
    */
   listPlayerAssets(
     title: string,
     player: string,
-    assetType: string,
     start: number = 0,
-    count: number = 25
+    count: number = 25,
+    includeTimes: boolean = false,
+    sort: string = '',
+    order?: ResultOrder,
+    keywords?: string[],
+    kind?: AssetKind
   ): Promise<HaloApiResult<AuthoringAssetContainer>> {
     this.assertNotEmpty(title, 'title');
     this.assertNotEmpty(player, 'player');
+    const formattedKeywords = keywords?.length ? keywords.join(',') : '';
     return this.get<AuthoringAssetContainer>(
-      `/${title}/players/xuid(${player})/${assetType}?start=${start}&count=${count}`
+      `/${title}/players/xuid(${player})/assets?start=${start}&count=${count}&include-times=${includeTimes}&sort=${sort}&order=${order ?? ''}&keywords=${formattedKeywords}&kind=${kind ?? ''}`,
+      { useClearance: true }
     );
   }
 
@@ -242,7 +260,8 @@ export class UgcModule extends ModuleBase {
   ): Promise<HaloApiResult<AuthoringFavoritesContainer>> {
     this.assertNotEmpty(player, 'player');
     return this.get<AuthoringFavoritesContainer>(
-      `/hi/players/xuid(${player})/favorites/${assetType}`
+      `/hi/players/xuid(${player})/favorites/${assetType}`,
+      { useClearance: true }
     );
   }
 
@@ -256,7 +275,9 @@ export class UgcModule extends ModuleBase {
     player: string
   ): Promise<HaloApiResult<AuthoringFavoritesContainer>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<AuthoringFavoritesContainer>(`/hi/players/xuid(${player})/favorites`);
+    return this.get<AuthoringFavoritesContainer>(`/hi/players/xuid(${player})/favorites`, {
+      useClearance: true,
+    });
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -348,7 +369,9 @@ export class UgcModule extends ModuleBase {
   ): Promise<HaloApiResult<boolean>> {
     this.assertNotEmpty(title, 'title');
     this.assertNotEmpty(assetId, 'assetId');
-    return this.delete<boolean>(`/${title}/${assetType}/${assetId}`);
+    return this.delete<boolean>(`/${title}/${assetType}/${assetId}`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -366,7 +389,9 @@ export class UgcModule extends ModuleBase {
   ): Promise<HaloApiResult<boolean>> {
     this.assertNotEmpty(title, 'title');
     this.assertNotEmpty(assetId, 'assetId');
-    return this.delete<boolean>(`/${title}/${assetType}/${assetId}/versions`);
+    return this.delete<boolean>(`/${title}/${assetType}/${assetId}/versions`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -447,7 +472,9 @@ export class UgcModule extends ModuleBase {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
     return this.post<boolean>(
-      `/hi/${assetType}/${assetId}/publish/${versionId}?clearanceId=${clearanceId}`
+      `/hi/${assetType}/${assetId}/publish/${versionId}?clearanceId=${clearanceId}`,
+      undefined,
+      { useClearance: true }
     );
   }
 
@@ -492,7 +519,8 @@ export class UgcModule extends ModuleBase {
     this.assertNotEmpty(player, 'player');
     return this.patchJson<Permission, Permission>(
       `/${title}/${assetType}/${assetId}/permissions/xuid(${player})`,
-      permission
+      permission,
+      { useClearance: true }
     );
   }
 
@@ -520,7 +548,8 @@ export class UgcModule extends ModuleBase {
     this.assertNotEmpty(assetId, 'assetId');
     return this.postJson<AssetAuthoringSession, AuthoringSessionSourceStarter | Record<string, never>>(
       `/${title}/${assetType}/${assetId}/sessions?includeContainerSas=${includeContainerSas}`,
-      starter ?? {}
+      starter ?? {},
+      { useClearance: true }
     );
   }
 
@@ -581,7 +610,8 @@ export class UgcModule extends ModuleBase {
     this.assertNotEmpty(title, 'title');
     return this.postJson<AuthoringAsset, Record<string, unknown>>(
       `/${title}/${assetType}`,
-      asset
+      asset,
+      { useClearance: true }
     );
   }
 
@@ -604,7 +634,8 @@ export class UgcModule extends ModuleBase {
     this.assertNotEmpty(assetId, 'assetId');
     return this.postJson<AuthoringAssetVersion, AuthoringSessionSourceStarter>(
       `/${title}/${assetType}/${assetId}/versions`,
-      starter
+      starter,
+      { useClearance: true }
     );
   }
 
@@ -630,7 +661,8 @@ export class UgcModule extends ModuleBase {
     this.assertNotEmpty(versionId, 'versionId');
     return this.patchJson<AuthoringAssetVersion, Partial<AuthoringAssetVersion>>(
       `/${title}/${assetType}/${assetId}/versions/${versionId}`,
-      patchedAsset
+      patchedAsset,
+      { useClearance: true }
     );
   }
 
