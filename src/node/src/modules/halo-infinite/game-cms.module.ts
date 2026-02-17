@@ -284,7 +284,7 @@ export class GameCmsModule extends ModuleBase {
    * @returns Medal metadata
    */
   getMedalMetadata(): Promise<HaloApiResult<MedalMetadata>> {
-    return this.get<MedalMetadata>('/hi/Progression/file/medals/metadata');
+    return this.get<MedalMetadata>('/hi/Waypoint/file/medals/metadata.json');
   }
 
   /**
