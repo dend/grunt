@@ -1,9 +1,15 @@
+import type { Medal } from '../misc/medal';
+
 /**
  * Core stats that apply to all game modes.
  */
 export interface CoreStats {
   /** Total score earned */
   Score?: number;
+  /** Objectives completed */
+  ObjectivesCompleted?: number;
+  /** Number of spawns */
+  Spawns?: number;
   /** Personal score (individual contribution) */
   PersonalScore?: number;
   /** Number of rounds won */
@@ -18,13 +24,15 @@ export interface CoreStats {
   Deaths?: number;
   /** Total assists */
   Assists?: number;
-  /** Kill/Death/Assist ratio */
-  Kda?: number;
+  /** Average Kill/Death/Assist ratio (used in service records) */
+  AverageKDA?: number;
+  /** Kill/Death/Assist ratio (used in match stats) */
+  KDA?: number;
   /** Total suicides */
   Suicides?: number;
   /** Total betrayals (team kills) */
   Betrayals?: number;
-  /** Average life duration in seconds */
+  /** Average life duration (ISO 8601 duration) */
   AverageLifeDuration?: string;
   /** Grenade kills */
   GrenadeKills?: number;
@@ -57,35 +65,19 @@ export interface CoreStats {
   /** Maximum killing spree */
   MaxKillingSpree?: number;
   /** Medals earned */
-  Medals?: MedalCount[];
+  Medals?: Medal[];
   /** Personal scores breakdown */
-  PersonalScores?: PersonalScoreEntry[];
-  /** Deprecated Spartan Rank */
+  PersonalScores?: PersonalScore[];
+  /** @deprecated No longer included in the API */
   DeprecatedDamageDealt?: number;
-  /** Deprecated Spartan Rank */
+  /** @deprecated No longer included in the API */
   DeprecatedDamageTaken?: number;
-  /** Spawns */
-  Spawns?: number;
-  /** Objectives completed */
-  ObjectivesCompleted?: number;
-}
-
-/**
- * Medal count entry.
- */
-export interface MedalCount {
-  /** Medal name identifier */
-  NameId?: number;
-  /** Number of times earned */
-  Count?: number;
-  /** Total personal score from this medal */
-  TotalPersonalScoreAwarded?: number;
 }
 
 /**
  * Personal score breakdown entry.
  */
-export interface PersonalScoreEntry {
+export interface PersonalScore {
   /** Score type name identifier */
   NameId?: number;
   /** Number of times earned */
@@ -98,13 +90,23 @@ export interface PersonalScoreEntry {
  * Bomb game mode stats (Assault).
  */
 export interface BombStats {
-  /** Bombs planted */
-  BombsPlanted?: number;
-  /** Bombs defused */
-  BombsDefused?: number;
   /** Bomb carriers killed */
   BombCarriersKilled?: number;
-  /** Time as bomb carrier */
+  /** Bomb defusals */
+  BombDefusals?: number;
+  /** Bomb defusers killed */
+  BombDefusersKilled?: number;
+  /** Bomb detonations */
+  BombDetonations?: number;
+  /** Bomb pick-ups */
+  BombPickUps?: number;
+  /** Bomb plants */
+  BombPlants?: number;
+  /** Bomb returns */
+  BombReturns?: number;
+  /** Kills as bomb carrier */
+  KillsAsBombCarrier?: number;
+  /** Time as bomb carrier (ISO 8601 duration) */
   TimeAsBombCarrier?: string;
 }
 
@@ -112,22 +114,28 @@ export interface BombStats {
  * Capture the Flag game mode stats.
  */
 export interface CaptureTheFlagStats {
-  /** Flag captures */
-  FlagCaptures?: number;
   /** Flag capture assists */
   FlagCaptureAssists?: number;
+  /** Flag captures */
+  FlagCaptures?: number;
   /** Flag carriers killed */
   FlagCarriersKilled?: number;
   /** Flag grabs */
   FlagGrabs?: number;
+  /** Flag returners killed */
+  FlagReturnersKilled?: number;
   /** Flags returned */
-  FlagsReturned?: number;
+  FlagReturns?: number;
+  /** Flag secures */
+  FlagSecures?: number;
   /** Flags stolen */
-  FlagsStolen?: number;
-  /** Time as flag carrier */
-  TimeAsFlagCarrier?: string;
+  FlagSteals?: number;
   /** Kills as flag carrier */
   KillsAsFlagCarrier?: number;
+  /** Kills as flag returner */
+  KillsAsFlagReturner?: number;
+  /** Time as flag carrier (ISO 8601 duration) */
+  TimeAsFlagCarrier?: string;
 }
 
 /**
@@ -136,88 +144,94 @@ export interface CaptureTheFlagStats {
 export interface EliminationStats {
   /** Allies revived */
   AlliesRevived?: number;
-  /** Revives denied */
-  RevivesDenied?: number;
-  /** Eliminations */
-  Eliminations?: number;
   /** Elimination assists */
   EliminationAssists?: number;
-  /** Times revived */
-  TimesRevived?: number;
-  /** Rounds survived */
-  RoundsSurvived?: number;
+  /** Eliminations */
+  Eliminations?: number;
+  /** Enemy revives denied */
+  EnemyRevivesDenied?: number;
   /** Executions */
   Executions?: number;
-  /** Last spartans standing */
-  LastSpartansStanding?: number;
+  /** Kills as last player standing */
+  KillsAsLastPlayerStanding?: number;
+  /** Last players standing killed */
+  LastPlayersStandingKilled?: number;
+  /** Rounds survived */
+  RoundsSurvived?: number;
+  /** Times revived by ally */
+  TimesRevivedByAlly?: number;
+  /** Lives remaining */
+  LivesRemaining?: number;
+  /** Elimination order */
+  EliminationOrder?: number;
 }
 
 /**
  * Extraction game mode stats.
  */
 export interface ExtractionStats {
-  /** Extractions initiated */
-  ExtractionInitiated?: number;
-  /** Extractions completed */
-  ExtractionCompleted?: number;
-  /** Extractions converted */
-  ExtractionConverted?: number;
-  /** Extractions denied */
-  ExtractionDenied?: number;
+  /** Extraction conversions completed */
+  ExtractionConversionsCompleted?: number;
+  /** Extraction conversions denied */
+  ExtractionConversionsDenied?: number;
+  /** Extraction initiations completed */
+  ExtractionInitiationsCompleted?: number;
+  /** Extraction initiations denied */
+  ExtractionInitiationsDenied?: number;
   /** Successful extractions */
   SuccessfulExtractions?: number;
-  /** Seconds converting */
-  SecondsConverting?: number;
 }
 
 /**
  * Infection game mode stats.
  */
 export interface InfectionStats {
-  /** Infected killed */
-  InfectedKilled?: number;
-  /** Spartans infected */
-  SpartansInfected?: number;
-  /** Spartans infected as last spartan */
-  SpartansInfectedAsLastSpartan?: number;
-  /** Infected killed as last spartan */
-  InfectedKilledAsLastSpartan?: number;
-  /** Time as last spartan */
-  TimeAsLastSpartan?: string;
-  /** Time as survivor */
-  TimeAsSurvivor?: string;
-  /** Rounds as survivor */
-  RoundsAsSurvivor?: number;
-  /** Rounds as infected */
-  RoundsAsInfected?: number;
-  /** Rounds survived as spartan */
-  RoundsSurvivedAsSpartan?: number;
-  /** Rounds survived as last spartan */
-  RoundsSurvivedAsLastSpartan?: number;
-  /** Kills as last spartan */
-  KillsAsLastSpartan?: number;
-  /** Alpha infections */
-  AlphaInfections?: number;
+  /** Humans infected */
+  HumansInfected?: number;
+  /** Humans infected as alpha zombie */
+  HumansInfectedAsAlpha?: number;
+  /** Last humans standing infected */
+  LastHumansStandingInfected?: number;
+  /** Zombies killed */
+  ZombiesKilled?: number;
+  /** Alpha zombies killed */
+  AlphaZombiesKilled?: number;
+  /** Kills as last human standing */
+  KillsAsLastHumanStanding?: number;
+  /** Rounds survived as human */
+  RoundsSurvivedAsHuman?: number;
+  /** Rounds survived as last human standing */
+  RoundsSurvivedAsLastHumanStanding?: number;
+  /** Rounds as last human standing */
+  RoundsAsLastHumanStanding?: number;
+  /** Time as last human standing (ISO 8601 duration) */
+  TimeAsLastHumanStanding?: string;
+  /** Rounds as alpha zombie */
+  RoundsAsAlphaZombie?: number;
+  /** Rounds finished as zombie */
+  RoundsFinishedAsZombie?: number;
 }
 
 /**
  * Oddball game mode stats.
  */
 export interface OddballStats {
-  /** Time with ball */
-  TimeWithBall?: string;
-  /** Ball carriers killed */
-  BallCarriersKilled?: number;
-  /** Kills as ball carrier */
-  KillsAsBallCarrier?: number;
-  /** Ball grabs */
-  BallGrabs?: number;
-  /** Longest time with ball */
-  LongestTimeWithBall?: string;
+  /** Kills as skull carrier */
+  KillsAsSkullCarrier?: number;
+  /** Longest time as skull carrier (ISO 8601 duration) */
+  LongestTimeAsSkullCarrier?: string;
+  /** Skull carriers killed */
+  SkullCarriersKilled?: number;
+  /** Skull grabs */
+  SkullGrabs?: number;
+  /** Time as skull carrier (ISO 8601 duration) */
+  TimeAsSkullCarrier?: string;
+  /** Skull scoring ticks */
+  SkullScoringTicks?: number;
 }
 
 /**
- * Zones game mode stats (Land Grab, Strongholds, etc.).
+ * Zones game mode stats (Land Grab, Strongholds, KOTH).
  */
 export interface ZonesStats {
   /** Zones captured */
@@ -226,12 +240,10 @@ export interface ZonesStats {
   ZoneDefensiveKills?: number;
   /** Zone offensive kills */
   ZoneOffensiveKills?: number;
-  /** Zone securing kills */
-  ZoneSecuringKills?: number;
-  /** Zone occupation time */
-  ZoneOccupationTime?: string;
-  /** Zones scored */
-  ZonesScored?: number;
+  /** Zones secured */
+  ZoneSecures?: number;
+  /** Total zone occupation time (ISO 8601 duration) */
+  TotalZoneOccupationTime?: string;
   /** Zone scoring ticks */
   ZoneScoringTicks?: number;
 }
@@ -240,52 +252,71 @@ export interface ZonesStats {
  * Stockpile game mode stats.
  */
 export interface StockpileStats {
+  /** Kills as power seed carrier */
+  KillsAsPowerSeedCarrier?: number;
   /** Power seeds deposited */
   PowerSeedsDeposited?: number;
   /** Power seeds stolen */
   PowerSeedsStolen?: number;
-  /** Kill as power seed carrier */
-  KillsAsPowerSeedCarrier?: number;
   /** Power seed carriers killed */
   PowerSeedCarriersKilled?: number;
-  /** Time as power seed carrier */
+  /** Time as power seed carrier (ISO 8601 duration) */
   TimeAsPowerSeedCarrier?: string;
+  /** Time as power seed driver (ISO 8601 duration) */
+  TimeAsPowerSeedDriver?: string;
 }
 
 /**
  * VIP game mode stats.
  */
-export interface VipStats {
-  /** VIP kills */
-  VipKills?: number;
-  /** Kills as VIP */
-  KillsAsVip?: number;
-  /** Time as VIP */
-  TimeAsVip?: string;
+export interface VIPStats {
+  // No properties defined yet in the API.
 }
 
 /**
  * PvE (Firefight) stats.
  */
 export interface PveStats {
+  /** Kills */
+  Kills?: number;
+  /** Deaths */
+  Deaths?: number;
+  /** Assists */
+  Assists?: number;
+  /** Kill/Death/Assist ratio */
+  KDA?: number;
+  /** Marine kills */
+  MarineKills?: number;
+  /** Grunt kills */
+  GruntKills?: number;
+  /** Jackal kills */
+  JackalKills?: number;
+  /** Elite kills */
+  EliteKills?: number;
+  /** Brute kills */
+  BruteKills?: number;
+  /** Hunter kills */
+  HunterKills?: number;
+  /** Skimmer kills */
+  SkimmerKills?: number;
+  /** Sentinel kills */
+  SentinelKills?: number;
   /** Boss kills */
   BossKills?: number;
-  /** Emplacement kills */
-  EmplacementKills?: number;
-  /** Enemy vehicle kills */
-  EnemyVehicleKills?: number;
-  /** Wave survived */
-  WavesSurvived?: number;
-  /** Last spartan standing */
-  LastSpartanStanding?: boolean;
 }
 
 /**
- * PvP stats (used in some game modes).
+ * PvP stats.
  */
 export interface PvpStats {
-  /** Spartan kills */
-  SpartanKills?: number;
+  /** PvP assists */
+  Assists?: number;
+  /** PvP deaths */
+  Deaths?: number;
+  /** PvP KDA */
+  KDA?: number;
+  /** PvP kills */
+  Kills?: number;
 }
 
 /**
@@ -311,7 +342,7 @@ export interface Stats {
   /** Stockpile stats */
   StockpileStats?: StockpileStats;
   /** VIP stats */
-  VipStats?: VipStats;
+  VipStats?: VIPStats;
   /** PvE stats */
   PveStats?: PveStats;
   /** PvP stats */

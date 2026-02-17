@@ -5,8 +5,7 @@
 export type { MatchInfo, GenericAsset, UgcGameVariant, PlaylistExperience, GameplayInteraction } from './match-info';
 export type {
   CoreStats,
-  MedalCount,
-  PersonalScoreEntry,
+  PersonalScore,
   BombStats,
   CaptureTheFlagStats,
   EliminationStats,
@@ -15,7 +14,7 @@ export type {
   OddballStats,
   ZonesStats,
   StockpileStats,
-  VipStats,
+  VIPStats,
   PveStats,
   PvpStats,
   Stats,
@@ -35,12 +34,6 @@ export type {
   PlayerMatchCount,
 } from './match-history';
 export type {
-  ServiceRecordSubqueries,
-  SeasonServiceRecord,
-  MapServiceRecord,
-  GameVariantServiceRecord,
-  PlaylistServiceRecord,
-  TimePlayed,
-  WinLossRecord,
+  SubqueryContainer,
   PlayerServiceRecord,
 } from './service-record';

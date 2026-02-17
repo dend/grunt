@@ -1,81 +1,27 @@
-import type { Stats } from './stats';
+import type {
+  CoreStats,
+  BombStats,
+  CaptureTheFlagStats,
+  EliminationStats,
+  ExtractionStats,
+  InfectionStats,
+  OddballStats,
+  ZonesStats,
+  StockpileStats,
+} from './stats';
 
 /**
- * Subqueries for service record data.
+ * Container for service record subqueries.
  */
-export interface ServiceRecordSubqueries {
-  /** Seasonal breakdown of stats */
-  Seasons?: SeasonServiceRecord[];
-  /** Map breakdown of stats */
-  Maps?: MapServiceRecord[];
-  /** Game variant breakdown */
-  GameVariants?: GameVariantServiceRecord[];
-  /** Playlist breakdown */
-  Playlists?: PlaylistServiceRecord[];
-}
-
-/**
- * Season-specific service record.
- */
-export interface SeasonServiceRecord {
-  /** Season identifier */
-  SeasonId?: string;
-  /** Stats for this season */
-  Stats?: Stats;
-}
-
-/**
- * Map-specific service record.
- */
-export interface MapServiceRecord {
-  /** Map asset identifier */
-  AssetId?: string;
-  /** Stats for this map */
-  Stats?: Stats;
-}
-
-/**
- * Game variant-specific service record.
- */
-export interface GameVariantServiceRecord {
-  /** Game variant category */
-  GameVariantCategory?: number;
-  /** Stats for this game variant */
-  Stats?: Stats;
-}
-
-/**
- * Playlist-specific service record.
- */
-export interface PlaylistServiceRecord {
-  /** Playlist asset identifier */
-  AssetId?: string;
-  /** Stats for this playlist */
-  Stats?: Stats;
-}
-
-/**
- * Time played breakdown.
- */
-export interface TimePlayed {
-  /** Total seconds played */
-  Seconds?: number;
-  /** Human-readable duration */
-  Human?: string;
-}
-
-/**
- * Win-loss record.
- */
-export interface WinLossRecord {
-  /** Number of wins */
-  Wins?: number;
-  /** Number of losses */
-  Losses?: number;
-  /** Number of ties */
-  Ties?: number;
-  /** Number of games left early */
-  Left?: number;
+export interface SubqueryContainer {
+  /** List of season IDs */
+  SeasonIds?: string[];
+  /** List of game variant categories */
+  GameVariantCategories?: number[];
+  /** Whether the player is ranked */
+  IsRanked?: boolean[];
+  /** List of playlist asset IDs */
+  PlaylistAssetIds?: string[];
 }
 
 /**
@@ -84,16 +30,34 @@ export interface WinLossRecord {
  * Contains aggregate statistics across all matches for a player.
  */
 export interface PlayerServiceRecord {
-  /** Player identifier */
-  PlayerId?: string;
-  /** Core aggregate stats */
-  Stats?: Stats;
-  /** Time played breakdown */
-  TimePlayed?: TimePlayed;
-  /** Win/loss/tie record */
-  WinLossRecord?: WinLossRecord;
-  /** Matches played */
-  MatchesPlayed?: number;
-  /** Subquery breakdowns (by season, map, etc.) */
-  Subqueries?: ServiceRecordSubqueries;
+  /** Container for all subqueries for the service record */
+  Subqueries?: SubqueryContainer;
+  /** Total time played (ISO 8601 duration) */
+  TimePlayed?: string;
+  /** Total number of matches completed */
+  MatchesCompleted?: number;
+  /** Total number of wins */
+  Wins?: number;
+  /** Total number of losses */
+  Losses?: number;
+  /** Total number of ties */
+  Ties?: number;
+  /** Core player stats */
+  CoreStats?: CoreStats;
+  /** Bomb game mode stats */
+  BombStats?: BombStats;
+  /** Capture The Flag game mode stats */
+  CaptureTheFlagStats?: CaptureTheFlagStats;
+  /** Elimination game mode stats */
+  EliminationStats?: EliminationStats;
+  /** Extraction game mode stats */
+  ExtractionStats?: ExtractionStats;
+  /** Infection game mode stats */
+  InfectionStats?: InfectionStats;
+  /** Oddball game mode stats */
+  OddballStats?: OddballStats;
+  /** Zones (Land Grab, Strongholds, KOTH) game mode stats */
+  ZonesStats?: ZonesStats;
+  /** Stockpile game mode stats */
+  StockpileStats?: StockpileStats;
 }

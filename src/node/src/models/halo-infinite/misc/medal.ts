@@ -6,20 +6,24 @@ import type { DisplayString } from '../economy/inventory';
 export interface Medal {
   /** Medal name identifier */
   NameId?: number;
+  /** Number of times earned */
+  Count?: number;
+  /** Total personal score awarded */
+  TotalPersonalScoreAwarded?: number;
   /** Display name */
   Name?: DisplayString;
   /** Description */
   Description?: DisplayString;
-  /** Sprite index */
+  /** Sprite index on the sprite sheet (zero-based) */
   SpriteIndex?: number;
-  /** Medal type */
-  Type?: string;
-  /** Difficulty level */
-  Difficulty?: string;
-  /** Personal score awarded */
-  PersonalScore?: number;
   /** Sorting weight */
   SortingWeight?: number;
+  /** Difficulty index, mapped to the difficulties property in medal metadata */
+  DifficultyIndex?: number;
+  /** Type index, mapped to the types property in medal metadata */
+  TypeIndex?: number;
+  /** Personal score */
+  PersonalScore?: number;
 }
 
 /**
