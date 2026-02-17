@@ -235,7 +235,10 @@ export class GameCmsModule extends ModuleBase {
    */
   getCareerRanks(careerPathId: string): Promise<HaloApiResult<CareerTrackContainer>> {
     this.assertNotEmpty(careerPathId, 'careerPathId');
-    return this.get<CareerTrackContainer>(`/hi/Progression/file/careerranks/${careerPathId}`);
+    return this.get<CareerTrackContainer>(
+      `/hi/Progression/file/RewardTracks/CareerRanks/${careerPathId}.json`,
+      { useClearance: true }
+    );
   }
 
   /**

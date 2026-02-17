@@ -558,9 +558,10 @@ export class EconomyModule extends ModuleBase {
     }
     this.assertNotEmpty(careerPathId, 'careerPathId');
 
-    const playersQuery = playerIds.map((id) => `players=xuid(${id})`).join('&');
+    const formattedPlayerList = playerIds.map((id) => `xuid(${id})`).join(',');
     return this.get<RewardTrackResultContainer>(
-      `/hi/careerranks/${careerPathId}?${playersQuery}`
+      `/hi/careerranks/${careerPathId}?players=${formattedPlayerList}`,
+      { useClearance: true }
     );
   }
 }
