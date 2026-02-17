@@ -10,8 +10,6 @@ import type { UgcSearchResult, AuthoringAsset } from '../../models/halo-infinite
  *
  * Provides access to:
  * - Searching for maps, game variants, and other content
- * - Browsing featured and popular content
- * - Getting recommended content
  * - Getting specific asset types (maps, playlists, prefabs, etc.)
  *
  * @example
@@ -25,9 +23,6 @@ import type { UgcSearchResult, AuthoringAsset } from '../../models/halo-infinite
  *
  * // Get a specific map
  * const map = await client.ugcDiscovery.getMap('asset-id', 'version-id');
- *
- * // Get featured maps
- * const featured = await client.ugcDiscovery.getFeatured('Map');
  * ```
  */
 export class UgcDiscoveryModule extends ModuleBase {
@@ -130,108 +125,9 @@ export class UgcDiscoveryModule extends ModuleBase {
     }
 
     const queryString = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
-    return this.get<UgcSearchResult>(`/hi/search${queryString}`);
-  }
-
-  /**
-   * Get featured content of a specific type.
-   *
-   * @param assetKind - Type of asset
-   * @returns Featured assets
-   */
-  getFeatured(assetKind: string): Promise<HaloApiResult<UgcSearchResult>> {
-    return this.get<UgcSearchResult>(`/hi/featured/${assetKind}`);
-  }
-
-  /**
-   * Get popular content of a specific type.
-   *
-   * @param assetKind - Type of asset
-   * @param start - Starting offset
-   * @param count - Number of results
-   * @returns Popular assets
-   */
-  getPopular(
-    assetKind: string,
-    start: number = 0,
-    count: number = 25
-  ): Promise<HaloApiResult<UgcSearchResult>> {
-    return this.get<UgcSearchResult>(
-      `/hi/popular/${assetKind}?start=${start}&count=${count}`
-    );
-  }
-
-  /**
-   * Get recent content of a specific type.
-   *
-   * @param assetKind - Type of asset
-   * @param start - Starting offset
-   * @param count - Number of results
-   * @returns Recent assets
-   */
-  getRecent(
-    assetKind: string,
-    start: number = 0,
-    count: number = 25
-  ): Promise<HaloApiResult<UgcSearchResult>> {
-    return this.get<UgcSearchResult>(
-      `/hi/recent/${assetKind}?start=${start}&count=${count}`
-    );
-  }
-
-  /**
-   * Get recommended content for a player.
-   *
-   * @param player - Player XUID
-   * @param assetKind - Type of asset
-   * @param count - Number of results
-   * @returns Recommended assets
-   */
-  getRecommended(
-    player: string,
-    assetKind: string,
-    count: number = 10
-  ): Promise<HaloApiResult<UgcSearchResult>> {
-    this.assertNotEmpty(player, 'player');
-    return this.get<UgcSearchResult>(
-      `/hi/players/xuid(${player})/recommendations/${assetKind}?count=${count}`
-    );
-  }
-
-  /**
-   * Browse content by tag.
-   *
-   * @param assetKind - Type of asset
-   * @param tag - Tag to filter by
-   * @param start - Starting offset
-   * @param count - Number of results
-   * @returns Tagged assets
-   */
-  browseByTag(
-    assetKind: string,
-    tag: string,
-    start: number = 0,
-    count: number = 25
-  ): Promise<HaloApiResult<UgcSearchResult>> {
-    this.assertNotEmpty(tag, 'tag');
-    return this.get<UgcSearchResult>(
-      `/hi/tags/${encodeURIComponent(tag)}/${assetKind}?start=${start}&count=${count}`
-    );
-  }
-
-  /**
-   * Get asset details for discovery purposes.
-   *
-   * @param assetKind - Type of asset
-   * @param assetId - Asset GUID
-   * @returns Asset details
-   */
-  getAssetDetails(
-    assetKind: string,
-    assetId: string
-  ): Promise<HaloApiResult<AuthoringAsset>> {
-    this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAsset>(`/hi/${assetKind}/${assetId}`);
+    return this.get<UgcSearchResult>(`/hi/search${queryString}`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -240,7 +136,9 @@ export class UgcDiscoveryModule extends ModuleBase {
    * @returns Available tags info
    */
   getTagsInfo(): Promise<HaloApiResult<AuthoringAsset>> {
-    return this.get<AuthoringAsset>('/hi/info/tags');
+    return this.get<AuthoringAsset>('/hi/info/tags', {
+      useClearance: true,
+    });
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -285,7 +183,8 @@ export class UgcDiscoveryModule extends ModuleBase {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
     return this.get<AuthoringAsset>(
-      `/hi/manifests/${assetId}/versions/${versionId}?clearanceId=${clearanceId}`
+      `/hi/manifests/${assetId}/versions/${versionId}?clearanceId=${clearanceId}`,
+      { useClearance: true }
     );
   }
 
@@ -303,7 +202,9 @@ export class UgcDiscoveryModule extends ModuleBase {
   getMap(assetId: string, versionId: string): Promise<HaloApiResult<AuthoringAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
-    return this.get<AuthoringAsset>(`/hi/maps/${assetId}/versions/${versionId}`);
+    return this.get<AuthoringAsset>(`/hi/maps/${assetId}/versions/${versionId}`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -314,7 +215,9 @@ export class UgcDiscoveryModule extends ModuleBase {
    */
   getMapWithoutVersion(assetId: string): Promise<HaloApiResult<AuthoringAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAsset>(`/hi/maps/${assetId}`);
+    return this.get<AuthoringAsset>(`/hi/maps/${assetId}`, {
+      useClearance: true,
+    });
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -337,7 +240,8 @@ export class UgcDiscoveryModule extends ModuleBase {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
     return this.get<AuthoringAsset>(
-      `/hi/mapModePairs/${assetId}/versions/${versionId}?clearanceId=${clearanceId}`
+      `/hi/mapModePairs/${assetId}/versions/${versionId}?clearanceId=${clearanceId}`,
+      { useClearance: true }
     );
   }
 
@@ -349,7 +253,9 @@ export class UgcDiscoveryModule extends ModuleBase {
    */
   getMapModePairWithoutVersion(assetId: string): Promise<HaloApiResult<AuthoringAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAsset>(`/hi/mapModePairs/${assetId}`);
+    return this.get<AuthoringAsset>(`/hi/mapModePairs/${assetId}`, {
+      useClearance: true,
+    });
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -372,7 +278,8 @@ export class UgcDiscoveryModule extends ModuleBase {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
     return this.get<AuthoringAsset>(
-      `/hi/playlists/${assetId}/versions/${versionId}?clearanceId=${clearanceId}`
+      `/hi/playlists/${assetId}/versions/${versionId}?clearanceId=${clearanceId}`,
+      { useClearance: true }
     );
   }
 
@@ -384,7 +291,9 @@ export class UgcDiscoveryModule extends ModuleBase {
    */
   getPlaylistWithoutVersion(assetId: string): Promise<HaloApiResult<AuthoringAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAsset>(`/hi/playlists/${assetId}`);
+    return this.get<AuthoringAsset>(`/hi/playlists/${assetId}`, {
+      useClearance: true,
+    });
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -401,7 +310,9 @@ export class UgcDiscoveryModule extends ModuleBase {
   getPrefab(assetId: string, versionId: string): Promise<HaloApiResult<AuthoringAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
-    return this.get<AuthoringAsset>(`/hi/prefabs/${assetId}/versions/${versionId}`);
+    return this.get<AuthoringAsset>(`/hi/prefabs/${assetId}/versions/${versionId}`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -412,7 +323,9 @@ export class UgcDiscoveryModule extends ModuleBase {
    */
   getPrefabWithoutVersion(assetId: string): Promise<HaloApiResult<AuthoringAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAsset>(`/hi/prefabs/${assetId}`);
+    return this.get<AuthoringAsset>(`/hi/prefabs/${assetId}`, {
+      useClearance: true,
+    });
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -429,7 +342,9 @@ export class UgcDiscoveryModule extends ModuleBase {
   getProject(assetId: string, versionId: string): Promise<HaloApiResult<AuthoringAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
-    return this.get<AuthoringAsset>(`/hi/projects/${assetId}/versions/${versionId}`);
+    return this.get<AuthoringAsset>(`/hi/projects/${assetId}/versions/${versionId}`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -440,7 +355,9 @@ export class UgcDiscoveryModule extends ModuleBase {
    */
   getProjectWithoutVersion(assetId: string): Promise<HaloApiResult<AuthoringAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAsset>(`/hi/projects/${assetId}`);
+    return this.get<AuthoringAsset>(`/hi/projects/${assetId}`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -449,7 +366,10 @@ export class UgcDiscoveryModule extends ModuleBase {
    * @returns Forge templates project
    */
   getForgeTemplates(): Promise<HaloApiResult<AuthoringAsset>> {
-    return this.get<AuthoringAsset>('/hi/projects/bf0e9bab-6fed-47a4-8bf7-bfd4422ee552');
+    return this.get<AuthoringAsset>(
+      '/hi/projects/bf0e9bab-6fed-47a4-8bf7-bfd4422ee552',
+      { useClearance: true }
+    );
   }
 
   /**
@@ -458,7 +378,10 @@ export class UgcDiscoveryModule extends ModuleBase {
    * @returns Forge mode categories project
    */
   getForgeModeCategories(): Promise<HaloApiResult<AuthoringAsset>> {
-    return this.get<AuthoringAsset>('/hi/projects/aff73c44-0771-468f-b9cf-5c52eee7ab4c');
+    return this.get<AuthoringAsset>(
+      '/hi/projects/aff73c44-0771-468f-b9cf-5c52eee7ab4c',
+      { useClearance: true }
+    );
   }
 
   /**
@@ -467,7 +390,10 @@ export class UgcDiscoveryModule extends ModuleBase {
    * @returns Community tab project
    */
   getCommunityTab(): Promise<HaloApiResult<AuthoringAsset>> {
-    return this.get<AuthoringAsset>('/hi/projects/90f9e508-99ce-411c-bf88-7bf12b5e9f52');
+    return this.get<AuthoringAsset>(
+      '/hi/projects/90f9e508-99ce-411c-bf88-7bf12b5e9f52',
+      { useClearance: true }
+    );
   }
 
   /**
@@ -476,7 +402,10 @@ export class UgcDiscoveryModule extends ModuleBase {
    * @returns 343 recommended project
    */
   get343Recommended(): Promise<HaloApiResult<AuthoringAsset>> {
-    return this.get<AuthoringAsset>('/hi/projects/712add52-f989-48e1-b3bb-ac7cd8a1c17a');
+    return this.get<AuthoringAsset>(
+      '/hi/projects/712add52-f989-48e1-b3bb-ac7cd8a1c17a',
+      { useClearance: true }
+    );
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -497,7 +426,8 @@ export class UgcDiscoveryModule extends ModuleBase {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
     return this.get<AuthoringAsset>(
-      `/hi/engineGameVariants/${assetId}/versions/${versionId}`
+      `/hi/engineGameVariants/${assetId}/versions/${versionId}`,
+      { useClearance: true }
     );
   }
 
@@ -511,7 +441,9 @@ export class UgcDiscoveryModule extends ModuleBase {
     assetId: string
   ): Promise<HaloApiResult<AuthoringAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAsset>(`/hi/engineGameVariants/${assetId}`);
+    return this.get<AuthoringAsset>(`/hi/engineGameVariants/${assetId}`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -528,7 +460,8 @@ export class UgcDiscoveryModule extends ModuleBase {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
     return this.get<AuthoringAsset>(
-      `/hi/ugcGameVariants/${assetId}/versions/${versionId}`
+      `/hi/ugcGameVariants/${assetId}/versions/${versionId}`,
+      { useClearance: true }
     );
   }
 
@@ -542,7 +475,9 @@ export class UgcDiscoveryModule extends ModuleBase {
     assetId: string
   ): Promise<HaloApiResult<AuthoringAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAsset>(`/hi/ugcGameVariants/${assetId}`);
+    return this.get<AuthoringAsset>(`/hi/ugcGameVariants/${assetId}`, {
+      useClearance: true,
+    });
   }
 
   // ─────────────────────────────────────────────────────────────────

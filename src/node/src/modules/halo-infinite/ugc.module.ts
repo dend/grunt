@@ -200,9 +200,9 @@ export class UgcModule extends ModuleBase {
   ): Promise<HaloApiResult<FavoriteAsset>> {
     this.assertNotEmpty(player, 'player');
     this.assertNotEmpty(assetId, 'assetId');
-    return this.postJson<FavoriteAsset, { assetId: string; assetKind: string }>(
-      `/hi/players/xuid(${player})/favorites`,
-      { assetId, assetKind: assetType }
+    return this.putJson<FavoriteAsset, Record<string, never>>(
+      `/hi/players/xuid(${player})/favorites/${assetType}/${assetId}`,
+      {}
     );
   }
 
@@ -323,7 +323,7 @@ export class UgcModule extends ModuleBase {
   ): Promise<HaloApiResult<AssetReport>> {
     this.assertNotEmpty(player, 'player');
     this.assertNotEmpty(assetId, 'assetId');
-    return this.postJson<AssetReport, AssetReport>(
+    return this.putJson<AssetReport, AssetReport>(
       `/hi/players/xuid(${player})/reports/${assetType}/${assetId}`,
       report
     );
@@ -447,7 +447,7 @@ export class UgcModule extends ModuleBase {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
     return this.post<boolean>(
-      `/hi/${assetType}/${assetId}/versions/${versionId}/publish?clearanceId=${clearanceId}`
+      `/hi/${assetType}/${assetId}/publish/${versionId}?clearanceId=${clearanceId}`
     );
   }
 
@@ -490,7 +490,7 @@ export class UgcModule extends ModuleBase {
     this.assertNotEmpty(title, 'title');
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(player, 'player');
-    return this.putJson<Permission, Permission>(
+    return this.patchJson<Permission, Permission>(
       `/${title}/${assetType}/${assetId}/permissions/xuid(${player})`,
       permission
     );
@@ -513,12 +513,14 @@ export class UgcModule extends ModuleBase {
     title: string,
     assetType: string,
     assetId: string,
+    starter?: AuthoringSessionSourceStarter,
     includeContainerSas: boolean = false
   ): Promise<HaloApiResult<AssetAuthoringSession>> {
     this.assertNotEmpty(title, 'title');
     this.assertNotEmpty(assetId, 'assetId');
-    return this.post<AssetAuthoringSession>(
-      `/${title}/${assetType}/${assetId}/sessions?includeContainerSas=${includeContainerSas}`
+    return this.postJson<AssetAuthoringSession, AuthoringSessionSourceStarter | Record<string, never>>(
+      `/${title}/${assetType}/${assetId}/sessions?includeContainerSas=${includeContainerSas}`,
+      starter ?? {}
     );
   }
 
@@ -539,7 +541,7 @@ export class UgcModule extends ModuleBase {
   ): Promise<HaloApiResult<AssetAuthoringSession>> {
     this.assertNotEmpty(title, 'title');
     this.assertNotEmpty(assetId, 'assetId');
-    return this.putJson<AssetAuthoringSession, Record<string, never>>(
+    return this.patchJson<AssetAuthoringSession, Record<string, never>>(
       `/${title}/${assetType}/${assetId}/sessions?includeContainerSas=${includeContainerSas}`,
       {}
     );
@@ -560,7 +562,7 @@ export class UgcModule extends ModuleBase {
   ): Promise<HaloApiResult<boolean>> {
     this.assertNotEmpty(title, 'title');
     this.assertNotEmpty(assetId, 'assetId');
-    return this.delete<boolean>(`/${title}/${assetType}/${assetId}/sessions`);
+    return this.delete<boolean>(`/${title}/${assetType}/${assetId}/sessions/active`);
   }
 
   /**

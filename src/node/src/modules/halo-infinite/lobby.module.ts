@@ -4,7 +4,6 @@ import type { HaloApiResult } from '../../models/common/api-result';
 import { HALO_CORE_ENDPOINTS } from '../../endpoints/halo-core-endpoints';
 import type {
   Server,
-  LobbyPresenceRequestContainer,
   LobbyPresenceContainer,
   LobbyJoinHandle,
   JoinLobbyResponse,
@@ -35,7 +34,7 @@ export class LobbyModule extends ModuleBase {
    * @returns List of servers
    */
   getQosServers(): Promise<HaloApiResult<Server[]>> {
-    return this.get<Server[]>('/hi/qosservers');
+    return this.get<Server[]>('/titles/hi/qosservers');
   }
 
   /**
@@ -44,13 +43,8 @@ export class LobbyModule extends ModuleBase {
    * @param presenceRequest - Presence request container
    * @returns Presence results
    */
-  presence(
-    presenceRequest: LobbyPresenceRequestContainer
-  ): Promise<HaloApiResult<LobbyPresenceContainer>> {
-    return this.postJson<LobbyPresenceContainer, LobbyPresenceRequestContainer>(
-      '/hi/presence',
-      presenceRequest
-    );
+  presence(): Promise<HaloApiResult<LobbyPresenceContainer>> {
+    return this.get<LobbyPresenceContainer>('/hi/presence');
   }
 
   /**
@@ -71,7 +65,7 @@ export class LobbyModule extends ModuleBase {
     this.assertNotEmpty(lobbyId, 'lobbyId');
     this.assertNotEmpty(player, 'player');
     return this.get<LobbyJoinHandle>(
-      `/hi/lobbies/${lobbyId}/players/xuid(${player})/joinhandle?handleAudience=${handleAudience}&handlePlatform=${handlePlatform}`
+      `/hi/lobbies/${lobbyId}/players/xuid(${player})/thirdPartyJoinHandle?audience=${handleAudience}&platform=${handlePlatform}`
     );
   }
 
@@ -95,7 +89,7 @@ export class LobbyModule extends ModuleBase {
 
     return this.client.executeRequest<JoinLobbyResponse>(
       this.buildUrl(`/hi/lobbies/${lobbyId}/players/xuid(${player})?auth=${auth}`),
-      'POST',
+      'PUT',
       {
         body: lobbyBootstrapPayload,
         contentType: 'bond' as any,

@@ -4,7 +4,7 @@ import type { HaloApiResult } from '../../models/common/api-result';
 import { HALO_CORE_ENDPOINTS } from '../../endpoints/halo-core-endpoints';
 import type { DisplayString, CurrencyDefinition, StoreOffering } from '../../models/halo-infinite/economy';
 import type { Challenge, ChallengeDeckDefinition, RewardTrackMetadata, CareerTrackContainer } from '../../models/halo-infinite/progression';
-import type { MedalMetadata, News, SeasonCalendar, AcademyStarDefinitions } from '../../models/halo-infinite/misc';
+import type { MedalMetadata, News, SeasonCalendar } from '../../models/halo-infinite/misc';
 
 /**
  * In-game item definition from CMS.
@@ -120,7 +120,7 @@ export class GameCmsModule extends ModuleBase {
     this.assertNotEmpty(itemPath, 'itemPath');
     const flightParam = flightId ? `?flight=${flightId}` : '';
     return this.get<InGameItem>(`/hi/Progression/file/${itemPath}${flightParam}`, {
-      useClearance: !!flightId,
+      useClearance: true,
     });
   }
 
@@ -132,9 +132,10 @@ export class GameCmsModule extends ModuleBase {
    */
   getCustomizationCatalog(flightId?: string): Promise<HaloApiResult<InventoryDefinition>> {
     const flightParam = flightId ? `?flight=${flightId}` : '';
-    return this.get<InventoryDefinition>(`/hi/Progression/file/inventory/catalog${flightParam}`, {
-      useClearance: !!flightId,
-    });
+    return this.get<InventoryDefinition>(
+      `/hi/Progression/file/inventory/catalog/inventory_catalog.json${flightParam}`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -145,7 +146,9 @@ export class GameCmsModule extends ModuleBase {
    */
   getStoreOffering(offeringPath: string): Promise<HaloApiResult<StoreOffering>> {
     this.assertNotEmpty(offeringPath, 'offeringPath');
-    return this.get<StoreOffering>(`/hi/Progression/file/${offeringPath}`);
+    return this.get<StoreOffering>(`/hi/Progression/file/${offeringPath}`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -161,7 +164,10 @@ export class GameCmsModule extends ModuleBase {
   ): Promise<HaloApiResult<CurrencyDefinition>> {
     this.assertNotEmpty(currencyPath, 'currencyPath');
     const flightParam = flightId ? `?flight=${flightId}` : '';
-    return this.get<CurrencyDefinition>(`/hi/Progression/file/${currencyPath}${flightParam}`);
+    return this.get<CurrencyDefinition>(
+      `/hi/Progression/file/${currencyPath}${flightParam}`,
+      { useClearance: true }
+    );
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -182,7 +188,7 @@ export class GameCmsModule extends ModuleBase {
     this.assertNotEmpty(challengePath, 'challengePath');
     const flightParam = flightId ? `?flight=${flightId}` : '';
     return this.get<Challenge>(`/hi/Progression/file/${challengePath}${flightParam}`, {
-      useClearance: !!flightId,
+      useClearance: true,
     });
   }
 
@@ -201,7 +207,7 @@ export class GameCmsModule extends ModuleBase {
     const flightParam = flightId ? `?flight=${flightId}` : '';
     return this.get<ChallengeDeckDefinition>(
       `/hi/Progression/file/${challengeDeckPath}${flightParam}`,
-      { useClearance: !!flightId }
+      { useClearance: true }
     );
   }
 
@@ -219,7 +225,7 @@ export class GameCmsModule extends ModuleBase {
     this.assertNotEmpty(eventPath, 'eventPath');
     const flightParam = flightId ? `?flight=${flightId}` : '';
     return this.get<RewardTrackMetadata>(`/hi/Progression/file/${eventPath}${flightParam}`, {
-      useClearance: !!flightId,
+      useClearance: true,
     });
   }
 
@@ -247,7 +253,10 @@ export class GameCmsModule extends ModuleBase {
    * @returns Season calendar
    */
   getSeasonCalendar(): Promise<HaloApiResult<SeasonCalendar>> {
-    return this.get<SeasonCalendar>('/hi/Progression/file/calendars/seasons');
+    return this.get<SeasonCalendar>(
+      '/hi/Progression/file/Calendars/Seasons/SeasonCalendar.json',
+      { useClearance: true }
+    );
   }
 
   /**
@@ -256,7 +265,10 @@ export class GameCmsModule extends ModuleBase {
    * @returns CSR season calendar
    */
   getCsrCalendar(): Promise<HaloApiResult<SeasonCalendar>> {
-    return this.get<SeasonCalendar>('/hi/Progression/file/calendars/csrseasons');
+    return this.get<SeasonCalendar>(
+      '/hi/Progression/file/Csr/Calendars/CsrSeasonCalendar.json',
+      { useClearance: true }
+    );
   }
 
   /**
@@ -273,7 +285,7 @@ export class GameCmsModule extends ModuleBase {
     this.assertNotEmpty(seasonPath, 'seasonPath');
     const flightParam = flightId ? `?flight=${flightId}` : '';
     return this.get<RewardTrackMetadata>(`/hi/Progression/file/${seasonPath}${flightParam}`, {
-      useClearance: !!flightId,
+      useClearance: true,
     });
   }
 
@@ -298,9 +310,10 @@ export class GameCmsModule extends ModuleBase {
    */
   getMetadata(flightId?: string): Promise<HaloApiResult<Metadata>> {
     const flightParam = flightId ? `?flight=${flightId}` : '';
-    return this.get<Metadata>(`/hi/Progression/file/metadata${flightParam}`, {
-      useClearance: !!flightId,
-    });
+    return this.get<Metadata>(
+      `/hi/Progression/file/metadata/metadata.json${flightParam}`,
+      { useClearance: true }
+    );
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -315,16 +328,9 @@ export class GameCmsModule extends ModuleBase {
    */
   getNews(filePath: string): Promise<HaloApiResult<News>> {
     this.assertNotEmpty(filePath, 'filePath');
-    return this.get<News>(`/hi/news/${filePath}`);
-  }
-
-  /**
-   * Get academy star definitions.
-   *
-   * @returns Star definitions
-   */
-  getAcademyStarDefinitions(): Promise<HaloApiResult<AcademyStarDefinitions>> {
-    return this.get<AcademyStarDefinitions>('/hi/Progression/file/academy/stars');
+    return this.get<News>(`/hi/news/file/${filePath}`, {
+      useClearance: true,
+    });
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -339,7 +345,10 @@ export class GameCmsModule extends ModuleBase {
    */
   getImage(filePath: string): Promise<HaloApiResult<Uint8Array>> {
     this.assertNotEmpty(filePath, 'filePath');
-    return this.get<Uint8Array>(`/hi/images/file/${filePath}`, { returnRaw: true });
+    return this.get<Uint8Array>(`/hi/images/file/${filePath}`, {
+      returnRaw: true,
+      useClearance: true,
+    });
   }
 
   /**
@@ -362,7 +371,9 @@ export class GameCmsModule extends ModuleBase {
    */
   getProgressionFile<T>(filePath: string): Promise<HaloApiResult<T>> {
     this.assertNotEmpty(filePath, 'filePath');
-    return this.get<T>(`/hi/Progression/file/${filePath}`);
+    return this.get<T>(`/hi/Progression/file/${filePath}`, {
+      useClearance: true,
+    });
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -375,7 +386,10 @@ export class GameCmsModule extends ModuleBase {
    * @returns Achievement collection
    */
   getAchievements(): Promise<HaloApiResult<Record<string, unknown>>> {
-    return this.get<Record<string, unknown>>('/hi/Multiplayer/file/Live/Achievements.json');
+    return this.get<Record<string, unknown>>(
+      '/hi/Multiplayer/file/Live/Achievements.json',
+      { useClearance: true }
+    );
   }
 
   /**
@@ -385,7 +399,8 @@ export class GameCmsModule extends ModuleBase {
    */
   getPlayNowButtonSettings(): Promise<HaloApiResult<Record<string, unknown>>> {
     return this.get<Record<string, unknown>>(
-      '/hi/Multiplayer/file/playlists/playNowButton/settings.json'
+      '/hi/Multiplayer/file/playlists/playNowButton/settings.json',
+      { useClearance: true }
     );
   }
 
@@ -395,7 +410,10 @@ export class GameCmsModule extends ModuleBase {
    * @returns Custom game definition
    */
   getCustomGameDefaults(): Promise<HaloApiResult<Record<string, unknown>>> {
-    return this.get<Record<string, unknown>>('/hi/Multiplayer/file/NonMatchmaking/customgame.json');
+    return this.get<Record<string, unknown>>(
+      '/hi/Multiplayer/file/NonMatchmaking/customgame.json',
+      { useClearance: true }
+    );
   }
 
   /**
@@ -407,7 +425,8 @@ export class GameCmsModule extends ModuleBase {
   getLobbyErrorMessages(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
     this.assertNotEmpty(flightId, 'flightId');
     return this.get<Record<string, unknown>>(
-      `/hi/Multiplayer/file/gameStartErrorMessages/LobbyHoppperErrorMessageList.json?flight=${flightId}`
+      `/hi/Multiplayer/file/gameStartErrorMessages/LobbyHoppperErrorMessageList.json?flight=${flightId}`,
+      { useClearance: true }
     );
   }
 
@@ -420,7 +439,8 @@ export class GameCmsModule extends ModuleBase {
   getNetworkConfiguration(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
     this.assertNotEmpty(flightId, 'flightId');
     return this.get<Record<string, unknown>>(
-      `/hi/Multiplayer/file/network/config.json?flight=${flightId}`
+      `/hi/Multiplayer/file/network/config.json?flight=${flightId}`,
+      { useClearance: true }
     );
   }
 
@@ -449,7 +469,10 @@ export class GameCmsModule extends ModuleBase {
    * @returns Async compute override configuration
    */
   getAsyncComputeOverrides(): Promise<HaloApiResult<Record<string, unknown>>> {
-    return this.get<Record<string, unknown>>('/hi/Specs/file/graphics/AsyncComputeOverrides.json');
+    return this.get<Record<string, unknown>>(
+      '/hi/Specs/file/graphics/AsyncComputeOverrides.json',
+      { useClearance: true }
+    );
   }
 
   /**
@@ -458,7 +481,10 @@ export class GameCmsModule extends ModuleBase {
    * @returns CPU preset configuration
    */
   getCpuPresets(): Promise<HaloApiResult<Record<string, unknown>>> {
-    return this.get<Record<string, unknown>>('/hi/Specs/file/cpu/presets.json');
+    return this.get<Record<string, unknown>>(
+      '/hi/Specs/file/cpu/presets.json',
+      { useClearance: true }
+    );
   }
 
   /**
@@ -467,7 +493,10 @@ export class GameCmsModule extends ModuleBase {
    * @returns Device preset overrides
    */
   getDevicePresetOverrides(): Promise<HaloApiResult<Record<string, unknown>>> {
-    return this.get<Record<string, unknown>>('/hi/Specs/file/graphics/DevicePresetOverrides.json');
+    return this.get<Record<string, unknown>>(
+      '/hi/Specs/file/graphics/DevicePresetOverrides.json',
+      { useClearance: true }
+    );
   }
 
   /**
@@ -477,7 +506,8 @@ export class GameCmsModule extends ModuleBase {
    */
   getGraphicsSpecControlOverrides(): Promise<HaloApiResult<Record<string, unknown>>> {
     return this.get<Record<string, unknown>>(
-      '/hi/Specs/file/graphics/GraphicsSpecControlOverrides.json'
+      '/hi/Specs/file/graphics/GraphicsSpecControlOverrides.json',
+      { useClearance: true }
     );
   }
 
@@ -487,7 +517,10 @@ export class GameCmsModule extends ModuleBase {
    * @returns Graphics overrides
    */
   getGraphicSpecs(): Promise<HaloApiResult<string>> {
-    return this.get<string>('/hi/Specs/file/graphics/overrides.json');
+    return this.get<string>(
+      '/hi/Specs/file/graphics/overrides.json',
+      { useClearance: true }
+    );
   }
 
   /**
@@ -496,7 +529,10 @@ export class GameCmsModule extends ModuleBase {
    * @returns Driver manifest
    */
   getRecommendedDrivers(): Promise<HaloApiResult<Record<string, unknown>>> {
-    return this.get<Record<string, unknown>>('/hi/Specs/file/graphics/RecommendedDrivers.json');
+    return this.get<Record<string, unknown>>(
+      '/hi/Specs/file/graphics/RecommendedDrivers.json',
+      { useClearance: true }
+    );
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -512,7 +548,8 @@ export class GameCmsModule extends ModuleBase {
   getClawAccess(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
     this.assertNotEmpty(flightId, 'flightId');
     return this.get<Record<string, unknown>>(
-      `/hi/TitleAuthorization/file/claw/access.json?flight=${flightId}`
+      `/hi/TitleAuthorization/file/claw/access.json?flight=${flightId}`,
+      { useClearance: true }
     );
   }
 
@@ -538,7 +575,10 @@ export class GameCmsModule extends ModuleBase {
    */
   getGuideImages(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
     this.assertNotEmpty(flightId, 'flightId');
-    return this.get<Record<string, unknown>>(`/hi/images/guide/xo?flight=${flightId}`);
+    return this.get<Record<string, unknown>>(
+      `/hi/images/guide/xo?flight=${flightId}`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -549,7 +589,10 @@ export class GameCmsModule extends ModuleBase {
    */
   getGuideMultiplayer(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
     this.assertNotEmpty(flightId, 'flightId');
-    return this.get<Record<string, unknown>>(`/hi/Multiplayer/guide/xo?flight=${flightId}`);
+    return this.get<Record<string, unknown>>(
+      `/hi/Multiplayer/guide/xo?flight=${flightId}`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -560,7 +603,10 @@ export class GameCmsModule extends ModuleBase {
    */
   getGuideNews(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
     this.assertNotEmpty(flightId, 'flightId');
-    return this.get<Record<string, unknown>>(`/hi/News/guide/xo?flight=${flightId}`);
+    return this.get<Record<string, unknown>>(
+      `/hi/News/guide/xo?flight=${flightId}`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -571,7 +617,10 @@ export class GameCmsModule extends ModuleBase {
    */
   getGuideProgression(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
     this.assertNotEmpty(flightId, 'flightId');
-    return this.get<Record<string, unknown>>(`/hi/Progression/guide/xo?flight=${flightId}`);
+    return this.get<Record<string, unknown>>(
+      `/hi/Progression/guide/xo?flight=${flightId}`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -582,7 +631,10 @@ export class GameCmsModule extends ModuleBase {
    */
   getGuideSpecs(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
     this.assertNotEmpty(flightId, 'flightId');
-    return this.get<Record<string, unknown>>(`/hi/Specs/guide/xo?flight=${flightId}`);
+    return this.get<Record<string, unknown>>(
+      `/hi/Specs/guide/xo?flight=${flightId}`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -593,7 +645,10 @@ export class GameCmsModule extends ModuleBase {
    */
   getGuideTitleAuthorization(flightId: string): Promise<HaloApiResult<Record<string, unknown>>> {
     this.assertNotEmpty(flightId, 'flightId');
-    return this.get<Record<string, unknown>>(`/hi/TitleAuthorization/guide/xo?flight=${flightId}`);
+    return this.get<Record<string, unknown>>(
+      `/hi/TitleAuthorization/guide/xo?flight=${flightId}`,
+      { useClearance: true }
+    );
   }
 
   // ─────────────────────────────────────────────────────────────────

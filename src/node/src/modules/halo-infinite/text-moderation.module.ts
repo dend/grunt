@@ -4,16 +4,6 @@ import type { HaloApiResult } from '../../models/common/api-result';
 import { HALO_CORE_ENDPOINTS } from '../../endpoints/halo-core-endpoints';
 
 /**
- * Text moderation key response.
- */
-export interface ModerationKey {
-  /** The moderation key */
-  key?: string;
-  /** Expiration time (ISO 8601) */
-  expiresAt?: string;
-}
-
-/**
  * Signing key for moderation proofs.
  */
 export interface SigningKey {
@@ -44,9 +34,6 @@ export interface ModerationProofKeys {
  *
  * @example
  * ```typescript
- * // Get moderation key
- * const key = await client.textModeration.getModerationKey();
- *
  * // Get all signing keys
  * const keys = await client.textModeration.getSigningKeys();
  *
@@ -57,15 +44,6 @@ export interface ModerationProofKeys {
 export class TextModerationModule extends ModuleBase {
   constructor(client: ClientBase) {
     super(client, HALO_CORE_ENDPOINTS.TEXT_ORIGIN);
-  }
-
-  /**
-   * Get a moderation key for text validation.
-   *
-   * @returns Moderation key
-   */
-  getModerationKey(): Promise<HaloApiResult<ModerationKey>> {
-    return this.get<ModerationKey>('/hi/moderation/key');
   }
 
   /**

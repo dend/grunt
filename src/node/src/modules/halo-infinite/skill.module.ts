@@ -41,9 +41,10 @@ export class SkillModule extends ModuleBase {
       throw new Error('playerIds cannot be empty');
     }
 
-    const playersQuery = playerIds.map((id) => `players=xuid(${id})`).join('&');
+    const players = playerIds.map((id) => `xuid(${id})`).join(',');
     return this.get<MatchSkillInfo>(
-      `/hi/matches/${matchId}/skill?${playersQuery}`
+      `/hi/matches/${matchId}/skill?players=${players}`,
+      { useClearance: true }
     );
   }
 
@@ -65,10 +66,11 @@ export class SkillModule extends ModuleBase {
       throw new Error('playerIds cannot be empty');
     }
 
-    const playersQuery = playerIds.map((id) => `players=xuid(${id})`).join('&');
+    const players = playerIds.map((id) => `xuid(${id})`).join(',');
     const seasonParam = seasonId ? `&seasonId=${seasonId}` : '';
     return this.get<PlaylistCsrResultContainer>(
-      `/hi/playlist/${playlistId}/csrs?${playersQuery}${seasonParam}`
+      `/hi/playlist/${playlistId}/csrs?players=${players}${seasonParam}`,
+      { useClearance: true }
     );
   }
 }

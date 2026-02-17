@@ -66,7 +66,9 @@ export class EconomyModule extends ModuleBase {
    */
   getInventoryItems(player: string): Promise<HaloApiResult<PlayerInventory>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<PlayerInventory>(`/hi/players/xuid(${player})/inventory`);
+    return this.get<PlayerInventory>(`/hi/players/xuid(${player})/inventory`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -77,11 +79,13 @@ export class EconomyModule extends ModuleBase {
    */
   getVirtualCurrencyBalances(player: string): Promise<HaloApiResult<CurrencySnapshot>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<CurrencySnapshot>(`/hi/players/xuid(${player})/currencies`);
+    return this.get<CurrencySnapshot>(`/hi/players/xuid(${player})/currencies`, {
+      useClearance: true,
+    });
   }
 
   /**
-   * Post a currency transaction.
+   * Get a currency transaction.
    *
    * @param player - Player's numeric XUID
    * @param currencyId - Currency identifier
@@ -93,8 +97,9 @@ export class EconomyModule extends ModuleBase {
   ): Promise<HaloApiResult<TransactionSnapshot>> {
     this.assertNotEmpty(player, 'player');
     this.assertNotEmpty(currencyId, 'currencyId');
-    return this.post<TransactionSnapshot>(
-      `/hi/players/xuid(${player})/currencies/${currencyId}/transactions`
+    return this.get<TransactionSnapshot>(
+      `/hi/players/xuid(${player})/currencies/${currencyId}/transactions`,
+      { useClearance: true }
     );
   }
 
@@ -115,7 +120,8 @@ export class EconomyModule extends ModuleBase {
   ): Promise<HaloApiResult<CustomizationData>> {
     this.assertNotEmpty(player, 'player');
     return this.get<CustomizationData>(
-      `/hi/players/xuid(${player})/customization?view=${viewType}`
+      `/hi/players/xuid(${player})/customization?view=${viewType}`,
+      { useClearance: true }
     );
   }
 
@@ -127,7 +133,10 @@ export class EconomyModule extends ModuleBase {
    */
   armorCoresCustomization(player: string): Promise<HaloApiResult<ArmorCoreCollection>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<ArmorCoreCollection>(`/hi/players/xuid(${player})/customization/armors`);
+    return this.get<ArmorCoreCollection>(
+      `/hi/players/xuid(${player})/customization/armors`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -143,7 +152,10 @@ export class EconomyModule extends ModuleBase {
   ): Promise<HaloApiResult<ArmorCore>> {
     this.assertNotEmpty(player, 'player');
     this.assertNotEmpty(coreId, 'coreId');
-    return this.get<ArmorCore>(`/hi/players/xuid(${player})/customization/armors/${coreId}`);
+    return this.get<ArmorCore>(
+      `/hi/players/xuid(${player})/customization/armors/${coreId}`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -154,7 +166,10 @@ export class EconomyModule extends ModuleBase {
    */
   weaponCoresCustomization(player: string): Promise<HaloApiResult<WeaponCoreCollection>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<WeaponCoreCollection>(`/hi/players/xuid(${player})/customization/weapons`);
+    return this.get<WeaponCoreCollection>(
+      `/hi/players/xuid(${player})/customization/weapons`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -170,7 +185,10 @@ export class EconomyModule extends ModuleBase {
   ): Promise<HaloApiResult<WeaponCore>> {
     this.assertNotEmpty(player, 'player');
     this.assertNotEmpty(coreId, 'coreId');
-    return this.get<WeaponCore>(`/hi/players/xuid(${player})/customization/weapons/${coreId}`);
+    return this.get<WeaponCore>(
+      `/hi/players/xuid(${player})/customization/weapons/${coreId}`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -181,7 +199,10 @@ export class EconomyModule extends ModuleBase {
    */
   vehicleCoresCustomization(player: string): Promise<HaloApiResult<VehicleCoreCollection>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<VehicleCoreCollection>(`/hi/players/xuid(${player})/customization/vehicles`);
+    return this.get<VehicleCoreCollection>(
+      `/hi/players/xuid(${player})/customization/vehicles`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -197,7 +218,10 @@ export class EconomyModule extends ModuleBase {
   ): Promise<HaloApiResult<VehicleCore>> {
     this.assertNotEmpty(player, 'player');
     this.assertNotEmpty(coreId, 'coreId');
-    return this.get<VehicleCore>(`/hi/players/xuid(${player})/customization/vehicles/${coreId}`);
+    return this.get<VehicleCore>(
+      `/hi/players/xuid(${player})/customization/vehicles/${coreId}`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -208,7 +232,10 @@ export class EconomyModule extends ModuleBase {
    */
   aiCoresCustomization(player: string): Promise<HaloApiResult<AiCoreContainer>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<AiCoreContainer>(`/hi/players/xuid(${player})/customization/ais`);
+    return this.get<AiCoreContainer>(
+      `/hi/players/xuid(${player})/customization/ais`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -224,7 +251,10 @@ export class EconomyModule extends ModuleBase {
   ): Promise<HaloApiResult<AiCore>> {
     this.assertNotEmpty(player, 'player');
     this.assertNotEmpty(coreId, 'coreId');
-    return this.get<AiCore>(`/hi/players/xuid(${player})/customization/ais/${coreId}`);
+    return this.get<AiCore>(
+      `/hi/players/xuid(${player})/customization/ais/${coreId}`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -235,7 +265,10 @@ export class EconomyModule extends ModuleBase {
    */
   spartanBodyCustomization(player: string): Promise<HaloApiResult<SpartanBody>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<SpartanBody>(`/hi/players/xuid(${player})/customization/spartanbody`);
+    return this.get<SpartanBody>(
+      `/hi/players/xuid(${player})/customization/spartanbody`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -249,7 +282,8 @@ export class EconomyModule extends ModuleBase {
   ): Promise<HaloApiResult<AppearanceCustomization>> {
     this.assertNotEmpty(player, 'player');
     return this.get<AppearanceCustomization>(
-      `/hi/players/xuid(${player})/customization/appearance`
+      `/hi/players/xuid(${player})/customization/appearance`,
+      { useClearance: true }
     );
   }
 
@@ -266,7 +300,10 @@ export class EconomyModule extends ModuleBase {
       throw new Error('playerIds cannot be empty');
     }
     const formattedPlayers = playerIds.map((id) => `xuid(${id})`).join(',');
-    return this.get<CustomizationData>(`/hi/customization?players=${formattedPlayers}`);
+    return this.get<CustomizationData>(
+      `/hi/customization?players=${formattedPlayers}`,
+      { useClearance: true }
+    );
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -283,7 +320,10 @@ export class EconomyModule extends ModuleBase {
     player: string
   ): Promise<HaloApiResult<Record<string, unknown>>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<Record<string, unknown>>(`/hi/players/xuid(${player})/cores`);
+    return this.get<Record<string, unknown>>(
+      `/hi/players/xuid(${player})/cores`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -299,7 +339,10 @@ export class EconomyModule extends ModuleBase {
   ): Promise<HaloApiResult<Record<string, unknown>>> {
     this.assertNotEmpty(player, 'player');
     this.assertNotEmpty(coreId, 'coreId');
-    return this.get<Record<string, unknown>>(`/hi/players/xuid(${player})/cores/${coreId}`);
+    return this.get<Record<string, unknown>>(
+      `/hi/players/xuid(${player})/cores/${coreId}`,
+      { useClearance: true }
+    );
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -314,7 +357,9 @@ export class EconomyModule extends ModuleBase {
    */
   getMainStore(player: string): Promise<HaloApiResult<StoreItem>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/main`);
+    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/main`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -325,7 +370,9 @@ export class EconomyModule extends ModuleBase {
    */
   getHcsStore(player: string): Promise<HaloApiResult<StoreItem>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/hcs`);
+    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/hcs`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -336,7 +383,9 @@ export class EconomyModule extends ModuleBase {
    */
   getBoostsStore(player: string): Promise<HaloApiResult<StoreItem>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/boosts`);
+    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/boosts`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -347,7 +396,10 @@ export class EconomyModule extends ModuleBase {
    */
   getSoftCurrencyStore(player: string): Promise<HaloApiResult<StoreItem>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/softcurrency`);
+    return this.get<StoreItem>(
+      `/hi/players/xuid(${player})/stores/softcurrencyoffers`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -358,7 +410,10 @@ export class EconomyModule extends ModuleBase {
    */
   getCustomizationStore(player: string): Promise<HaloApiResult<StoreItem>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/customization`);
+    return this.get<StoreItem>(
+      `/hi/players/xuid(${player})/stores/customizationoffers`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -369,7 +424,10 @@ export class EconomyModule extends ModuleBase {
    */
   getOperationsStore(player: string): Promise<HaloApiResult<StoreItem>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/operations`);
+    return this.get<StoreItem>(
+      `/hi/players/xuid(${player})/stores/operations`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -380,7 +438,10 @@ export class EconomyModule extends ModuleBase {
    */
   getOperationRewardLevelsStore(player: string): Promise<HaloApiResult<StoreItem>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/operationrewardlevels`);
+    return this.get<StoreItem>(
+      `/hi/players/xuid(${player})/stores/operationrewardlevels`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -391,7 +452,10 @@ export class EconomyModule extends ModuleBase {
    */
   getXpGrantsStore(player: string): Promise<HaloApiResult<StoreItem>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<StoreItem>(`/hi/players/xuid(${player})/stores/xpgrants`);
+    return this.get<StoreItem>(
+      `/hi/players/xuid(${player})/stores/xpgrants`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -411,7 +475,8 @@ export class EconomyModule extends ModuleBase {
     }
     const paddedIndex = storeIndex.toString().padStart(2, '0');
     return this.get<StoreItem>(
-      `/hi/players/xuid(${player})/stores/creditsubstorefront${paddedIndex}`
+      `/hi/players/xuid(${player})/stores/creditsubstorefront${paddedIndex}`,
+      { useClearance: true }
     );
   }
 
@@ -435,7 +500,8 @@ export class EconomyModule extends ModuleBase {
     }
     const paddedIndex = storeIndex.toString().padStart(2, '0');
     return this.get<StoreItem>(
-      `/hi/players/xuid(${player})/stores/softcurrencysubstorefront${paddedIndex}`
+      `/hi/players/xuid(${player})/stores/softcurrencysubstorefront${paddedIndex}`,
+      { useClearance: true }
     );
   }
 
@@ -453,7 +519,8 @@ export class EconomyModule extends ModuleBase {
     this.assertNotEmpty(player, 'player');
     this.assertNotEmpty(storeId, 'storeId');
     return this.get<StoreItem>(
-      `/hi/players/xuid(${player})/stores/${storeId}/scheduled`
+      `/hi/players/xuid(${player})/stores/${storeId}`,
+      { useClearance: true }
     );
   }
 
@@ -469,7 +536,10 @@ export class EconomyModule extends ModuleBase {
    */
   getActiveBoosts(player: string): Promise<HaloApiResult<ActiveBoostsContainer>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<ActiveBoostsContainer>(`/hi/players/xuid(${player})/boosts`);
+    return this.get<ActiveBoostsContainer>(
+      `/hi/players/xuid(${player})/boosts`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -486,7 +556,8 @@ export class EconomyModule extends ModuleBase {
     this.assertNotEmpty(player, 'player');
     this.assertNotEmpty(rewardId, 'rewardId');
     return this.get<RewardSnapshot>(
-      `/hi/players/xuid(${player})/rewards/${rewardId}`
+      `/hi/players/xuid(${player})/rewards/${rewardId}`,
+      { useClearance: true }
     );
   }
 
@@ -498,7 +569,10 @@ export class EconomyModule extends ModuleBase {
    */
   getGiveawayRewards(player: string): Promise<HaloApiResult<PlayerGiveaways>> {
     this.assertNotEmpty(player, 'player');
-    return this.get<PlayerGiveaways>(`/hi/players/xuid(${player})/giveaways`);
+    return this.get<PlayerGiveaways>(
+      `/hi/players/xuid(${player})/giveaways`,
+      { useClearance: true }
+    );
   }
 
   // ─────────────────────────────────────────────────────────────────
@@ -522,7 +596,8 @@ export class EconomyModule extends ModuleBase {
     this.assertNotEmpty(rewardTrackType, 'rewardTrackType');
     this.assertNotEmpty(trackId, 'trackId');
     return this.get<RewardTrack>(
-      `/hi/players/xuid(${player})/rewardtracks/${rewardTrackType}/${trackId}`
+      `/hi/players/xuid(${player})/rewardtracks/${rewardTrackType}s/${trackId}`,
+      { useClearance: true }
     );
   }
 
@@ -530,14 +605,17 @@ export class EconomyModule extends ModuleBase {
    * Get operation progress for a player.
    *
    * @param player - Player's numeric XUID
+   * @param flightId - Flight/clearance ID
    * @returns Operation reward track snapshot
    */
   getPlayerOperations(
-    player: string
+    player: string,
+    flightId?: string
   ): Promise<HaloApiResult<OperationRewardTrackSnapshot>> {
     this.assertNotEmpty(player, 'player');
+    const flightParam = flightId ? `?flight=${flightId}` : '';
     return this.get<OperationRewardTrackSnapshot>(
-      `/hi/players/xuid(${player})/operations`,
+      `/hi/players/xuid(${player})/rewardtracks/operations${flightParam}`,
       { useClearance: true }
     );
   }

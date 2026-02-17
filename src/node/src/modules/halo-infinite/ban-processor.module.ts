@@ -29,7 +29,7 @@ export class BanProcessorModule extends ModuleBase {
       throw new Error('targetList cannot be empty');
     }
 
-    const playersQuery = targetList.map((id) => `targetXuids=${id}`).join('&');
-    return this.get<BansSummaryQueryResult>(`/hi/bans/summary?${playersQuery}`);
+    const targets = targetList.map((id) => `xuid(${id})`).join(',');
+    return this.get<BansSummaryQueryResult>(`/hi/bansummary?auth=st&targets=${targets}`);
   }
 }

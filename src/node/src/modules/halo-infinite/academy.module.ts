@@ -39,9 +39,10 @@ export class AcademyModule extends ModuleBase {
    */
   getBotCustomization(flightId?: string): Promise<HaloApiResult<BotCustomizationData>> {
     const flightParam = flightId ? `?flight=${flightId}` : '';
-    return this.get<BotCustomizationData>(`/hi/academy/botcustomization${flightParam}`, {
-      useClearance: !!flightId,
-    });
+    return this.get<BotCustomizationData>(
+      `/hi/multiplayer/file/Academy/BotCustomizationData.json${flightParam}`,
+      { useClearance: true }
+    );
   }
 
   /**
@@ -50,7 +51,10 @@ export class AcademyModule extends ModuleBase {
    * @returns Academy client manifest
    */
   getContent(): Promise<HaloApiResult<AcademyClientManifest>> {
-    return this.get<AcademyClientManifest>('/hi/academy/content');
+    return this.get<AcademyClientManifest>(
+      '/hi/multiplayer/file/Academy/AcademyClientManifest.json',
+      { useClearance: true }
+    );
   }
 
   /**
@@ -61,9 +65,9 @@ export class AcademyModule extends ModuleBase {
    */
   getContentTest(clearanceId: string): Promise<HaloApiResult<TestAcademyClientManifest>> {
     this.assertNotEmpty(clearanceId, 'clearanceId');
-    return this.get<TestAcademyClientManifest>(`/hi/academy/content/test?clearanceId=${clearanceId}`, {
-      useClearance: true,
-    });
+    return this.get<TestAcademyClientManifest>(
+      `/hi/multiplayer/file/Academy/AcademyClientManifest_Test.json?flight=${clearanceId}`
+    );
   }
 
   /**
@@ -72,6 +76,9 @@ export class AcademyModule extends ModuleBase {
    * @returns Star definitions
    */
   getStarDefinitions(): Promise<HaloApiResult<AcademyStarDefinitions>> {
-    return this.get<AcademyStarDefinitions>('/hi/Progression/file/academy/stars');
+    return this.get<AcademyStarDefinitions>(
+      '/hi/multiplayer/file/Academy/AcademyStarGUIDDefinitions.json',
+      { useClearance: true }
+    );
   }
 }

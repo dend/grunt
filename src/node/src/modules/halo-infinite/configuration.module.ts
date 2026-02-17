@@ -27,8 +27,6 @@ export class ConfigurationModule extends ModuleBase {
    * @returns API configuration
    */
   getApiSettingsContainer(): Promise<HaloApiResult<Configuration>> {
-    return this.getFullUrl<Configuration>(HALO_CORE_ENDPOINTS.HALO_INFINITE_SETTINGS, {
-      useSpartanToken: false,
-    });
+    return this.getFullUrl<Configuration>(HALO_CORE_ENDPOINTS.HALO_INFINITE_SETTINGS);
   }
 }
