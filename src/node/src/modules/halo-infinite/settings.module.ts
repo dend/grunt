@@ -9,9 +9,6 @@ import type { FlightedFeatureFlags, PlayerClearance } from '../../models/halo-in
  *
  * @example
  * ```typescript
- * // Get clearance level
- * const clearance = await client.settings.getClearanceLevel();
- *
  * // Get flighted feature flags
  * const flags = await client.settings.getFlightedFeatureFlags('flight-id');
  *
@@ -22,19 +19,6 @@ import type { FlightedFeatureFlags, PlayerClearance } from '../../models/halo-in
 export class SettingsModule extends ModuleBase {
   constructor(client: ClientBase) {
     super(client, HALO_CORE_ENDPOINTS.SETTINGS_ORIGIN);
-  }
-
-  /**
-   * Get the clearance level for the current player.
-   *
-   * Returns feature flags and flight IDs the player has access to.
-   *
-   * @returns Flighted feature flags
-   */
-  getClearanceLevel(): Promise<HaloApiResult<FlightedFeatureFlags>> {
-    return this.get<FlightedFeatureFlags>('/hi/clearance', {
-      useSpartanToken: true,
-    });
   }
 
   /**
