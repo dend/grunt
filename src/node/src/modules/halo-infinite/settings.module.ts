@@ -29,7 +29,9 @@ export class SettingsModule extends ModuleBase {
    */
   getFlightedFeatureFlags(flightId: string): Promise<HaloApiResult<FlightedFeatureFlags>> {
     this.assertNotEmpty(flightId, 'flightId');
-    return this.get<FlightedFeatureFlags>(`/featureflags/hi?flight=${flightId}`);
+    return this.get<FlightedFeatureFlags>(`/featureflags/hi?flight=${flightId}`, {
+      useClearance: true,
+    });
   }
 
   /**
@@ -113,7 +115,8 @@ export class SettingsModule extends ModuleBase {
     this.assertNotEmpty(buildNumber, 'buildNumber');
     this.assertNotEmpty(release, 'release');
     return this.get<PlayerClearance>(
-      `/oban/flight-configurations/titles/hi/audiences/${audience}/players/xuid(${player})/active?sandbox=${sandbox}&build=${buildNumber}&release=${release}`
+      `/oban/flight-configurations/titles/hi/audiences/${audience}/players/xuid(${player})/active?sandbox=${sandbox}&build=${buildNumber}&release=${release}`,
+      { useClearance: true }
     );
   }
 

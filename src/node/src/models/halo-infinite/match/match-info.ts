@@ -5,13 +5,13 @@ import type { LifecycleMode } from '../enums/lifecycle-mode';
  */
 export interface GenericAsset {
   /** Unique asset identifier */
-  assetId?: string;
+  AssetId?: string;
   /** Version identifier */
-  versionId?: string;
+  VersionId?: string;
   /** Combined asset version identifier */
-  assetVersionId?: string;
+  AssetVersionId?: string;
   /** Display name */
-  publicName?: string;
+  PublicName?: string;
 }
 
 /**
@@ -19,11 +19,11 @@ export interface GenericAsset {
  */
 export interface UgcGameVariant {
   /** Asset identifier */
-  assetId?: string;
+  AssetId?: string;
   /** Version identifier */
-  versionId?: string;
+  VersionId?: string;
   /** Display name */
-  publicName?: string;
+  PublicName?: string;
 }
 
 /**
@@ -31,7 +31,7 @@ export interface UgcGameVariant {
  */
 export interface PlaylistExperience {
   /** Experience value */
-  value?: number;
+  Value?: number;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface PlaylistExperience {
  */
 export interface GameplayInteraction {
   /** Interaction type identifier */
-  value?: number;
+  Value?: number;
 }
 
 /**
@@ -49,37 +49,37 @@ export interface GameplayInteraction {
  */
 export interface MatchInfo {
   /** Match start time (ISO 8601) */
-  startTime?: string;
+  StartTime?: string;
   /** Match end time (ISO 8601) */
-  endTime?: string;
+  EndTime?: string;
   /** Match duration as ISO 8601 duration string (e.g., "PT10M30S") */
-  duration?: string;
+  Duration?: string;
   /** Lifecycle mode (matchmade, custom, local) */
-  lifecycleMode?: LifecycleMode;
+  LifecycleMode?: LifecycleMode;
   /** Game variant category */
-  gameVariantCategory?: number;
+  GameVariantCategory?: number;
   /** Map/level identifier */
-  levelId?: string;
+  LevelId?: string;
   /** Map variant information */
-  mapVariant?: GenericAsset;
+  MapVariant?: GenericAsset;
   /** UGC game variant (for custom games) */
-  ugcGameVariant?: UgcGameVariant;
+  UgcGameVariant?: UgcGameVariant;
   /** Clearance ID used for the match */
-  clearanceId?: string;
+  ClearanceId?: string;
   /** Playlist information */
-  playlist?: GenericAsset;
+  Playlist?: GenericAsset;
   /** Playlist experience info */
-  playlistExperience?: PlaylistExperience;
+  PlaylistExperience?: PlaylistExperience;
   /** Map-mode pair info */
-  playlistMapModePair?: GenericAsset;
+  PlaylistMapModePair?: GenericAsset;
   /** Season identifier */
-  seasonId?: string;
+  SeasonId?: string;
   /** Playable duration */
-  playableDuration?: string;
+  PlayableDuration?: string;
   /** Whether teams were enabled */
-  teamsEnabled?: boolean;
+  TeamsEnabled?: boolean;
   /** Whether team scoring was enabled */
-  teamScoringEnabled?: boolean;
+  TeamScoringEnabled?: boolean;
   /** Gameplay interaction type */
-  gameplayInteraction?: GameplayInteraction;
+  GameplayInteraction?: GameplayInteraction;
 }

@@ -7,21 +7,21 @@ import type { ResultOrder } from '../enums/result-order';
  */
 export interface UgcSearchParams {
   /** Search term */
-  term?: string;
+  Term?: string;
   /** Asset kinds to include */
-  assetKinds?: AssetKind[];
+  AssetKinds?: AssetKind[];
   /** Tags to filter by */
-  tags?: string[];
+  Tags?: string[];
   /** Author XUID */
-  author?: string;
+  Author?: string;
   /** Sort field */
-  sort?: string;
+  Sort?: string;
   /** Sort order */
-  order?: ResultOrder;
+  Order?: ResultOrder;
   /** Number of results to return */
-  count?: number;
+  Count?: number;
   /** Starting offset */
-  start?: number;
+  Start?: number;
 }
 
 /**
@@ -29,15 +29,15 @@ export interface UgcSearchParams {
  */
 export interface UgcSearchResult {
   /** Search results */
-  results?: AuthoringAsset[];
+  Results?: AuthoringAsset[];
   /** Total matching results */
-  totalCount?: number;
+  TotalCount?: number;
   /** Returned count */
-  count?: number;
+  Count?: number;
   /** Starting offset */
-  start?: number;
+  Start?: number;
   /** Pagination links */
-  links?: SearchLinks;
+  Links?: SearchLinks;
 }
 
 /**
@@ -45,19 +45,19 @@ export interface UgcSearchResult {
  */
 export interface SearchLinks {
   /** Current page */
-  self?: string;
+  Self?: string;
   /** Next page */
-  next?: string;
+  Next?: string;
   /** Previous page */
-  prev?: string;
+  Prev?: string;
 }
 
 /**
  * Map variant asset.
  */
-export interface MapAsset extends Omit<AuthoringAsset, 'customData'> {
+export interface MapAsset extends Omit<AuthoringAsset, 'CustomData'> {
   /** Map-specific custom data */
-  customData?: MapCustomData;
+  CustomData?: MapCustomData;
 }
 
 /**
@@ -65,23 +65,23 @@ export interface MapAsset extends Omit<AuthoringAsset, 'customData'> {
  */
 export interface MapCustomData {
   /** Number of supported players */
-  supportedPlayerCount?: number;
+  SupportedPlayerCount?: number;
   /** Recommended player count */
-  recommendedPlayerCount?: number;
+  RecommendedPlayerCount?: number;
   /** Budget usage */
-  budgetUsed?: number;
+  BudgetUsed?: number;
   /** Object count */
-  objectCount?: number;
+  ObjectCount?: number;
   /** Has lightmap */
-  hasLightmap?: boolean;
+  HasLightmap?: boolean;
 }
 
 /**
  * Game variant asset.
  */
-export interface UgcGameVariantAsset extends Omit<AuthoringAsset, 'customData'> {
+export interface UgcGameVariantAsset extends Omit<AuthoringAsset, 'CustomData'> {
   /** Game variant custom data */
-  customData?: GameVariantCustomData;
+  CustomData?: GameVariantCustomData;
 }
 
 /**
@@ -89,25 +89,25 @@ export interface UgcGameVariantAsset extends Omit<AuthoringAsset, 'customData'> 
  */
 export interface GameVariantCustomData {
   /** Game variant category */
-  category?: number;
+  Category?: number;
   /** Score to win */
-  scoreToWin?: number;
+  ScoreToWin?: number;
   /** Time limit */
-  timeLimit?: number;
+  TimeLimit?: number;
   /** Rounds to win */
-  roundsToWin?: number;
+  RoundsToWin?: number;
   /** Max players */
-  maxPlayers?: number;
+  MaxPlayers?: number;
   /** Min players */
-  minPlayers?: number;
+  MinPlayers?: number;
 }
 
 /**
  * Film asset (theater recording).
  */
-export interface FilmAsset extends Omit<AuthoringAsset, 'customData'> {
+export interface FilmAsset extends Omit<AuthoringAsset, 'CustomData'> {
   /** Film custom data */
-  customData?: FilmCustomData;
+  CustomData?: FilmCustomData;
 }
 
 /**
@@ -115,21 +115,21 @@ export interface FilmAsset extends Omit<AuthoringAsset, 'customData'> {
  */
 export interface FilmCustomData {
   /** Match ID this film is from */
-  matchId?: string;
+  MatchId?: string;
   /** Duration of the film */
-  duration?: string;
+  Duration?: string;
   /** Map asset ID */
-  mapAssetId?: string;
+  MapAssetId?: string;
   /** Game variant asset ID */
-  gameVariantAssetId?: string;
+  GameVariantAssetId?: string;
 }
 
 /**
  * Prefab asset.
  */
-export interface PrefabAsset extends Omit<AuthoringAsset, 'customData'> {
+export interface PrefabAsset extends Omit<AuthoringAsset, 'CustomData'> {
   /** Prefab custom data */
-  customData?: PrefabCustomData;
+  CustomData?: PrefabCustomData;
 }
 
 /**
@@ -137,7 +137,7 @@ export interface PrefabAsset extends Omit<AuthoringAsset, 'customData'> {
  */
 export interface PrefabCustomData {
   /** Object count */
-  objectCount?: number;
+  ObjectCount?: number;
   /** Budget usage */
-  budgetUsed?: number;
+  BudgetUsed?: number;
 }

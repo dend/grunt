@@ -3,13 +3,13 @@
  */
 export interface Configuration {
   /** Authority definitions */
-  authorities?: Record<string, Authority>;
+  Authorities?: Record<string, Authority>;
   /** Retry policy definitions */
-  retryPolicies?: Record<string, RetryPolicyConfig>;
+  RetryPolicies?: Record<string, RetryPolicyConfig>;
   /** Settings values */
-  settings?: SettingsConfig;
+  Settings?: SettingsConfig;
   /** Endpoint definitions */
-  endpoints?: Record<string, OnlineUriReference>;
+  Endpoints?: Record<string, OnlineUriReference>;
 }
 
 /**
@@ -17,15 +17,15 @@ export interface Configuration {
  */
 export interface Authority {
   /** Authority identifier */
-  authorityId?: string;
+  AuthorityId?: string;
   /** URL scheme (1 = http, 2 = https) */
-  scheme?: number;
+  Scheme?: number;
   /** Hostname */
-  hostname?: string;
+  Hostname?: string;
   /** Port number */
-  port?: number;
+  Port?: number;
   /** Authentication methods */
-  authenticationMethods?: number[];
+  AuthenticationMethods?: number[];
 }
 
 /**
@@ -33,11 +33,11 @@ export interface Authority {
  */
 export interface RetryPolicyConfig {
   /** Policy identifier */
-  retryPolicyId?: string;
+  RetryPolicyId?: string;
   /** Timeout in milliseconds */
-  timeoutMs?: number;
+  TimeoutMs?: number;
   /** Retry options */
-  retryOptions?: RetryOptionsConfig;
+  RetryOptions?: RetryOptionsConfig;
 }
 
 /**
@@ -45,15 +45,15 @@ export interface RetryPolicyConfig {
  */
 export interface RetryOptionsConfig {
   /** Maximum retry count */
-  maxRetryCount?: number;
+  MaxRetryCount?: number;
   /** Initial retry delay in milliseconds */
-  retryDelayMs?: number;
+  RetryDelayMs?: number;
   /** Retry delay growth factor */
-  retryGrowth?: number;
+  RetryGrowth?: number;
   /** Random jitter to add in milliseconds */
-  retryJitterMs?: number;
+  RetryJitterMs?: number;
   /** Whether to retry on 404 */
-  retryIfNotFound?: boolean;
+  RetryIfNotFound?: boolean;
 }
 
 /**
@@ -61,23 +61,23 @@ export interface RetryOptionsConfig {
  */
 export interface OnlineUriReference {
   /** Endpoint identifier */
-  endpointId?: string;
+  EndpointId?: string;
   /** Authority identifier */
-  authorityId?: string;
+  AuthorityId?: string;
   /** Path template */
-  path?: string;
+  Path?: string;
   /** Query string template */
-  queryString?: string;
+  QueryString?: string;
   /** Retry policy identifier */
-  retryPolicyId?: string;
+  RetryPolicyId?: string;
   /** Topic name */
-  topicName?: string;
+  TopicName?: string;
   /** Acknowledgement type */
-  acknowledgementTypeId?: number;
+  AcknowledgementTypeId?: number;
   /** Whether auth lifetime extension is supported */
-  authenticationLifetimeExtensionSupported?: boolean;
+  AuthenticationLifetimeExtensionSupported?: boolean;
   /** Whether endpoint is clearance-aware */
-  clearanceAware?: boolean;
+  ClearanceAware?: boolean;
 }
 
 /**
@@ -85,19 +85,19 @@ export interface OnlineUriReference {
  */
 export interface SettingsConfig {
   /** CELL config */
-  cellConfig?: string;
+  CellConfig?: string;
   /** Client QoS timeout */
-  clientQoSTimeoutMs?: string;
+  ClientQoSTimeoutMs?: string;
   /** Clearance audience */
-  clearanceAudience?: string;
+  ClearanceAudience?: string;
   /** Playfab title ID */
-  playfabTitleId?: string;
+  PlayfabTitleId?: string;
   /** Title ID list */
-  titleIdList?: string;
+  TitleIdList?: string;
   /** XSTS audience URI */
-  haloXSTSAudienceUri?: string;
+  HaloXSTSAudienceUri?: string;
   /** Product access list */
-  productAccessList?: string;
+  ProductAccessList?: string;
 }
 
 /**
@@ -105,11 +105,11 @@ export interface SettingsConfig {
  */
 export interface FlightedFeatureFlags {
   /** Flight identifier */
-  flightId?: string;
+  FlightId?: string;
   /** Clearance identifier */
-  clearanceId?: string;
+  ClearanceId?: string;
   /** Feature flags */
-  flags?: Record<string, boolean>;
+  Flags?: Record<string, boolean>;
 }
 
 /**
@@ -117,5 +117,5 @@ export interface FlightedFeatureFlags {
  */
 export interface PlayerClearance {
   /** Flight configuration identifier */
-  flightConfigurationId?: string;
+  FlightConfigurationId?: string;
 }

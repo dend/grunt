@@ -6,9 +6,9 @@ import type { Player } from './player';
  */
 export interface MatchLinks {
   /** Link to next page of results */
-  next?: string;
+  Next?: string;
   /** Link to previous page of results */
-  prev?: string;
+  Prev?: string;
 }
 
 /**
@@ -16,19 +16,19 @@ export interface MatchLinks {
  */
 export interface PlayerMatchHistoryRecord {
   /** Unique match identifier */
-  matchId?: string;
+  MatchId?: string;
   /** Match information */
-  matchInfo?: MatchInfo;
+  MatchInfo?: MatchInfo;
   /** Last team the player was on */
-  lastTeamId?: number;
+  LastTeamId?: number;
   /** Match outcome for this player */
-  outcome?: number;
+  Outcome?: number;
   /** Final rank/placement */
-  rank?: number;
+  Rank?: number;
   /** Whether player was present at end */
-  presentAtEnd?: boolean;
+  PresentAtEnd?: boolean;
   /** Player-specific data for this match */
-  player?: Player;
+  Player?: Player;
 }
 
 /**
@@ -36,15 +36,15 @@ export interface PlayerMatchHistoryRecord {
  */
 export interface MatchHistoryResponse {
   /** Starting index of results */
-  start?: number;
+  Start?: number;
   /** Number of results requested */
-  count?: number;
+  Count?: number;
   /** Number of results returned */
-  resultCount?: number;
+  ResultCount?: number;
   /** List of match records */
-  results?: PlayerMatchHistoryRecord[];
+  Results?: PlayerMatchHistoryRecord[];
   /** Pagination links */
-  links?: MatchLinks;
+  Links?: MatchLinks;
 }
 
 /**
@@ -52,11 +52,11 @@ export interface MatchHistoryResponse {
  */
 export interface PlayerMatchCount {
   /** Player identifier */
-  playerId?: string;
+  PlayerId?: string;
   /** Total custom game count */
-  customMatchesPlayedCount?: number;
+  CustomMatchesPlayedCount?: number;
   /** Total matchmade games count */
-  matchmadeMatchesPlayedCount?: number;
+  MatchmadeMatchesPlayedCount?: number;
   /** Total local games count */
-  localMatchesPlayedCount?: number;
+  LocalMatchesPlayedCount?: number;
 }

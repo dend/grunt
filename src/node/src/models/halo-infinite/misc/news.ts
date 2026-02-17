@@ -5,39 +5,39 @@ import type { DisplayString } from '../economy/inventory';
  */
 export interface NewsArticle {
   /** Article identifier */
-  id?: number;
+  Id?: number;
   /** Featured image URL */
-  featuredImageUri?: string;
+  FeaturedImageUri?: string;
   /** Featured image alt text */
-  featuredImageAlt?: string;
+  FeaturedImageAlt?: string;
   /** Article title */
-  title?: string;
+  Title?: string;
   /** Article subtitle */
-  subtitle?: string;
+  Subtitle?: string;
   /** Article content (HTML) */
-  content?: string;
+  Content?: string;
   /** Short excerpt */
-  excerpt?: string;
+  Excerpt?: string;
   /** URL slug */
-  slug?: string;
+  Slug?: string;
   /** Creator slug */
-  creatorSlug?: string;
+  CreatorSlug?: string;
   /** Creator title */
-  creatorTitle?: string;
+  CreatorTitle?: string;
   /** Category IDs */
-  categories?: number[];
+  Categories?: number[];
   /** Tags */
-  tags?: string[];
+  Tags?: string[];
   /** Publish date (ISO 8601) */
-  publishDate?: string;
+  PublishDate?: string;
   /** Medium image URL */
-  featuredImageUriMedium?: string;
+  FeaturedImageUriMedium?: string;
   /** Medium image alt */
-  featuredImageAltMedium?: string;
+  FeaturedImageAltMedium?: string;
   /** Small image URL */
-  featuredImageUriSmall?: string;
+  FeaturedImageUriSmall?: string;
   /** Small image alt */
-  featuredImageAltSmall?: string;
+  FeaturedImageAltSmall?: string;
 }
 
 /**
@@ -45,9 +45,9 @@ export interface NewsArticle {
  */
 export interface News {
   /** List of articles */
-  articles?: NewsArticle[];
+  Articles?: NewsArticle[];
   /** Total count */
-  total?: number;
+  Total?: number;
 }
 
 /**
@@ -55,15 +55,15 @@ export interface News {
  */
 export interface SeasonCalendarEntry {
   /** Season identifier */
-  seasonId?: string;
+  SeasonId?: string;
   /** Season name */
-  name?: DisplayString;
+  Name?: DisplayString;
   /** Start date (ISO 8601) */
-  startDate?: string;
+  StartDate?: string;
   /** End date (ISO 8601) */
-  endDate?: string;
+  EndDate?: string;
   /** CSR season identifier */
-  csrSeasonId?: string;
+  CsrSeasonId?: string;
 }
 
 /**
@@ -71,9 +71,9 @@ export interface SeasonCalendarEntry {
  */
 export interface SeasonCalendar {
   /** List of seasons */
-  seasons?: SeasonCalendarEntry[];
+  Seasons?: SeasonCalendarEntry[];
   /** Current season */
-  currentSeason?: string;
+  CurrentSeason?: string;
 }
 
 /**
@@ -81,11 +81,11 @@ export interface SeasonCalendar {
  */
 export interface MatchesPrivacy {
   /** Player identifier */
-  playerId?: string;
+  PlayerId?: string;
   /** Privacy setting */
-  privacySetting?: string;
+  PrivacySetting?: string;
   /** Whether matches are public */
-  matchesPublic?: boolean;
+  MatchesPublic?: boolean;
 }
 
 /**
@@ -93,15 +93,15 @@ export interface MatchesPrivacy {
  */
 export interface PlayerDailyCustomExperience {
   /** Player identifier */
-  playerId?: string;
+  PlayerId?: string;
   /** Custom XP remaining */
-  remainingXp?: number;
+  RemainingXp?: number;
   /** Custom XP earned today */
-  earnedToday?: number;
+  EarnedToday?: number;
   /** Daily limit */
-  dailyLimit?: number;
+  DailyLimit?: number;
   /** Reset time (ISO 8601) */
-  resetTime?: string;
+  ResetTime?: string;
 }
 
 /**
@@ -109,7 +109,7 @@ export interface PlayerDailyCustomExperience {
  */
 export interface PlayerGiveaways {
   /** List of pending giveaways */
-  giveaways?: GiveawayReward[];
+  Giveaways?: GiveawayReward[];
 }
 
 /**
@@ -117,11 +117,11 @@ export interface PlayerGiveaways {
  */
 export interface GiveawayReward {
   /** Giveaway identifier */
-  id?: string;
+  Id?: string;
   /** Title */
-  title?: DisplayString;
+  Title?: DisplayString;
   /** Items included */
-  items?: import('../economy/inventory').InventoryAmount[];
+  Items?: import('../economy/inventory').InventoryAmount[];
   /** Claim deadline (ISO 8601) */
-  claimDeadline?: string;
+  ClaimDeadline?: string;
 }

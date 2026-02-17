@@ -5,29 +5,29 @@ import type { DisplayString, InventoryAmount } from './inventory';
  */
 export interface StoreOffering {
   /** Offering identifier */
-  offeringId?: string;
+  OfferingId?: string;
   /** Display title */
-  title?: DisplayString;
+  Title?: DisplayString;
   /** Description */
-  description?: DisplayString;
+  Description?: DisplayString;
   /** Image path */
-  imagePath?: string;
+  ImagePath?: string;
   /** Price in each currency */
-  prices?: StorePrice[];
+  Prices?: StorePrice[];
   /** Items included */
-  includedItems?: InventoryAmount[];
+  IncludedItems?: InventoryAmount[];
   /** Offering type */
-  offeringType?: string;
+  OfferingType?: string;
   /** Start time (ISO 8601) */
-  startDate?: string;
+  StartDate?: string;
   /** End time (ISO 8601) */
-  endDate?: string;
+  EndDate?: string;
   /** Whether this is a bundle */
-  isBundle?: boolean;
+  IsBundle?: boolean;
   /** Whether player owns this */
-  isOwned?: boolean;
+  IsOwned?: boolean;
   /** Quality tier */
-  quality?: string;
+  Quality?: string;
 }
 
 /**
@@ -35,13 +35,13 @@ export interface StoreOffering {
  */
 export interface StorePrice {
   /** Currency identifier */
-  currencyId?: string;
+  CurrencyId?: string;
   /** Cost amount */
-  cost?: number;
+  Cost?: number;
   /** Original cost (before discount) */
-  originalCost?: number;
+  OriginalCost?: number;
   /** Discount percentage */
-  discountPercent?: number;
+  DiscountPercent?: number;
 }
 
 /**
@@ -49,15 +49,15 @@ export interface StorePrice {
  */
 export interface StoreItem {
   /** Store identifier */
-  storeId?: string;
+  StoreId?: string;
   /** Display name */
-  storeName?: string;
+  StoreName?: string;
   /** List of offerings */
-  offerings?: StoreOffering[];
+  Offerings?: StoreOffering[];
   /** Store refresh time (ISO 8601) */
-  refreshTime?: string;
+  RefreshTime?: string;
   /** Store expiration time (ISO 8601) */
-  expirationTime?: string;
+  ExpirationTime?: string;
 }
 
 /**
@@ -65,15 +65,15 @@ export interface StoreItem {
  */
 export interface ActiveBoost {
   /** Boost identifier */
-  boostId?: string;
+  BoostId?: string;
   /** Boost type */
-  boostType?: string;
+  BoostType?: string;
   /** Multiplier value */
-  multiplier?: number;
+  Multiplier?: number;
   /** Remaining uses */
-  remainingUses?: number;
+  RemainingUses?: number;
   /** Expiration time (ISO 8601) */
-  expirationTime?: string;
+  ExpirationTime?: string;
 }
 
 /**
@@ -81,7 +81,7 @@ export interface ActiveBoost {
  */
 export interface ActiveBoostsContainer {
   /** List of active boosts */
-  boosts?: ActiveBoost[];
+  Boosts?: ActiveBoost[];
 }
 
 /**
@@ -89,15 +89,15 @@ export interface ActiveBoostsContainer {
  */
 export interface RewardSnapshot {
   /** Reward identifier */
-  rewardId?: string;
+  RewardId?: string;
   /** Items awarded */
-  items?: InventoryAmount[];
+  Items?: InventoryAmount[];
   /** Currency awarded */
-  currencies?: CurrencyAmount[];
+  Currencies?: CurrencyAmount[];
   /** XP awarded */
-  xpAwarded?: number;
+  XpAwarded?: number;
   /** Claimed status */
-  claimed?: boolean;
+  Claimed?: boolean;
 }
 
 import type { CurrencyAmount } from './inventory';

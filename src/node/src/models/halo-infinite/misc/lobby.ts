@@ -3,15 +3,15 @@
  */
 export interface Server {
   /** Server region */
-  region?: string;
+  Region?: string;
   /** Server address */
-  address?: string;
+  Address?: string;
   /** Server port */
-  port?: number;
+  Port?: number;
   /** Server name */
-  name?: string;
+  Name?: string;
   /** Whether server is available */
-  available?: boolean;
+  Available?: boolean;
 }
 
 /**
@@ -19,9 +19,9 @@ export interface Server {
  */
 export interface LobbyPresenceRequest {
   /** Player identifier */
-  playerId?: string;
+  PlayerId?: string;
   /** Session ID */
-  sessionId?: string;
+  SessionId?: string;
 }
 
 /**
@@ -29,7 +29,7 @@ export interface LobbyPresenceRequest {
  */
 export interface LobbyPresenceRequestContainer {
   /** List of presence requests */
-  requests?: LobbyPresenceRequest[];
+  Requests?: LobbyPresenceRequest[];
 }
 
 /**
@@ -37,13 +37,13 @@ export interface LobbyPresenceRequestContainer {
  */
 export interface LobbyPresenceResult {
   /** Player identifier */
-  playerId?: string;
+  PlayerId?: string;
   /** Session ID */
-  sessionId?: string;
+  SessionId?: string;
   /** Lobby ID */
-  lobbyId?: string;
+  LobbyId?: string;
   /** Whether player is in lobby */
-  inLobby?: boolean;
+  InLobby?: boolean;
 }
 
 /**
@@ -51,7 +51,7 @@ export interface LobbyPresenceResult {
  */
 export interface LobbyPresenceContainer {
   /** List of presence results */
-  results?: LobbyPresenceResult[];
+  Results?: LobbyPresenceResult[];
 }
 
 /**
@@ -59,13 +59,13 @@ export interface LobbyPresenceContainer {
  */
 export interface LobbyJoinHandle {
   /** Handle identifier */
-  handleId?: string;
+  HandleId?: string;
   /** Lobby ID */
-  lobbyId?: string;
+  LobbyId?: string;
   /** Handle value */
-  handle?: string;
+  Handle?: string;
   /** Expiration time (ISO 8601) */
-  expiresAt?: string;
+  ExpiresAt?: string;
 }
 
 /**
@@ -73,9 +73,9 @@ export interface LobbyJoinHandle {
  */
 export interface JoinLobbyResponse {
   /** Success status */
-  success?: boolean;
+  Success?: boolean;
   /** Lobby ID */
-  lobbyId?: string;
+  LobbyId?: string;
   /** Session details */
-  session?: Record<string, unknown>;
+  Session?: Record<string, unknown>;
 }

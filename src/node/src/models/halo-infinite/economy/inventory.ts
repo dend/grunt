@@ -3,15 +3,15 @@
  */
 export interface PlayerItem {
   /** Item path identifier */
-  itemPath?: string;
+  ItemPath?: string;
   /** Item type */
-  itemType?: string;
+  ItemType?: string;
   /** Quantity owned */
-  amount?: number;
+  Amount?: number;
   /** When first acquired (ISO 8601) */
-  firstAcquiredDate?: string;
+  FirstAcquiredDate?: string;
   /** Source of acquisition */
-  source?: string;
+  Source?: string;
 }
 
 /**
@@ -19,7 +19,7 @@ export interface PlayerItem {
  */
 export interface PlayerInventory {
   /** List of inventory items */
-  items?: PlayerItem[];
+  Items?: PlayerItem[];
 }
 
 /**
@@ -27,9 +27,9 @@ export interface PlayerInventory {
  */
 export interface CurrencyAmount {
   /** Currency identifier */
-  currencyId?: string;
+  CurrencyId?: string;
   /** Current balance */
-  amount?: number;
+  Amount?: number;
 }
 
 /**
@@ -37,7 +37,7 @@ export interface CurrencyAmount {
  */
 export interface CurrencySnapshot {
   /** List of currency balances */
-  currencies?: CurrencyAmount[];
+  Currencies?: CurrencyAmount[];
 }
 
 /**
@@ -45,15 +45,15 @@ export interface CurrencySnapshot {
  */
 export interface CurrencyDefinition {
   /** Currency identifier */
-  currencyId?: string;
+  CurrencyId?: string;
   /** Display title */
-  title?: DisplayString;
+  Title?: DisplayString;
   /** Description */
-  description?: DisplayString;
+  Description?: DisplayString;
   /** Image path */
-  image?: string;
+  Image?: string;
   /** Icon type */
-  iconType?: string;
+  IconType?: string;
 }
 
 /**
@@ -61,11 +61,11 @@ export interface CurrencyDefinition {
  */
 export interface DisplayString {
   /** Status of the localization */
-  status?: string;
+  Status?: string;
   /** Default/fallback value */
-  value?: string;
+  Value?: string;
   /** Translations by locale code */
-  translations?: Record<string, string>;
+  Translations?: Record<string, string>;
 }
 
 /**
@@ -73,11 +73,11 @@ export interface DisplayString {
  */
 export interface InventoryAmount {
   /** Item path */
-  itemPath?: string;
+  ItemPath?: string;
   /** Quantity */
-  amount?: number;
+  Amount?: number;
   /** Item type */
-  itemType?: string;
+  ItemType?: string;
 }
 
 /**
@@ -85,9 +85,9 @@ export interface InventoryAmount {
  */
 export interface TransactionSnapshot {
   /** Transaction identifier */
-  transactionId?: string;
+  TransactionId?: string;
   /** New balance after transaction */
-  newBalance?: CurrencyAmount[];
+  NewBalance?: CurrencyAmount[];
   /** Transaction timestamp (ISO 8601) */
-  timestamp?: string;
+  Timestamp?: string;
 }

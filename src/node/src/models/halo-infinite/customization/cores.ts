@@ -3,15 +3,15 @@
  */
 export interface CoreBase {
   /** Path to the core definition */
-  corePath?: string;
+  CorePath?: string;
   /** Whether this core is currently equipped */
-  isEquipped?: boolean;
+  IsEquipped?: boolean;
   /** Unique core identifier */
-  coreId?: string;
+  CoreId?: string;
   /** Type of core */
-  coreType?: string;
+  CoreType?: string;
   /** When the core was first acquired (ISO 8601) */
-  firstAcquiredDate?: string;
+  FirstAcquiredDate?: string;
 }
 
 /**
@@ -19,15 +19,15 @@ export interface CoreBase {
  */
 export interface ThemeBase {
   /** When first modified (ISO 8601) */
-  firstModifiedDateUtc?: string;
+  FirstModifiedDateUtc?: string;
   /** When last modified (ISO 8601) */
-  lastModifiedDateUtc?: string;
+  LastModifiedDateUtc?: string;
   /** Whether this theme is currently equipped */
-  isEquipped?: boolean;
+  IsEquipped?: boolean;
   /** Whether this is the default theme */
-  isDefault?: boolean;
+  IsDefault?: boolean;
   /** Path to the theme definition */
-  themePath?: string;
+  ThemePath?: string;
 }
 
 /**
@@ -35,7 +35,7 @@ export interface ThemeBase {
  */
 export interface ArmorCore extends CoreBase {
   /** Available themes for this core */
-  themes?: ArmorCoreTheme[];
+  Themes?: ArmorCoreTheme[];
 }
 
 /**
@@ -43,29 +43,29 @@ export interface ArmorCore extends CoreBase {
  */
 export interface ArmorCoreTheme extends ThemeBase {
   /** Helmet item path */
-  helmetPath?: string;
+  HelmetPath?: string;
   /** Visor item path */
-  visorPath?: string;
+  VisorPath?: string;
   /** Coating item path */
-  coatingPath?: string;
+  CoatingPath?: string;
   /** Left shoulder pad path */
-  leftShoulderPadPath?: string;
+  LeftShoulderPadPath?: string;
   /** Right shoulder pad path */
-  rightShoulderPadPath?: string;
+  RightShoulderPadPath?: string;
   /** Gloves path */
-  glovesPath?: string;
+  GlovesPath?: string;
   /** Chest attachment path */
-  chestAttachmentPath?: string;
+  ChestAttachmentPath?: string;
   /** Knee pads path */
-  kneePadsPath?: string;
+  KneePadsPath?: string;
   /** Wrist attachment path */
-  wristAttachmentPath?: string;
+  WristAttachmentPath?: string;
   /** Hip attachment path */
-  hipAttachmentPath?: string;
+  HipAttachmentPath?: string;
   /** Armor effect path */
-  armorEffectPath?: string;
+  ArmorEffectPath?: string;
   /** Mythic effect path */
-  mythicEffectPath?: string;
+  MythicEffectPath?: string;
 }
 
 /**
@@ -73,7 +73,7 @@ export interface ArmorCoreTheme extends ThemeBase {
  */
 export interface WeaponCore extends CoreBase {
   /** Available themes for this core */
-  themes?: WeaponCoreTheme[];
+  Themes?: WeaponCoreTheme[];
 }
 
 /**
@@ -81,13 +81,13 @@ export interface WeaponCore extends CoreBase {
  */
 export interface WeaponCoreTheme extends ThemeBase {
   /** Coating item path */
-  coatingPath?: string;
+  CoatingPath?: string;
   /** Charm item path */
-  charmPath?: string;
+  CharmPath?: string;
   /** Death FX path */
-  deathFxPath?: string;
+  DeathFxPath?: string;
   /** Emblem path */
-  emblemPath?: string;
+  EmblemPath?: string;
 }
 
 /**
@@ -95,7 +95,7 @@ export interface WeaponCoreTheme extends ThemeBase {
  */
 export interface VehicleCore extends CoreBase {
   /** Available themes for this core */
-  themes?: VehicleCoreTheme[];
+  Themes?: VehicleCoreTheme[];
 }
 
 /**
@@ -103,11 +103,11 @@ export interface VehicleCore extends CoreBase {
  */
 export interface VehicleCoreTheme extends ThemeBase {
   /** Coating item path */
-  coatingPath?: string;
+  CoatingPath?: string;
   /** Emblem path */
-  emblemPath?: string;
+  EmblemPath?: string;
   /** Vehicle effect path */
-  vehicleEffectPath?: string;
+  VehicleEffectPath?: string;
 }
 
 /**
@@ -115,7 +115,7 @@ export interface VehicleCoreTheme extends ThemeBase {
  */
 export interface AiCore extends CoreBase {
   /** Available themes for this core */
-  themes?: AiCoreTheme[];
+  Themes?: AiCoreTheme[];
 }
 
 /**
@@ -123,11 +123,11 @@ export interface AiCore extends CoreBase {
  */
 export interface AiCoreTheme extends ThemeBase {
   /** AI model path */
-  modelPath?: string;
+  ModelPath?: string;
   /** Color primary path */
-  colorPrimaryPath?: string;
+  ColorPrimaryPath?: string;
   /** Color secondary path */
-  colorSecondaryPath?: string;
+  ColorSecondaryPath?: string;
 }
 
 /**
@@ -135,7 +135,7 @@ export interface AiCoreTheme extends ThemeBase {
  */
 export interface ArmorCoreCollection {
   /** List of armor cores */
-  armorCores?: ArmorCore[];
+  ArmorCores?: ArmorCore[];
 }
 
 /**
@@ -143,7 +143,7 @@ export interface ArmorCoreCollection {
  */
 export interface WeaponCoreCollection {
   /** List of weapon cores */
-  weaponCores?: WeaponCore[];
+  WeaponCores?: WeaponCore[];
 }
 
 /**
@@ -151,7 +151,7 @@ export interface WeaponCoreCollection {
  */
 export interface VehicleCoreCollection {
   /** List of vehicle cores */
-  vehicleCores?: VehicleCore[];
+  VehicleCores?: VehicleCore[];
 }
 
 /**
@@ -159,5 +159,5 @@ export interface VehicleCoreCollection {
  */
 export interface AiCoreContainer {
   /** List of AI cores */
-  aiCores?: AiCore[];
+  AiCores?: AiCore[];
 }

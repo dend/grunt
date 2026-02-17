@@ -5,27 +5,27 @@
  */
 export interface Csr {
   /** Current CSR value */
-  value?: number;
+  Value?: number;
   /** Measurement matches remaining before placement */
-  measurementMatchesRemaining?: number;
+  MeasurementMatchesRemaining?: number;
   /** Current tier name (e.g., "Diamond", "Onyx") */
-  tier?: string;
+  Tier?: string;
   /** CSR value at start of current tier */
-  tierStart?: number;
+  TierStart?: number;
   /** Current sub-tier within the tier (1-6) */
-  subTier?: number;
+  SubTier?: number;
   /** Next tier name */
-  nextTier?: string;
+  NextTier?: string;
   /** CSR value at start of next tier */
-  nextTierStart?: number;
+  NextTierStart?: number;
   /** Next sub-tier */
-  nextSubTier?: number;
+  NextSubTier?: number;
   /** Initial number of placement matches required */
-  initialMeasurementMatches?: number;
+  InitialMeasurementMatches?: number;
   /** Initial demotion protection matches */
-  initialDemotionProtectionMatches?: number;
+  InitialDemotionProtectionMatches?: number;
   /** Remaining demotion protection matches */
-  demotionProtectionMatchesRemaining?: number;
+  DemotionProtectionMatchesRemaining?: number;
 }
 
 /**
@@ -33,15 +33,15 @@ export interface Csr {
  */
 export interface PlayerMatchSkill {
   /** Player identifier */
-  id?: string;
+  Id?: string;
   /** CSR before the match */
-  preMatchCsr?: Csr;
+  PreMatchCsr?: Csr;
   /** CSR after the match */
-  postMatchCsr?: Csr;
+  PostMatchCsr?: Csr;
   /** Expected CSR at ranking */
-  expectedRankCsr?: Csr;
+  ExpectedRankCsr?: Csr;
   /** Result code */
-  resultCode?: number;
+  ResultCode?: number;
 }
 
 /**
@@ -49,9 +49,9 @@ export interface PlayerMatchSkill {
  */
 export interface MatchSkillInfo {
   /** Match identifier */
-  matchId?: string;
+  MatchId?: string;
   /** Skill results for each player */
-  value?: PlayerMatchSkill[];
+  Value?: PlayerMatchSkill[];
 }
 
 /**
@@ -59,11 +59,11 @@ export interface MatchSkillInfo {
  */
 export interface PlayerPlaylistCsr {
   /** Player identifier */
-  id?: string;
+  Id?: string;
   /** Current CSR for this playlist */
-  csr?: Csr;
+  Csr?: Csr;
   /** Result code */
-  resultCode?: number;
+  ResultCode?: number;
 }
 
 /**
@@ -71,9 +71,9 @@ export interface PlayerPlaylistCsr {
  */
 export interface PlaylistCsrResultContainer {
   /** Playlist identifier */
-  playlistId?: string;
+  PlaylistId?: string;
   /** Season identifier (if applicable) */
-  seasonId?: string;
+  SeasonId?: string;
   /** CSR results for each player */
-  value?: PlayerPlaylistCsr[];
+  Value?: PlayerPlaylistCsr[];
 }

@@ -5,13 +5,13 @@ import type { Stats } from './stats';
  */
 export interface ServiceRecordSubqueries {
   /** Seasonal breakdown of stats */
-  seasons?: SeasonServiceRecord[];
+  Seasons?: SeasonServiceRecord[];
   /** Map breakdown of stats */
-  maps?: MapServiceRecord[];
+  Maps?: MapServiceRecord[];
   /** Game variant breakdown */
-  gameVariants?: GameVariantServiceRecord[];
+  GameVariants?: GameVariantServiceRecord[];
   /** Playlist breakdown */
-  playlists?: PlaylistServiceRecord[];
+  Playlists?: PlaylistServiceRecord[];
 }
 
 /**
@@ -19,9 +19,9 @@ export interface ServiceRecordSubqueries {
  */
 export interface SeasonServiceRecord {
   /** Season identifier */
-  seasonId?: string;
+  SeasonId?: string;
   /** Stats for this season */
-  stats?: Stats;
+  Stats?: Stats;
 }
 
 /**
@@ -29,9 +29,9 @@ export interface SeasonServiceRecord {
  */
 export interface MapServiceRecord {
   /** Map asset identifier */
-  assetId?: string;
+  AssetId?: string;
   /** Stats for this map */
-  stats?: Stats;
+  Stats?: Stats;
 }
 
 /**
@@ -39,9 +39,9 @@ export interface MapServiceRecord {
  */
 export interface GameVariantServiceRecord {
   /** Game variant category */
-  gameVariantCategory?: number;
+  GameVariantCategory?: number;
   /** Stats for this game variant */
-  stats?: Stats;
+  Stats?: Stats;
 }
 
 /**
@@ -49,9 +49,9 @@ export interface GameVariantServiceRecord {
  */
 export interface PlaylistServiceRecord {
   /** Playlist asset identifier */
-  assetId?: string;
+  AssetId?: string;
   /** Stats for this playlist */
-  stats?: Stats;
+  Stats?: Stats;
 }
 
 /**
@@ -59,9 +59,9 @@ export interface PlaylistServiceRecord {
  */
 export interface TimePlayed {
   /** Total seconds played */
-  seconds?: number;
+  Seconds?: number;
   /** Human-readable duration */
-  human?: string;
+  Human?: string;
 }
 
 /**
@@ -69,13 +69,13 @@ export interface TimePlayed {
  */
 export interface WinLossRecord {
   /** Number of wins */
-  wins?: number;
+  Wins?: number;
   /** Number of losses */
-  losses?: number;
+  Losses?: number;
   /** Number of ties */
-  ties?: number;
+  Ties?: number;
   /** Number of games left early */
-  left?: number;
+  Left?: number;
 }
 
 /**
@@ -85,15 +85,15 @@ export interface WinLossRecord {
  */
 export interface PlayerServiceRecord {
   /** Player identifier */
-  playerId?: string;
+  PlayerId?: string;
   /** Core aggregate stats */
-  stats?: Stats;
+  Stats?: Stats;
   /** Time played breakdown */
-  timePlayed?: TimePlayed;
+  TimePlayed?: TimePlayed;
   /** Win/loss/tie record */
-  winLossRecord?: WinLossRecord;
+  WinLossRecord?: WinLossRecord;
   /** Matches played */
-  matchesPlayed?: number;
+  MatchesPlayed?: number;
   /** Subquery breakdowns (by season, map, etc.) */
-  subqueries?: ServiceRecordSubqueries;
+  Subqueries?: ServiceRecordSubqueries;
 }

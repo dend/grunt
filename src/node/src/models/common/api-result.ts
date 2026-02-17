@@ -60,7 +60,7 @@ export interface RawResponse {
  * const result = await client.stats.getMatchStats('match-id');
  * if (isSuccess(result)) {
  *   // TypeScript now knows result.result is non-null
- *   console.log(result.result.matchId);
+ *   console.log(result.result.MatchId);
  * }
  * ```
  */

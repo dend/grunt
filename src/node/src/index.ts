@@ -30,7 +30,7 @@
  *
  * if (isSuccess(history)) {
  *   for (const match of history.result.results ?? []) {
- *     console.log(`Match: ${match.matchId}`);
+ *     console.log(`Match: ${match.MatchId}`);
  *   }
  * }
  *

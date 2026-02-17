@@ -7,9 +7,9 @@ import type { Stats } from './stats';
  */
 export interface BotAttributes {
   /** Bot difficulty */
-  difficulty?: number;
+  Difficulty?: number;
   /** Bot skill level */
-  skillLevel?: number;
+  SkillLevel?: number;
 }
 
 /**
@@ -17,25 +17,25 @@ export interface BotAttributes {
  */
 export interface ParticipationInfo {
   /** Time played (ISO 8601 duration) */
-  timePlayed?: string;
+  TimePlayed?: string;
   /** Whether player was present at start */
-  presentAtStart?: boolean;
+  PresentAtStart?: boolean;
   /** Whether player was present at end */
-  presentAtEnd?: boolean;
+  PresentAtEnd?: boolean;
   /** Whether player joined mid-match */
-  joinedInProgress?: boolean;
+  JoinedInProgress?: boolean;
   /** When player joined (ISO 8601) */
-  joinedAt?: string;
+  JoinedAt?: string;
   /** When player left (ISO 8601, if applicable) */
-  leftAt?: string;
+  LeftAt?: string;
   /** First joined time (ISO 8601) */
-  firstJoinedTime?: string;
+  FirstJoinedTime?: string;
   /** Last joined time (ISO 8601) */
-  lastJoinedTime?: string;
+  LastJoinedTime?: string;
   /** Whether player left before completion */
-  leftInProgress?: boolean;
+  LeftInProgress?: boolean;
   /** Confirmed participation */
-  confirmedParticipation?: boolean;
+  ConfirmedParticipation?: boolean;
 }
 
 /**
@@ -43,9 +43,9 @@ export interface ParticipationInfo {
  */
 export interface PlayerTeamStat {
   /** Team identifier */
-  teamId?: number;
+  TeamId?: number;
   /** Stats for this team */
-  stats?: Stats;
+  Stats?: Stats;
 }
 
 /**
@@ -53,21 +53,21 @@ export interface PlayerTeamStat {
  */
 export interface Player {
   /** Player identifier (format: "xuid(XUID)") */
-  playerId?: string;
+  PlayerId?: string;
   /** Type of player (Human or Bot) */
-  playerType?: PlayerType;
+  PlayerType?: PlayerType;
   /** Bot attributes (only if playerType is Bot) */
-  botAttributes?: BotAttributes;
+  BotAttributes?: BotAttributes;
   /** Last team the player was on */
-  lastTeamId?: number;
+  LastTeamId?: number;
   /** Match outcome for this player */
-  outcome?: Outcome;
+  Outcome?: Outcome;
   /** Final rank/placement */
-  rank?: number;
+  Rank?: number;
   /** Participation details */
-  participationInfo?: ParticipationInfo;
+  ParticipationInfo?: ParticipationInfo;
   /** Stats broken down by team */
-  playerTeamStats?: PlayerTeamStat[];
+  PlayerTeamStats?: PlayerTeamStat[];
 }
 
 /**
@@ -75,11 +75,11 @@ export interface Player {
  */
 export interface Team {
   /** Team identifier */
-  teamId?: number;
+  TeamId?: number;
   /** Match outcome for this team */
-  outcome?: number;
+  Outcome?: number;
   /** Final rank/placement */
-  rank?: number;
+  Rank?: number;
   /** Team stats */
-  stats?: Stats;
+  Stats?: Stats;
 }

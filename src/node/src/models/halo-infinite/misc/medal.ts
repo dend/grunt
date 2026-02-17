@@ -5,21 +5,21 @@ import type { DisplayString } from '../economy/inventory';
  */
 export interface Medal {
   /** Medal name identifier */
-  nameId?: number;
+  NameId?: number;
   /** Display name */
-  name?: DisplayString;
+  Name?: DisplayString;
   /** Description */
-  description?: DisplayString;
+  Description?: DisplayString;
   /** Sprite index */
-  spriteIndex?: number;
+  SpriteIndex?: number;
   /** Medal type */
-  type?: string;
+  Type?: string;
   /** Difficulty level */
-  difficulty?: string;
+  Difficulty?: string;
   /** Personal score awarded */
-  personalScore?: number;
+  PersonalScore?: number;
   /** Sorting weight */
-  sortingWeight?: number;
+  SortingWeight?: number;
 }
 
 /**
@@ -27,9 +27,9 @@ export interface Medal {
  */
 export interface MedalMetadata {
   /** List of medals */
-  medals?: Medal[];
+  Medals?: Medal[];
   /** Sprite sheet information */
-  spriteSheet?: SpriteSheet;
+  SpriteSheet?: SpriteSheet;
 }
 
 /**
@@ -37,13 +37,13 @@ export interface MedalMetadata {
  */
 export interface SpriteSheet {
   /** Path to sprite sheet image */
-  path?: string;
+  Path?: string;
   /** Sprite width */
-  spriteWidth?: number;
+  SpriteWidth?: number;
   /** Sprite height */
-  spriteHeight?: number;
+  SpriteHeight?: number;
   /** Number of columns */
-  columns?: number;
+  Columns?: number;
   /** Number of rows */
-  rows?: number;
+  Rows?: number;
 }

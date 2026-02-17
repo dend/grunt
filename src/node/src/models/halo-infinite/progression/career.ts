@@ -5,25 +5,25 @@ import type { DisplayString } from '../economy/inventory';
  */
 export interface CareerRank {
   /** Rank number */
-  rank?: number;
+  Rank?: number;
   /** Title of the rank */
-  title?: DisplayString;
+  Title?: DisplayString;
   /** Subtitle */
-  subtitle?: DisplayString;
+  Subtitle?: DisplayString;
   /** Large icon path */
-  largeIconPath?: string;
+  LargeIconPath?: string;
   /** Small icon path */
-  smallIconPath?: string;
+  SmallIconPath?: string;
   /** Adornment icon path */
-  adornmentIconPath?: string;
+  AdornmentIconPath?: string;
   /** XP required to reach this rank */
-  xpRequired?: number;
+  XpRequired?: number;
   /** Cumulative XP at this rank */
-  cumulativeXp?: number;
+  CumulativeXp?: number;
   /** Grade within the rank */
-  grade?: number;
+  Grade?: number;
   /** Tier within the rank */
-  tier?: number;
+  Tier?: number;
 }
 
 /**
@@ -31,11 +31,11 @@ export interface CareerRank {
  */
 export interface CareerTrackContainer {
   /** Career path identifier */
-  careerPathId?: string;
+  CareerPathId?: string;
   /** List of career ranks */
-  ranks?: CareerRank[];
+  Ranks?: CareerRank[];
   /** Maximum rank */
-  maxRank?: number;
+  MaxRank?: number;
 }
 
 /**
@@ -43,15 +43,15 @@ export interface CareerTrackContainer {
  */
 export interface PlayerCareerRankResult {
   /** Player identifier */
-  playerId?: string;
+  PlayerId?: string;
   /** Current career rank */
-  currentRank?: number;
+  CurrentRank?: number;
   /** Current XP */
-  currentXp?: number;
+  CurrentXp?: number;
   /** XP to next rank */
-  xpToNextRank?: number;
+  XpToNextRank?: number;
   /** Result code */
-  resultCode?: number;
+  ResultCode?: number;
 }
 
 /**
@@ -59,9 +59,9 @@ export interface PlayerCareerRankResult {
  */
 export interface RewardTrackResultContainer {
   /** Career path identifier */
-  careerPathId?: string;
+  CareerPathId?: string;
   /** Results for each player */
-  value?: PlayerCareerRankResult[];
+  Value?: PlayerCareerRankResult[];
 }
 
 /**
@@ -69,15 +69,15 @@ export interface RewardTrackResultContainer {
  */
 export interface MatchProgression {
   /** Player identifier */
-  playerId?: string;
+  PlayerId?: string;
   /** Match identifier */
-  matchId?: string;
+  MatchId?: string;
   /** Challenges progressed */
-  challengeProgress?: ChallengeProgress[];
+  ChallengeProgress?: ChallengeProgress[];
   /** XP earned breakdown */
-  xpBreakdown?: XpBreakdown;
+  XpBreakdown?: XpBreakdown;
   /** Career rank progression */
-  careerRankProgress?: CareerRankProgress;
+  CareerRankProgress?: CareerRankProgress;
 }
 
 /**
@@ -85,11 +85,11 @@ export interface MatchProgression {
  */
 export interface ChallengeProgress {
   /** Challenge identifier */
-  challengeId?: string;
+  ChallengeId?: string;
   /** Progress made */
-  progress?: number;
+  Progress?: number;
   /** Whether challenge was completed */
-  completed?: boolean;
+  Completed?: boolean;
 }
 
 /**
@@ -97,15 +97,15 @@ export interface ChallengeProgress {
  */
 export interface XpBreakdown {
   /** Base XP from match */
-  matchXp?: number;
+  MatchXp?: number;
   /** XP from medals */
-  medalXp?: number;
+  MedalXp?: number;
   /** XP from challenges */
-  challengeXp?: number;
+  ChallengeXp?: number;
   /** Boost XP */
-  boostXp?: number;
+  BoostXp?: number;
   /** Total XP */
-  totalXp?: number;
+  TotalXp?: number;
 }
 
 /**
@@ -113,11 +113,11 @@ export interface XpBreakdown {
  */
 export interface CareerRankProgress {
   /** Rank before match */
-  previousRank?: number;
+  PreviousRank?: number;
   /** Rank after match */
-  currentRank?: number;
+  CurrentRank?: number;
   /** XP earned */
-  xpEarned?: number;
+  XpEarned?: number;
   /** Whether player ranked up */
-  rankedUp?: boolean;
+  RankedUp?: boolean;
 }

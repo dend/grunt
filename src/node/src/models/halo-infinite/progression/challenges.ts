@@ -5,23 +5,23 @@ import type { DisplayString, InventoryAmount } from '../economy/inventory';
  */
 export interface Reward {
   /** Event XP awarded */
-  eventXp?: number;
+  EventXp?: number;
   /** Operation XP awarded */
-  operationXp?: number;
+  OperationXp?: number;
   /** Operation experience */
-  operationExperience?: number;
+  OperationExperience?: number;
   /** Soft experience (Spartan Points) */
-  softExperience?: number;
+  SoftExperience?: number;
   /** Inventory items rewarded */
-  inventoryRewards?: InventoryAmount[];
+  InventoryRewards?: InventoryAmount[];
   /** Inventory items */
-  inventoryItems?: unknown[];
+  InventoryItems?: unknown[];
   /** Tracking identifier */
-  trackingId?: string;
+  TrackingId?: string;
   /** Currencies awarded */
-  currencies?: unknown[];
+  Currencies?: unknown[];
   /** Reward track progression */
-  rewardTrackProgression?: RewardTrack[];
+  RewardTrackProgression?: RewardTrack[];
 }
 
 /**
@@ -29,31 +29,31 @@ export interface Reward {
  */
 export interface Challenge {
   /** Challenge description */
-  description?: DisplayString;
+  Description?: DisplayString;
   /** Difficulty level */
-  difficulty?: string;
+  Difficulty?: string;
   /** Challenge category */
-  category?: string;
+  Category?: string;
   /** Primary reward */
-  reward?: Reward;
+  Reward?: Reward;
   /** Secondary reward */
-  secondaryReward?: Reward;
+  SecondaryReward?: Reward;
   /** Threshold for success */
-  thresholdForSuccess?: number;
+  ThresholdForSuccess?: number;
   /** Challenge title */
-  title?: DisplayString;
+  Title?: DisplayString;
   /** Type icon path */
-  typeIconPath?: string;
+  TypeIconPath?: string;
   /** Whether this is a user event challenge */
-  isUserEvent?: boolean;
+  IsUserEvent?: boolean;
   /** Challenge path */
-  path?: string;
+  Path?: string;
   /** Current progress */
-  progress?: number;
+  Progress?: number;
   /** Challenge identifier */
-  id?: string;
+  Id?: string;
   /** Whether the challenge can be rerolled */
-  canReroll?: boolean;
+  CanReroll?: boolean;
 }
 
 /**
@@ -61,15 +61,15 @@ export interface Challenge {
  */
 export interface ChallengeDeck {
   /** Deck identifier */
-  id?: string;
+  Id?: string;
   /** Path to the deck */
-  path?: string;
+  Path?: string;
   /** Deck title */
-  title?: DisplayString;
+  Title?: DisplayString;
   /** Description */
-  description?: DisplayString;
+  Description?: DisplayString;
   /** Challenges in this deck */
-  challenges?: Challenge[];
+  Challenges?: Challenge[];
 }
 
 /**
@@ -77,17 +77,17 @@ export interface ChallengeDeck {
  */
 export interface ChallengeDeckDefinition {
   /** Deck identifier */
-  id?: string;
+  Id?: string;
   /** Deck path */
-  path?: string;
+  Path?: string;
   /** Deck title */
-  title?: DisplayString;
+  Title?: DisplayString;
   /** Description */
-  description?: DisplayString;
+  Description?: DisplayString;
   /** Image path */
-  imagePath?: string;
+  ImagePath?: string;
   /** Whether deck is visible */
-  isVisible?: boolean;
+  IsVisible?: boolean;
 }
 
 /**
@@ -95,9 +95,9 @@ export interface ChallengeDeckDefinition {
  */
 export interface ChallengeDecksResponse {
   /** Active challenge decks */
-  activeDecks?: ChallengeDeck[];
+  ActiveDecks?: ChallengeDeck[];
   /** Upcoming decks */
-  upcomingDecks?: ChallengeDeck[];
+  UpcomingDecks?: ChallengeDeck[];
 }
 
 /**
@@ -141,21 +141,21 @@ export interface RewardTrack {
  */
 export interface RewardTrackMetadata {
   /** Track identifier */
-  trackId?: string;
+  TrackId?: string;
   /** Track path */
-  path?: string;
+  Path?: string;
   /** Display title */
-  title?: DisplayString;
+  Title?: DisplayString;
   /** Description */
-  description?: DisplayString;
+  Description?: DisplayString;
   /** Image path */
-  imagePath?: string;
+  ImagePath?: string;
   /** Track type */
-  type?: string;
+  Type?: string;
   /** Start date (ISO 8601) */
-  startDate?: string;
+  StartDate?: string;
   /** End date (ISO 8601) */
-  endDate?: string;
+  EndDate?: string;
 }
 
 /**
@@ -163,13 +163,13 @@ export interface RewardTrackMetadata {
  */
 export interface OperationRewardTrackSnapshot {
   /** Track identifier */
-  trackId?: string;
+  TrackId?: string;
   /** Current rank */
-  rank?: number;
+  Rank?: number;
   /** Current XP */
-  xp?: number;
+  Xp?: number;
   /** Total XP earned */
-  totalXpEarned?: number;
+  TotalXpEarned?: number;
   /** Premium status */
-  isPremium?: boolean;
+  IsPremium?: boolean;
 }

@@ -3,15 +3,15 @@
  */
 export interface BanResult {
   /** Player identifier */
-  playerId?: string;
+  PlayerId?: string;
   /** Whether player is banned */
-  isBanned?: boolean;
+  IsBanned?: boolean;
   /** Ban reason */
-  reason?: string;
+  Reason?: string;
   /** Ban expiration (ISO 8601) */
-  expiresAt?: string;
+  ExpiresAt?: string;
   /** Severity level */
-  severity?: string;
+  Severity?: string;
 }
 
 /**
@@ -19,5 +19,5 @@ export interface BanResult {
  */
 export interface BansSummaryQueryResult {
   /** List of ban results */
-  results?: BanResult[];
+  Results?: BanResult[];
 }

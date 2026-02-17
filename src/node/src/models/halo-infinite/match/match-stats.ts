@@ -9,11 +9,11 @@ import type { Player, Team } from './player';
  */
 export interface MatchStats {
   /** Unique match identifier */
-  matchId?: string;
+  MatchId?: string;
   /** General match information */
-  matchInfo?: MatchInfo;
+  MatchInfo?: MatchInfo;
   /** List of teams in the match */
-  teams?: Team[];
+  Teams?: Team[];
   /** List of players in the match */
-  players?: Player[];
+  Players?: Player[];
 }

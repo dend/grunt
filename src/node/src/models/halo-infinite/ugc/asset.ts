@@ -5,9 +5,9 @@ import type { AssetKind } from '../enums/asset-kind';
  */
 export interface AssetVersionFile {
   /** Prefix for file URLs */
-  prefix?: string;
+  Prefix?: string;
   /** List of file paths */
-  fileRelativePaths?: string[];
+  FileRelativePaths?: string[];
 }
 
 /**
@@ -15,17 +15,17 @@ export interface AssetVersionFile {
  */
 export interface PlayAssetStats {
   /** Number of plays */
-  playsRecent?: number;
+  PlaysRecent?: number;
   /** All-time plays */
-  playsAllTime?: number;
+  PlaysAllTime?: number;
   /** Favorites count */
-  favorites?: number;
+  Favorites?: number;
   /** Average rating */
-  averageRating?: number;
+  AverageRating?: number;
   /** Number of ratings */
-  numberOfRatings?: number;
+  NumberOfRatings?: number;
   /** Parent asset ID (if this is a variant) */
-  parentAssetId?: string;
+  ParentAssetId?: string;
 }
 
 /**
@@ -33,43 +33,43 @@ export interface PlayAssetStats {
  */
 export interface AssetBase {
   /** Asset unique identifier */
-  assetId?: string;
+  AssetId?: string;
   /** Version identifier */
-  versionId?: string;
+  VersionId?: string;
   /** Combined asset version ID */
-  assetVersionId?: string;
+  AssetVersionId?: string;
   /** Public display name */
-  publicName?: string;
+  PublicName?: string;
   /** Internal name */
-  name?: string;
+  Name?: string;
   /** Description */
-  description?: string;
+  Description?: string;
   /** Inspection result code */
-  inspectionResult?: number;
+  InspectionResult?: number;
   /** Clone behavior setting */
-  cloneBehavior?: number;
+  CloneBehavior?: number;
   /** Asset home (where it's stored) */
-  assetHome?: number;
+  AssetHome?: number;
   /** Descriptive tags */
-  tags?: string[];
+  Tags?: string[];
   /** Contributors (XUIDs) */
-  contributors?: string[];
+  Contributors?: string[];
   /** File information */
-  files?: AssetVersionFile;
+  Files?: AssetVersionFile;
   /** Type of asset */
-  assetKind?: AssetKind;
+  AssetKind?: AssetKind;
   /** Display order */
-  order?: number;
+  Order?: number;
   /** Play statistics */
-  assetStats?: PlayAssetStats;
+  AssetStats?: PlayAssetStats;
   /** When published (ISO 8601) */
-  publishedDate?: string;
+  PublishedDate?: string;
   /** Version number */
-  versionNumber?: number;
+  VersionNumber?: number;
   /** Admin XUID */
-  admin?: string;
+  Admin?: string;
   /** Display owner override */
-  displayOwnerOverride?: string;
+  DisplayOwnerOverride?: string;
 }
 
 /**
@@ -77,15 +77,15 @@ export interface AssetBase {
  */
 export interface AuthoringAsset extends AssetBase {
   /** Original author XUID */
-  originalAuthor?: string;
+  OriginalAuthor?: string;
   /** Whether it's readonly */
-  readonly?: boolean;
+  Readonly?: boolean;
   /** Custom data for the asset type */
-  customData?: Record<string, unknown>;
+  CustomData?: Record<string, unknown>;
   /** Creation time (ISO 8601) */
-  createdAt?: string;
+  CreatedAt?: string;
   /** Last modification time (ISO 8601) */
-  updatedAt?: string;
+  UpdatedAt?: string;
 }
 
 /**
@@ -93,9 +93,9 @@ export interface AuthoringAsset extends AssetBase {
  */
 export interface AuthoringAssetVersion extends AssetBase {
   /** Readonly status */
-  readonly?: boolean;
+  Readonly?: boolean;
   /** Custom data */
-  customData?: Record<string, unknown>;
+  CustomData?: Record<string, unknown>;
 }
 
 /**
@@ -103,13 +103,13 @@ export interface AuthoringAssetVersion extends AssetBase {
  */
 export interface AuthoringAssetContainer {
   /** Asset count */
-  count?: number;
+  Count?: number;
   /** Total available */
-  total?: number;
+  Total?: number;
   /** List of assets */
-  results?: AuthoringAsset[];
+  Results?: AuthoringAsset[];
   /** Pagination links */
-  links?: AssetLinks;
+  Links?: AssetLinks;
 }
 
 /**
@@ -117,7 +117,7 @@ export interface AuthoringAssetContainer {
  */
 export interface AuthoringAssetVersionContainer {
   /** List of versions */
-  results?: AuthoringAssetVersion[];
+  Results?: AuthoringAssetVersion[];
 }
 
 /**
@@ -125,11 +125,11 @@ export interface AuthoringAssetVersionContainer {
  */
 export interface AssetLinks {
   /** Link to current page */
-  self?: string;
+  Self?: string;
   /** Link to next page */
-  next?: string;
+  Next?: string;
   /** Link to previous page */
-  prev?: string;
+  Prev?: string;
 }
 
 /**
@@ -137,9 +137,9 @@ export interface AssetLinks {
  */
 export interface AuthoringAssetRating {
   /** User's rating value (1-5) */
-  rating?: number;
+  Rating?: number;
   /** When rated (ISO 8601) */
-  timestamp?: string;
+  Timestamp?: string;
 }
 
 /**
@@ -147,11 +147,11 @@ export interface AuthoringAssetRating {
  */
 export interface FavoriteAsset {
   /** Asset ID */
-  assetId?: string;
+  AssetId?: string;
   /** Asset kind */
-  assetKind?: AssetKind;
+  AssetKind?: AssetKind;
   /** When favorited (ISO 8601) */
-  favoritedAt?: string;
+  FavoritedAt?: string;
 }
 
 /**
@@ -159,9 +159,9 @@ export interface FavoriteAsset {
  */
 export interface AuthoringFavoritesContainer {
   /** List of favorites */
-  results?: FavoriteAsset[];
+  Results?: FavoriteAsset[];
   /** Total count */
-  total?: number;
+  Total?: number;
 }
 
 /**
@@ -169,11 +169,11 @@ export interface AuthoringFavoritesContainer {
  */
 export interface Permission {
   /** Player XUID */
-  player?: string;
+  Player?: string;
   /** Permission type */
-  permissionType?: string;
+  PermissionType?: string;
   /** Whether permission is granted */
-  granted?: boolean;
+  Granted?: boolean;
 }
 
 /**
@@ -181,11 +181,11 @@ export interface Permission {
  */
 export interface AssetReport {
   /** Report reason */
-  reason?: string;
+  Reason?: string;
   /** Additional details */
-  details?: string;
+  Details?: string;
   /** When reported (ISO 8601) */
-  timestamp?: string;
+  Timestamp?: string;
 }
 
 /**
@@ -193,11 +193,11 @@ export interface AssetReport {
  */
 export interface AssetAuthoringSession {
   /** Session identifier */
-  sessionId?: string;
+  SessionId?: string;
   /** Session expiration (ISO 8601) */
-  expiresAt?: string;
+  ExpiresAt?: string;
   /** Container SAS URL for uploads */
-  containerSas?: string;
+  ContainerSas?: string;
 }
 
 /**
@@ -205,7 +205,7 @@ export interface AssetAuthoringSession {
  */
 export interface AuthoringSessionSourceStarter {
   /** Source asset ID (to clone from) */
-  sourceAssetId?: string;
+  SourceAssetId?: string;
   /** Source version ID */
-  sourceVersionId?: string;
+  SourceVersionId?: string;
 }

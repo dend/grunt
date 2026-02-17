@@ -5,9 +5,9 @@ import type { DisplayString } from '../economy/inventory';
  */
 export interface AcademyClientManifest {
   /** List of categories */
-  categories?: AcademyCategory[];
+  Categories?: AcademyCategory[];
   /** Version */
-  version?: string;
+  Version?: string;
 }
 
 /**
@@ -15,15 +15,15 @@ export interface AcademyClientManifest {
  */
 export interface AcademyCategory {
   /** Category identifier */
-  id?: string;
+  Id?: string;
   /** Category title */
-  title?: DisplayString;
+  Title?: DisplayString;
   /** Category description */
-  description?: DisplayString;
+  Description?: DisplayString;
   /** Image path */
-  imagePath?: string;
+  ImagePath?: string;
   /** Series in this category */
-  series?: AcademySeries[];
+  Series?: AcademySeries[];
 }
 
 /**
@@ -31,15 +31,15 @@ export interface AcademyCategory {
  */
 export interface AcademySeries {
   /** Series identifier */
-  id?: string;
+  Id?: string;
   /** Series title */
-  title?: DisplayString;
+  Title?: DisplayString;
   /** Description */
-  description?: DisplayString;
+  Description?: DisplayString;
   /** Image path */
-  imagePath?: string;
+  ImagePath?: string;
   /** Drills in this series */
-  drills?: AcademyDrill[];
+  Drills?: AcademyDrill[];
 }
 
 /**
@@ -47,21 +47,21 @@ export interface AcademySeries {
  */
 export interface AcademyDrill {
   /** Drill identifier */
-  id?: string;
+  Id?: string;
   /** Drill title */
-  title?: DisplayString;
+  Title?: DisplayString;
   /** Description */
-  description?: DisplayString;
+  Description?: DisplayString;
   /** Image path */
-  imagePath?: string;
+  ImagePath?: string;
   /** Difficulty level */
-  difficulty?: string;
+  Difficulty?: string;
   /** Weapon path */
-  weaponPath?: string;
+  WeaponPath?: string;
   /** Map asset ID */
-  mapAssetId?: string;
+  MapAssetId?: string;
   /** Game variant asset ID */
-  gameVariantAssetId?: string;
+  GameVariantAssetId?: string;
 }
 
 /**
@@ -69,7 +69,7 @@ export interface AcademyDrill {
  */
 export interface AcademyStarDefinitions {
   /** Star definitions by drill */
-  definitions?: Record<string, AcademyStarDefinition>;
+  Definitions?: Record<string, AcademyStarDefinition>;
 }
 
 /**
@@ -77,11 +77,11 @@ export interface AcademyStarDefinitions {
  */
 export interface AcademyStarDefinition {
   /** One star threshold */
-  oneStar?: number;
+  OneStar?: number;
   /** Two stars threshold */
-  twoStars?: number;
+  TwoStars?: number;
   /** Three stars threshold */
-  threeStars?: number;
+  ThreeStars?: number;
 }
 
 /**
@@ -89,9 +89,9 @@ export interface AcademyStarDefinition {
  */
 export interface BotCustomizationData {
   /** Available bot difficulty levels */
-  difficulties?: BotDifficulty[];
+  Difficulties?: BotDifficulty[];
   /** Bot appearance options */
-  appearances?: BotAppearance[];
+  Appearances?: BotAppearance[];
 }
 
 /**
@@ -99,11 +99,11 @@ export interface BotCustomizationData {
  */
 export interface BotDifficulty {
   /** Difficulty identifier */
-  id?: string;
+  Id?: string;
   /** Display name */
-  name?: DisplayString;
+  Name?: DisplayString;
   /** Description */
-  description?: DisplayString;
+  Description?: DisplayString;
 }
 
 /**
@@ -111,11 +111,11 @@ export interface BotDifficulty {
  */
 export interface BotAppearance {
   /** Appearance identifier */
-  id?: string;
+  Id?: string;
   /** Display name */
-  name?: DisplayString;
+  Name?: DisplayString;
   /** Appearance path */
-  path?: string;
+  Path?: string;
 }
 
 /**
@@ -123,5 +123,5 @@ export interface BotAppearance {
  */
 export interface TestAcademyClientManifest extends AcademyClientManifest {
   /** Flight identifier */
-  flightId?: string;
+  FlightId?: string;
 }

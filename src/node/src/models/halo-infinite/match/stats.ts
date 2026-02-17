@@ -3,71 +3,71 @@
  */
 export interface CoreStats {
   /** Total score earned */
-  score?: number;
+  Score?: number;
   /** Personal score (individual contribution) */
-  personalScore?: number;
+  PersonalScore?: number;
   /** Number of rounds won */
-  roundsWon?: number;
+  RoundsWon?: number;
   /** Number of rounds lost */
-  roundsLost?: number;
+  RoundsLost?: number;
   /** Number of rounds tied */
-  roundsTied?: number;
+  RoundsTied?: number;
   /** Total kills */
-  kills?: number;
+  Kills?: number;
   /** Total deaths */
-  deaths?: number;
+  Deaths?: number;
   /** Total assists */
-  assists?: number;
+  Assists?: number;
   /** Kill/Death/Assist ratio */
-  kda?: number;
+  Kda?: number;
   /** Total suicides */
-  suicides?: number;
+  Suicides?: number;
   /** Total betrayals (team kills) */
-  betrayals?: number;
+  Betrayals?: number;
   /** Average life duration in seconds */
-  averageLifeDuration?: string;
+  AverageLifeDuration?: string;
   /** Grenade kills */
-  grenadeKills?: number;
+  GrenadeKills?: number;
   /** Headshot kills */
-  headshotKills?: number;
+  HeadshotKills?: number;
   /** Melee kills */
-  meleeKills?: number;
+  MeleeKills?: number;
   /** Power weapon kills */
-  powerWeaponKills?: number;
+  PowerWeaponKills?: number;
   /** Shots fired */
-  shotsFired?: number;
+  ShotsFired?: number;
   /** Shots hit */
-  shotsHit?: number;
+  ShotsHit?: number;
   /** Accuracy percentage */
-  accuracy?: number;
+  Accuracy?: number;
   /** Damage dealt */
-  damageDealt?: number;
+  DamageDealt?: number;
   /** Damage taken */
-  damageTaken?: number;
+  DamageTaken?: number;
   /** Callout assists */
-  calloutAssists?: number;
+  CalloutAssists?: number;
   /** Vehicle destroys */
-  vehicleDestroys?: number;
+  VehicleDestroys?: number;
   /** Driver assists */
-  driverAssists?: number;
+  DriverAssists?: number;
   /** Hijacks */
-  hijacks?: number;
+  Hijacks?: number;
   /** EMP assists */
-  empAssists?: number;
+  EmpAssists?: number;
   /** Maximum killing spree */
-  maxKillingSpree?: number;
+  MaxKillingSpree?: number;
   /** Medals earned */
-  medals?: MedalCount[];
+  Medals?: MedalCount[];
   /** Personal scores breakdown */
-  personalScores?: PersonalScoreEntry[];
+  PersonalScores?: PersonalScoreEntry[];
   /** Deprecated Spartan Rank */
-  deprecatedDamageDealt?: number;
+  DeprecatedDamageDealt?: number;
   /** Deprecated Spartan Rank */
-  deprecatedDamageTaken?: number;
+  DeprecatedDamageTaken?: number;
   /** Spawns */
-  spawns?: number;
+  Spawns?: number;
   /** Objectives completed */
-  objectivesCompleted?: number;
+  ObjectivesCompleted?: number;
 }
 
 /**
@@ -75,11 +75,11 @@ export interface CoreStats {
  */
 export interface MedalCount {
   /** Medal name identifier */
-  nameId?: number;
+  NameId?: number;
   /** Number of times earned */
-  count?: number;
+  Count?: number;
   /** Total personal score from this medal */
-  totalPersonalScoreAwarded?: number;
+  TotalPersonalScoreAwarded?: number;
 }
 
 /**
@@ -87,11 +87,11 @@ export interface MedalCount {
  */
 export interface PersonalScoreEntry {
   /** Score type name identifier */
-  nameId?: number;
+  NameId?: number;
   /** Number of times earned */
-  count?: number;
+  Count?: number;
   /** Total score from this type */
-  totalPersonalScoreAwarded?: number;
+  TotalPersonalScoreAwarded?: number;
 }
 
 /**
@@ -99,13 +99,13 @@ export interface PersonalScoreEntry {
  */
 export interface BombStats {
   /** Bombs planted */
-  bombsPlanted?: number;
+  BombsPlanted?: number;
   /** Bombs defused */
-  bombsDefused?: number;
+  BombsDefused?: number;
   /** Bomb carriers killed */
-  bombCarriersKilled?: number;
+  BombCarriersKilled?: number;
   /** Time as bomb carrier */
-  timeAsBombCarrier?: string;
+  TimeAsBombCarrier?: string;
 }
 
 /**
@@ -113,21 +113,21 @@ export interface BombStats {
  */
 export interface CaptureTheFlagStats {
   /** Flag captures */
-  flagCaptures?: number;
+  FlagCaptures?: number;
   /** Flag capture assists */
-  flagCaptureAssists?: number;
+  FlagCaptureAssists?: number;
   /** Flag carriers killed */
-  flagCarriersKilled?: number;
+  FlagCarriersKilled?: number;
   /** Flag grabs */
-  flagGrabs?: number;
+  FlagGrabs?: number;
   /** Flags returned */
-  flagsReturned?: number;
+  FlagsReturned?: number;
   /** Flags stolen */
-  flagsStolen?: number;
+  FlagsStolen?: number;
   /** Time as flag carrier */
-  timeAsFlagCarrier?: string;
+  TimeAsFlagCarrier?: string;
   /** Kills as flag carrier */
-  killsAsFlagCarrier?: number;
+  KillsAsFlagCarrier?: number;
 }
 
 /**
@@ -135,21 +135,21 @@ export interface CaptureTheFlagStats {
  */
 export interface EliminationStats {
   /** Allies revived */
-  alliesRevived?: number;
+  AlliesRevived?: number;
   /** Revives denied */
-  revivesDenied?: number;
+  RevivesDenied?: number;
   /** Eliminations */
-  eliminations?: number;
+  Eliminations?: number;
   /** Elimination assists */
-  eliminationAssists?: number;
+  EliminationAssists?: number;
   /** Times revived */
-  timesRevived?: number;
+  TimesRevived?: number;
   /** Rounds survived */
-  roundsSurvived?: number;
+  RoundsSurvived?: number;
   /** Executions */
-  executions?: number;
+  Executions?: number;
   /** Last spartans standing */
-  lastSpartansStanding?: number;
+  LastSpartansStanding?: number;
 }
 
 /**
@@ -157,17 +157,17 @@ export interface EliminationStats {
  */
 export interface ExtractionStats {
   /** Extractions initiated */
-  extractionInitiated?: number;
+  ExtractionInitiated?: number;
   /** Extractions completed */
-  extractionCompleted?: number;
+  ExtractionCompleted?: number;
   /** Extractions converted */
-  extractionConverted?: number;
+  ExtractionConverted?: number;
   /** Extractions denied */
-  extractionDenied?: number;
+  ExtractionDenied?: number;
   /** Successful extractions */
-  successfulExtractions?: number;
+  SuccessfulExtractions?: number;
   /** Seconds converting */
-  secondsConverting?: number;
+  SecondsConverting?: number;
 }
 
 /**
@@ -175,29 +175,29 @@ export interface ExtractionStats {
  */
 export interface InfectionStats {
   /** Infected killed */
-  infectedKilled?: number;
+  InfectedKilled?: number;
   /** Spartans infected */
-  spartansInfected?: number;
+  SpartansInfected?: number;
   /** Spartans infected as last spartan */
-  spartansInfectedAsLastSpartan?: number;
+  SpartansInfectedAsLastSpartan?: number;
   /** Infected killed as last spartan */
-  infectedKilledAsLastSpartan?: number;
+  InfectedKilledAsLastSpartan?: number;
   /** Time as last spartan */
-  timeAsLastSpartan?: string;
+  TimeAsLastSpartan?: string;
   /** Time as survivor */
-  timeAsSurvivor?: string;
+  TimeAsSurvivor?: string;
   /** Rounds as survivor */
-  roundsAsSurvivor?: number;
+  RoundsAsSurvivor?: number;
   /** Rounds as infected */
-  roundsAsInfected?: number;
+  RoundsAsInfected?: number;
   /** Rounds survived as spartan */
-  roundsSurvivedAsSpartan?: number;
+  RoundsSurvivedAsSpartan?: number;
   /** Rounds survived as last spartan */
-  roundsSurvivedAsLastSpartan?: number;
+  RoundsSurvivedAsLastSpartan?: number;
   /** Kills as last spartan */
-  killsAsLastSpartan?: number;
+  KillsAsLastSpartan?: number;
   /** Alpha infections */
-  alphaInfections?: number;
+  AlphaInfections?: number;
 }
 
 /**
@@ -205,15 +205,15 @@ export interface InfectionStats {
  */
 export interface OddballStats {
   /** Time with ball */
-  timeWithBall?: string;
+  TimeWithBall?: string;
   /** Ball carriers killed */
-  ballCarriersKilled?: number;
+  BallCarriersKilled?: number;
   /** Kills as ball carrier */
-  killsAsBallCarrier?: number;
+  KillsAsBallCarrier?: number;
   /** Ball grabs */
-  ballGrabs?: number;
+  BallGrabs?: number;
   /** Longest time with ball */
-  longestTimeWithBall?: string;
+  LongestTimeWithBall?: string;
 }
 
 /**
@@ -221,19 +221,19 @@ export interface OddballStats {
  */
 export interface ZonesStats {
   /** Zones captured */
-  zoneCaptures?: number;
+  ZoneCaptures?: number;
   /** Zone defensive kills */
-  zoneDefensiveKills?: number;
+  ZoneDefensiveKills?: number;
   /** Zone offensive kills */
-  zoneOffensiveKills?: number;
+  ZoneOffensiveKills?: number;
   /** Zone securing kills */
-  zoneSecuringKills?: number;
+  ZoneSecuringKills?: number;
   /** Zone occupation time */
-  zoneOccupationTime?: string;
+  ZoneOccupationTime?: string;
   /** Zones scored */
-  zonesScored?: number;
+  ZonesScored?: number;
   /** Zone scoring ticks */
-  zoneScoringTicks?: number;
+  ZoneScoringTicks?: number;
 }
 
 /**
@@ -241,15 +241,15 @@ export interface ZonesStats {
  */
 export interface StockpileStats {
   /** Power seeds deposited */
-  powerSeedsDeposited?: number;
+  PowerSeedsDeposited?: number;
   /** Power seeds stolen */
-  powerSeedsStolen?: number;
+  PowerSeedsStolen?: number;
   /** Kill as power seed carrier */
-  killsAsPowerSeedCarrier?: number;
+  KillsAsPowerSeedCarrier?: number;
   /** Power seed carriers killed */
-  powerSeedCarriersKilled?: number;
+  PowerSeedCarriersKilled?: number;
   /** Time as power seed carrier */
-  timeAsPowerSeedCarrier?: string;
+  TimeAsPowerSeedCarrier?: string;
 }
 
 /**
@@ -257,11 +257,11 @@ export interface StockpileStats {
  */
 export interface VipStats {
   /** VIP kills */
-  vipKills?: number;
+  VipKills?: number;
   /** Kills as VIP */
-  killsAsVip?: number;
+  KillsAsVip?: number;
   /** Time as VIP */
-  timeAsVip?: string;
+  TimeAsVip?: string;
 }
 
 /**
@@ -269,15 +269,15 @@ export interface VipStats {
  */
 export interface PveStats {
   /** Boss kills */
-  bossKills?: number;
+  BossKills?: number;
   /** Emplacement kills */
-  emplacementKills?: number;
+  EmplacementKills?: number;
   /** Enemy vehicle kills */
-  enemyVehicleKills?: number;
+  EnemyVehicleKills?: number;
   /** Wave survived */
-  wavesSurvived?: number;
+  WavesSurvived?: number;
   /** Last spartan standing */
-  lastSpartanStanding?: boolean;
+  LastSpartanStanding?: boolean;
 }
 
 /**
@@ -285,7 +285,7 @@ export interface PveStats {
  */
 export interface PvpStats {
   /** Spartan kills */
-  spartanKills?: number;
+  SpartanKills?: number;
 }
 
 /**
@@ -293,27 +293,27 @@ export interface PvpStats {
  */
 export interface Stats {
   /** Core stats (applies to all modes) */
-  coreStats?: CoreStats;
+  CoreStats?: CoreStats;
   /** Bomb stats */
-  bombStats?: BombStats;
+  BombStats?: BombStats;
   /** CTF stats */
-  captureTheFlagStats?: CaptureTheFlagStats;
+  CaptureTheFlagStats?: CaptureTheFlagStats;
   /** Elimination stats */
-  eliminationStats?: EliminationStats;
+  EliminationStats?: EliminationStats;
   /** Extraction stats */
-  extractionStats?: ExtractionStats;
+  ExtractionStats?: ExtractionStats;
   /** Infection stats */
-  infectionStats?: InfectionStats;
+  InfectionStats?: InfectionStats;
   /** Oddball stats */
-  oddballStats?: OddballStats;
+  OddballStats?: OddballStats;
   /** Zones stats */
-  zonesStats?: ZonesStats;
+  ZonesStats?: ZonesStats;
   /** Stockpile stats */
-  stockpileStats?: StockpileStats;
+  StockpileStats?: StockpileStats;
   /** VIP stats */
-  vipStats?: VipStats;
+  VipStats?: VipStats;
   /** PvE stats */
-  pveStats?: PveStats;
+  PveStats?: PveStats;
   /** PvP stats */
-  pvpStats?: PvpStats;
+  PvpStats?: PvpStats;
 }

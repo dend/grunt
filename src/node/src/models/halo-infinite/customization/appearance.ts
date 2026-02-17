@@ -3,21 +3,21 @@
  */
 export interface SpartanBody {
   /** When last modified (ISO 8601) */
-  lastModifiedDateUtc?: string;
+  LastModifiedDateUtc?: string;
   /** Left arm prosthetic path */
-  leftArm?: string;
+  LeftArm?: string;
   /** Right arm prosthetic path */
-  rightArm?: string;
+  RightArm?: string;
   /** Left leg prosthetic path */
-  leftLeg?: string;
+  LeftLeg?: string;
   /** Right leg prosthetic path */
-  rightLeg?: string;
+  RightLeg?: string;
   /** Body type identifier */
-  bodyType?: string;
+  BodyType?: string;
   /** Voice number */
-  voice?: number;
+  Voice?: number;
   /** Voice path */
-  voicePath?: string;
+  VoicePath?: string;
 }
 
 /**
@@ -25,21 +25,21 @@ export interface SpartanBody {
  */
 export interface Appearance {
   /** When last modified (ISO 8601) */
-  lastModifiedDateUtc?: string;
+  LastModifiedDateUtc?: string;
   /** Service tag (4 characters) */
-  serviceTag?: string;
+  ServiceTag?: string;
   /** Intro gesture path */
-  introGesturePath?: string;
+  IntroGesturePath?: string;
   /** Outro gesture path */
-  outroGesturePath?: string;
+  OutroGesturePath?: string;
   /** Stance path */
-  stancePath?: string;
+  StancePath?: string;
   /** Emblem configuration */
-  emblem?: EmblemConfiguration;
+  Emblem?: EmblemConfiguration;
   /** Backdrop path */
-  backdropPath?: string;
+  BackdropPath?: string;
   /** Action pose path */
-  actionPosePath?: string;
+  ActionPosePath?: string;
 }
 
 /**
@@ -47,9 +47,9 @@ export interface Appearance {
  */
 export interface EmblemConfiguration {
   /** Emblem path */
-  emblemPath?: string;
+  EmblemPath?: string;
   /** Emblem configuration ID */
-  configurationId?: number;
+  ConfigurationId?: number;
 }
 
 /**
@@ -57,17 +57,17 @@ export interface EmblemConfiguration {
  */
 export interface CustomizationData {
   /** Spartan body configuration */
-  spartanBody?: SpartanBody;
+  SpartanBody?: SpartanBody;
   /** Appearance settings */
-  appearance?: Appearance;
+  Appearance?: Appearance;
   /** Armor cores */
-  armorCores?: import('./cores').ArmorCoreCollection;
+  ArmorCores?: import('./cores').ArmorCoreCollection;
   /** Weapon cores */
-  weaponCores?: import('./cores').WeaponCoreCollection;
+  WeaponCores?: import('./cores').WeaponCoreCollection;
   /** Vehicle cores */
-  vehicleCores?: import('./cores').VehicleCoreCollection;
+  VehicleCores?: import('./cores').VehicleCoreCollection;
   /** AI cores */
-  aiCores?: import('./cores').AiCoreContainer;
+  AiCores?: import('./cores').AiCoreContainer;
 }
 
 /**
@@ -75,7 +75,7 @@ export interface CustomizationData {
  */
 export interface AppearanceCustomization {
   /** Service tag */
-  serviceTag?: string;
+  ServiceTag?: string;
   /** Appearance configuration */
-  appearance?: Appearance;
+  Appearance?: Appearance;
 }
