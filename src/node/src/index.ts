@@ -232,14 +232,13 @@ export type {
   RewardTrackProgress,
   RewardTrackMetadata,
   OperationRewardTrackSnapshot,
+  RewardContainer,
   CareerRank,
   CareerTrackContainer,
-  PlayerCareerRankResult,
+  RewardTrackResult,
   RewardTrackResultContainer,
+  ChallengeProgressState,
   MatchProgression,
-  ChallengeProgress,
-  XpBreakdown,
-  CareerRankProgress,
 } from './models/halo-infinite/progression';
 
 // Miscellaneous models

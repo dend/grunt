@@ -15,12 +15,11 @@ export type {
 } from './challenges';
 
 export type {
+  RewardContainer,
   CareerRank,
   CareerTrackContainer,
-  PlayerCareerRankResult,
+  RewardTrackResult,
   RewardTrackResultContainer,
+  ChallengeProgressState,
   MatchProgression,
-  ChallengeProgress,
-  XpBreakdown,
-  CareerRankProgress,
 } from './career';

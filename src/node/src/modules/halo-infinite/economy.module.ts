@@ -23,7 +23,7 @@ import type {
   SpartanBody,
   AppearanceCustomization,
 } from '../../models/halo-infinite/customization';
-import type { RewardTrack, OperationRewardTrackSnapshot } from '../../models/halo-infinite/progression';
+import type { RewardTrack, RewardTrackResultContainer, OperationRewardTrackSnapshot } from '../../models/halo-infinite/progression';
 import type { PlayerGiveaways } from '../../models/halo-infinite/misc';
 
 
@@ -621,21 +621,24 @@ export class EconomyModule extends ModuleBase {
   }
 
   /**
-   * Get career rank for a player.
+   * Get player career progression status.
    *
-   * @param player - Player's numeric XUID
-   * @param careerPathId - Career path identifier
-   * @returns Reward track with career rank progress
+   * @param players - List of numeric XUIDs for the players
+   * @param careerPathId - Unique identifier for the career path (e.g., "careerRank1")
+   * @returns Container with reward track results for each player
    */
   getPlayerCareerRank(
-    player: string,
+    players: string[],
     careerPathId: string
-  ): Promise<HaloApiResult<RewardTrack>> {
-    this.assertNotEmpty(player, 'player');
+  ): Promise<HaloApiResult<RewardTrackResultContainer>> {
     this.assertNotEmpty(careerPathId, 'careerPathId');
 
-    return this.get<RewardTrack>(
-      `/hi/players/xuid(${player})/rewardtracks/careerranks/${careerPathId}`,
+    const formattedPlayerList = players
+      .map((id) => `xuid(${id})`)
+      .join(',');
+
+    return this.get<RewardTrackResultContainer>(
+      `/hi/careerranks/${careerPathId}?players=${formattedPlayerList}`,
       { useClearance: true }
     );
   }

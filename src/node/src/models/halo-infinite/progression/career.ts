@@ -1,123 +1,120 @@
-import type { DisplayString } from '../economy/inventory';
+import type { DisplayString, InventoryAmount, CurrencyAmount } from '../economy/inventory';
+import type { RewardTrack } from './challenges';
+
+/**
+ * Container for reward items awarded to the player.
+ */
+export interface RewardContainer {
+  /** Inventory rewards associated with an action and/or unlock */
+  InventoryRewards?: InventoryAmount[];
+  /** Currency rewards associated with an action and/or unlock */
+  CurrencyRewards?: CurrencyAmount[];
+}
 
 /**
  * Career rank information.
  */
 export interface CareerRank {
-  /** Rank number */
+  /** Rank ID */
   Rank?: number;
-  /** Title of the rank */
-  Title?: DisplayString;
-  /** Subtitle */
-  Subtitle?: DisplayString;
-  /** Large icon path */
-  LargeIconPath?: string;
-  /** Small icon path */
-  SmallIconPath?: string;
-  /** Adornment icon path */
-  AdornmentIconPath?: string;
-  /** XP required to reach this rank */
-  XpRequired?: number;
-  /** Cumulative XP at this rank */
-  CumulativeXp?: number;
-  /** Grade within the rank */
-  Grade?: number;
-  /** Tier within the rank */
-  Tier?: number;
+  /** Free rewards granted for rank */
+  FreeRewards?: RewardContainer;
+  /** Paid rewards granted for rank */
+  PaidRewards?: RewardContainer;
+  /** Experience required for rank */
+  XpRequiredForRank?: number;
+  /** Rank title */
+  RankTitle?: DisplayString;
+  /** Rank subtitle */
+  RankSubTitle?: DisplayString;
+  /** Rank tier */
+  RankTier?: DisplayString;
+  /** Path to the rank icon */
+  RankIcon?: string;
+  /** Path to the large rank icon */
+  RankLargeIcon?: string;
+  /** Rank adornment icon */
+  RankAdornmentIcon?: string;
+  /** Tier type */
+  TierType?: string;
+  /** Rank grade */
+  RankGrade?: number;
 }
 
 /**
- * Container for career ranks.
+ * Container for career track information.
  */
 export interface CareerTrackContainer {
-  /** Career path identifier */
-  CareerPathId?: string;
+  /** Career track ID */
+  TrackId?: string;
   /** List of career ranks */
   Ranks?: CareerRank[];
-  /** Maximum rank */
-  MaxRank?: number;
+  /** Name of the track */
+  Name?: DisplayString;
+  /** Description for the track */
+  Description?: DisplayString;
+  /** Operation number */
+  OperationNumber?: number;
+  /** Date range for the track */
+  DateRange?: DisplayString;
+  /** Whether the career track is a ritual */
+  IsRitual?: boolean;
+  /** Summary image path */
+  SummaryImagePath?: string;
+  /** Track week number */
+  WeekNumber?: number;
+  /** Volume of XP granted per rank in the track */
+  XpPerRank?: number;
+  /** Background image path */
+  BackgroundImagePath?: string;
 }
 
 /**
- * Player's career rank result.
+ * Individual reward track result for a player.
  */
-export interface PlayerCareerRankResult {
-  /** Player identifier */
-  PlayerId?: string;
-  /** Current career rank */
-  CurrentRank?: number;
-  /** Current XP */
-  CurrentXp?: number;
-  /** XP to next rank */
-  XpToNextRank?: number;
-  /** Result code */
-  ResultCode?: number;
+export interface RewardTrackResult {
+  /** Reward track ID */
+  Id?: string;
+  /** Reward track query result code */
+  ResultCode?: string;
+  /** Reward track */
+  Result?: RewardTrack;
 }
 
 /**
- * Container for player career rank results.
+ * Container for reward track query results.
  */
 export interface RewardTrackResultContainer {
-  /** Career path identifier */
-  CareerPathId?: string;
-  /** Results for each player */
-  Value?: PlayerCareerRankResult[];
+  /** List of reward tracks */
+  RewardTracks?: RewardTrackResult[];
 }
 
 /**
- * Match progression (post-game rewards).
+ * State tracker for challenge progress.
+ */
+export interface ChallengeProgressState {
+  /** Path to the challenge */
+  Path?: string;
+  /** Challenge ID */
+  Id?: string;
+  /** Previous progress for the challenge */
+  PreviousProgress?: number;
+  /** Current progress for the challenge */
+  Progress?: number;
+}
+
+/**
+ * Container for match progression information.
  */
 export interface MatchProgression {
-  /** Player identifier */
-  PlayerId?: string;
-  /** Match identifier */
-  MatchId?: string;
-  /** Challenges progressed */
-  ChallengeProgress?: ChallengeProgress[];
-  /** XP earned breakdown */
-  XpBreakdown?: XpBreakdown;
-  /** Career rank progression */
-  CareerRankProgress?: CareerRankProgress;
-}
-
-/**
- * Challenge progress from a match.
- */
-export interface ChallengeProgress {
-  /** Challenge identifier */
-  ChallengeId?: string;
-  /** Progress made */
-  Progress?: number;
-  /** Whether challenge was completed */
-  Completed?: boolean;
-}
-
-/**
- * XP breakdown from a match.
- */
-export interface XpBreakdown {
-  /** Base XP from match */
-  MatchXp?: number;
-  /** XP from medals */
-  MedalXp?: number;
-  /** XP from challenges */
-  ChallengeXp?: number;
-  /** Boost XP */
-  BoostXp?: number;
-  /** Total XP */
-  TotalXp?: number;
-}
-
-/**
- * Career rank progress from a match.
- */
-export interface CareerRankProgress {
-  /** Rank before match */
-  PreviousRank?: number;
-  /** Rank after match */
-  CurrentRank?: number;
-  /** XP earned */
-  XpEarned?: number;
-  /** Whether player ranked up */
-  RankedUp?: boolean;
+  /** Clearance ID */
+  ClearanceId?: string;
+  /** Reward ID */
+  RewardId?: string;
+  /** Challenge progress state after the match */
+  ChallengeProgressState?: ChallengeProgressState[];
+  /** List of reward IDs */
+  RewardIds?: string[];
+  /** Custom XP eligibility reason */
+  CustomXpEligibilityReason?: string;
 }
