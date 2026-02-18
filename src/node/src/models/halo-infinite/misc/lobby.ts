@@ -4,46 +4,26 @@
 export interface Server {
   /** Server region */
   Region?: string;
-  /** Server address */
-  Address?: string;
-  /** Server port */
-  Port?: number;
-  /** Server name */
-  Name?: string;
-  /** Whether server is available */
-  Available?: boolean;
-}
-
-/**
- * Lobby presence request.
- */
-export interface LobbyPresenceRequest {
-  /** Player identifier */
-  PlayerId?: string;
-  /** Session ID */
-  SessionId?: string;
+  /** Server URL */
+  ServerUrl?: string;
 }
 
 /**
  * Container for lobby presence requests.
  */
 export interface LobbyPresenceRequestContainer {
-  /** List of presence requests */
-  Requests?: LobbyPresenceRequest[];
+  /** List of Xbox User IDs */
+  Xuids?: number[];
 }
 
 /**
  * Lobby presence result.
  */
 export interface LobbyPresenceResult {
-  /** Player identifier */
-  PlayerId?: string;
-  /** Session ID */
-  SessionId?: string;
-  /** Lobby ID */
-  LobbyId?: string;
-  /** Whether player is in lobby */
-  InLobby?: boolean;
+  /** Fireteam details */
+  FireteamDetails?: Record<string, unknown>;
+  /** Match details */
+  MatchDetails?: unknown;
 }
 
 /**

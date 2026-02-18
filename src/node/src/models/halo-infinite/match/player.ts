@@ -8,34 +8,28 @@ import type { Stats } from './stats';
 export interface BotAttributes {
   /** Bot difficulty */
   Difficulty?: number;
-  /** Bot skill level */
-  SkillLevel?: number;
 }
 
 /**
  * Participation information for a player.
  */
 export interface ParticipationInfo {
-  /** Time played (ISO 8601 duration) */
-  TimePlayed?: string;
-  /** Whether player was present at start */
-  PresentAtStart?: boolean;
-  /** Whether player was present at end */
-  PresentAtEnd?: boolean;
+  /** When player first joined (ISO 8601) */
+  FirstJoinedTime?: string;
+  /** When player last left (ISO 8601) */
+  LastLeaveTime?: string;
+  /** Whether player was present at beginning */
+  PresentAtBeginning?: boolean;
   /** Whether player joined mid-match */
   JoinedInProgress?: boolean;
-  /** When player joined (ISO 8601) */
-  JoinedAt?: string;
-  /** When player left (ISO 8601, if applicable) */
-  LeftAt?: string;
-  /** First joined time (ISO 8601) */
-  FirstJoinedTime?: string;
-  /** Last joined time (ISO 8601) */
-  LastJoinedTime?: string;
   /** Whether player left before completion */
   LeftInProgress?: boolean;
+  /** Whether player was present at completion */
+  PresentAtCompletion?: boolean;
+  /** Time played (ISO 8601 duration) */
+  TimePlayed?: string;
   /** Confirmed participation */
-  ConfirmedParticipation?: boolean;
+  ConfirmedParticipation?: unknown;
 }
 
 /**

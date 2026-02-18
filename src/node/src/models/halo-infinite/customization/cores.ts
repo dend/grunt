@@ -1,3 +1,5 @@
+import type { Emblem } from './appearance';
+
 /**
  * Base properties shared by all core types.
  */
@@ -42,30 +44,38 @@ export interface ArmorCore extends CoreBase {
  * Armor core theme configuration.
  */
 export interface ArmorCoreTheme extends ThemeBase {
-  /** Helmet item path */
-  HelmetPath?: string;
-  /** Visor item path */
-  VisorPath?: string;
   /** Coating item path */
   CoatingPath?: string;
+  /** Glove path */
+  GlovePath?: string;
+  /** Helmet item path */
+  HelmetPath?: string;
+  /** Helmet attachment path */
+  HelmetAttachmentPath?: string;
+  /** Chest attachment path */
+  ChestAttachmentPath?: string;
+  /** Knee pad path */
+  KneePadPath?: string;
   /** Left shoulder pad path */
   LeftShoulderPadPath?: string;
   /** Right shoulder pad path */
   RightShoulderPadPath?: string;
-  /** Gloves path */
-  GlovesPath?: string;
-  /** Chest attachment path */
-  ChestAttachmentPath?: string;
-  /** Knee pads path */
-  KneePadsPath?: string;
-  /** Wrist attachment path */
-  WristAttachmentPath?: string;
+  /** Emblems */
+  Emblems?: Emblem[];
+  /** Armor FX path */
+  ArmorFxPath?: string;
+  /** Armor FX paths */
+  ArmorFxPaths?: string[];
+  /** Mythic FX path */
+  MythicFxPath?: string;
+  /** Visor item path */
+  VisorPath?: string;
   /** Hip attachment path */
   HipAttachmentPath?: string;
-  /** Armor effect path */
-  ArmorEffectPath?: string;
-  /** Mythic effect path */
-  MythicEffectPath?: string;
+  /** Wrist attachment path */
+  WristAttachmentPath?: string;
+  /** Big emblem */
+  BigEmblem?: Emblem;
 }
 
 /**
@@ -82,12 +92,22 @@ export interface WeaponCore extends CoreBase {
 export interface WeaponCoreTheme extends ThemeBase {
   /** Coating item path */
   CoatingPath?: string;
-  /** Charm item path */
-  CharmPath?: string;
+  /** Emblems */
+  Emblems?: Emblem[];
+  /** Big emblem */
+  BigEmblem?: Emblem;
   /** Death FX path */
   DeathFxPath?: string;
-  /** Emblem path */
-  EmblemPath?: string;
+  /** Ammo counter color path */
+  AmmoCounterColorPath?: string;
+  /** Stat tracker path */
+  StatTrackerPath?: string;
+  /** Weapon charm path */
+  WeaponCharmPath?: string;
+  /** Alternate geometry region path */
+  AlternateGeometryRegionPath?: string;
+  /** Ammo counter path */
+  AmmoCounterPath?: string;
 }
 
 /**
@@ -104,10 +124,16 @@ export interface VehicleCore extends CoreBase {
 export interface VehicleCoreTheme extends ThemeBase {
   /** Coating item path */
   CoatingPath?: string;
-  /** Emblem path */
-  EmblemPath?: string;
-  /** Vehicle effect path */
-  VehicleEffectPath?: string;
+  /** Horn path */
+  HornPath?: string;
+  /** Vehicle FX path */
+  VehicleFxPath?: string;
+  /** Vehicle charm path */
+  VehicleCharmPath?: string;
+  /** Emblems */
+  Emblems?: Emblem[];
+  /** Alternate geometry region path */
+  AlternateGeometryRegionPath?: string;
 }
 
 /**
@@ -124,10 +150,8 @@ export interface AiCore extends CoreBase {
 export interface AiCoreTheme extends ThemeBase {
   /** AI model path */
   ModelPath?: string;
-  /** Color primary path */
-  ColorPrimaryPath?: string;
-  /** Color secondary path */
-  ColorSecondaryPath?: string;
+  /** Color path */
+  ColorPath?: string;
 }
 
 /**

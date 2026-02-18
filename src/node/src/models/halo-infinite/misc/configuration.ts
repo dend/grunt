@@ -85,15 +85,35 @@ export interface OnlineUriReference {
  */
 export interface SettingsConfig {
   /** CELL config */
-  CellConfig?: string;
+  CELLConfig?: string;
   /** Client QoS timeout */
   ClientQoSTimeoutMs?: string;
   /** Clearance audience */
   ClearanceAudience?: string;
+  /** Game CMS guide endpoints */
+  GameCMSGuideEndpoints?: string;
+  /** HTTP event excluded status codes */
+  HttpEventExcludedStatusCodes?: string;
+  /** HTTP event request headers */
+  HttpEventRequestHeaders?: string;
+  /** HTTP event response headers */
+  HttpEventResponseHeaders?: string;
+  /** HTTP event users logging enabled */
+  HttpEventUsersLoggingEnabled?: string;
+  /** HTTP event users percentage upload */
+  HttpEventUsersPercentageUpload?: string;
   /** Playfab title ID */
   PlayfabTitleId?: string;
+  /** Purchase poll frequency in seconds */
+  PurchasePollFrequencyInSeconds?: string;
   /** Title ID list */
   TitleIdList?: string;
+  /** Upload full heap in internal builds */
+  UploadFullHeapInInternalBuilds?: string;
+  /** Upload full heap in release builds */
+  UploadFullHeapInReleaseBuilds?: string;
+  /** Gold trial destination URL */
+  GoldTrialDestinationUrl?: string;
   /** XSTS audience URI */
   HaloXSTSAudienceUri?: string;
   /** Product access list */
@@ -104,12 +124,10 @@ export interface SettingsConfig {
  * Flight feature flags.
  */
 export interface FlightedFeatureFlags {
-  /** Flight identifier */
-  FlightId?: string;
-  /** Clearance identifier */
-  ClearanceId?: string;
-  /** Feature flags */
-  Flags?: Record<string, boolean>;
+  /** Enabled features */
+  EnabledFeatures?: string[];
+  /** Disabled features */
+  DisabledFeatures?: string[];
 }
 
 /**

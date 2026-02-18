@@ -22,7 +22,7 @@ export type {
 export type {
   SpartanBody,
   Appearance,
-  EmblemConfiguration,
+  Emblem,
   CustomizationData,
   AppearanceCustomization,
 } from './appearance';

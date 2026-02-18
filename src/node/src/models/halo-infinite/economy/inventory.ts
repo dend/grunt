@@ -2,10 +2,14 @@
  * Player inventory item.
  */
 export interface PlayerItem {
+  /** Item identifier */
+  ItemId?: string;
   /** Item path identifier */
   ItemPath?: string;
   /** Item type */
   ItemType?: string;
+  /** Core type */
+  CoreType?: string;
   /** Quantity owned */
   Amount?: number;
   /** When first acquired (ISO 8601) */
@@ -26,10 +30,12 @@ export interface PlayerInventory {
  * Currency balance.
  */
 export interface CurrencyAmount {
-  /** Currency identifier */
-  CurrencyId?: string;
+  /** Currency path */
+  CurrencyPath?: string;
   /** Current balance */
   Amount?: number;
+  /** Source of currency */
+  Source?: string;
 }
 
 /**
@@ -41,19 +47,33 @@ export interface CurrencySnapshot {
 }
 
 /**
+ * Store product reference.
+ */
+export interface StoreProduct {
+  /** Item definition ID */
+  ItemDef?: number;
+  /** Product identifier */
+  ProductId?: string;
+  /** Product path */
+  Path?: string;
+}
+
+/**
  * Currency definition from CMS.
  */
 export interface CurrencyDefinition {
   /** Currency identifier */
-  CurrencyId?: string;
-  /** Display title */
-  Title?: DisplayString;
-  /** Description */
-  Description?: DisplayString;
-  /** Image path */
-  Image?: string;
-  /** Icon type */
-  IconType?: string;
+  Id?: string;
+  /** Initial balance amount */
+  InitialBalanceAmount?: number;
+  /** Microsoft Store products */
+  MSStoreProducts?: StoreProduct[];
+  /** Steam Store products */
+  SteamStoreProducts?: StoreProduct[];
+  /** Microsoft Store inventory */
+  MicrosoftStore?: Record<string, unknown>;
+  /** Steam inventory */
+  SteamInventory?: Record<string, unknown>;
 }
 
 /**
@@ -72,22 +92,46 @@ export interface DisplayString {
  * Inventory amount with details.
  */
 export interface InventoryAmount {
-  /** Item path */
-  ItemPath?: string;
+  /** Inventory item path */
+  InventoryItemPath?: string;
   /** Quantity */
   Amount?: number;
   /** Item type */
-  ItemType?: string;
+  Type?: string;
 }
 
 /**
- * Transaction result after currency operation.
+ * Individual transaction record.
  */
-export interface TransactionSnapshot {
+export interface Transaction {
+  /** Adjustment source */
+  AdjustmentSource?: string;
+  /** Balance adjustment amount */
+  BalanceAdjustment?: number;
+  /** Resulting balance after adjustment */
+  ResultingBalance?: number;
+  /** Whether the transaction is finalized */
+  Finalized?: boolean;
   /** Transaction identifier */
   TransactionId?: string;
-  /** New balance after transaction */
-  NewBalance?: CurrencyAmount[];
-  /** Transaction timestamp (ISO 8601) */
-  Timestamp?: string;
+  /** Transaction date (ISO 8601) */
+  TransactionDate?: string;
+  /** Product reference */
+  ProductReference?: string;
+  /** Units consumed */
+  UnitsConsumed?: number;
+  /** Authenticated identities */
+  AuthenticatedIdentities?: string[];
+}
+
+/**
+ * Transaction snapshot containing transaction history.
+ */
+export interface TransactionSnapshot {
+  /** List of transactions */
+  Transactions?: Transaction[];
+  /** Continuation token for pagination */
+  ContinuationToken?: string;
+  /** Marketplace last successful dates */
+  MarketplaceLastSuccessfulDates?: Record<string, unknown>[];
 }

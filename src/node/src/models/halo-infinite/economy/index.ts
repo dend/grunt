@@ -11,13 +11,20 @@ export type {
   DisplayString,
   InventoryAmount,
   TransactionSnapshot,
+  Transaction,
+  StoreProduct,
 } from './inventory';
 
 export type {
   StoreOffering,
-  StorePrice,
+  Offering,
+  Price,
+  RewardTrackAdjustment,
   StoreItem,
   ActiveBoost,
   ActiveBoostsContainer,
+  AwardedReward,
+  RewardSummary,
+  PlayerState,
   RewardSnapshot,
 } from './store';

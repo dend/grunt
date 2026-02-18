@@ -29,51 +29,37 @@ export interface Csr {
 }
 
 /**
- * Match skill information for a single player.
+ * Skill result from a match.
  */
-export interface PlayerMatchSkill {
-  /** Player identifier */
-  Id?: string;
-  /** CSR before the match */
-  PreMatchCsr?: Csr;
-  /** CSR after the match */
-  PostMatchCsr?: Csr;
-  /** Expected CSR at ranking */
-  ExpectedRankCsr?: Csr;
-  /** Result code */
-  ResultCode?: number;
+export interface SkillResult {
+  /** Result data */
+  Result?: unknown;
 }
 
 /**
  * Container for match skill results.
  */
 export interface MatchSkillInfo {
-  /** Match identifier */
-  MatchId?: string;
   /** Skill results for each player */
-  Value?: PlayerMatchSkill[];
+  Value?: SkillResult[];
 }
 
 /**
- * Playlist CSR result for a single player.
+ * Playlist CSR container for a single playlist.
  */
-export interface PlayerPlaylistCsr {
-  /** Player identifier */
-  Id?: string;
-  /** Current CSR for this playlist */
-  Csr?: Csr;
-  /** Result code */
-  ResultCode?: number;
+export interface PlaylistCsrContainer {
+  /** Current CSR */
+  Current?: Csr;
+  /** Season max CSR */
+  SeasonMax?: Csr;
+  /** All-time max CSR */
+  AllTimeMax?: Csr;
 }
 
 /**
  * Container for playlist CSR results.
  */
 export interface PlaylistCsrResultContainer {
-  /** Playlist identifier */
-  PlaylistId?: string;
-  /** Season identifier (if applicable) */
-  SeasonId?: string;
-  /** CSR results for each player */
-  Value?: PlayerPlaylistCsr[];
+  /** CSR results */
+  Value?: unknown[];
 }

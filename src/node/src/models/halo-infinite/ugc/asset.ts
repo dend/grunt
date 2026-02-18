@@ -8,24 +8,30 @@ export interface AssetVersionFile {
   Prefix?: string;
   /** List of file paths */
   FileRelativePaths?: string[];
+  /** Prefix endpoint reference */
+  PrefixEndpoint?: Record<string, unknown>;
 }
 
 /**
  * Asset play statistics.
  */
 export interface PlayAssetStats {
-  /** Number of plays */
+  /** Recent plays */
   PlaysRecent?: number;
   /** All-time plays */
   PlaysAllTime?: number;
   /** Favorites count */
   Favorites?: number;
+  /** Likes count */
+  Likes?: number;
+  /** Bookmarks count */
+  Bookmarks?: number;
+  /** Parent asset count */
+  ParentAssetCount?: number;
   /** Average rating */
   AverageRating?: number;
   /** Number of ratings */
   NumberOfRatings?: number;
-  /** Parent asset ID (if this is a variant) */
-  ParentAssetId?: string;
 }
 
 /**
@@ -75,23 +81,39 @@ export interface AssetBase {
 /**
  * UGC authoring asset.
  */
-export interface AuthoringAsset extends AssetBase {
-  /** Original author XUID */
-  OriginalAuthor?: string;
-  /** Whether it's readonly */
-  Readonly?: boolean;
-  /** Custom data for the asset type */
-  CustomData?: Record<string, unknown>;
-  /** Creation time (ISO 8601) */
-  CreatedAt?: string;
-  /** Last modification time (ISO 8601) */
-  UpdatedAt?: string;
+export interface AuthoringAsset {
+  /** Asset identifier */
+  AssetId?: string;
+  /** Asset kind */
+  Kind?: number;
+  /** Original owner XUID */
+  OriginalOwner?: string;
+  /** Admin XUID */
+  Admin?: string;
+  /** Last modified date (ISO 8601) */
+  LastModifiedDateUtc?: string;
+  /** Created date (ISO 8601) */
+  CreatedDateUtc?: string;
+  /** Internal name */
+  InternalName?: string;
+  /** Description */
+  Description?: string;
+  /** Hard delete time (ISO 8601) */
+  HardDeleteTimeUtc?: string;
+  /** Permissions */
+  Permissions?: Permission[];
+  /** Asset statistics */
+  AssetStats?: Record<string, unknown>;
+  /** Asset home */
+  AssetHome?: number;
+  /** Whether currently being edited */
+  IsCurrentlyBeingEdited?: boolean;
 }
 
 /**
  * Authoring asset version.
  */
-export interface AuthoringAssetVersion extends AssetBase {
+export interface AuthoringAssetVersion {
   /** Readonly status */
   Readonly?: boolean;
   /** Custom data */
@@ -102,14 +124,8 @@ export interface AuthoringAssetVersion extends AssetBase {
  * Container for multiple authoring assets.
  */
 export interface AuthoringAssetContainer {
-  /** Asset count */
-  Count?: number;
-  /** Total available */
-  Total?: number;
   /** List of assets */
   Results?: AuthoringAsset[];
-  /** Pagination links */
-  Links?: AssetLinks;
 }
 
 /**
@@ -136,10 +152,12 @@ export interface AssetLinks {
  * Asset rating.
  */
 export interface AuthoringAssetRating {
-  /** User's rating value (1-5) */
-  Rating?: number;
-  /** When rated (ISO 8601) */
-  Timestamp?: string;
+  /** Links */
+  Links?: unknown;
+  /** Custom data */
+  CustomData?: Record<string, unknown>;
+  /** Version ratings */
+  VersionRatings?: unknown[];
 }
 
 /**
@@ -160,8 +178,6 @@ export interface FavoriteAsset {
 export interface AuthoringFavoritesContainer {
   /** List of favorites */
   Results?: FavoriteAsset[];
-  /** Total count */
-  Total?: number;
 }
 
 /**

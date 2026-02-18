@@ -1,67 +1,69 @@
 import type { DisplayString } from '../economy/inventory';
 
 /**
+ * Academy tutorial information.
+ */
+export interface AcademyTutorial {
+  /** Tutorial content */
+  [key: string]: unknown;
+}
+
+/**
  * Academy client manifest.
  */
 export interface AcademyClientManifest {
+  /** Tutorial information */
+  Tutorial?: AcademyTutorial;
   /** List of categories */
   Categories?: AcademyCategory[];
-  /** Version */
-  Version?: string;
 }
 
 /**
  * Academy category.
  */
 export interface AcademyCategory {
-  /** Category identifier */
-  Id?: string;
-  /** Category title */
-  Title?: DisplayString;
-  /** Category description */
-  Description?: DisplayString;
-  /** Image path */
-  ImagePath?: string;
-  /** Series in this category */
-  Series?: AcademySeries[];
+  /** Drill type */
+  DrillType?: string;
+  /** Drills in this category */
+  Drills?: AcademyDrill[];
 }
 
 /**
- * Academy series (collection of drills).
+ * Academy series (collection within a drill).
  */
 export interface AcademySeries {
-  /** Series identifier */
-  Id?: string;
+  /** Game asset ID */
+  GameAssetID?: string;
+  /** Map asset ID */
+  MapAssetID?: string;
+  /** Whether the series is available */
+  Available?: boolean;
   /** Series title */
   Title?: DisplayString;
   /** Description */
   Description?: DisplayString;
-  /** Image path */
-  ImagePath?: string;
-  /** Drills in this series */
-  Drills?: AcademyDrill[];
+  /** Game variant */
+  GameVariant?: string;
+  /** Map variant */
+  MapVariant?: string;
+  /** Gameplay GUID */
+  GameplayGUID?: string;
 }
 
 /**
  * Academy drill.
  */
 export interface AcademyDrill {
-  /** Drill identifier */
-  Id?: string;
-  /** Drill title */
-  Title?: DisplayString;
-  /** Description */
-  Description?: DisplayString;
-  /** Image path */
-  ImagePath?: string;
-  /** Difficulty level */
-  Difficulty?: string;
-  /** Weapon path */
-  WeaponPath?: string;
-  /** Map asset ID */
-  MapAssetId?: string;
-  /** Game variant asset ID */
-  GameVariantAssetId?: string;
+  /** Title string ID */
+  TitleStringID?: string;
+  /** Series in this drill */
+  Series?: AcademySeries[];
+  /** Sprite frame index */
+  SpriteFrameIndex?: number;
+  /** Description string ID */
+  DescriptionStringID?: string;
+  /** Title */
+  Title?: string;
 }
 
 /**

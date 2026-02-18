@@ -33,21 +33,17 @@ export interface MedalMetadata {
   /** List of medals */
   Medals?: Medal[];
   /** Sprite sheet information */
-  SpriteSheet?: SpriteSheet;
+  SpriteSheet?: Sprite;
 }
 
 /**
  * Sprite sheet information.
  */
-export interface SpriteSheet {
+export interface Sprite {
   /** Path to sprite sheet image */
   Path?: string;
-  /** Sprite width */
-  SpriteWidth?: number;
-  /** Sprite height */
-  SpriteHeight?: number;
   /** Number of columns */
   Columns?: number;
-  /** Number of rows */
-  Rows?: number;
+  /** Sprite size */
+  Size?: number;
 }

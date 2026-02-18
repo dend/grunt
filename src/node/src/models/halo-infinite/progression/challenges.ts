@@ -64,30 +64,26 @@ export interface ChallengeDeck {
   Id?: string;
   /** Path to the deck */
   Path?: string;
-  /** Deck title */
-  Title?: DisplayString;
-  /** Description */
-  Description?: DisplayString;
-  /** Challenges in this deck */
-  Challenges?: Challenge[];
+  /** Active challenges */
+  ActiveChallenges?: Challenge[];
+  /** Upcoming challenges */
+  UpcomingChallenges?: Challenge[];
+  /** Deck expiration date (ISO 8601) */
+  Expiration?: string;
+  /** Completed challenges */
+  CompletedChallenges?: Challenge[];
 }
 
 /**
  * Challenge deck definition from CMS.
  */
 export interface ChallengeDeckDefinition {
-  /** Deck identifier */
-  Id?: string;
-  /** Deck path */
-  Path?: string;
-  /** Deck title */
-  Title?: DisplayString;
-  /** Description */
-  Description?: DisplayString;
-  /** Image path */
-  ImagePath?: string;
-  /** Whether deck is visible */
-  IsVisible?: boolean;
+  /** Capstone challenge path */
+  CapstoneChallengePath?: string;
+  /** Deck type */
+  DeckType?: string;
+  /** Type */
+  Type?: string;
 }
 
 /**
@@ -142,34 +138,38 @@ export interface RewardTrack {
 export interface RewardTrackMetadata {
   /** Track identifier */
   TrackId?: string;
-  /** Track path */
-  Path?: string;
-  /** Display title */
-  Title?: DisplayString;
+  /** XP per rank */
+  XpPerRank?: number;
+  /** Rank snapshots */
+  Ranks?: unknown[];
+  /** Display name */
+  Name?: DisplayString;
   /** Description */
   Description?: DisplayString;
-  /** Image path */
-  ImagePath?: string;
-  /** Track type */
-  Type?: string;
-  /** Start date (ISO 8601) */
-  StartDate?: string;
-  /** End date (ISO 8601) */
-  EndDate?: string;
+  /** Operation number */
+  OperationNumber?: number;
+  /** Date range for the track */
+  DateRange?: DisplayString;
+  /** Whether the track is a ritual */
+  IsRitual?: boolean;
+  /** Summary image path */
+  SummaryImagePath?: string;
+  /** Track week number */
+  WeekNumber?: number;
+  /** Background image path */
+  BackgroundImagePath?: string;
+  /** Whether to hide if not owned */
+  HideIfNotOwned?: boolean;
 }
 
 /**
  * Operation reward track snapshot.
  */
 export interface OperationRewardTrackSnapshot {
-  /** Track identifier */
-  TrackId?: string;
-  /** Current rank */
-  Rank?: number;
-  /** Current XP */
-  Xp?: number;
-  /** Total XP earned */
-  TotalXpEarned?: number;
-  /** Premium status */
-  IsPremium?: boolean;
+  /** Active operation reward track path */
+  ActiveOperationRewardTrackPath?: string;
+  /** Operation reward tracks */
+  OperationRewardTracks?: RewardTrack[];
+  /** Scheduled operation reward track path */
+  ScheduledOperationRewardTrackPath?: string;
 }

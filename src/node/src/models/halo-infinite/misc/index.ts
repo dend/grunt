@@ -2,11 +2,10 @@
  * Miscellaneous models.
  */
 
-export type { BanResult, BansSummaryQueryResult } from './ban';
+export type { BanResult, TargetBanSummary, BansSummaryQueryResult } from './ban';
 
 export type {
   Server,
-  LobbyPresenceRequest,
   LobbyPresenceRequestContainer,
   LobbyPresenceResult,
   LobbyPresenceContainer,
@@ -14,9 +13,10 @@ export type {
   JoinLobbyResponse,
 } from './lobby';
 
-export type { Medal, MedalMetadata, SpriteSheet } from './medal';
+export type { Medal, MedalMetadata, Sprite } from './medal';
 
 export type {
+  AcademyTutorial,
   AcademyClientManifest,
   AcademyCategory,
   AcademySeries,
@@ -48,5 +48,4 @@ export type {
   MatchesPrivacy,
   PlayerDailyCustomExperience,
   PlayerGiveaways,
-  GiveawayReward,
 } from './news';

@@ -4,8 +4,8 @@
 
 export type {
   Csr,
-  PlayerMatchSkill,
+  SkillResult,
   MatchSkillInfo,
-  PlayerPlaylistCsr,
+  PlaylistCsrContainer,
   PlaylistCsrResultContainer,
 } from './csr';

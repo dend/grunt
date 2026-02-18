@@ -144,9 +144,9 @@ export type {
 // Skill models
 export type {
   Csr,
-  PlayerMatchSkill,
+  SkillResult,
   MatchSkillInfo,
-  PlayerPlaylistCsr,
+  PlaylistCsrContainer,
   PlaylistCsrResultContainer,
 } from './models/halo-infinite/skill';
 
@@ -160,11 +160,18 @@ export type {
   DisplayString,
   InventoryAmount,
   TransactionSnapshot,
+  Transaction,
+  StoreProduct,
   StoreOffering,
-  StorePrice,
+  Offering,
+  Price,
+  RewardTrackAdjustment,
   StoreItem,
   ActiveBoost,
   ActiveBoostsContainer,
+  AwardedReward,
+  RewardSummary,
+  PlayerState,
   RewardSnapshot,
 } from './models/halo-infinite/economy';
 
@@ -186,7 +193,7 @@ export type {
   AiCoreContainer,
   SpartanBody,
   Appearance,
-  EmblemConfiguration,
+  Emblem,
   CustomizationData,
   AppearanceCustomization,
 } from './models/halo-infinite/customization';
@@ -244,9 +251,9 @@ export type {
 // Miscellaneous models
 export type {
   BanResult,
+  TargetBanSummary,
   BansSummaryQueryResult,
   Server,
-  LobbyPresenceRequest,
   LobbyPresenceRequestContainer,
   LobbyPresenceResult,
   LobbyPresenceContainer,
@@ -254,7 +261,8 @@ export type {
   JoinLobbyResponse,
   Medal,
   MedalMetadata,
-  SpriteSheet,
+  Sprite,
+  AcademyTutorial,
   AcademyClientManifest,
   AcademyCategory,
   AcademySeries,
@@ -272,6 +280,7 @@ export type {
   OnlineUriReference,
   SettingsConfig,
   FlightedFeatureFlags,
+  PlayerClearance,
   NewsArticle,
   News,
   SeasonCalendarEntry,
@@ -279,7 +288,6 @@ export type {
   MatchesPrivacy,
   PlayerDailyCustomExperience,
   PlayerGiveaways,
-  GiveawayReward,
 } from './models/halo-infinite/misc';
 
 // ─────────────────────────────────────────────────────────────────

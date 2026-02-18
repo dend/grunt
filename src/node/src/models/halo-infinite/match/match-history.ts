@@ -1,14 +1,11 @@
 import type { MatchInfo } from './match-info';
-import type { Player } from './player';
+import type { Outcome } from '../enums/outcome';
 
 /**
  * Links for pagination in match history.
  */
 export interface MatchLinks {
-  /** Link to next page of results */
-  Next?: string;
-  /** Link to previous page of results */
-  Prev?: string;
+  // Empty in C# - properties populated dynamically
 }
 
 /**
@@ -22,13 +19,11 @@ export interface PlayerMatchHistoryRecord {
   /** Last team the player was on */
   LastTeamId?: number;
   /** Match outcome for this player */
-  Outcome?: number;
+  Outcome?: Outcome;
   /** Final rank/placement */
   Rank?: number;
-  /** Whether player was present at end */
-  PresentAtEnd?: boolean;
-  /** Player-specific data for this match */
-  Player?: Player;
+  /** Whether player was present at end of match */
+  PresentAtEndOfMatch?: boolean;
 }
 
 /**
@@ -51,10 +46,10 @@ export interface MatchHistoryResponse {
  * Player match count summary.
  */
 export interface PlayerMatchCount {
-  /** Player identifier */
-  PlayerId?: string;
   /** Total custom game count */
   CustomMatchesPlayedCount?: number;
+  /** Total matches played count */
+  MatchesPlayedCount?: number;
   /** Total matchmade games count */
   MatchmadeMatchesPlayedCount?: number;
   /** Total local games count */

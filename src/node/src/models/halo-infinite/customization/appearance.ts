@@ -28,28 +28,32 @@ export interface Appearance {
   LastModifiedDateUtc?: string;
   /** Service tag (4 characters) */
   ServiceTag?: string;
-  /** Intro gesture path */
-  IntroGesturePath?: string;
-  /** Outro gesture path */
-  OutroGesturePath?: string;
+  /** Intro emote path */
+  IntroEmotePath?: string;
   /** Stance path */
   StancePath?: string;
   /** Emblem configuration */
-  Emblem?: EmblemConfiguration;
-  /** Backdrop path */
-  BackdropPath?: string;
+  Emblem?: Emblem;
+  /** Backdrop image path */
+  BackdropImagePath?: string;
   /** Action pose path */
   ActionPosePath?: string;
+  /** Player title path */
+  PlayerTitlePath?: string;
 }
 
 /**
  * Emblem configuration.
  */
-export interface EmblemConfiguration {
+export interface Emblem {
   /** Emblem path */
   EmblemPath?: string;
   /** Emblem configuration ID */
   ConfigurationId?: number;
+  /** Alternative path reference */
+  Path?: string;
+  /** Location identifier */
+  LocationId?: number;
 }
 
 /**
