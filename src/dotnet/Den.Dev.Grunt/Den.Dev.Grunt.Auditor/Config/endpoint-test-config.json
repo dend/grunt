@@ -535,7 +535,7 @@
     },
     {
       "endpointId": "Stats_GetPlayerServiceRecord",
-      "method": "Stats.GetPlayerServiceRecordAsync",
+      "method": "Stats.GetPlayerServiceRecordByXuidAsync",
       "args": {
         "playerId": "$playerXuid",
         "mode": "Matchmade"
