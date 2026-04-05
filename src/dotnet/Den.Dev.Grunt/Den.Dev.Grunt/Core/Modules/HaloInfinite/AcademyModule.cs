@@ -5,6 +5,8 @@
 // The underlying API powering Den.Dev.Grunt is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
 // </copyright>
 
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Den.Dev.Grunt.Core.Foundation;
 using Den.Dev.Grunt.Endpoints;
@@ -16,7 +18,7 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
     /// <summary>
     /// Module for Academy-related API operations including bot customization and drills.
     /// </summary>
-    public class AcademyModule : ModuleBase
+    public sealed class AcademyModule : ModuleBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AcademyModule"/> class.
@@ -28,28 +30,34 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         }
 
         /// <summary>
-        /// Get bot customization information.
+        /// Gets bot customization information.
         /// </summary>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Academy_GetBotCustomization.xml' path='example'/>
         /// <param name="flightId">ID of the flight/clearance associated with the request.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of BotCustomizationData that contains bot customization information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<BotCustomizationData, RawResponseContainer>> GetBotCustomization(string flightId)
+        public Task<HaloApiResultContainer<BotCustomizationData, RawResponseContainer>> GetBotCustomizationAsync(string flightId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<BotCustomizationData>(
+            ArgumentException.ThrowIfNullOrEmpty(flightId);
+
+            return this.GetAsync<BotCustomizationData>(
                 $"/hi/multiplayer/file/Academy/BotCustomizationData.json?flight={flightId}",
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
         /// Gets the client manifest for the Academy.
         /// </summary>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Academy_GetContent.xml' path='example'/>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AcademyClientManifest that contains the definition of drills available in the Academy. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AcademyClientManifest, RawResponseContainer>> GetContent()
+        public Task<HaloApiResultContainer<AcademyClientManifest, RawResponseContainer>> GetContentAsync(CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<AcademyClientManifest>(
+            return this.GetAsync<AcademyClientManifest>(
                 "/hi/multiplayer/file/Academy/AcademyClientManifest.json",
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -57,23 +65,29 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// </summary>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Academy_GetContentTest.xml' path='example'/>
         /// <param name="clearanceId">ID of the flight/clearance associated with the request.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of TestAcademyClientManifest that contains the definition of drills available in the Academy. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<TestAcademyClientManifest, RawResponseContainer>> GetContentTest(string clearanceId)
+        public Task<HaloApiResultContainer<TestAcademyClientManifest, RawResponseContainer>> GetContentTestAsync(string clearanceId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<TestAcademyClientManifest>(
-                $"/hi/multiplayer/file/Academy/AcademyClientManifest_Test.json?flight={clearanceId}");
+            ArgumentException.ThrowIfNullOrEmpty(clearanceId);
+
+            return this.GetAsync<TestAcademyClientManifest>(
+                $"/hi/multiplayer/file/Academy/AcademyClientManifest_Test.json?flight={clearanceId}",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
         /// Gets definitions for stars awarded in the Academy. This call breaks if a user agent is specified.
         /// </summary>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Academy_GetStarDefinitions.xml' path='example'/>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AcademyStarDefinitions that contains definitions for stars awarded in the Academy. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AcademyStarDefinitions, RawResponseContainer>> GetStarDefinitions()
+        public Task<HaloApiResultContainer<AcademyStarDefinitions, RawResponseContainer>> GetStarDefinitionsAsync(CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<AcademyStarDefinitions>(
+            return this.GetAsync<AcademyStarDefinitions>(
                 "/hi/multiplayer/file/Academy/AcademyStarGUIDDefinitions.json",
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
     }
 }

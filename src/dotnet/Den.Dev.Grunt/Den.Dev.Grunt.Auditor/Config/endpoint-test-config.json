@@ -3,8 +3,8 @@
   "discoveryChain": [
     {
       "step": 1,
-      "endpointId": "Settings_GetClearance",
-      "method": "Settings.GetClearance",
+      "endpointId": "Settings.GetClearanceAsync",
+      "method": "Settings.GetClearanceAsync",
       "args": {
         "audience": "RETAIL",
         "sandbox": "UNUSED",
@@ -17,8 +17,8 @@
     },
     {
       "step": 2,
-      "endpointId": "Stats_GetMatchHistory",
-      "method": "Stats.GetMatchHistory",
+      "endpointId": "Stats.GetMatchHistoryAsync",
+      "method": "Stats.GetMatchHistoryAsync",
       "args": {
         "player": "$playerXuid",
         "start": 0,
@@ -33,332 +33,332 @@
   ],
   "validationTargets": [
     {
-      "endpointId": "Academy_GetBotCustomization",
-      "method": "Academy.GetBotCustomization",
+      "endpointId": "Academy.GetBotCustomizationAsync",
+      "method": "Academy.GetBotCustomizationAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "BotCustomizationData"
     },
     {
-      "endpointId": "Academy_GetContent",
-      "method": "Academy.GetContent",
+      "endpointId": "Academy.GetContentAsync",
+      "method": "Academy.GetContentAsync",
       "args": {},
       "expectedModel": "AcademyClientManifest"
     },
     {
-      "endpointId": "Academy_GetContentTest",
-      "method": "Academy.GetContentTest",
+      "endpointId": "Academy.GetContentTestAsync",
+      "method": "Academy.GetContentTestAsync",
       "args": { "clearanceId": "$flightId" },
       "expectedModel": "TestAcademyClientManifest"
     },
     {
-      "endpointId": "Academy_GetStarDefinitions",
-      "method": "Academy.GetStarDefinitions",
+      "endpointId": "Academy.GetStarDefinitionsAsync",
+      "method": "Academy.GetStarDefinitionsAsync",
       "args": {},
       "expectedModel": "AcademyStarDefinitions"
     },
     {
-      "endpointId": "BanProcessor_BanSummary",
-      "method": "BanProcessor.BanSummary",
+      "endpointId": "BanProcessor.GetBanSummaryAsync",
+      "method": "BanProcessor.GetBanSummaryAsync",
       "args": { "targetlist": ["$playerXuid"] },
       "expectedModel": "BansSummaryQueryResult"
     },
     {
-      "endpointId": "Configuration_GetApiSettingsContainer",
-      "method": "Configuration.GetApiSettingsContainer",
+      "endpointId": "Configuration.GetApiSettingsContainerAsync",
+      "method": "Configuration.GetApiSettingsContainerAsync",
       "args": {},
       "expectedModel": "Configuration"
     },
     {
-      "endpointId": "Economy_AiCoresCustomization",
-      "method": "Economy.AiCoresCustomization",
+      "endpointId": "Economy.GetAiCoresCustomizationAsync",
+      "method": "Economy.GetAiCoresCustomizationAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "AiCoreContainer"
     },
     {
-      "endpointId": "Economy_AllOwnedCoresDetails",
-      "method": "Economy.AllOwnedCoresDetails",
+      "endpointId": "Economy.GetAllOwnedCoresDetailsAsync",
+      "method": "Economy.GetAllOwnedCoresDetailsAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "PlayerCores"
     },
     {
-      "endpointId": "Economy_ArmorCoresCustomization",
-      "method": "Economy.ArmorCoresCustomization",
+      "endpointId": "Economy.GetArmorCoresCustomizationAsync",
+      "method": "Economy.GetArmorCoresCustomizationAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "ArmorCoreCollection"
     },
     {
-      "endpointId": "Economy_GetActiveBoosts",
-      "method": "Economy.GetActiveBoosts",
+      "endpointId": "Economy.GetActiveBoostsAsync",
+      "method": "Economy.GetActiveBoostsAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "ActiveBoostsContainer"
     },
     {
-      "endpointId": "Economy_GetBoostsStore",
-      "method": "Economy.GetBoostsStore",
+      "endpointId": "Economy.GetBoostsStoreAsync",
+      "method": "Economy.GetBoostsStoreAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "StoreItem"
     },
     {
-      "endpointId": "Economy_GetSoftCurrencyStore",
-      "method": "Economy.GetSoftCurrencyStore",
+      "endpointId": "Economy.GetSoftCurrencyStoreAsync",
+      "method": "Economy.GetSoftCurrencyStoreAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "StoreItem"
     },
     {
-      "endpointId": "Economy_GetGiveawayRewards",
-      "method": "Economy.GetGiveawayRewards",
+      "endpointId": "Economy.GetGiveawayRewardsAsync",
+      "method": "Economy.GetGiveawayRewardsAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "PlayerGiveaways"
     },
     {
-      "endpointId": "Economy_GetHCSStore",
-      "method": "Economy.GetHCSStore",
+      "endpointId": "Economy.GetHCSStoreAsync",
+      "method": "Economy.GetHCSStoreAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "StoreItem"
     },
     {
-      "endpointId": "Economy_GetInventoryItems",
-      "method": "Economy.GetInventoryItems",
+      "endpointId": "Economy.GetInventoryItemsAsync",
+      "method": "Economy.GetInventoryItemsAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "PlayerInventory"
     },
     {
-      "endpointId": "Economy_GetMainStore",
-      "method": "Economy.GetMainStore",
+      "endpointId": "Economy.GetMainStoreAsync",
+      "method": "Economy.GetMainStoreAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "StoreItem"
     },
     {
-      "endpointId": "Economy_GetMultiplePlayersCustomization",
-      "method": "Economy.GetMultiplePlayersCustomization",
+      "endpointId": "Economy.GetMultiplePlayersCustomizationAsync",
+      "method": "Economy.GetMultiplePlayersCustomizationAsync",
       "args": { "playerIds": ["$playerXuid"] },
       "expectedModel": "PlayerCustomizationCollection"
     },
     {
-      "endpointId": "Economy_GetOperationRewardLevelsStore",
-      "method": "Economy.GetOperationRewardLevelsStore",
+      "endpointId": "Economy.GetOperationRewardLevelsStoreAsync",
+      "method": "Economy.GetOperationRewardLevelsStoreAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "StoreItem"
     },
     {
-      "endpointId": "Economy_GetOperationsStore",
-      "method": "Economy.GetOperationsStore",
+      "endpointId": "Economy.GetOperationsStoreAsync",
+      "method": "Economy.GetOperationsStoreAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "StoreItem"
     },
     {
-      "endpointId": "Economy_GetVirtualCurrencyBalances",
-      "method": "Economy.GetVirtualCurrencyBalances",
+      "endpointId": "Economy.GetVirtualCurrencyBalancesAsync",
+      "method": "Economy.GetVirtualCurrencyBalancesAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "CurrencySnapshot"
     },
     {
-      "endpointId": "Economy_GetXpGrantsStore",
-      "method": "Economy.GetXpGrantsStore",
+      "endpointId": "Economy.GetXpGrantsStoreAsync",
+      "method": "Economy.GetXpGrantsStoreAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "StoreItem"
     },
     {
-      "endpointId": "Economy_PlayerAppearanceCustomization",
-      "method": "Economy.PlayerAppearanceCustomization",
+      "endpointId": "Economy.GetPlayerAppearanceCustomizationAsync",
+      "method": "Economy.GetPlayerAppearanceCustomizationAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "AppearanceCustomization"
     },
     {
-      "endpointId": "Economy_PlayerCustomization",
-      "method": "Economy.PlayerCustomization",
+      "endpointId": "Economy.GetPlayerCustomizationAsync",
+      "method": "Economy.GetPlayerCustomizationAsync",
       "args": { "player": "$playerXuid", "viewType": "public" },
       "expectedModel": "CustomizationData"
     },
     {
-      "endpointId": "Economy_PlayerOperations",
-      "method": "Economy.PlayerOperations",
+      "endpointId": "Economy.GetPlayerOperationsAsync",
+      "method": "Economy.GetPlayerOperationsAsync",
       "args": { "player": "$playerXuid", "flightId": "$flightId" },
       "expectedModel": "OperationRewardTrackSnapshot"
     },
     {
-      "endpointId": "Economy_SpartanBodyCustomization",
-      "method": "Economy.SpartanBodyCustomization",
+      "endpointId": "Economy.GetSpartanBodyCustomizationAsync",
+      "method": "Economy.GetSpartanBodyCustomizationAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "SpartanBody"
     },
     {
-      "endpointId": "Economy_VehicleCoresCustomization",
-      "method": "Economy.VehicleCoresCustomization",
+      "endpointId": "Economy.GetVehicleCoresCustomizationAsync",
+      "method": "Economy.GetVehicleCoresCustomizationAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "VehicleCoreCollection"
     },
     {
-      "endpointId": "Economy_WeaponCoresCustomization",
-      "method": "Economy.WeaponCoresCustomization",
+      "endpointId": "Economy.GetWeaponCoresCustomizationAsync",
+      "method": "Economy.GetWeaponCoresCustomizationAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "WeaponCoreCollection"
     },
     {
-      "endpointId": "Economy_GetCustomizationStore",
-      "method": "Economy.GetCustomizationStore",
+      "endpointId": "Economy.GetCustomizationStoreAsync",
+      "method": "Economy.GetCustomizationStoreAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "StoreItem"
     },
     {
-      "endpointId": "Economy_GetPlayerCareerRank",
-      "method": "Economy.GetPlayerCareerRank",
+      "endpointId": "Economy.GetPlayerCareerRankAsync",
+      "method": "Economy.GetPlayerCareerRankAsync",
       "args": { "players": ["$playerXuid"], "careerPathId": "careerRank1" },
       "expectedModel": "RewardTrackResultContainer"
     },
     {
-      "endpointId": "GameCms_GetPlayNowButtonSettings",
-      "method": "GameCms.GetPlayNowButtonSettings",
+      "endpointId": "GameCms.GetPlayNowButtonSettingsAsync",
+      "method": "GameCms.GetPlayNowButtonSettingsAsync",
       "args": {},
       "expectedModel": "FallbackPlaylist"
     },
     {
-      "endpointId": "GameCms_GetAchievements",
-      "method": "GameCms.GetAchievements",
+      "endpointId": "GameCms.GetAchievementsAsync",
+      "method": "GameCms.GetAchievementsAsync",
       "args": {},
       "expectedModel": "AchievementCollection"
     },
     {
-      "endpointId": "GameCms_GetAsyncComputeOverrides",
-      "method": "GameCms.GetAsyncComputeOverrides",
+      "endpointId": "GameCms.GetAsyncComputeOverridesAsync",
+      "method": "GameCms.GetAsyncComputeOverridesAsync",
       "args": {},
       "expectedModel": "AsyncComputeOverrides"
     },
     {
-      "endpointId": "GameCms_GetClawAccess",
-      "method": "GameCms.GetClawAccess",
+      "endpointId": "GameCms.GetClawAccessAsync",
+      "method": "GameCms.GetClawAccessAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "ClawAccessSnapshot"
     },
     {
-      "endpointId": "GameCms_GetCpuPresets",
-      "method": "GameCms.GetCpuPresets",
+      "endpointId": "GameCms.GetCpuPresetsAsync",
+      "method": "GameCms.GetCpuPresetsAsync",
       "args": {},
       "expectedModel": "CPUPresetSnapshot"
     },
     {
-      "endpointId": "GameCms_GetCustomGameDefaults",
-      "method": "GameCms.GetCustomGameDefaults",
+      "endpointId": "GameCms.GetCustomGameDefaultsAsync",
+      "method": "GameCms.GetCustomGameDefaultsAsync",
       "args": {},
       "expectedModel": "CustomGameDefinition"
     },
     {
-      "endpointId": "GameCms_GetCustomizationCatalog",
-      "method": "GameCms.GetCustomizationCatalog",
+      "endpointId": "GameCms.GetCustomizationCatalogAsync",
+      "method": "GameCms.GetCustomizationCatalogAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "InventoryDefinition"
     },
     {
-      "endpointId": "GameCms_GetDevicePresetOverrides",
-      "method": "GameCms.GetDevicePresetOverrides",
+      "endpointId": "GameCms.GetDevicePresetOverridesAsync",
+      "method": "GameCms.GetDevicePresetOverridesAsync",
       "args": {},
       "expectedModel": "DevicePresetOverrides"
     },
     {
-      "endpointId": "GameCms_GetGraphicsSpecControlOverrides",
-      "method": "GameCms.GetGraphicsSpecControlOverrides",
+      "endpointId": "GameCms.GetGraphicsSpecControlOverridesAsync",
+      "method": "GameCms.GetGraphicsSpecControlOverridesAsync",
       "args": {},
       "expectedModel": "OverrideQueryDefinition"
     },
     {
-      "endpointId": "GameCms_GetLobbyErrorMessages",
-      "method": "GameCms.GetLobbyErrorMessages",
+      "endpointId": "GameCms.GetLobbyErrorMessagesAsync",
+      "method": "GameCms.GetLobbyErrorMessagesAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "LobbyHopperErrorMessageList"
     },
     {
-      "endpointId": "GameCms_GetMetadata",
-      "method": "GameCms.GetMetadata",
+      "endpointId": "GameCms.GetMetadataAsync",
+      "method": "GameCms.GetMetadataAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "Metadata"
     },
     {
-      "endpointId": "GameCms_GetNetworkConfiguration",
-      "method": "GameCms.GetNetworkConfiguration",
+      "endpointId": "GameCms.GetNetworkConfigurationAsync",
+      "method": "GameCms.GetNetworkConfigurationAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "NetworkConfiguration"
     },
     {
-      "endpointId": "GameCms_GetNotAllowedInTitleMessage",
-      "method": "GameCms.GetNotAllowedInTitleMessage",
+      "endpointId": "GameCms.GetNotAllowedInTitleMessageAsync",
+      "method": "GameCms.GetNotAllowedInTitleMessageAsync",
       "args": {},
       "expectedModel": "OEConfiguration"
     },
     {
-      "endpointId": "GameCms_GetRecommendedDrivers",
-      "method": "GameCms.GetRecommendedDrivers",
+      "endpointId": "GameCms.GetRecommendedDriversAsync",
+      "method": "GameCms.GetRecommendedDriversAsync",
       "args": {},
       "expectedModel": "DriverManifest"
     },
     {
-      "endpointId": "GameCms_GetCareerRanks",
-      "method": "GameCms.GetCareerRanks",
+      "endpointId": "GameCms.GetCareerRanksAsync",
+      "method": "GameCms.GetCareerRanksAsync",
       "args": { "careerPathId": "careerRank1" },
       "expectedModel": "CareerTrackContainer"
     },
     {
-      "endpointId": "GameCms_GetSeasonCalendar",
-      "method": "GameCms.GetSeasonCalendar",
+      "endpointId": "GameCms.GetSeasonCalendarAsync",
+      "method": "GameCms.GetSeasonCalendarAsync",
       "args": {},
       "expectedModel": "SeasonCalendar"
     },
     {
-      "endpointId": "GameCms_GetCSRCalendar",
-      "method": "GameCms.GetCSRCalendar",
+      "endpointId": "GameCms.GetCSRCalendarAsync",
+      "method": "GameCms.GetCSRCalendarAsync",
       "args": {},
       "expectedModel": "SeasonCalendar"
     },
     {
-      "endpointId": "GameCms_GetGuideImages",
-      "method": "GameCms.GetGuideImages",
+      "endpointId": "GameCms.GetGuideImagesAsync",
+      "method": "GameCms.GetGuideImagesAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "GuideContainer"
     },
     {
-      "endpointId": "GameCms_GetGuideMultiplayer",
-      "method": "GameCms.GetGuideMultiplayer",
+      "endpointId": "GameCms.GetGuideMultiplayerAsync",
+      "method": "GameCms.GetGuideMultiplayerAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "GuideContainer"
     },
     {
-      "endpointId": "GameCms_GetGuideNews",
-      "method": "GameCms.GetGuideNews",
+      "endpointId": "GameCms.GetGuideNewsAsync",
+      "method": "GameCms.GetGuideNewsAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "GuideContainer"
     },
     {
-      "endpointId": "GameCms_GetGuideProgression",
-      "method": "GameCms.GetGuideProgression",
+      "endpointId": "GameCms.GetGuideProgressionAsync",
+      "method": "GameCms.GetGuideProgressionAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "GuideContainer"
     },
     {
-      "endpointId": "GameCms_GetGuideSpecs",
-      "method": "GameCms.GetGuideSpecs",
+      "endpointId": "GameCms.GetGuideSpecsAsync",
+      "method": "GameCms.GetGuideSpecsAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "GuideContainer"
     },
     {
-      "endpointId": "GameCms_GetGuideTitleAuthorization",
-      "method": "GameCms.GetGuideTitleAuthorization",
+      "endpointId": "GameCms.GetGuideTitleAuthorizationAsync",
+      "method": "GameCms.GetGuideTitleAuthorizationAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "GuideContainer"
     },
     {
-      "endpointId": "GameCms_GetMedalMetadata",
-      "method": "GameCms.GetMedalMetadata",
+      "endpointId": "GameCms.GetMedalMetadataAsync",
+      "method": "GameCms.GetMedalMetadataAsync",
       "args": {},
       "expectedModel": "MedalMetadata"
     },
     {
-      "endpointId": "Settings_GetFlightedFeatureFlags",
-      "method": "Settings.GetFlightedFeatureFlags",
+      "endpointId": "Settings.GetFlightedFeatureFlagsAsync",
+      "method": "Settings.GetFlightedFeatureFlagsAsync",
       "args": { "flightId": "$flightId" },
       "expectedModel": "FlightedFeatureFlags"
     },
     {
-      "endpointId": "Settings_GetClearance",
-      "method": "Settings.GetClearance",
+      "endpointId": "Settings.GetClearanceAsync",
+      "method": "Settings.GetClearanceAsync",
       "args": {
         "audience": "RETAIL",
         "sandbox": "UNUSED",
@@ -368,122 +368,122 @@
       "expectedModel": "PlayerClearance"
     },
     {
-      "endpointId": "Skill_GetMatchPlayerResult",
-      "method": "Skill.GetMatchPlayerResult",
+      "endpointId": "Skill.GetMatchPlayerResultAsync",
+      "method": "Skill.GetMatchPlayerResultAsync",
       "args": { "matchId": "$matchId", "playerIds": ["$playerXuid"] },
       "expectedModel": "MatchSkillInfo"
     },
     {
-      "endpointId": "Skill_GetPlaylistCsr",
-      "method": "Skill.GetPlaylistCsr",
+      "endpointId": "Skill.GetPlaylistCsrAsync",
+      "method": "Skill.GetPlaylistCsrAsync",
       "args": { "playlistId": "edfef3ac-9cbe-4fa2-b949-8f29deafd483", "playerIds": ["$playerXuid"] },
       "expectedModel": "PlaylistCsrResultContainer"
     },
     {
-      "endpointId": "Stats_GetChallengeDecks",
-      "method": "Stats.GetChallengeDecks",
+      "endpointId": "Stats.GetChallengeDecksAsync",
+      "method": "Stats.GetChallengeDecksAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "ChallengeDecksResponse"
     },
     {
-      "endpointId": "Stats_GetMatchCount",
-      "method": "Stats.GetMatchCount",
+      "endpointId": "Stats.GetMatchCountAsync",
+      "method": "Stats.GetMatchCountAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "PlayerMatchCount"
     },
     {
-      "endpointId": "Stats_GetMatchHistory",
-      "method": "Stats.GetMatchHistory",
+      "endpointId": "Stats.GetMatchHistoryAsync",
+      "method": "Stats.GetMatchHistoryAsync",
       "args": { "player": "$playerXuid", "start": 0, "count": 5, "type": "All" },
       "expectedModel": "MatchHistoryResponse"
     },
     {
-      "endpointId": "Stats_GetMatchStats",
-      "method": "Stats.GetMatchStats",
+      "endpointId": "Stats.GetMatchStatsAsync",
+      "method": "Stats.GetMatchStatsAsync",
       "args": { "matchId": "$matchId" },
       "expectedModel": "MatchStats"
     },
     {
-      "endpointId": "Stats_GetPlayerMatchProgression",
-      "method": "Stats.GetPlayerMatchProgression",
+      "endpointId": "Stats.GetPlayerMatchProgressionAsync",
+      "method": "Stats.GetPlayerMatchProgressionAsync",
       "args": { "player": "$playerXuid", "matchId": "$matchId" },
       "expectedModel": "MatchProgression"
     },
     {
-      "endpointId": "Stats_MatchPrivacy",
-      "method": "Stats.MatchPrivacy",
+      "endpointId": "Stats.GetMatchPrivacyAsync",
+      "method": "Stats.GetMatchPrivacyAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "MatchesPrivacy"
     },
     {
-      "endpointId": "Stats_GetPlayerServiceRecord",
-      "method": "Stats.GetPlayerServiceRecord",
+      "endpointId": "Stats.GetPlayerServiceRecordAsync",
+      "method": "Stats.GetPlayerServiceRecordAsync",
       "args": { "playerId": "$playerXuid", "mode": "Matchmade" },
       "expectedModel": "PlayerServiceRecord"
     },
     {
-      "endpointId": "Stats_GetPlayerDailyCustomExperience",
-      "method": "Stats.GetPlayerDailyCustomExperience",
+      "endpointId": "Stats.GetPlayerDailyCustomExperienceAsync",
+      "method": "Stats.GetPlayerDailyCustomExperienceAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "PlayerDailyCustomExperience"
     },
     {
-      "endpointId": "TextModeration_GetSigningKeys",
-      "method": "TextModeration.GetSigningKeys",
+      "endpointId": "TextModeration.GetSigningKeysAsync",
+      "method": "TextModeration.GetSigningKeysAsync",
       "args": {},
       "expectedModel": "ModerationProofKeys"
     },
     {
-      "endpointId": "UgcDiscovery_GetForgeTemplates",
-      "method": "UgcDiscovery.GetForgeTemplates",
+      "endpointId": "UgcDiscovery.GetForgeTemplatesAsync",
+      "method": "UgcDiscovery.GetForgeTemplatesAsync",
       "args": {},
       "expectedModel": "Project"
     },
     {
-      "endpointId": "UgcDiscovery_GetForgeModeCategories",
-      "method": "UgcDiscovery.GetForgeModeCategories",
+      "endpointId": "UgcDiscovery.GetForgeModeCategoriesAsync",
+      "method": "UgcDiscovery.GetForgeModeCategoriesAsync",
       "args": {},
       "expectedModel": "Project"
     },
     {
-      "endpointId": "UgcDiscovery_GetCommunityTab",
-      "method": "UgcDiscovery.GetCommunityTab",
+      "endpointId": "UgcDiscovery.GetCommunityTabAsync",
+      "method": "UgcDiscovery.GetCommunityTabAsync",
       "args": {},
       "expectedModel": "Project"
     },
     {
-      "endpointId": "UgcDiscovery_Get343Recommended",
-      "method": "UgcDiscovery.Get343Recommended",
+      "endpointId": "UgcDiscovery.Get343RecommendedAsync",
+      "method": "UgcDiscovery.Get343RecommendedAsync",
       "args": {},
       "expectedModel": "Project"
     },
     {
-      "endpointId": "UgcDiscovery_GetFilm",
-      "method": "UgcDiscovery.GetFilm",
+      "endpointId": "UgcDiscovery.GetFilmAsync",
+      "method": "UgcDiscovery.GetFilmAsync",
       "args": { "assetId": "$assetId" },
       "expectedModel": "Film"
     },
     {
-      "endpointId": "UgcDiscovery_GetMapWithoutVersion",
-      "method": "UgcDiscovery.GetMapWithoutVersion",
+      "endpointId": "UgcDiscovery.GetMapWithoutVersionAsync",
+      "method": "UgcDiscovery.GetMapWithoutVersionAsync",
       "args": { "assetId": "$mapAssetId" },
       "expectedModel": "Map"
     },
     {
-      "endpointId": "UgcDiscovery_GetTagsInfo",
-      "method": "UgcDiscovery.GetTagsInfo",
+      "endpointId": "UgcDiscovery.GetTagsInfoAsync",
+      "method": "UgcDiscovery.GetTagsInfoAsync",
       "args": {},
       "expectedModel": "TagInfo"
     },
     {
-      "endpointId": "UgcDiscovery_SpectateByMatchId",
-      "method": "UgcDiscovery.SpectateByMatchId",
+      "endpointId": "UgcDiscovery.SpectateByMatchIdAsync",
+      "method": "UgcDiscovery.SpectateByMatchIdAsync",
       "args": { "matchId": "$matchId" },
       "expectedModel": "Film"
     },
     {
-      "endpointId": "Ugc_ListPlayerFavoritesAgnostic",
-      "method": "Ugc.ListPlayerFavoritesAgnostic",
+      "endpointId": "Ugc.ListPlayerFavoritesAgnosticAsync",
+      "method": "Ugc.ListPlayerFavoritesAgnosticAsync",
       "args": { "player": "$playerXuid" },
       "expectedModel": "AuthoringFavoritesContainer"
     }

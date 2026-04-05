@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using Den.Dev.Grunt.Converters;
 using Den.Dev.Grunt.Models;
@@ -101,7 +102,7 @@ namespace Den.Dev.Grunt.Core.Foundation
         /// <summary>
         /// Gets or sets the instance of the HTTP client that handles processing of API requests and responses.
         /// </summary>
-        public HttpClient Client { get; set; }
+        public HttpClient Client { get; protected set; }
 
         /// <summary>
         /// Gets or sets the Spartan token used to authenticate against the Halo Infinite API.
@@ -109,7 +110,7 @@ namespace Den.Dev.Grunt.Core.Foundation
         public string SpartanToken { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets the  player identifier in the format "xuid(XUID_VALUE)".
+        /// Gets or sets the player identifier in the format "xuid(XUID_VALUE)".
         /// </summary>
         public string Xuid { get; set; } = string.Empty;
 
@@ -143,9 +144,10 @@ namespace Den.Dev.Grunt.Core.Foundation
         /// <param name="includeRawResponse">Determines whether a raw response will be returned with the result. Disabled by default.</param>
         /// <param name="customHeaders">A list of custom headers to append to the request.</param>
         /// <param name="enforceSuccess">Determines whether to try and serialize the response data even if the request returns an error code (that is - not HTTP 200 OK). Default is set to true.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <typeparam name="T">Data type to return with the response metadata.</typeparam>
         /// <returns>Response string in case of a successful request. Null if request failed.</returns>
-        public async Task<HaloApiResultContainer<T, RawResponseContainer>> ExecuteAPIRequest<T>(
+        public async Task<HaloApiResultContainer<T, RawResponseContainer>> ExecuteAPIRequestAsync<T>(
             string endpoint,
             HttpMethod method,
             bool useSpartanToken,
@@ -155,7 +157,8 @@ namespace Den.Dev.Grunt.Core.Foundation
             APIContentType contentType = APIContentType.Json,
             bool includeRawResponse = false,
             List<KeyValuePair<string, string>>? customHeaders = null,
-            bool enforceSuccess = true)
+            bool enforceSuccess = true,
+            CancellationToken cancellationToken = default)
         {
             HaloApiResultContainer<T, RawResponseContainer> resultContainer = new(default!, new RawResponseContainer());
 
@@ -169,58 +172,72 @@ namespace Den.Dev.Grunt.Core.Foundation
                 useClearance,
                 customHeaders);
 
-            // Capture request details for diagnostics when includeRawResponse is enabled
-            var captureRawResponse = includeRawResponse || this.IncludeRawResponses;
-            if (captureRawResponse)
-            {
-                resultContainer.Response!.RequestUrl = endpoint;
-                resultContainer.Response.RequestMethod = method.Method;
-                resultContainer.Response.RequestHeaders = CaptureHeaders(request.Headers, request.Content?.Headers);
-                resultContainer.Response.RequestBody = textContent;
-            }
-
-            HttpResponseMessage? response = null;
-            byte[]? responseData = null;
-
             try
             {
-                (response, responseData) = await this.SendWithCacheAsync(request, endpoint, enforceSuccess);
-            }
-            catch (HttpRequestException ex)
-            {
-                resultContainer.Response!.Message = ex.Message;
-
-                if (ex.InnerException is WebException webException)
+                // Capture request details for diagnostics when includeRawResponse is enabled
+                var captureRawResponse = includeRawResponse || this.IncludeRawResponses;
+                if (captureRawResponse)
                 {
-                    if (webException.Response is HttpWebResponse httpWebResponse)
+                    resultContainer.Response!.RequestUrl = endpoint;
+                    resultContainer.Response.RequestMethod = method.Method;
+                    resultContainer.Response.RequestHeaders = CaptureHeaders(request.Headers, request.Content?.Headers);
+                    resultContainer.Response.RequestBody = textContent;
+                }
+
+                HttpResponseMessage? response = null;
+                byte[]? responseData = null;
+
+                try
+                {
+                    (response, responseData) = await this.SendWithCacheAsync(request, endpoint, enforceSuccess, cancellationToken).ConfigureAwait(false);
+                }
+                catch (HttpRequestException ex)
+                {
+                    resultContainer.Response!.Message = ex.Message;
+
+                    if (ex.InnerException is WebException webException)
                     {
-                        resultContainer.Response!.Code = (int)httpWebResponse.StatusCode;
+                        if (webException.Response is HttpWebResponse httpWebResponse)
+                        {
+                            resultContainer.Response!.Code = (int)httpWebResponse.StatusCode;
+                        }
+                    }
+                }
+
+                if (response != null)
+                {
+                    try
+                    {
+                        resultContainer.Response!.Code = Convert.ToInt32(response!.StatusCode);
+
+                        if (captureRawResponse)
+                        {
+                            resultContainer.Response.ResponseHeaders = CaptureHeaders(response.Headers, response.Content?.Headers);
+                        }
+
+                        if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || enforceSuccess)
+                        {
+                            resultContainer.Result = this.DeserializeResponse<T>(
+                                responseData!,
+                                response,
+                                resultContainer.Response,
+                                captureRawResponse);
+                        }
+
+                        if (response.Content != null)
+                        {
+                            resultContainer.Response.Message = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                        }
+                    }
+                    finally
+                    {
+                        response.Dispose();
                     }
                 }
             }
-
-            if (response != null)
+            finally
             {
-                resultContainer.Response!.Code = Convert.ToInt32(response!.StatusCode);
-
-                if (captureRawResponse)
-                {
-                    resultContainer.Response.ResponseHeaders = CaptureHeaders(response.Headers, response.Content?.Headers);
-                }
-
-                if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || enforceSuccess)
-                {
-                    resultContainer.Result = this.DeserializeResponse<T>(
-                        responseData!,
-                        response,
-                        resultContainer.Response,
-                        captureRawResponse);
-                }
-
-                if (response.Content != null)
-                {
-                    resultContainer.Response.Message = await response.Content.ReadAsStringAsync();
-                }
+                request.Dispose();
             }
 
             return resultContainer;
@@ -242,7 +259,7 @@ namespace Den.Dev.Grunt.Core.Foundation
             return code >= 500 || code == 408 || code == 429;
         }
 
-        private static async Task<HttpRequestMessage> CloneHttpRequestMessageAsync(HttpRequestMessage request)
+        private static async Task<HttpRequestMessage> CloneHttpRequestMessageAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var clone = new HttpRequestMessage(request.Method, request.RequestUri);
 
@@ -255,7 +272,7 @@ namespace Den.Dev.Grunt.Core.Foundation
             // Copy content if present
             if (request.Content != null)
             {
-                var contentBytes = await request.Content.ReadAsByteArrayAsync();
+                var contentBytes = await request.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
                 clone.Content = new ByteArrayContent(contentBytes);
 
                 // Copy content headers
@@ -287,10 +304,10 @@ namespace Den.Dev.Grunt.Core.Foundation
             return result;
         }
 
-        private async Task UpdateCacheAsync(string cacheKey, HttpResponseMessage response)
+        private async Task UpdateCacheAsync(string cacheKey, HttpResponseMessage response, CancellationToken cancellationToken)
         {
             var eTag = response.Headers.ETag?.ToString();
-            var content = await response.Content.ReadAsByteArrayAsync();
+            var content = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
 
             var cacheEntryOptions = new MemoryCacheEntryOptions
             {
@@ -300,7 +317,7 @@ namespace Den.Dev.Grunt.Core.Foundation
             this.cache.Set(cacheKey, new CachedAPIResponse { ETag = eTag, Content = content }, cacheEntryOptions);
         }
 
-        private async Task<HttpResponseMessage> SendWithRetryAsync(HttpRequestMessage request)
+        private async Task<HttpResponseMessage> SendWithRetryAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             HttpResponseMessage? response = null;
             Exception? lastException = null;
@@ -317,10 +334,10 @@ namespace Den.Dev.Grunt.Core.Foundation
                     }
                     else
                     {
-                        requestToSend = await CloneHttpRequestMessageAsync(request);
+                        requestToSend = await CloneHttpRequestMessageAsync(request, cancellationToken).ConfigureAwait(false);
                     }
 
-                    response = await this.Client.SendAsync(requestToSend);
+                    response = await this.Client.SendAsync(requestToSend, cancellationToken).ConfigureAwait(false);
 
                     if (!IsTransientError(response, null))
                     {
@@ -328,6 +345,13 @@ namespace Den.Dev.Grunt.Core.Foundation
                     }
 
                     // Transient error, will retry if attempts remain
+                    // On the last attempt, keep the response so the caller can inspect the error code
+                    if (attempt < MaxRetries)
+                    {
+                        response?.Dispose();
+                        response = null;
+                    }
+
                     lastException = null;
                 }
                 catch (HttpRequestException ex)
@@ -350,7 +374,7 @@ namespace Den.Dev.Grunt.Core.Foundation
                 // Don't delay after the last attempt
                 if (attempt < MaxRetries)
                 {
-                    await Task.Delay(RetryDelays[attempt]);
+                    await Task.Delay(RetryDelays[attempt], cancellationToken).ConfigureAwait(false);
                 }
             }
 
@@ -440,7 +464,8 @@ namespace Den.Dev.Grunt.Core.Foundation
         private async Task<(HttpResponseMessage? Response, byte[]? Data)> SendWithCacheAsync(
             HttpRequestMessage request,
             string cacheKey,
-            bool enforceSuccess)
+            bool enforceSuccess,
+            CancellationToken cancellationToken)
         {
             HttpResponseMessage? response = null;
             byte[]? responseData = null;
@@ -451,7 +476,7 @@ namespace Den.Dev.Grunt.Core.Foundation
                 {
                     var eTagHeader = cachedResponse.ETag;
                     request.Headers.Add("If-None-Match", eTagHeader);
-                    response = await this.SendWithRetryAsync(request);
+                    response = await this.SendWithRetryAsync(request, cancellationToken).ConfigureAwait(false);
 
                     if (response.StatusCode == HttpStatusCode.NotModified)
                     {
@@ -461,23 +486,23 @@ namespace Den.Dev.Grunt.Core.Foundation
                     {
                         if (response.IsSuccessStatusCode || enforceSuccess)
                         {
-                            await this.UpdateCacheAsync(cacheKey, response);
+                            await this.UpdateCacheAsync(cacheKey, response, cancellationToken).ConfigureAwait(false);
                         }
 
-                        responseData = await response.Content.ReadAsByteArrayAsync();
+                        responseData = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
                     }
                 }
             }
             else
             {
-                response = await this.SendWithRetryAsync(request);
+                response = await this.SendWithRetryAsync(request, cancellationToken).ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NotModified || enforceSuccess)
                 {
-                    await this.UpdateCacheAsync(cacheKey, response);
+                    await this.UpdateCacheAsync(cacheKey, response, cancellationToken).ConfigureAwait(false);
                 }
 
-                responseData = await response.Content.ReadAsByteArrayAsync();
+                responseData = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
             }
 
             return (response, responseData);
@@ -508,22 +533,37 @@ namespace Den.Dev.Grunt.Core.Foundation
             if (Attribute.GetCustomAttribute(typeof(T), typeof(IsAutomaticallySerializableAttribute)) != null ||
                 typeof(T).IsGenericType)
             {
-                var responseString = Encoding.UTF8.GetString(responseData);
-                if (!string.IsNullOrWhiteSpace(responseString))
+                if (captureRaw)
                 {
-                    if (captureRaw)
+                    var responseString = Encoding.UTF8.GetString(responseData);
+                    if (!string.IsNullOrWhiteSpace(responseString))
                     {
                         rawResponse.Message = responseString;
-                    }
 
-                    try
-                    {
-                        return JsonSerializer.Deserialize<T>(responseString, this.serializerOptions);
+                        try
+                        {
+                            return JsonSerializer.Deserialize<T>(responseString, this.serializerOptions);
+                        }
+                        catch (JsonException)
+                        {
+                            // Deserialization failed, but HTTP details are preserved in Response
+                            return default;
+                        }
                     }
-                    catch (JsonException)
+                }
+                else
+                {
+                    if (responseData.Length > 0)
                     {
-                        // Deserialization failed, but HTTP details are preserved in Response
-                        return default;
+                        try
+                        {
+                            return JsonSerializer.Deserialize<T>(responseData, this.serializerOptions);
+                        }
+                        catch (JsonException)
+                        {
+                            // Deserialization failed, but HTTP details are preserved in Response
+                            return default;
+                        }
                     }
                 }
             }

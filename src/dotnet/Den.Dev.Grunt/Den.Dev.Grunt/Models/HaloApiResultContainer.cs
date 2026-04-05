@@ -15,7 +15,7 @@ namespace Den.Dev.Grunt.Models
     public class HaloApiResultContainer<T, TRawResponseContainer>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HaloApiResultContainer{T, THaloApiErrorContainer}"/> class.
+        /// Initializes a new instance of the <see cref="HaloApiResultContainer{T, TRawResponseContainer}"/> class.
         /// </summary>
         /// <param name="result">Result from the Halo API request.</param>
         /// <param name="container">Error information for the Halo API request.</param>
@@ -34,5 +34,10 @@ namespace Den.Dev.Grunt.Models
         /// Gets or sets the Halo API request error information.
         /// </summary>
         public TRawResponseContainer? Response { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the API request was successful (HTTP 2xx status code).
+        /// </summary>
+        public bool IsSuccess => this.Response is RawResponseContainer raw && raw.Code >= 200 && raw.Code < 300;
     }
 }

@@ -1,277 +1,215 @@
-# Den.Dev.Grunt - .NET Library
+# Den.Dev.Grunt - Halo Infinite API for .NET
 
-The core .NET library for interacting with Halo Infinite APIs.
+[![NuGet](https://img.shields.io/nuget/v/Den.Dev.Grunt)](https://www.nuget.org/packages/Den.Dev.Grunt)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Den.Dev.Grunt)](https://www.nuget.org/packages/Den.Dev.Grunt)
 
-## Installation
+A .NET library for the Halo Infinite API. Get player stats, match history, inventory, ranks, and more with strongly-typed responses.
+
+## Install
 
 ```bash
 dotnet add package Den.Dev.Grunt
 ```
 
-Or via the NuGet Package Manager:
+## Quick Start (2 minutes)
 
-```
-Install-Package Den.Dev.Grunt
-```
+All you need is a **Spartan token**. Get one by inspecting network traffic on [halowaypoint.com](https://halowaypoint.com):
 
-## Components
+1. Sign in to Halo Waypoint
+2. Open browser DevTools (F12) → Network tab
+3. Find any API call returning JSON
+4. Copy the `x-343-authorization-spartan` header value (that's your Spartan token)
+5. Optionally copy the `343-clearance` header value (needed for some endpoints)
 
-| Component                 | Description |
-|:--------------------------|:------------|
-| `Den.Dev.Grunt`           | The core library that wraps the Halo Infinite web APIs. |
-| `Den.Dev.Grunt.Zeta`      | Experimental ground for testing wrapped APIs in real scenarios. |
-| `Den.Dev.Grunt.Librarian` | Code generator that produces production-quality API client modules from endpoint definitions. |
-| `Den.Dev.Grunt.Composer`  | Data composition and transformation utilities. |
-| `Den.Dev.Grunt.Auditor`   | Validates models against live API responses to detect discrepancies. |
-
-## Quick Start
-
-### Bring Your Own Token
-
-If you have a Spartan token (obtained from Halo Waypoint), you can use it directly:
+Then use it:
 
 ```csharp
-HaloInfiniteClient client = new("<YOUR_SPARTAN_TOKEN>", clearanceToken: "<YOUR_CLEARANCE_TOKEN>");
+using Den.Dev.Grunt.Core;
+
+var client = new HaloInfiniteClient("<YOUR_SPARTAN_TOKEN>", clearanceToken: "<YOUR_CLEARANCE_TOKEN>");
 
 // Get match stats
-var example = await client.Stats.GetMatchStats("21416434-4717-4966-9902-af7097469f74");
-Console.WriteLine("You have data.");
-```
-
-### Full Authentication Flow
-
-For automatic token generation, first [register an Azure Active Directory application](https://docs.microsoft.com/azure/active-directory/develop/quickstart-register-app), then create a `client.json` file in your project:
-
-```json
+var result = await client.Stats.GetMatchStatsAsync("match-guid-here");
+if (result.IsSuccess)
 {
-  "client_id": "<YOUR_CLIENT_ID_FROM_AAD>",
-  "client_secret": "<YOUR_SECRET_FROM_AAD>",
-  "redirect_url": "<YOUR_REDIRECT_URI_FROM_AAD>"
+    Console.WriteLine($"Map: {result.Result.MatchInfo.MapVariant.AssetId}");
 }
+
+// Get player service record
+var record = await client.Stats.GetPlayerServiceRecordByGamertagAsync("BreadKrtek", LifecycleMode.Matchmade);
+
+// Get player inventory
+var inventory = await client.Economy.GetInventoryItemsAsync("player-xuid");
+
+// Get medal metadata
+var medals = await client.GameCms.GetMedalMetadataAsync();
 ```
 
-Set the file's `Build Action` to `None` and `Copy to Output Directory` to `Copy if newer`.
+## Available Modules
 
-Then use the authentication flow:
+Access API domains through the client's module properties:
 
 ```csharp
-ConfigurationReader clientConfigReader = new();
-var clientConfig = clientConfigReader.ReadConfiguration<ClientConfiguration>("client.json");
+var client = new HaloInfiniteClient(spartanToken, clearanceToken: clearanceToken);
+```
 
-XboxAuthenticationClient manager = new();
-var url = manager.GenerateAuthUrl(clientConfig.ClientId, clientConfig.RedirectUrl);
+| Module | What You Can Do | Example |
+|:-------|:----------------|:--------|
+| `client.Stats` | Match history, service records, stats | `GetMatchHistoryAsync(xuid, 0, 25, MatchType.All)` |
+| `client.Economy` | Inventory, stores, customization, currency | `GetInventoryItemsAsync(xuid)` |
+| `client.GameCms` | Medals, challenges, seasons, items | `GetMedalMetadataAsync()` |
+| `client.Skill` | Competitive Skill Rank (CSR) | `GetPlaylistCsrAsync(playlistId, playerIds)` |
+| `client.Ugc` | Create/edit maps, modes, prefabs | `SpawnAssetAsync(title, assetType, asset)` |
+| `client.UgcDiscovery` | Search/browse community content | `SearchAsync(start: 0, count: 25)` |
+| `client.Academy` | Bot customization, drills | `GetBotCustomizationAsync(flightId)` |
+| `client.Lobby` | QoS servers, presence | `GetQosServersAsync()` |
+| `client.Settings` | Clearance, feature flags | `GetActiveClearanceAsync(flightId)` |
+| `client.Configuration` | API endpoint discovery | `GetApiSettingsContainerAsync()` |
+| `client.BanProcessor` | Ban status checks | `GetBanSummaryAsync(targetList)` |
+| `client.TextModeration` | Text moderation keys | `GetSigningKeysAsync()` |
 
-HaloAuthenticationClient haloAuthClient = new();
+## Handling Responses
 
-OAuthToken currentOAuthToken = null;
+Every method returns `HaloApiResultContainer<T, RawResponseContainer>`:
 
-var ticket = new XboxTicket();
-var haloTicket = new XboxTicket();
-var extendedTicket = new XboxTicket();
+```csharp
+var result = await client.Stats.GetMatchStatsAsync("match-guid");
 
-var xblToken = string.Empty;
-var haloToken = new SpartanToken();
-
-if (System.IO.File.Exists("tokens.json"))
+// Check if the request succeeded
+if (result.IsSuccess)
 {
-    Console.WriteLine("Trying to use local tokens...");
-    currentOAuthToken = clientConfigReader.ReadConfiguration<OAuthToken>("tokens.json");
+    var matchData = result.Result;  // Strongly-typed response
 }
 else
 {
-    currentOAuthToken = RequestNewToken(url, manager, clientConfig);
-}
-
-Task.Run(async () =>
-{
-    ticket = await manager.RequestUserToken(currentOAuthToken.AccessToken);
-    if (ticket == null)
-    {
-        currentOAuthToken = await manager.RefreshOAuthToken(
-            clientConfig.ClientId,
-            currentOAuthToken.RefreshToken,
-            clientConfig.RedirectUrl,
-            clientConfig.ClientSecret);
-        if (currentOAuthToken == null)
-        {
-            Console.WriteLine("Could not get the token even with the refresh token.");
-            currentOAuthToken = RequestNewToken(url, manager, clientConfig);
-        }
-        ticket = await manager.RequestUserToken(currentOAuthToken.AccessToken);
-    }
-}).GetAwaiter().GetResult();
-
-Task.Run(async () =>
-{
-    haloTicket = await manager.RequestXstsToken(ticket.Token);
-}).GetAwaiter().GetResult();
-
-Task.Run(async () =>
-{
-    extendedTicket = await manager.RequestXstsToken(ticket.Token, false);
-}).GetAwaiter().GetResult();
-
-if (ticket != null)
-{
-    xblToken = manager.GetXboxLiveV3Token(haloTicket.DisplayClaims.Xui[0].Uhs, haloTicket.Token);
-}
-
-Task.Run(async () =>
-{
-    haloToken = await haloAuthClient.GetSpartanToken(haloTicket.Token);
-    Console.WriteLine("Your Halo token:");
-    Console.WriteLine(haloToken.Token);
-}).GetAwaiter().GetResult();
-
-HaloInfiniteClient client = new(haloToken.Token, extendedTicket.DisplayClaims.Xui[0].Xid);
-
-// Get clearance for API access
-string localClearance = string.Empty;
-Task.Run(async () =>
-{
-    var clearance = (await client.Settings.ActiveClearance("1.6")).Result;
-    if (clearance != null)
-    {
-        localClearance = clearance.FlightConfigurationId;
-        client.ClearanceToken = localClearance;
-        Console.WriteLine($"Your clearance is {localClearance} and it's set in the client.");
-    }
-}).GetAwaiter().GetResult();
-
-// Now you can make API calls
-var stats = await client.Stats.GetMatchStats("21416434-4717-4966-9902-af7097469f74");
-```
-
-> **Note:** The clearance (`343-clearance` header) needs to be activated at least once with the game before API access is granted. Launch Halo Infinite at least once on your account before querying the API. If you get `403 Forbidden` errors, this is likely the cause.
-
-## Librarian - API Code Generator
-
-The Librarian automatically generates production-quality API client code from Halo Infinite endpoint definitions.
-
-### Features
-
-- **Automatic endpoint discovery** - Fetches all 177+ endpoints from the live Halo API
-- **Strongly-typed responses** - Maps endpoints to specific response types via `response-types.json`
-- **HTTP method inference** - Intelligently detects GET, POST, PUT, DELETE based on method names
-- **XML documentation** - Generates proper `<summary>`, `<param>`, and `<returns>` tags
-- **Module grouping** - Organizes endpoints into logical modules (Economy, Stats, GameCms, etc.)
-- **Scriban templates** - Clean, maintainable template syntax for code generation
-
-### Usage
-
-```bash
-# Navigate to the Librarian project
-cd Den.Dev.Grunt.Librarian
-
-# Generate to default output directory (./Output/Generated)
-dotnet run
-
-# Generate with response type mappings
-dotnet run -- --response-types response-types.json
-
-# Preview without writing files
-dotnet run -- --dry-run
-
-# Generate to a custom directory
-dotnet run -- --output C:\MyGeneratedCode
-```
-
-### Command Line Options
-
-| Option | Short | Description |
-|:-------|:------|:------------|
-| `--output` | `-o` | Output directory for generated files (default: `./Output/Generated`) |
-| `--response-types` | `-r` | Path to `response-types.json` mapping file |
-| `--dry-run` | `-d` | Preview output without writing files |
-| `--help` | `-h` | Show help message |
-
-### Response Type Mappings
-
-The `response-types.json` file maps endpoint IDs to their response types:
-
-```json
-{
-  "Economy_GetActiveBoosts": "ActiveBoostsContainer",
-  "Economy_AiCoreCustomization": "AiCore",
-  "Stats_GetMatchHistory": "MatchHistoryResponse"
+    Console.WriteLine($"Error {result.Response.Code}: {result.Response.Message}");
 }
 ```
 
-Endpoints without explicit mappings default to `object` with a TODO comment for manual review.
+### Raw Response Inspection
 
-### Generated Output
-
-The Librarian generates partial class files that can be integrated into the main library:
-
-```
-Output/Generated/
-├── EconomyModule.Generated.cs
-├── GameCmsModule.Generated.cs
-├── StatsModule.Generated.cs
-├── UgcModule.Generated.cs
-├── UgcDiscoveryModule.Generated.cs
-└── ...
-```
-
-### Example Generated Code
+Enable raw responses to see full HTTP details (useful for debugging):
 
 ```csharp
-/// <summary>
-/// Calls the Economy_GetActiveBoosts endpoint.
-/// </summary>
-/// <param name="player">The player's numeric XUID.</param>
-/// <returns>An instance of HaloApiResultContainer containing the response.</returns>
-public async Task<HaloApiResultContainer<ActiveBoostsContainer, RawResponseContainer>> GetActiveBoosts(string player)
+var client = new HaloInfiniteClient(spartanToken, includeRawResponses: true);
+
+var result = await client.Stats.GetMatchStatsAsync("match-guid");
+Console.WriteLine(result.Response.RequestUrl);
+Console.WriteLine(result.Response.RequestMethod);
+Console.WriteLine(result.Response.Message);  // Raw JSON response body
+```
+
+## Cancellation Support
+
+All async methods accept a `CancellationToken`:
+
+```csharp
+using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+
+try
 {
-    return await this.GetAsync<ActiveBoostsContainer>(
-        $"/hi/players/xuid({player})/boosts",
-        useClearance: true);
+    var result = await client.Stats.GetMatchStatsAsync("match-guid", cts.Token);
+}
+catch (OperationCanceledException)
+{
+    Console.WriteLine("Request timed out.");
 }
 ```
 
-## API Modules
+## Authentication
 
-The `HaloInfiniteClient` provides access to various API modules:
+### Option 1: Manual Token (Quickest)
 
-| Module | Description |
-|:-------|:------------|
-| `Stats` | Match history, service records, match statistics |
-| `Skill` | CSR (Competitive Skill Rank) queries |
-| `Economy` | Inventory, stores, customization, currency |
-| `GameCms` | Item definitions, challenges, medals, career ranks |
-| `Ugc` | User-generated content authoring |
-| `UgcDiscovery` | Search and browse user content |
-| `Academy` | Bot customization, training drills |
-| `Lobby` | QoS servers, lobby presence |
-| `Settings` | Clearance levels, feature flags |
-| `Configuration` | API endpoint discovery |
-| `BanProcessor` | Ban status queries |
-| `TextModeration` | Text moderation keys |
+Grab the Spartan token from Halo Waypoint (see Quick Start above). Tokens expire frequently — get a new one if you see `401 Unauthorized`.
+
+### Option 2: Programmatic Token
+
+Use `HaloAuthenticationClient` to exchange an Xbox Live XSTS token for a Spartan token:
+
+```csharp
+using Den.Dev.Grunt.Authentication;
+
+var authClient = new HaloAuthenticationClient();
+var spartanToken = await authClient.GetSpartanTokenAsync(xstsToken);
+
+var client = new HaloInfiniteClient(spartanToken.Token, xuid: playerXuid);
+```
+
+To get an XSTS token, you need an [Azure AD app registration](https://docs.microsoft.com/azure/active-directory/develop/quickstart-register-app) and the Xbox Live authentication flow via the [Den.Dev.Conch](https://www.nuget.org/packages/Den.Dev.Conch) package.
+
+### Getting Clearance
+
+Some endpoints require a clearance token. Get one after authenticating:
+
+```csharp
+var clearance = await client.Settings.GetActiveClearanceAsync("1.6");
+if (clearance.IsSuccess)
+{
+    client.ClearanceToken = clearance.Result.FlightConfigurationId;
+}
+```
+
+> **Note:** You must launch Halo Infinite at least once on your account before the clearance API will work. If you get `403 Forbidden`, this is the likely cause.
+
+## Testability
+
+The library provides interfaces for dependency injection and mocking:
+
+```csharp
+// Register in DI container
+services.AddSingleton<IHaloInfiniteClient>(
+    new HaloInfiniteClient(spartanToken, clearanceToken: clearanceToken));
+
+// Inject in your services
+public class MyService
+{
+    private readonly IHaloInfiniteClient _client;
+
+    public MyService(IHaloInfiniteClient client) => _client = client;
+}
+
+// Mock in tests
+var mock = new Mock<IHaloInfiniteClient>();
+mock.Setup(c => c.Stats).Returns(mockStatsModule);
+```
+
+You can also inject a custom `HttpClient` for full control over the HTTP pipeline:
+
+```csharp
+var httpClient = new HttpClient(new MyLoggingHandler(new HttpClientHandler()));
+var client = new HaloInfiniteClient(httpClient, spartanToken);
+```
+
+## Halo Waypoint APIs
+
+For Halo Waypoint content (articles, profiles, service awards):
+
+```csharp
+using Den.Dev.Grunt.Core;
+
+var waypointClient = new WaypointClient();
+
+// Get articles (no authentication required)
+var articles = await waypointClient.Content.GetArticlesAsync(language: "en", count: 10);
+
+// Get player profile (requires Spartan token)
+var wpClient = new WaypointClient(spartanToken, xuid: playerXuid);
+var profile = await wpClient.Profile.GetMyProfileAsync();
+```
 
 ## Building from Source
-
-### Prerequisites
-
-- .NET 10.0 SDK or later
-- Visual Studio 2022 (optional)
-
-### Build
 
 ```bash
 cd src/dotnet/Den.Dev.Grunt
 dotnet build
 ```
 
-### Run Tests
+Requires .NET 10.0 SDK or later.
 
-```bash
-dotnet test
-```
+## API Reference
 
-## Documentation
-
-Full API documentation is available at [docs.gruntapi.com](https://docs.gruntapi.com).
+Full documentation: [docs.gruntapi.com](https://docs.gruntapi.com)
 
 ## License
 
-MIT License - see [LICENSE](../../../LICENSE) for details.
+MIT - see [LICENSE](../../../LICENSE).

@@ -5,6 +5,7 @@
 // The underlying API powering Den.Dev.Grunt is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
 // </copyright>
 
+using System.Net.Http;
 using Den.Dev.Grunt.Core.Foundation;
 using Den.Dev.Grunt.Core.Modules.Waypoint;
 
@@ -13,7 +14,7 @@ namespace Den.Dev.Grunt.Core
     /// <summary>
     /// Client for interacting with the Halo Waypoint APIs.
     /// </summary>
-    public class WaypointClient : ClientBase
+    public sealed class WaypointClient : ClientBase, IWaypointClient
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WaypointClient"/> class, used to access the Halo Waypoint API.
@@ -23,6 +24,25 @@ namespace Den.Dev.Grunt.Core
         /// <param name="clearanceToken">ID of the flight/clearance currently active for the player. Optional when first instantiating the client.</param>
         /// <param name="userAgent">Optional User-Agent header value for outbound requests.</param>
         public WaypointClient(string spartanToken, string xuid = "", string clearanceToken = "", string userAgent = "")
+        {
+            this.SpartanToken = spartanToken;
+            this.Xuid = xuid;
+            this.ClearanceToken = clearanceToken;
+            this.UserAgent = userAgent;
+
+            this.InitializeModules();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WaypointClient"/> class with a custom HttpClient.
+        /// </summary>
+        /// <param name="httpClient">The HttpClient instance to use for API requests.</param>
+        /// <param name="spartanToken">The Spartan token used to authenticate against the Halo Infinite API.</param>
+        /// <param name="xuid">The player identifier in the format "xuid(XUID_VALUE)".</param>
+        /// <param name="clearanceToken">ID of the flight/clearance currently active for the player.</param>
+        /// <param name="userAgent">Optional User-Agent header value for outbound requests.</param>
+        public WaypointClient(HttpClient httpClient, string spartanToken, string xuid = "", string clearanceToken = "", string userAgent = "")
+            : base(httpClient)
         {
             this.SpartanToken = spartanToken;
             this.Xuid = xuid;

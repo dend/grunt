@@ -109,7 +109,7 @@ namespace Den.Dev.Grunt.Auditor.Services
                 AnsiConsole.MarkupLine("  [dim]Discovering match IDs from match history...[/]");
                 try
                 {
-                    var historyResult = await _client.Stats.GetMatchHistory(
+                    var historyResult = await _client.Stats.GetMatchHistoryAsync(
                         _registry.Parameters.PlayerXuid,
                         0,
                         10,
@@ -140,7 +140,7 @@ namespace Den.Dev.Grunt.Auditor.Services
                 AnsiConsole.MarkupLine("  [dim]Discovering flight ID from clearance...[/]");
                 try
                 {
-                    var clearanceResult = await _client.Settings.GetClearance("RETAIL", "UNUSED", "268411.25.10.26.1801-0", "1.13");
+                    var clearanceResult = await _client.Settings.GetClearanceAsync("RETAIL", "UNUSED", "268411.25.10.26.1801-0", "1.13");
 
                     if (clearanceResult?.Result?.FlightConfigurationId != null)
                     {
@@ -161,7 +161,7 @@ namespace Den.Dev.Grunt.Auditor.Services
                 try
                 {
                     var matchId = _registry.Parameters.MatchIds[0];
-                    var matchResult = await _client.Stats.GetMatchStats(matchId);
+                    var matchResult = await _client.Stats.GetMatchStatsAsync(matchId);
 
                     if (matchResult?.Result?.MatchInfo != null)
                     {

@@ -132,7 +132,7 @@ namespace Den.Dev.Grunt.Auditor.Services
                         return;
                     }
 
-                    spartanToken = await _haloAuthClient.GetSpartanToken(xstsToken);
+                    spartanToken = await _haloAuthClient.GetSpartanTokenAsync(xstsToken);
                     if (spartanToken == null)
                     {
                         return;
@@ -149,7 +149,7 @@ namespace Den.Dev.Grunt.Auditor.Services
                     ctx.Status("[blue]Obtaining clearance...[/]");
                     try
                     {
-                        var clearance = (await Client.Settings.GetClearance("RETAIL", "UNUSED", "268411.25.10.26.1801-0", "1.13")).Result;
+                        var clearance = (await Client.Settings.GetClearanceAsync("RETAIL", "UNUSED", "268411.25.10.26.1801-0", "1.13")).Result;
                         if (clearance != null)
                         {
                             ClearanceToken = clearance.FlightConfigurationId ?? string.Empty;

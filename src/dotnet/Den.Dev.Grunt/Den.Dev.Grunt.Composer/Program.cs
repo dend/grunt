@@ -210,7 +210,7 @@ namespace Den.Dev.Grunt.Composer
                     {
                         Task.Run(async () =>
                         {
-                            var container = await haloInfiniteClient.UgcDiscovery.GetMap(asset.AssetId.ToString(), asset.VersionId.ToString());
+                            var container = await haloInfiniteClient.UgcDiscovery.GetMapAsync(asset.AssetId.ToString(), asset.VersionId.ToString());
                             var buildInsertionString = $"INSERT OR REPLACE INTO MapMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
                             domain.Execute(buildInsertionString, new string[] { container.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
 
@@ -220,7 +220,7 @@ namespace Den.Dev.Grunt.Composer
                     {
                         Task.Run(async () =>
                         {
-                            var container = await haloInfiniteClient.UgcDiscovery.GetEngineGameVariant(asset.AssetId.ToString(), asset.VersionId.ToString());
+                            var container = await haloInfiniteClient.UgcDiscovery.GetEngineGameVariantAsync(asset.AssetId.ToString(), asset.VersionId.ToString());
                             var buildInsertionString = $"INSERT OR REPLACE INTO EngineGameVariantMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
                             domain.Execute(buildInsertionString, new string[] { container.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
                         }).GetAwaiter().GetResult();
@@ -229,7 +229,7 @@ namespace Den.Dev.Grunt.Composer
                     {
                         Task.Run(async () =>
                         {
-                            var container = await haloInfiniteClient.UgcDiscovery.GetUgcGameVariant(asset.AssetId.ToString(), asset.VersionId.ToString());
+                            var container = await haloInfiniteClient.UgcDiscovery.GetUgcGameVariantAsync(asset.AssetId.ToString(), asset.VersionId.ToString());
                             var buildInsertionString = $"INSERT OR REPLACE INTO UgcGameVariantMetadata (ResponseBody, SnapshotTimestamp) VALUES(?, ?)";
                             domain.Execute(buildInsertionString, new string[] { container.Response.Message, DateTime.Now.ToString("o", CultureInfo.InvariantCulture) });
                         }).GetAwaiter().GetResult();
@@ -246,13 +246,13 @@ namespace Den.Dev.Grunt.Composer
 
             var domainDatabase = new SQLiteConnection(domain);
 
-            var buildData = await haloInfiniteClient!.UgcDiscovery.GetManifestByBuildGuid(buildId);
+            var buildData = await haloInfiniteClient!.UgcDiscovery.GetManifestByBuildGuidAsync(buildId);
             if (buildData.Response!.Code == 401)
             {
                 // The token is no longer working - need to acquire a new one.
                 WriteTimedLogEntry("Token expired. Refreshing...");
                 haloInfiniteClient = InstantiateClient();
-                buildData = await haloInfiniteClient!.UgcDiscovery.GetManifestByBuildGuid(buildId);
+                buildData = await haloInfiniteClient!.UgcDiscovery.GetManifestByBuildGuidAsync(buildId);
             }
 
             if (buildData != null && buildData.Result != null)
@@ -282,13 +282,13 @@ namespace Den.Dev.Grunt.Composer
 
             var domainDatabase = new SQLiteConnection(domain);
 
-            var projectData = await haloInfiniteClient!.UgcDiscovery.GetProjectWithoutVersion(projectId);
+            var projectData = await haloInfiniteClient!.UgcDiscovery.GetProjectWithoutVersionAsync(projectId);
             if (projectData.Response!.Code == 401)
             {
                 // The token is no longer working - need to acquire a new one.
                 WriteTimedLogEntry("Token expired. Refreshing...");
                 haloInfiniteClient = InstantiateClient();
-                projectData = await haloInfiniteClient!.UgcDiscovery.GetProjectWithoutVersion(projectId);
+                projectData = await haloInfiniteClient!.UgcDiscovery.GetProjectWithoutVersionAsync(projectId);
             }
 
             if (projectData != null && projectData.Result != null)
@@ -340,13 +340,13 @@ namespace Den.Dev.Grunt.Composer
 
             var domainDatabase = new SQLiteConnection(domain);
 
-            var rankData = await haloInfiniteClient!.Skill.GetPlaylistCsr(playlistId, playerXuids.ToList());
+            var rankData = await haloInfiniteClient!.Skill.GetPlaylistCsrAsync(playlistId, playerXuids.ToList());
             if (rankData.Response!.Code == 401)
             {
                 // The token is no longer working - need to acquire a new one.
                 WriteTimedLogEntry("Token expired. Refreshing...");
                 haloInfiniteClient = InstantiateClient();
-                rankData = await haloInfiniteClient!.Skill.GetPlaylistCsr(playlistId, playerXuids.ToList());
+                rankData = await haloInfiniteClient!.Skill.GetPlaylistCsrAsync(playlistId, playerXuids.ToList());
             }
 
             if (rankData != null && rankData.Result != null)
@@ -399,13 +399,13 @@ namespace Den.Dev.Grunt.Composer
 
             var domainDatabase = new SQLiteConnection(domain);
 
-            var medalMetadata = await haloInfiniteClient.GameCms.GetMedalMetadata();
+            var medalMetadata = await haloInfiniteClient.GameCms.GetMedalMetadataAsync();
             if (medalMetadata.Response!.Code == 401)
             {
                 // The token is no longer working - need to acquire a new one.
                 WriteTimedLogEntry("Token expired. Refreshing...");
                 haloInfiniteClient = InstantiateClient();
-                medalMetadata = await haloInfiniteClient.GameCms.GetMedalMetadata();
+                medalMetadata = await haloInfiniteClient.GameCms.GetMedalMetadataAsync();
             }
 
             if (medalMetadata != null && medalMetadata.Result != null)
@@ -459,13 +459,13 @@ namespace Den.Dev.Grunt.Composer
 
             foreach (var playerXuid in playerXuids)
             {
-                var srData = await haloInfiniteClient.Stats.GetPlayerServiceRecord(playerXuid, LifecycleMode.Matchmade);
+                var srData = await haloInfiniteClient.Stats.GetPlayerServiceRecordByXuidAsync(playerXuid, LifecycleMode.Matchmade);
                 if (srData.Response!.Code == 401)
                 {
                     // The token is no longer working - need to acquire a new one.
                     WriteTimedLogEntry("Token expired. Refreshing...");
                     haloInfiniteClient = InstantiateClient();
-                    srData = await haloInfiniteClient.Stats.GetPlayerServiceRecord(playerXuid, LifecycleMode.Matchmade);
+                    srData = await haloInfiniteClient.Stats.GetPlayerServiceRecordByXuidAsync(playerXuid, LifecycleMode.Matchmade);
                 }
 
                 if (srData != null && srData.Result != null)
@@ -567,7 +567,7 @@ namespace Den.Dev.Grunt.Composer
                         if (!availability.MatchAvailable)
                         {
                             WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Getting match stats for {matchId}...");
-                            matchStats = await SafeAPICall(async () => await haloInfiniteClient!.Stats.GetMatchStats(matchId.ToString()));
+                            matchStats = await SafeAPICall(async () => await haloInfiniteClient!.Stats.GetMatchStatsAsync(matchId.ToString()));
 
                             if (matchStats != null && matchStats.Result != null)
                             {
@@ -591,7 +591,7 @@ namespace Den.Dev.Grunt.Composer
                         {
                             if (matchStats == null)
                             {
-                                matchStats = await SafeAPICall(async () => await haloInfiniteClient!.Stats.GetMatchStats(matchId.ToString()));
+                                matchStats = await SafeAPICall(async () => await haloInfiniteClient!.Stats.GetMatchStatsAsync(matchId.ToString()));
                             }
 
                             if (matchStats != null && matchStats.Result != null && matchStats.Result.Players != null)
@@ -604,7 +604,7 @@ namespace Den.Dev.Grunt.Composer
 
                                 WriteTimedLogEntry($"[{completionProgress:#.00}%] [{matchCounter}/{matchesTotal}] Attempting to get player results for players for match {matchId}.");
 
-                                var playerStatsSnapshot = await SafeAPICall(async () => await haloInfiniteClient.Skill.GetMatchPlayerResult(matchId.ToString(), targetPlayers!));
+                                var playerStatsSnapshot = await SafeAPICall(async () => await haloInfiniteClient.Skill.GetMatchPlayerResultAsync(matchId.ToString(), targetPlayers!));
 
                                 if (playerStatsSnapshot != null && playerStatsSnapshot.Result != null && playerStatsSnapshot.Result.Value != null)
                                 {
@@ -672,7 +672,7 @@ namespace Den.Dev.Grunt.Composer
 
                 if (!availability.MapAvailable)
                 {
-                    var map = await SafeAPICall(async () => await haloInfiniteClient.UgcDiscovery.GetMap(result.MatchInfo.MapVariant.AssetId.ToString(), result.MatchInfo.MapVariant.VersionId.ToString()));
+                    var map = await SafeAPICall(async () => await haloInfiniteClient.UgcDiscovery.GetMapAsync(result.MatchInfo.MapVariant.AssetId.ToString(), result.MatchInfo.MapVariant.VersionId.ToString()));
                     if (map != null && map.Result != null && map.Response.Code == 200)
                     {
                         var record = new MapRecord { ResponseBody = map.Response.Message };
@@ -689,7 +689,7 @@ namespace Den.Dev.Grunt.Composer
                 {
                     if (result.MatchInfo.Playlist != null)
                     {
-                        var playlist = await SafeAPICall(async () => await haloInfiniteClient!.UgcDiscovery.GetPlaylist(result.MatchInfo.Playlist.AssetId.ToString(), result.MatchInfo.Playlist.VersionId.ToString(), haloInfiniteClient.ClearanceToken));
+                        var playlist = await SafeAPICall(async () => await haloInfiniteClient!.UgcDiscovery.GetPlaylistAsync(result.MatchInfo.Playlist.AssetId.ToString(), result.MatchInfo.Playlist.VersionId.ToString(), haloInfiniteClient.ClearanceToken));
                         if (playlist != null && playlist.Result != null && playlist.Response.Code == 200)
                         {
                             var record = new PlaylistRecord { ResponseBody = playlist.Response.Message };
@@ -707,7 +707,7 @@ namespace Den.Dev.Grunt.Composer
                 {
                     if (result.MatchInfo.PlaylistMapModePair != null)
                     {
-                        var playlistMmp = await SafeAPICall(async () => await haloInfiniteClient.UgcDiscovery.GetMapModePair(result.MatchInfo.PlaylistMapModePair.AssetId.ToString(), result.MatchInfo.PlaylistMapModePair.VersionId.ToString(), haloInfiniteClient.ClearanceToken));
+                        var playlistMmp = await SafeAPICall(async () => await haloInfiniteClient.UgcDiscovery.GetMapModePairAsync(result.MatchInfo.PlaylistMapModePair.AssetId.ToString(), result.MatchInfo.PlaylistMapModePair.VersionId.ToString(), haloInfiniteClient.ClearanceToken));
                         if (playlistMmp != null && playlistMmp.Result != null && playlistMmp.Response.Code == 200)
                         {
                             var record = new PlaylistMapModePairRecord { ResponseBody = playlistMmp.Response.Message };
@@ -723,7 +723,7 @@ namespace Den.Dev.Grunt.Composer
 
                 if (!availability.GameVariantAvailable)
                 {
-                    var gameVariant = await SafeAPICall(async () => await haloInfiniteClient.UgcDiscovery.GetUgcGameVariant(result.MatchInfo.UgcGameVariant.AssetId.ToString(), result.MatchInfo.UgcGameVariant.VersionId.ToString()));
+                    var gameVariant = await SafeAPICall(async () => await haloInfiniteClient.UgcDiscovery.GetUgcGameVariantAsync(result.MatchInfo.UgcGameVariant.AssetId.ToString(), result.MatchInfo.UgcGameVariant.VersionId.ToString()));
                     if (gameVariant != null && gameVariant.Result != null && gameVariant.Response.Code == 200)
                     {
                         targetGameVariant = gameVariant.Result;
@@ -743,7 +743,7 @@ namespace Den.Dev.Grunt.Composer
 
                 if (!availability.EngineGameVariantAvailable && targetGameVariant != null)
                 {
-                    var engineGameVariant = await SafeAPICall(async () => await haloInfiniteClient.UgcDiscovery.GetEngineGameVariant(targetGameVariant.EngineGameVariantLink.AssetId.ToString(), targetGameVariant.EngineGameVariantLink.VersionId.ToString()));
+                    var engineGameVariant = await SafeAPICall(async () => await haloInfiniteClient.UgcDiscovery.GetEngineGameVariantAsync(targetGameVariant.EngineGameVariantLink.AssetId.ToString(), targetGameVariant.EngineGameVariantLink.VersionId.ToString()));
 
                     if (engineGameVariant != null && engineGameVariant.Result != null && engineGameVariant.Response.Code == 200)
                     {
@@ -797,7 +797,7 @@ namespace Den.Dev.Grunt.Composer
 
         private static async Task<List<Guid>?> GetPlayerMatchIds(string playerXuid, int start, int count, Den.Dev.Grunt.Models.HaloInfinite.MatchType matchType)
         {
-            var matchCountSnapshot = await haloInfiniteClient!.Stats.GetMatchCount(playerXuid);
+            var matchCountSnapshot = await haloInfiniteClient!.Stats.GetMatchCountAsync(playerXuid);
 
             if (matchCountSnapshot.Response!.Code == 401)
             {
@@ -806,7 +806,7 @@ namespace Den.Dev.Grunt.Composer
                 haloInfiniteClient = InstantiateClient();
 
                 // The counter is not accurate.
-                matchCountSnapshot = await haloInfiniteClient!.Stats.GetMatchCount(playerXuid);
+                matchCountSnapshot = await haloInfiniteClient!.Stats.GetMatchCountAsync(playerXuid);
             }
 
             if (matchCountSnapshot != null && matchCountSnapshot.Result != null)
@@ -846,7 +846,7 @@ namespace Den.Dev.Grunt.Composer
 
                 do
                 {
-                    var matches = await haloInfiniteClient.Stats.GetMatchHistory(playerXuid, queryStart, queryCount, matchType);
+                    var matches = await haloInfiniteClient.Stats.GetMatchHistoryAsync(playerXuid, queryStart, queryCount, matchType);
                     if (matches != null && matches.Result != null && matches.Result.Results != null && matches.Result.ResultCount > 0)
                     {
                         var matchIdBatch = matches.Result.Results.Select(item => item.MatchId).ToList();
@@ -944,7 +944,7 @@ namespace Den.Dev.Grunt.Composer
 
             Task.Run(async () =>
             {
-                haloToken = await haloAuthClient.GetSpartanToken(haloTicket.Token, 4);
+                haloToken = await haloAuthClient.GetSpartanTokenAsync(haloTicket.Token, 4);
                 WriteTimedLogEntry("Your Halo token:");
                 WriteTimedLogEntry(haloToken.Token);
             }).GetAwaiter().GetResult();

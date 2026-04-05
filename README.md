@@ -35,7 +35,7 @@ dotnet add package Den.Dev.Grunt
 ```csharp
 HaloInfiniteClient client = new("<YOUR_SPARTAN_TOKEN>", clearanceToken: "<YOUR_CLEARANCE_TOKEN>");
 
-var matchStats = await client.Stats.GetMatchStats("21416434-4717-4966-9902-af7097469f74");
+var matchStats = await client.Stats.GetMatchStatsAsync("21416434-4717-4966-9902-af7097469f74");
 Console.WriteLine("Match data retrieved!");
 ```
 

@@ -78,7 +78,7 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         MultiplayerStrongholds = 11,
 
         /// <summary>
-        /// King of the Hill
+        /// Bastion mode.
         /// </summary>
         MultiplayerBastion = 12,
 
@@ -218,7 +218,7 @@ namespace Den.Dev.Grunt.Models.HaloInfinite
         MultiplayerLandGrab = 39,
 
         /// <summary>
-        /// Minigames,such as Survive The Undead
+        /// Minigames, such as Survive The Undead
         /// </summary>
         MultiplayerMinigame = 41,
 

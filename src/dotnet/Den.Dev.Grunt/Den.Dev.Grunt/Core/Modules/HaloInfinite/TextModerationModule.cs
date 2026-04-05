@@ -5,6 +5,8 @@
 // The underlying API powering Den.Dev.Grunt is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
 // </copyright>
 
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Den.Dev.Grunt.Core.Foundation;
 using Den.Dev.Grunt.Endpoints;
@@ -16,7 +18,7 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
     /// <summary>
     /// Module for text moderation related API operations.
     /// </summary>
-    public class TextModerationModule : ModuleBase
+    public sealed class TextModerationModule : ModuleBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TextModerationModule"/> class.
@@ -32,24 +34,30 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// </summary>
         /// <include file='../../../APIDocsExamples/HaloInfinite/TextModeration_GetSigningKey.xml' path='example'/>
         /// <param name="keyId">Key ID. Full list can be obtained by a call to GetSigningKeys.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>An instance of Key containing a single signing key data if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<Key, RawResponseContainer>> GetSigningKey(string keyId)
+        public Task<HaloApiResultContainer<Key, RawResponseContainer>> GetSigningKeyAsync(string keyId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<Key>(
+            ArgumentException.ThrowIfNullOrEmpty(keyId);
+
+            return this.GetAsync<Key>(
                 $"/hi/moderation-proof-keys/{keyId}",
-                useSpartanToken: false);
+                useSpartanToken: false,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
         /// Gets a list of available moderation proof signing keys.
         /// </summary>
         /// <include file='../../../APIDocsExamples/HaloInfinite/TextModeration_GetSigningKeys.xml' path='example'/>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>An instance of ModerationProofKeys containing signing key data if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<ModerationProofKeys, RawResponseContainer>> GetSigningKeys()
+        public Task<HaloApiResultContainer<ModerationProofKeys, RawResponseContainer>> GetSigningKeysAsync(CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<ModerationProofKeys>(
+            return this.GetAsync<ModerationProofKeys>(
                 "/hi/moderation-proof-keys",
-                useSpartanToken: false);
+                useSpartanToken: false,
+                cancellationToken: cancellationToken);
         }
     }
 }

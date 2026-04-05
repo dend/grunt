@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using Den.Dev.Grunt.Core.Foundation;
 using Den.Dev.Grunt.Endpoints;
@@ -79,7 +80,7 @@ namespace Den.Dev.Grunt.Core.Modules
         /// </summary>
         /// <param name="path">The relative path (should start with /).</param>
         /// <returns>The fully qualified URL.</returns>
-        protected string BuildUrl(string path) =>
+        protected virtual string BuildUrl(string path) =>
             $"https://{this.Origin}.{HaloCoreEndpoints.ServiceDomain}{path}";
 
         /// <summary>
@@ -89,17 +90,20 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <param name="path">The relative API path.</param>
         /// <param name="useClearance">Whether to include the clearance token.</param>
         /// <param name="useSpartanToken">Whether to include the Spartan token. Defaults to true.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>The API response container.</returns>
         protected Task<HaloApiResultContainer<T, RawResponseContainer>> GetAsync<T>(
             string path,
             bool useClearance = false,
-            bool useSpartanToken = true) =>
-            this.Client.ExecuteAPIRequest<T>(
+            bool useSpartanToken = true,
+            CancellationToken cancellationToken = default) =>
+            this.Client.ExecuteAPIRequestAsync<T>(
                 this.BuildUrl(path),
                 HttpMethod.Get,
                 useSpartanToken,
                 useClearance,
-                includeRawResponse: this.Client.IncludeRawResponses);
+                includeRawResponse: this.Client.IncludeRawResponses,
+                cancellationToken: cancellationToken);
 
         /// <summary>
         /// Executes a GET request against a fully specified URL.
@@ -110,21 +114,24 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <param name="useSpartanToken">Whether to include the Spartan token. Defaults to true.</param>
         /// <param name="customHeaders">Optional custom headers to include.</param>
         /// <param name="enforceSuccess">Whether to enforce success response codes.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>The API response container.</returns>
         protected Task<HaloApiResultContainer<T, RawResponseContainer>> GetAsyncFullUrl<T>(
             string fullUrl,
             bool useClearance = false,
             bool useSpartanToken = true,
             List<KeyValuePair<string, string>>? customHeaders = null,
-            bool enforceSuccess = true) =>
-            this.Client.ExecuteAPIRequest<T>(
+            bool enforceSuccess = true,
+            CancellationToken cancellationToken = default) =>
+            this.Client.ExecuteAPIRequestAsync<T>(
                 fullUrl,
                 HttpMethod.Get,
                 useSpartanToken,
                 useClearance,
                 includeRawResponse: this.Client.IncludeRawResponses,
                 customHeaders: customHeaders,
-                enforceSuccess: enforceSuccess);
+                enforceSuccess: enforceSuccess,
+                cancellationToken: cancellationToken);
 
         /// <summary>
         /// Executes a POST request against the API.
@@ -134,19 +141,22 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <param name="content">The JSON content to send.</param>
         /// <param name="useClearance">Whether to include the clearance token.</param>
         /// <param name="useSpartanToken">Whether to include the Spartan token. Defaults to true.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>The API response container.</returns>
         protected Task<HaloApiResultContainer<T, RawResponseContainer>> PostAsync<T>(
             string path,
             string content = "",
             bool useClearance = false,
-            bool useSpartanToken = true) =>
-            this.Client.ExecuteAPIRequest<T>(
+            bool useSpartanToken = true,
+            CancellationToken cancellationToken = default) =>
+            this.Client.ExecuteAPIRequestAsync<T>(
                 this.BuildUrl(path),
                 HttpMethod.Post,
                 useSpartanToken,
                 useClearance,
                 content,
-                includeRawResponse: this.Client.IncludeRawResponses);
+                includeRawResponse: this.Client.IncludeRawResponses,
+                cancellationToken: cancellationToken);
 
         /// <summary>
         /// Executes a POST request with JSON serialized body.
@@ -158,21 +168,24 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <param name="useClearance">Whether to include the clearance token.</param>
         /// <param name="useSpartanToken">Whether to include the Spartan token. Defaults to true.</param>
         /// <param name="contentType">The content type for the request.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>The API response container.</returns>
         protected Task<HaloApiResultContainer<T, RawResponseContainer>> PostJsonAsync<T, TBody>(
             string path,
             TBody body,
             bool useClearance = false,
             bool useSpartanToken = true,
-            APIContentType contentType = APIContentType.Json) =>
-            this.Client.ExecuteAPIRequest<T>(
+            APIContentType contentType = APIContentType.Json,
+            CancellationToken cancellationToken = default) =>
+            this.Client.ExecuteAPIRequestAsync<T>(
                 this.BuildUrl(path),
                 HttpMethod.Post,
                 useSpartanToken,
                 useClearance,
                 JsonSerializer.Serialize(body),
                 contentType: contentType,
-                includeRawResponse: this.Client.IncludeRawResponses);
+                includeRawResponse: this.Client.IncludeRawResponses,
+                cancellationToken: cancellationToken);
 
         /// <summary>
         /// Executes a PUT request against the API.
@@ -182,19 +195,22 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <param name="content">The JSON content to send.</param>
         /// <param name="useClearance">Whether to include the clearance token.</param>
         /// <param name="useSpartanToken">Whether to include the Spartan token. Defaults to true.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>The API response container.</returns>
         protected Task<HaloApiResultContainer<T, RawResponseContainer>> PutAsync<T>(
             string path,
             string content = "",
             bool useClearance = false,
-            bool useSpartanToken = true) =>
-            this.Client.ExecuteAPIRequest<T>(
+            bool useSpartanToken = true,
+            CancellationToken cancellationToken = default) =>
+            this.Client.ExecuteAPIRequestAsync<T>(
                 this.BuildUrl(path),
                 HttpMethod.Put,
                 useSpartanToken,
                 useClearance,
                 content,
-                includeRawResponse: this.Client.IncludeRawResponses);
+                includeRawResponse: this.Client.IncludeRawResponses,
+                cancellationToken: cancellationToken);
 
         /// <summary>
         /// Executes a PUT request with JSON serialized body.
@@ -205,19 +221,22 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <param name="body">The object to serialize as JSON.</param>
         /// <param name="useClearance">Whether to include the clearance token.</param>
         /// <param name="useSpartanToken">Whether to include the Spartan token. Defaults to true.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>The API response container.</returns>
         protected Task<HaloApiResultContainer<T, RawResponseContainer>> PutJsonAsync<T, TBody>(
             string path,
             TBody body,
             bool useClearance = false,
-            bool useSpartanToken = true) =>
-            this.Client.ExecuteAPIRequest<T>(
+            bool useSpartanToken = true,
+            CancellationToken cancellationToken = default) =>
+            this.Client.ExecuteAPIRequestAsync<T>(
                 this.BuildUrl(path),
                 HttpMethod.Put,
                 useSpartanToken,
                 useClearance,
                 JsonSerializer.Serialize(body),
-                includeRawResponse: this.Client.IncludeRawResponses);
+                includeRawResponse: this.Client.IncludeRawResponses,
+                cancellationToken: cancellationToken);
 
         /// <summary>
         /// Executes a PATCH request against the API.
@@ -227,19 +246,22 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <param name="content">The JSON content to send.</param>
         /// <param name="useClearance">Whether to include the clearance token.</param>
         /// <param name="useSpartanToken">Whether to include the Spartan token. Defaults to true.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>The API response container.</returns>
         protected Task<HaloApiResultContainer<T, RawResponseContainer>> PatchAsync<T>(
             string path,
             string content = "",
             bool useClearance = false,
-            bool useSpartanToken = true) =>
-            this.Client.ExecuteAPIRequest<T>(
+            bool useSpartanToken = true,
+            CancellationToken cancellationToken = default) =>
+            this.Client.ExecuteAPIRequestAsync<T>(
                 this.BuildUrl(path),
                 HttpMethod.Patch,
                 useSpartanToken,
                 useClearance,
                 content,
-                includeRawResponse: this.Client.IncludeRawResponses);
+                includeRawResponse: this.Client.IncludeRawResponses,
+                cancellationToken: cancellationToken);
 
         /// <summary>
         /// Executes a PATCH request with JSON serialized body.
@@ -250,19 +272,22 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <param name="body">The object to serialize as JSON.</param>
         /// <param name="useClearance">Whether to include the clearance token.</param>
         /// <param name="useSpartanToken">Whether to include the Spartan token. Defaults to true.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>The API response container.</returns>
         protected Task<HaloApiResultContainer<T, RawResponseContainer>> PatchJsonAsync<T, TBody>(
             string path,
             TBody body,
             bool useClearance = false,
-            bool useSpartanToken = true) =>
-            this.Client.ExecuteAPIRequest<T>(
+            bool useSpartanToken = true,
+            CancellationToken cancellationToken = default) =>
+            this.Client.ExecuteAPIRequestAsync<T>(
                 this.BuildUrl(path),
                 HttpMethod.Patch,
                 useSpartanToken,
                 useClearance,
                 JsonSerializer.Serialize(body),
-                includeRawResponse: this.Client.IncludeRawResponses);
+                includeRawResponse: this.Client.IncludeRawResponses,
+                cancellationToken: cancellationToken);
 
         /// <summary>
         /// Executes a DELETE request against the API.
@@ -271,16 +296,19 @@ namespace Den.Dev.Grunt.Core.Modules
         /// <param name="path">The relative API path.</param>
         /// <param name="useClearance">Whether to include the clearance token.</param>
         /// <param name="useSpartanToken">Whether to include the Spartan token. Defaults to true.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>The API response container.</returns>
         protected Task<HaloApiResultContainer<T, RawResponseContainer>> DeleteAsync<T>(
             string path,
             bool useClearance = false,
-            bool useSpartanToken = true) =>
-            this.Client.ExecuteAPIRequest<T>(
+            bool useSpartanToken = true,
+            CancellationToken cancellationToken = default) =>
+            this.Client.ExecuteAPIRequestAsync<T>(
                 this.BuildUrl(path),
                 HttpMethod.Delete,
                 useSpartanToken,
                 useClearance,
-                includeRawResponse: this.Client.IncludeRawResponses);
+                includeRawResponse: this.Client.IncludeRawResponses,
+                cancellationToken: cancellationToken);
     }
 }
