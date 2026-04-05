@@ -487,14 +487,18 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         }
 
         /// <summary>
-        /// Gets information about currency transactions that the player executed.
+        /// Gets information about transactions that the player executed.
         /// </summary>
+        /// <remarks>
+        /// The endpoint is named PostCurrencyTransaction in the API definition, but the current implementation uses a GET request.
+        /// The method name matches the endpoint definition for consistency.
+        /// </remarks>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Economy_PostCurrencyTransaction.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="currencyId">The unique identifier for the currency. Valid values include "cr", "rerollcurrency", "xpboost", and "xpgrant".</param>
         /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of TransactionSnapshot listing all existing transactions. Otherwise, returns null.</returns>
-        public Task<HaloApiResultContainer<TransactionSnapshot, RawResponseContainer>> GetCurrencyTransactionsAsync(string player, string currencyId, CancellationToken cancellationToken = default)
+        public Task<HaloApiResultContainer<TransactionSnapshot, RawResponseContainer>> PostCurrencyTransactionAsync(string player, string currencyId, CancellationToken cancellationToken = default)
         {
             ArgumentException.ThrowIfNullOrEmpty(player);
             ArgumentException.ThrowIfNullOrEmpty(currencyId);
