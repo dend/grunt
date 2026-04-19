@@ -5,6 +5,8 @@
 // The underlying API powering Den.Dev.Grunt is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
 // </copyright>
 
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Den.Dev.Grunt.Core.Foundation;
 using Den.Dev.Grunt.Endpoints;
@@ -16,7 +18,7 @@ namespace Den.Dev.Grunt.Core.Modules.Waypoint
     /// <summary>
     /// Module for Halo Waypoint code redemption APIs.
     /// </summary>
-    public class RedemptionModule : WaypointModuleBase
+    public sealed class RedemptionModule : WaypointModuleBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RedemptionModule"/> class.
@@ -34,15 +36,18 @@ namespace Den.Dev.Grunt.Core.Modules.Waypoint
         /// The codes redeemable here can be those that are obtained through Xbox Game Pass perks, but can also be outside the scope of that particular program.
         /// </remarks>
         /// <param name="code">Code to be redeemed.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If call is successful, returns an instance of <see cref="CodeRedemptionResult"/> that contains information about the redeemed code. Otherwise, returns a null object and error details.</returns>
-        public async Task<HaloApiResultContainer<CodeRedemptionResult, RawResponseContainer>> RedeemCode(string code)
+        public Task<HaloApiResultContainer<CodeRedemptionResult, RawResponseContainer>> RedeemCodeAsync(string code, CancellationToken cancellationToken = default)
         {
+            ArgumentException.ThrowIfNullOrEmpty(code);
+
             RedeemableCode container = new()
             {
                 Code = code,
             };
 
-            return await this.PostJsonAsync<CodeRedemptionResult, RedeemableCode>("/users/me/codes", container, useSpartanToken: true);
+            return this.PostJsonAsync<CodeRedemptionResult, RedeemableCode>("/users/me/codes", container, useSpartanToken: true, cancellationToken: cancellationToken);
         }
     }
 }

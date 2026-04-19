@@ -21,7 +21,7 @@ namespace Den.Dev.Grunt.Models
         public int? LocationId { get; set; }
         
         /// <summary>
-        /// gets or sets the default emblem option.
+        /// Gets or sets the default emblem option.
         /// </summary>
         public Emblem? DefaultOption { get; set; }
     }

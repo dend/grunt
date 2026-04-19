@@ -12,7 +12,7 @@ namespace Den.Dev.Grunt.Models
     /// <summary>
     /// Container class used to encapsulate any API errors.
     /// </summary>
-    public class RawResponseContainer
+    public sealed class RawResponseContainer
     {
         /// <summary>
         /// Gets or sets the HTTP error code produced by the API.
@@ -48,5 +48,10 @@ namespace Den.Dev.Grunt.Models
         /// Gets or sets the HTTP headers received in the response.
         /// </summary>
         public Dictionary<string, string>? ResponseHeaders { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the HTTP response indicates success (2xx status code).
+        /// </summary>
+        public bool IsSuccess => this.Code >= 200 && this.Code < 300;
     }
 }

@@ -5,6 +5,8 @@
 // The underlying API powering Den.Dev.Grunt is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
 // </copyright>
 
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Den.Dev.Grunt.Core.Foundation;
 using Den.Dev.Grunt.Endpoints;
@@ -16,7 +18,7 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
     /// <summary>
     /// Module for stats-related API operations including match history and service records.
     /// </summary>
-    public class StatsModule : ModuleBase
+    public sealed class StatsModule : ModuleBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StatsModule"/> class.
@@ -32,10 +34,13 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// </summary>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetChallengeDecks.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>An instance of ChallengeDecksResponse containing deck information if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<ChallengeDecksResponse, RawResponseContainer>> GetChallengeDecks(string player)
+        public Task<HaloApiResultContainer<ChallengeDecksResponse, RawResponseContainer>> GetChallengeDecksAsync(string player, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<ChallengeDecksResponse>($"/hi/players/xuid({player})/decks");
+            ArgumentException.ThrowIfNullOrEmpty(player);
+
+            return this.GetAsync<ChallengeDecksResponse>($"/hi/players/xuid({player})/decks", cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -43,10 +48,13 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// </summary>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetMatchCount.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>An instance of PlayerMatchCount containing match counts if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<PlayerMatchCount, RawResponseContainer>> GetMatchCount(string player)
+        public Task<HaloApiResultContainer<PlayerMatchCount, RawResponseContainer>> GetMatchCountAsync(string player, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<PlayerMatchCount>($"/hi/players/xuid({player})/matches/count");
+            ArgumentException.ThrowIfNullOrEmpty(player);
+
+            return this.GetAsync<PlayerMatchCount>($"/hi/players/xuid({player})/matches/count", cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -57,11 +65,16 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="start">Start value for the counter, from which data should be returned.</param>
         /// <param name="count">Number of matches to return. Maximum is 25. Going beyond 25 will result in only 25 values being returned.</param>
         /// <param name="type">Type of matches to query.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>An instance of <see cref="MatchHistoryResponse"/> containing match metadata if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<MatchHistoryResponse, RawResponseContainer>> GetMatchHistory(string player, int start, int count, MatchType type)
+        public Task<HaloApiResultContainer<MatchHistoryResponse, RawResponseContainer>> GetMatchHistoryAsync(string player, int start, int count, MatchType type, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<MatchHistoryResponse>(
-                $"/hi/players/xuid({player})/matches?start={start}&count={count}&type={type}");
+            ArgumentException.ThrowIfNullOrEmpty(player);
+            ValidateRange(count, 1, 25, nameof(count));
+
+            return this.GetAsync<MatchHistoryResponse>(
+                $"/hi/players/xuid({player})/matches?start={start}&count={count}&type={type}",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -69,23 +82,31 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// </summary>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetMatchStats.xml' path='example'/>
         /// <param name="matchId">Match ID in GUID format.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>An instance of MatchStats containing match metadata if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<MatchStats, RawResponseContainer>> GetMatchStats(string matchId)
+        public Task<HaloApiResultContainer<MatchStats, RawResponseContainer>> GetMatchStatsAsync(string matchId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<MatchStats>($"/hi/matches/{matchId}/stats");
+            ArgumentException.ThrowIfNullOrEmpty(matchId);
+
+            return this.GetAsync<MatchStats>($"/hi/matches/{matchId}/stats", cancellationToken: cancellationToken);
         }
 
         /// <summary>
-        /// Get challenge progression associated with a given match.
+        /// Gets challenge progression associated with a given match.
         /// </summary>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetPlayerMatchProgression.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="matchId">Match ID in GUID format.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>An instance of MatchProgression containing match challenge progression metadata if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<MatchProgression, RawResponseContainer>> GetPlayerMatchProgression(string player, string matchId)
+        public Task<HaloApiResultContainer<MatchProgression, RawResponseContainer>> GetPlayerMatchProgressionAsync(string player, string matchId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<MatchProgression>(
-                $"/hi/players/xuid({player})/matches/{matchId}/progression");
+            ArgumentException.ThrowIfNullOrEmpty(player);
+            ArgumentException.ThrowIfNullOrEmpty(matchId);
+
+            return this.GetAsync<MatchProgression>(
+                $"/hi/players/xuid({player})/matches/{matchId}/progression",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -93,10 +114,13 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// </summary>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_MatchPrivacy.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>An instance of MatchesPrivacy containing match privacy metadata if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<MatchesPrivacy, RawResponseContainer>?> MatchPrivacy(string player)
+        public Task<HaloApiResultContainer<MatchesPrivacy, RawResponseContainer>> GetMatchPrivacyAsync(string player, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<MatchesPrivacy>($"/hi/players/xuid({player})/matches-privacy");
+            ArgumentException.ThrowIfNullOrEmpty(player);
+
+            return this.GetAsync<MatchesPrivacy>($"/hi/players/xuid({player})/matches-privacy", cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -107,13 +131,17 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="xuid">The player's numeric XUID.</param>
         /// <param name="mode">Type of games for which to get the service record.</param>
         /// <param name="seasonId">The ID of the season for which additional stats are pulled. Example value is "Seasons/Season7.json".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, an instance of <see cref="PlayerServiceRecord"/> containing service record information. Otherwise, returns null with additional details about the error.</returns>
-        public async Task<HaloApiResultContainer<PlayerServiceRecord, RawResponseContainer>?> GetPlayerServiceRecordByXuid(string xuid, LifecycleMode mode, string seasonId = "")
+        public Task<HaloApiResultContainer<PlayerServiceRecord, RawResponseContainer>> GetPlayerServiceRecordByXuidAsync(string xuid, LifecycleMode mode, string seasonId = "", CancellationToken cancellationToken = default)
         {
+            ArgumentException.ThrowIfNullOrEmpty(xuid);
+
             var seasonMarker = !string.IsNullOrWhiteSpace(seasonId) ? $"?seasonId={seasonId}" : string.Empty;
 
-            return await this.GetAsync<PlayerServiceRecord>(
-                $"/hi/players/xuid({xuid})/{mode}/servicerecord{seasonMarker}");
+            return this.GetAsync<PlayerServiceRecord>(
+                $"/hi/players/xuid({xuid})/{mode}/servicerecord{seasonMarker}",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -124,13 +152,17 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="gamertag">The player's gamertag. Example value is "BreadKrtek".</param>
         /// <param name="mode">Type of games for which to get the service record.</param>
         /// <param name="seasonId">The ID of the season for which additional stats are pulled. Example value is "Seasons/Season7.json".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, an instance of <see cref="PlayerServiceRecord"/> containing service record information. Otherwise, returns null with additional details about the error.</returns>
-        public async Task<HaloApiResultContainer<PlayerServiceRecord, RawResponseContainer>?> GetPlayerServiceRecordByGamertag(string gamertag, LifecycleMode mode, string seasonId = "")
+        public Task<HaloApiResultContainer<PlayerServiceRecord, RawResponseContainer>> GetPlayerServiceRecordByGamertagAsync(string gamertag, LifecycleMode mode, string seasonId = "", CancellationToken cancellationToken = default)
         {
+            ArgumentException.ThrowIfNullOrEmpty(gamertag);
+
             var seasonMarker = !string.IsNullOrWhiteSpace(seasonId) ? $"?seasonId={seasonId}" : string.Empty;
 
-            return await this.GetAsync<PlayerServiceRecord>(
-                $"/hi/players/{gamertag}/{mode}/servicerecord{seasonMarker}");
+            return this.GetAsync<PlayerServiceRecord>(
+                $"/hi/players/{gamertag}/{mode}/servicerecord{seasonMarker}",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -138,10 +170,13 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// </summary>
         /// <include file='../../../APIDocsExamples/HaloInfinite/Stats_GetPlayerDailyCustomExperience.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>An instance of <see cref="PlayerDailyCustomExperience"/> containing daily experience if request was successful. Return value is null otherwise.</returns>
-        public async Task<HaloApiResultContainer<PlayerDailyCustomExperience, RawResponseContainer>> GetPlayerDailyCustomExperience(string player)
+        public Task<HaloApiResultContainer<PlayerDailyCustomExperience, RawResponseContainer>> GetPlayerDailyCustomExperienceAsync(string player, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<PlayerDailyCustomExperience>($"/hi/players/xuid({player})/customexperience");
+            ArgumentException.ThrowIfNullOrEmpty(player);
+
+            return this.GetAsync<PlayerDailyCustomExperience>($"/hi/players/xuid({player})/customexperience", cancellationToken: cancellationToken);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Den.Dev.Grunt.Librarian
                 var client = new HaloInfiniteClient(string.Empty, string.Empty);
                 var configResult = await ui.WithSpinnerAsync("Fetching endpoint configuration...", async () =>
                 {
-                    return await client.Configuration.GetApiSettingsContainer();
+                    return await client.Configuration.GetApiSettingsContainerAsync();
                 });
 
                 if (configResult?.Result?.Endpoints == null)
@@ -133,7 +133,7 @@ namespace Den.Dev.Grunt.Librarian
                 var client = new HaloInfiniteClient(string.Empty, string.Empty);
                 var configResult = await ui.WithSpinnerAsync("Fetching endpoint configuration...", async () =>
                 {
-                    return await client.Configuration.GetApiSettingsContainer();
+                    return await client.Configuration.GetApiSettingsContainerAsync();
                 });
 
                 if (configResult?.Result?.Endpoints == null)

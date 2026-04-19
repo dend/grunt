@@ -5,6 +5,7 @@
 // The underlying API powering Den.Dev.Grunt is managed by Halo Studios and Microsoft. This wrapper is not endorsed by Halo Studios or Microsoft.
 // </copyright>
 
+using System.Threading;
 using System.Threading.Tasks;
 using Den.Dev.Grunt.Core.Foundation;
 using Den.Dev.Grunt.Endpoints;
@@ -16,7 +17,7 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
     /// <summary>
     /// Module for configuration and endpoint discovery APIs.
     /// </summary>
-    public class ConfigurationModule : ModuleBase
+    public sealed class ConfigurationModule : ModuleBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigurationModule"/> class.
@@ -30,13 +31,15 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <summary>
         /// Gets the API settings container, which has the full list of available endpoints.
         /// </summary>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of Configuration that contains the full list of available endpoints. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<Configuration, RawResponseContainer>> GetApiSettingsContainer()
+        public Task<HaloApiResultContainer<Configuration, RawResponseContainer>> GetApiSettingsContainerAsync(CancellationToken cancellationToken = default)
         {
-            return await this.GetAsyncFullUrl<Configuration>(
+            return this.GetAsyncFullUrl<Configuration>(
                 HaloCoreEndpoints.HaloInfiniteEndpointsEndpoint,
                 useClearance: false,
-                useSpartanToken: true);
+                useSpartanToken: true,
+                cancellationToken: cancellationToken);
         }
     }
 }

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using Den.Dev.Grunt.Core.Foundation;
 using Den.Dev.Grunt.Endpoints;
@@ -20,7 +21,7 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
     /// <summary>
     /// Module for UGC (User Generated Content) authoring API operations including asset management, favorites, and ratings.
     /// </summary>
-    public class UgcModule : ModuleBase
+    public sealed class UgcModule : ModuleBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UgcModule"/> class.
@@ -40,13 +41,21 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="assetId">Unique asset ID. Example value is "3895f3d4-2493-4b84-ae18-876ad3ab344d" for a UGC game variant.</param>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="permission">A <see cref="Permission"/> object with the AuthoringRole set to the desired permission level.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of <see cref="Permission"/> with permission details. Otherwise, returns a null result object with attached error details.</returns>
-        public async Task<HaloApiResultContainer<Permission, RawResponseContainer>> GrantOrRevokePermissions(string title, string assetType, string assetId, string player, Permission permission)
+        public Task<HaloApiResultContainer<Permission, RawResponseContainer>> GrantOrRevokePermissionsAsync(string title, string assetType, string assetId, string player, Permission permission, CancellationToken cancellationToken = default)
         {
-            return await this.PatchJsonAsync<Permission, Permission>(
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+            ArgumentException.ThrowIfNullOrEmpty(player);
+            ArgumentNullException.ThrowIfNull(permission);
+
+            return this.PatchJsonAsync<Permission, Permission>(
                 $"/{title}/{assetType}/{assetId}/permissions/xuid({player})",
                 permission,
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -57,11 +66,18 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "373f3d27-cb4c-4d7b-b6c9-7757de3c1133" for "Arena:King of the Hill".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of FavoriteAsset containing asset information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<FavoriteAsset, RawResponseContainer>> CheckAssetPlayerBookmark(string title, string player, string assetType, string assetId)
+        public Task<HaloApiResultContainer<FavoriteAsset, RawResponseContainer>> CheckAssetPlayerBookmarkAsync(string title, string player, string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<FavoriteAsset>(
-                $"/{title}/players/xuid({player})/favorites/{assetType}/{assetId}");
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(player);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.GetAsync<FavoriteAsset>(
+                $"/{title}/players/xuid({player})/favorites/{assetType}/{assetId}",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -72,13 +88,20 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="starter">Container for the session descriptor that starts the new version.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If version creation is successful, returns an instance of AuthoringAssetVersion. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> CreateAssetVersionAgnostic(string title, string assetType, string assetId, AuthoringSessionSourceStarter starter)
+        public Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> CreateAssetVersionAgnosticAsync(string title, string assetType, string assetId, AuthoringSessionSourceStarter starter, CancellationToken cancellationToken = default)
         {
-            return await this.PostJsonAsync<AuthoringAssetVersion, AuthoringSessionSourceStarter>(
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+            ArgumentNullException.ThrowIfNull(starter);
+
+            return this.PostJsonAsync<AuthoringAssetVersion, AuthoringSessionSourceStarter>(
                 $"/{title}/{assetType}/{assetId}/versions",
                 starter,
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -87,12 +110,18 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If deletion is successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> DeleteAllVersions(string title, string assetType, string assetId)
+        public Task<HaloApiResultContainer<bool, RawResponseContainer>> DeleteAllVersionsAsync(string title, string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.DeleteAsync<bool>(
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.DeleteAsync<bool>(
                 $"/{title}/{assetType}/{assetId}/versions",
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -101,12 +130,18 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If deletion is successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> DeleteAsset(string title, string assetType, string assetId)
+        public Task<HaloApiResultContainer<bool, RawResponseContainer>> DeleteAssetAsync(string title, string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.DeleteAsync<bool>(
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.DeleteAsync<bool>(
                 $"/{title}/{assetType}/{assetId}",
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -116,11 +151,18 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="versionId">Unique ID for the version of the asset.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If deletion is successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> DeleteVersion(string title, string assetType, string assetId, string versionId)
+        public Task<HaloApiResultContainer<bool, RawResponseContainer>> DeleteVersionAsync(string title, string assetType, string assetId, string versionId, CancellationToken cancellationToken = default)
         {
-            return await this.DeleteAsync<bool>(
-                $"/{title}/{assetType}/{assetId}/versions/{versionId}");
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+            ArgumentException.ThrowIfNullOrEmpty(versionId);
+
+            return this.DeleteAsync<bool>(
+                $"/{title}/{assetType}/{assetId}/versions/{versionId}",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -129,29 +171,41 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If session termination is successful, return true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> EndSession(string title, string assetType, string assetId)
+        public Task<HaloApiResultContainer<bool, RawResponseContainer>> EndSessionAsync(string title, string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.DeleteAsync<bool>(
-                $"/{title}/{assetType}/{assetId}/sessions/active");
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.DeleteAsync<bool>(
+                $"/{title}/{assetType}/{assetId}/sessions/active",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
         /// Favorites an asset for the player.
         /// </summary>
         /// <remarks>
-        /// This method expects a JSON body, but I don't yet know what the underlying data structure is.
+        /// This method expects a JSON body. The underlying data structure for the request body has not been fully determined.
         /// </remarks>
         /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_FavoriteAnAsset.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of FavoriteAsset confirming the addition of the asset to favorites. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<FavoriteAsset, RawResponseContainer>> FavoriteAnAsset(string player, string assetType, string assetId)
+        public Task<HaloApiResultContainer<FavoriteAsset, RawResponseContainer>> FavoriteAnAssetAsync(string player, string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.PutAsync<FavoriteAsset>(
+            ArgumentException.ThrowIfNullOrEmpty(player);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.PutAsync<FavoriteAsset>(
                 $"/hi/players/xuid({player})/favorites/{assetType}/{assetId}",
-                "{}");
+                "{}",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -161,23 +215,33 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringAsset containing authoring metadata. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAsset, RawResponseContainer>> GetAsset(string title, string assetType, string assetId)
+        public Task<HaloApiResultContainer<AuthoringAsset, RawResponseContainer>> GetAssetAsync(string title, string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<AuthoringAsset>(
-                $"/{title}/{assetType}/{assetId}");
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.GetAsync<AuthoringAsset>(
+                $"/{title}/{assetType}/{assetId}",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
         /// Returns a binary blob using its path as a reference.
         /// </summary>
         /// <param name="blobPath">Path to the blob to be obtained.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns a binary blob containing file data. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<byte[], RawResponseContainer>> GetBlob(string blobPath)
+        public Task<HaloApiResultContainer<byte[], RawResponseContainer>> GetBlobAsync(string blobPath, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsyncFullUrl<byte[]>(
+            ArgumentException.ThrowIfNullOrEmpty(blobPath);
+
+            return this.GetAsyncFullUrl<byte[]>(
                 $"https://blobs-infiniteugc.{HaloCoreEndpoints.ServiceDomain}/{blobPath}",
-                useSpartanToken: false);
+                useSpartanToken: false,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -189,12 +253,17 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_GetLatestAssetVersionFilm.xml' path='example'/>
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringAssetVersion containing film data in the CustomData property. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> GetLatestAssetVersionFilm(string title, string assetId)
+        public Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> GetLatestAssetVersionFilmAsync(string title, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<AuthoringAssetVersion>(
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.GetAsync<AuthoringAssetVersion>(
                 $"/{title}/films/{assetId}/versions/latest",
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -207,12 +276,18 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringAssetVersion containing version metadata for an asset. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> GetLatestAssetVersionAgnostic(string title, string assetType, string assetId)
+        public Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> GetLatestAssetVersionAgnosticAsync(string title, string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<AuthoringAssetVersion>(
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.GetAsync<AuthoringAssetVersion>(
                 $"/{title}/{assetType}/{assetId}/versions/latest",
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -222,12 +297,18 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringAssetVersion containing version metadata for a published asset. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> GetPublishedVersion(string title, string assetType, string assetId)
+        public Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> GetPublishedVersionAsync(string title, string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<AuthoringAssetVersion>(
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.GetAsync<AuthoringAssetVersion>(
                 $"/{title}/{assetType}/{assetId}/versions/published",
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -238,11 +319,18 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="versionId">Unique ID for the version of the asset.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringAssetVersion that contains asset version information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> GetSpecificAssetVersion(string title, string assetType, string assetId, string versionId)
+        public Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> GetSpecificAssetVersionAsync(string title, string assetType, string assetId, string versionId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<AuthoringAssetVersion>(
-                $"/{title}/{assetType}/{assetId}/versions/{versionId}");
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+            ArgumentException.ThrowIfNullOrEmpty(versionId);
+
+            return this.GetAsync<AuthoringAssetVersion>(
+                $"/{title}/{assetType}/{assetId}/versions/{versionId}",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -255,11 +343,17 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="title">Title which contains the asset. An example value here is "hi".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringAssetVersionContainer that contains information about all available versions for an asset. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersionContainer, RawResponseContainer>> ListAllVersions(string title, string assetType, string assetId)
+        public Task<HaloApiResultContainer<AuthoringAssetVersionContainer, RawResponseContainer>> ListAllVersionsAsync(string title, string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<AuthoringAssetVersionContainer>(
-                $"/{title}/{assetType}/{assetId}/versions");
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.GetAsync<AuthoringAssetVersionContainer>(
+                $"/{title}/{assetType}/{assetId}/versions",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -278,18 +372,24 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="order">Determines whether results are ordered in descending or ascending order.</param>
         /// <param name="keywords">List of keywords by which to filter.</param>
         /// <param name="kind">Type of asset to return.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringAssetContainer containing information about assets a player owns. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetContainer, RawResponseContainer>> ListPlayerAssets(string title, string player, int start, int count, bool includeTimes, string sort, ResultOrder order, List<string> keywords, AssetKind kind)
+        public Task<HaloApiResultContainer<AuthoringAssetContainer, RawResponseContainer>> ListPlayerAssetsAsync(string title, string player, int start, int count, bool includeTimes, string sort, ResultOrder order, List<string> keywords, AssetKind kind, CancellationToken cancellationToken = default)
         {
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(player);
+            ArgumentException.ThrowIfNullOrEmpty(sort);
+
             var formattedKeywordList = string.Empty;
             if (keywords != null && keywords.Count > 0)
             {
                 formattedKeywordList = string.Join(",", keywords);
             }
 
-            return await this.GetAsync<AuthoringAssetContainer>(
+            return this.GetAsync<AuthoringAssetContainer>(
                 $"/{title}/players/xuid({player})/assets?start={start}&count={count}&include-times={includeTimes}&sort={sort}&order={order}&keywords={formattedKeywordList}&kind={kind}",
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -301,12 +401,17 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_ListPlayerFavorites.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringFavoritesContainer containing the list of favorites. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringFavoritesContainer, RawResponseContainer>> ListPlayerFavorites(string player, string assetType)
+        public Task<HaloApiResultContainer<AuthoringFavoritesContainer, RawResponseContainer>> ListPlayerFavoritesAsync(string player, string assetType, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<AuthoringFavoritesContainer>(
+            ArgumentException.ThrowIfNullOrEmpty(player);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+
+            return this.GetAsync<AuthoringFavoritesContainer>(
                 $"/hi/players/xuid({player})/favorites/{assetType}",
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -317,12 +422,16 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// </remarks>
         /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_ListPlayerFavoritesAgnostic.xml' path='example'/>
         /// <param name="player">The player's numeric XUID.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringFavoritesContainer containing the list of favorites. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringFavoritesContainer, RawResponseContainer>> ListPlayerFavoritesAgnostic(string player)
+        public Task<HaloApiResultContainer<AuthoringFavoritesContainer, RawResponseContainer>> ListPlayerFavoritesAgnosticAsync(string player, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<AuthoringFavoritesContainer>(
+            ArgumentException.ThrowIfNullOrEmpty(player);
+
+            return this.GetAsync<AuthoringFavoritesContainer>(
                 $"/hi/players/xuid({player})/favorites",
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -334,13 +443,21 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="versionId">Unique ID for the asset version to be published.</param>
         /// <param name="patchedAsset">Updated asset version with custom configuration.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringAssetVersion containing the changes. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> PatchAssetVersion(string title, string assetType, string assetId, string versionId, AuthoringAssetVersion patchedAsset)
+        public Task<HaloApiResultContainer<AuthoringAssetVersion, RawResponseContainer>> PatchAssetVersionAsync(string title, string assetType, string assetId, string versionId, AuthoringAssetVersion patchedAsset, CancellationToken cancellationToken = default)
         {
-            return await this.PatchJsonAsync<AuthoringAssetVersion, AuthoringAssetVersion>(
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+            ArgumentException.ThrowIfNullOrEmpty(versionId);
+            ArgumentNullException.ThrowIfNull(patchedAsset);
+
+            return this.PatchJsonAsync<AuthoringAssetVersion, AuthoringAssetVersion>(
                 $"/{title}/{assetType}/{assetId}/versions/{versionId}",
                 patchedAsset,
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -353,13 +470,20 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="versionId">Unique ID for the asset version to be published.</param>
         /// <param name="clearanceId">ID of the currently active flight.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If the publishing process is successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> PublishAssetVersion(string assetType, string assetId, string versionId, string clearanceId)
+        public Task<HaloApiResultContainer<bool, RawResponseContainer>> PublishAssetVersionAsync(string assetType, string assetId, string versionId, string clearanceId, CancellationToken cancellationToken = default)
         {
-            return await this.PostAsync<bool>(
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+            ArgumentException.ThrowIfNullOrEmpty(versionId);
+            ArgumentException.ThrowIfNullOrEmpty(clearanceId);
+
+            return this.PostAsync<bool>(
                 $"/hi/{assetType}/{assetId}/publish/{versionId}?clearanceId={clearanceId}",
                 "{}",
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -372,11 +496,17 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="player">The player's numeric XUID.</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringAssetRating containing rating information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetRating, RawResponseContainer>> GetAssetRatings(string player, string assetType, string assetId)
+        public Task<HaloApiResultContainer<AuthoringAssetRating, RawResponseContainer>> GetAssetRatingsAsync(string player, string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.GetAsync<AuthoringAssetRating>(
-                $"/hi/players/xuid({player})/ratings/{assetType}/{assetId}");
+            ArgumentException.ThrowIfNullOrEmpty(player);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.GetAsync<AuthoringAssetRating>(
+                $"/hi/players/xuid({player})/ratings/{assetType}/{assetId}",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -387,12 +517,19 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="rating">An object containing asset rating information. Rating should be set in CustomData.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringAssetRating containing the updated rating. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAssetRating, RawResponseContainer>> RateAnAsset(string player, string assetType, string assetId, AuthoringAssetRating rating)
+        public Task<HaloApiResultContainer<AuthoringAssetRating, RawResponseContainer>> RateAnAssetAsync(string player, string assetType, string assetId, AuthoringAssetRating rating, CancellationToken cancellationToken = default)
         {
-            return await this.PutJsonAsync<AuthoringAssetRating, AuthoringAssetRating>(
+            ArgumentException.ThrowIfNullOrEmpty(player);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+            ArgumentNullException.ThrowIfNull(rating);
+
+            return this.PutJsonAsync<AuthoringAssetRating, AuthoringAssetRating>(
                 $"/hi/players/xuid({player})/ratings/{assetType}/{assetId}",
-                rating);
+                rating,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -403,37 +540,47 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique ID for the asset. Example value is "f96f57e2-9f15-45c5-83ac-5775a48d2ba8" for "Attrition-Default-UGC".</param>
         /// <param name="report">Instance of <see cref="AssetReport"/> containing the report for the asset.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AssetReport containing the report information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AssetReport, RawResponseContainer>> ReportAnAsset(string player, string assetType, string assetId, AssetReport report)
+        public Task<HaloApiResultContainer<AssetReport, RawResponseContainer>> ReportAnAssetAsync(string player, string assetType, string assetId, AssetReport report, CancellationToken cancellationToken = default)
         {
-            return await this.PutJsonAsync<AssetReport, AssetReport>(
+            ArgumentException.ThrowIfNullOrEmpty(player);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+            ArgumentNullException.ThrowIfNull(report);
+
+            return this.PutJsonAsync<AssetReport, AssetReport>(
                 $"/hi/players/xuid({player})/reports/{assetType}/{assetId}",
-                report);
+                report,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
         /// API for creating new assets.
         /// </summary>
         /// <remarks>
-        /// This API is used to create new assets in the user's file browser. The game generally uses Bond-encoded requests, so it's
-        /// still up to discovery to figure out what the values for the POST request are.
-        /// TODO: Need to figure out what the actual data model is for the POST request.
+        /// This API is used to create new assets in the user's file browser. The game generally uses Bond-encoded requests.
+        /// The exact data model for the POST request body has not been fully determined.
         /// </remarks>
         /// <include file='../../../APIDocsExamples/HaloInfinite/HIUGC_SpawnAsset.xml' path='example'/>
         /// <param name="title">Title for the game for which the authoring session needs to be spawned. Example variant is "hi" for "Halo Infinite".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants", "Maps", or "Prefabs".</param>
         /// <param name="asset">Asset definition, containing information about the asset to be created.</param>
         /// <param name="contentType">Content type to be used for the request. Default value uses the Bond encoding.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AuthoringAsset containing asset information. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AuthoringAsset, RawResponseContainer>> SpawnAsset(string title, string assetType, object? asset = null, APIContentType contentType = APIContentType.BondCompactBinary)
+        public Task<HaloApiResultContainer<AuthoringAsset, RawResponseContainer>> SpawnAssetAsync(string title, string assetType, object asset, APIContentType contentType = APIContentType.BondCompactBinary, CancellationToken cancellationToken = default)
         {
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
             ArgumentNullException.ThrowIfNull(asset);
 
-            return await this.PostJsonAsync<AuthoringAsset, object>(
+            return this.PostJsonAsync<AuthoringAsset, object>(
                 $"/{title}/{assetType}",
-                asset!,
+                asset,
                 useClearance: true,
-                contentType: contentType);
+                contentType: contentType,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -448,13 +595,20 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>
         /// <param name="includeContainerSas">Determines whether to include the container SAS in the response or not. Setting this value to "true" will result in a 403 Forbidden error.</param>
         /// <param name="starter">Starter object that describes who is starting the session and the previous version of the asset.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AssetAuthoringSession with details about the created session. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AssetAuthoringSession, RawResponseContainer>> StartSessionAgnostic(string title, string assetType, string assetId, bool includeContainerSas, AuthoringSessionStarter starter)
+        public Task<HaloApiResultContainer<AssetAuthoringSession, RawResponseContainer>> StartSessionAgnosticAsync(string title, string assetType, string assetId, bool includeContainerSas, AuthoringSessionStarter starter, CancellationToken cancellationToken = default)
         {
-            return await this.PostJsonAsync<AssetAuthoringSession, AuthoringSessionStarter>(
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+            ArgumentNullException.ThrowIfNull(starter);
+
+            return this.PostJsonAsync<AssetAuthoringSession, AuthoringSessionStarter>(
                 $"/{title}/{assetType}/{assetId}/sessions?include-container-sas={includeContainerSas}",
                 starter,
-                useClearance: true);
+                useClearance: true,
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -469,12 +623,18 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>
         /// <param name="includeContainerSas">Determines whether to include the container SAS in the response or not. Setting this value to "true" will result in a 403 Forbidden error.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns an instance of AssetAuthoringSession with details about the created session. Otherwise, returns null.</returns>
-        public async Task<HaloApiResultContainer<AssetAuthoringSession, RawResponseContainer>> ExtendSessionAgnostic(string title, string assetType, string assetId, bool includeContainerSas)
+        public Task<HaloApiResultContainer<AssetAuthoringSession, RawResponseContainer>> ExtendSessionAgnosticAsync(string title, string assetType, string assetId, bool includeContainerSas, CancellationToken cancellationToken = default)
         {
-            return await this.PatchAsync<AssetAuthoringSession>(
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.PatchAsync<AssetAuthoringSession>(
                 $"/{title}/{assetType}/{assetId}/sessions?include-container-sas={includeContainerSas}",
-                "{}");
+                "{}",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -483,11 +643,17 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="title">Title for the game for which the authoring session needs to be spawned. Example variant is "hi" for "Halo Infinite".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If the request to delete the session is successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> DeleteSessionAgnostic(string title, string assetType, string assetId)
+        public Task<HaloApiResultContainer<bool, RawResponseContainer>> DeleteSessionAgnosticAsync(string title, string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.DeleteAsync<bool>(
-                $"/{title}/{assetType}/{assetId}/sessions");
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.DeleteAsync<bool>(
+                $"/{title}/{assetType}/{assetId}/sessions",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -500,11 +666,17 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="title">Title for the game for which the authoring session needs to be spawned. Example variant is "hi" for "Halo Infinite".</param>
         /// <param name="assetType">Type of asset to check. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If the request to undelete an asset was successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> UndeleteAsset(string title, string assetType, string assetId)
+        public Task<HaloApiResultContainer<bool, RawResponseContainer>> UndeleteAssetAsync(string title, string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.PostAsync<bool>(
-                $"/{title}/{assetType}/{assetId}/recover");
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.PostAsync<bool>(
+                $"/{title}/{assetType}/{assetId}/recover",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -514,11 +686,18 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// <param name="assetType">Type of asset to unpublish. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>
         /// <param name="versionId">Unique ID for the asset version to be undeleted.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> UndeleteVersion(string title, string assetType, string assetId, string versionId)
+        public Task<HaloApiResultContainer<bool, RawResponseContainer>> UndeleteVersionAsync(string title, string assetType, string assetId, string versionId, CancellationToken cancellationToken = default)
         {
-            return await this.PostAsync<bool>(
-                $"/{title}/{assetType}/{assetId}/versions/{versionId}/recover");
+            ArgumentException.ThrowIfNullOrEmpty(title);
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+            ArgumentException.ThrowIfNullOrEmpty(versionId);
+
+            return this.PostAsync<bool>(
+                $"/{title}/{assetType}/{assetId}/versions/{versionId}/recover",
+                cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -526,11 +705,16 @@ namespace Den.Dev.Grunt.Core.Modules.HaloInfinite
         /// </summary>
         /// <param name="assetType">Type of asset to unpublish. Example value is "UgcGameVariants".</param>
         /// <param name="assetId">Unique asset ID for the asset type specified earlier.</param>
+        /// <param name="cancellationToken">Cancellation token for the operation.</param>
         /// <returns>If successful, returns true. Otherwise, returns false.</returns>
-        public async Task<HaloApiResultContainer<bool, RawResponseContainer>> UnpublishAsset(string assetType, string assetId)
+        public Task<HaloApiResultContainer<bool, RawResponseContainer>> UnpublishAssetAsync(string assetType, string assetId, CancellationToken cancellationToken = default)
         {
-            return await this.PostAsync<bool>(
-                $"/hi/{assetType}/{assetId}/unpublish");
+            ArgumentException.ThrowIfNullOrEmpty(assetType);
+            ArgumentException.ThrowIfNullOrEmpty(assetId);
+
+            return this.PostAsync<bool>(
+                $"/hi/{assetType}/{assetId}/unpublish",
+                cancellationToken: cancellationToken);
         }
     }
 }

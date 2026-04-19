@@ -25,17 +25,17 @@ namespace Den.Dev.Grunt.Core
     /// var client = new HaloInfiniteClient(spartanToken, xuid, clearanceToken);
     ///
     /// // Access economy APIs
-    /// var inventory = await client.Economy.GetInventoryItems(player);
+    /// var inventory = await client.Economy.GetInventoryItemsAsync(player);
     ///
     /// // Access stats APIs
-    /// var matchHistory = await client.Stats.GetMatchHistory(player, 0, 25, MatchType.All);
+    /// var matchHistory = await client.Stats.GetMatchHistoryAsync(player, 0, 25, MatchType.All);
     ///
     /// // Access GameCMS APIs
-    /// var medals = await client.GameCms.GetMedalMetadata();
+    /// var medals = await client.GameCms.GetMedalMetadataAsync();
     /// </code>
     /// </example>
     /// </remarks>
-    public class HaloInfiniteClient : ClientBase
+    public sealed class HaloInfiniteClient : ClientBase, IHaloInfiniteClient
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HaloInfiniteClient"/> class.
