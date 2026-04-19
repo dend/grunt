@@ -62,6 +62,8 @@ export interface AssetBase {
   Contributors?: string[];
   /** File information */
   Files?: AssetVersionFile;
+  /** Absolute blob storage prefix for downloading files referenced in Files / CustomData */
+  BlobStoragePathPrefix?: string;
   /** Type of asset */
   AssetKind?: AssetKind;
   /** Display order */

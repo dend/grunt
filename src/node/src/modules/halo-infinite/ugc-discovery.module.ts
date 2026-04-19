@@ -3,7 +3,13 @@ import type { ClientBase } from '../../clients/base/client-base';
 import type { HaloApiResult } from '../../models/common/api-result';
 import { HALO_CORE_ENDPOINTS } from '../../endpoints/halo-core-endpoints';
 import type { ResultOrder } from '../../models/halo-infinite/enums/result-order';
-import type { UgcSearchResult, AuthoringAsset } from '../../models/halo-infinite/ugc';
+import type {
+  UgcSearchResult,
+  AuthoringAsset,
+  MapAsset,
+  UgcGameVariantAsset,
+  FilmAsset,
+} from '../../models/halo-infinite/ugc';
 
 /**
  * UGC Discovery module for searching and browsing user content.
@@ -204,10 +210,10 @@ export class UgcDiscoveryModule extends ModuleBase {
    * @param versionId - Map version ID
    * @returns Map data
    */
-  getMap(assetId: string, versionId: string): Promise<HaloApiResult<AuthoringAsset>> {
+  getMap(assetId: string, versionId: string): Promise<HaloApiResult<MapAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
-    return this.get<AuthoringAsset>(`/hi/maps/${assetId}/versions/${versionId}`, {
+    return this.get<MapAsset>(`/hi/maps/${assetId}/versions/${versionId}`, {
       useClearance: true,
     });
   }
@@ -218,9 +224,9 @@ export class UgcDiscoveryModule extends ModuleBase {
    * @param assetId - Map asset ID
    * @returns Map data
    */
-  getMapWithoutVersion(assetId: string): Promise<HaloApiResult<AuthoringAsset>> {
+  getMapWithoutVersion(assetId: string): Promise<HaloApiResult<MapAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAsset>(`/hi/maps/${assetId}`, {
+    return this.get<MapAsset>(`/hi/maps/${assetId}`, {
       useClearance: true,
     });
   }
@@ -461,10 +467,10 @@ export class UgcDiscoveryModule extends ModuleBase {
   getUgcGameVariant(
     assetId: string,
     versionId: string
-  ): Promise<HaloApiResult<AuthoringAsset>> {
+  ): Promise<HaloApiResult<UgcGameVariantAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
     this.assertNotEmpty(versionId, 'versionId');
-    return this.get<AuthoringAsset>(
+    return this.get<UgcGameVariantAsset>(
       `/hi/ugcGameVariants/${assetId}/versions/${versionId}`,
       { useClearance: true }
     );
@@ -478,9 +484,9 @@ export class UgcDiscoveryModule extends ModuleBase {
    */
   getUgcGameVariantWithoutVersion(
     assetId: string
-  ): Promise<HaloApiResult<AuthoringAsset>> {
+  ): Promise<HaloApiResult<UgcGameVariantAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAsset>(`/hi/ugcGameVariants/${assetId}`, {
+    return this.get<UgcGameVariantAsset>(`/hi/ugcGameVariants/${assetId}`, {
       useClearance: true,
     });
   }
@@ -495,9 +501,9 @@ export class UgcDiscoveryModule extends ModuleBase {
    * @param assetId - Film asset ID
    * @returns Film data
    */
-  getFilm(assetId: string): Promise<HaloApiResult<AuthoringAsset>> {
+  getFilm(assetId: string): Promise<HaloApiResult<FilmAsset>> {
     this.assertNotEmpty(assetId, 'assetId');
-    return this.get<AuthoringAsset>(`/hi/films/${assetId}`);
+    return this.get<FilmAsset>(`/hi/films/${assetId}`);
   }
 
   /**
@@ -506,9 +512,9 @@ export class UgcDiscoveryModule extends ModuleBase {
    * @param matchId - Match GUID
    * @returns Film asset if available
    */
-  spectateByMatchId(matchId: string): Promise<HaloApiResult<AuthoringAsset>> {
+  spectateByMatchId(matchId: string): Promise<HaloApiResult<FilmAsset>> {
     this.assertNotEmpty(matchId, 'matchId');
-    return this.get<AuthoringAsset>(`/hi/films/matches/${matchId}/spectate`);
+    return this.get<FilmAsset>(`/hi/films/matches/${matchId}/spectate`);
   }
 
   /**
@@ -518,7 +524,7 @@ export class UgcDiscoveryModule extends ModuleBase {
    * @returns Film asset if available
    * @deprecated Use spectateByMatchId instead
    */
-  getFilmByMatchId(matchId: string): Promise<HaloApiResult<AuthoringAsset>> {
+  getFilmByMatchId(matchId: string): Promise<HaloApiResult<FilmAsset>> {
     return this.spectateByMatchId(matchId);
   }
 }

@@ -29,6 +29,7 @@ export type {
   UgcGameVariantAsset,
   GameVariantCustomData,
   FilmAsset,
+  FilmChunk,
   FilmCustomData,
   PrefabAsset,
   PrefabCustomData,

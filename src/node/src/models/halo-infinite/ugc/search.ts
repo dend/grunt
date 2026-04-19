@@ -1,4 +1,4 @@
-import type { AuthoringAsset } from './asset';
+import type { AssetBase, AuthoringAsset } from './asset';
 import type { AssetKind } from '../enums/asset-kind';
 import type { ResultOrder } from '../enums/result-order';
 
@@ -55,7 +55,7 @@ export interface SearchLinks {
 /**
  * Map variant asset.
  */
-export interface MapAsset extends Omit<AuthoringAsset, 'CustomData'> {
+export interface MapAsset extends AssetBase {
   /** Map-specific custom data */
   CustomData?: MapCustomData;
 }
@@ -79,7 +79,7 @@ export interface MapCustomData {
 /**
  * Game variant asset.
  */
-export interface UgcGameVariantAsset extends Omit<AuthoringAsset, 'CustomData'> {
+export interface UgcGameVariantAsset extends AssetBase {
   /** Game variant custom data */
   CustomData?: GameVariantCustomData;
 }
@@ -105,9 +105,23 @@ export interface GameVariantCustomData {
 /**
  * Film asset (theater recording).
  */
-export interface FilmAsset extends Omit<AuthoringAsset, 'CustomData'> {
+export interface FilmAsset extends AssetBase {
   /** Film custom data */
   CustomData?: FilmCustomData;
+}
+
+/**
+ * A single downloadable chunk within a film.
+ */
+export interface FilmChunk {
+  /** Chunk index (0-based) */
+  Index?: number;
+  /** Path relative to the film's blob storage prefix */
+  FileRelativePath?: string;
+  /** Size of the chunk in bytes */
+  ChunkSize?: number;
+  /** Chunk type discriminator */
+  ChunkType?: number;
 }
 
 /**
@@ -116,6 +130,12 @@ export interface FilmAsset extends Omit<AuthoringAsset, 'CustomData'> {
 export interface FilmCustomData {
   /** Match ID this film is from */
   MatchId?: string;
+  /** Ordered list of film chunks available for download */
+  Chunks?: FilmChunk[];
+  /** Total film length (game ticks) */
+  FilmLength?: number;
+  /** Whether the match this film captures has ended */
+  HasGameEnded?: boolean;
   /** Duration of the film */
   Duration?: string;
   /** Map asset ID */
@@ -127,7 +147,7 @@ export interface FilmCustomData {
 /**
  * Prefab asset.
  */
-export interface PrefabAsset extends Omit<AuthoringAsset, 'CustomData'> {
+export interface PrefabAsset extends AssetBase {
   /** Prefab custom data */
   CustomData?: PrefabCustomData;
 }
