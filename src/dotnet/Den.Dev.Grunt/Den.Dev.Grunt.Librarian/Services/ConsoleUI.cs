@@ -1,6 +1,6 @@
-// <copyright file="ConsoleUI.cs" company="Den Delimarsky">
-// Developed by Den Delimarsky.
-// Den Delimarsky licenses this file to you under the MIT license.
+// <copyright file="ConsoleUI.cs" company="Den">
+// Developed by Den.
+// Den licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 // </copyright>
 
@@ -38,7 +38,7 @@ namespace Den.Dev.Grunt.Librarian.Services
                 var content = new Rows(
                     new FigletText("Librarian").Color(Color.Blue),
                     new Markup("[dim]Halo Infinite API Code Generator[/]"),
-                    new Markup("[dim]Developed by Den Delimarsky | https://gruntapi.com[/]"));
+                    new Markup("[dim]Developed by Den | https://gruntapi.com[/]"));
                 AnsiConsole.Write(new Panel(content)
                     .Border(BoxBorder.Rounded)
                     .BorderColor(Color.Blue)
@@ -48,7 +48,7 @@ namespace Den.Dev.Grunt.Librarian.Services
             else
             {
                 Console.WriteLine("Den.Dev.Grunt Librarian - Halo Infinite API Code Generator");
-                Console.WriteLine("Developed by Den Delimarsky. Part of https://gruntapi.com");
+                Console.WriteLine("Developed by Den. Part of https://gruntapi.com");
                 Console.WriteLine();
             }
         }
