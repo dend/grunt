@@ -24,7 +24,7 @@
     "template": ["default", "modern"],
     "globalMetadata": {
       "_appTitle": "Den.Dev.Grunt API",
-      "_appFooter": "Den Delimarsky",
+      "_appFooter": "Den",
       "_enableSearch": true
     }
   }
