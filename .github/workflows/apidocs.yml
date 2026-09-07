@@ -51,7 +51,7 @@ jobs:
       working-directory: _compiled
       run: |
         git add -A
-        git config user.name 'Den Delimarsky'
+        git config user.name 'Den'
         git config user.email '1389609+dend@users.noreply.github.com'
         git commit -m "Docs update." || exit 0
         git push origin main
