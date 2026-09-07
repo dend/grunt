@@ -355,5 +355,5 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Credits
 
-- Original Grunt project by [Den Delimarsky](https://den.dev)
+- Original Grunt project by [Den](https://den.dev)
 - TypeScript implementation maintains API compatibility with the .NET version

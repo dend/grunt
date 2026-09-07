@@ -13,11 +13,11 @@
 		<Nullable>enable</Nullable>
 		<AnalysisLevel>latest</AnalysisLevel>
 		<PackageId>$(AssemblyName)</PackageId>
-		<Authors>Den Delimarsky</Authors>
-		<Company>Den Delimarsky</Company>
+		<Authors>Den</Authors>
+		<Company>Den</Company>
 		<Product>$(AssemblyName)</Product>
 		<Description>An unofficial wrapper for the Halo APIs. Currently supports the full API stack for Halo Infinite.</Description>
-		<Copyright>2025 by Den Delimarsky</Copyright>
+		<Copyright>2025 by Den</Copyright>
 		<PackageReleaseNotes>Initial release of the Den.Dev.Grunt package.</PackageReleaseNotes>
 		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
