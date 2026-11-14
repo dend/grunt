@@ -1,6 +1,10 @@
-![Grunt logo](https://raw.githubusercontent.com/dend/grunt/master/media/grunt-logo.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dend/grunt/master/media/grunt-logo.png" alt="" width="200">
+</p>
 
-# Grunt - The Halo API Wrapper
+<h1 align="center">Grunt</h1>
+
+<p align="center">A reference library for Halo APIs.</p>
 
 Welcome to **Grunt** - the unofficial way to use official undocumented Halo APIs. Here be **a lot of dragons**.
 
@@ -22,7 +26,7 @@ Grunt is available in two flavors:
 | Library | Package | Status |
 |:--------|:--------|:-------|
 | **.NET (C#)** | [![NuGet](https://img.shields.io/nuget/v/Den.Dev.Grunt)](https://www.nuget.org/packages/Den.Dev.Grunt) [![NuGet Downloads](https://img.shields.io/nuget/dt/Den.Dev.Grunt)](https://www.nuget.org/packages/Den.Dev.Grunt) | [![Publish NuGet Package](https://github.com/dend/grunt/actions/workflows/package.yml/badge.svg)](https://github.com/dend/grunt/actions/workflows/package.yml) |
-| **Node.js (TypeScript)** | [![npm](https://img.shields.io/npm/v/@anthropic/grunt)](https://www.npmjs.com/package/@dendev/grunt) | [![Publish npm Package](https://github.com/dend/grunt/actions/workflows/npm-package.yml/badge.svg)](https://github.com/dend/grunt/actions/workflows/npm-package.yml) |
+| **Node.js (TypeScript)** | [![npm](https://img.shields.io/npm/v/@dendotdev/grunt)](https://www.npmjs.com/package/@dendotdev/grunt) | [![Publish npm Package](https://github.com/dend/grunt/actions/workflows/npm-package.yml/badge.svg)](https://github.com/dend/grunt/actions/workflows/npm-package.yml) |
 
 ## Quick Start
 
