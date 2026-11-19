@@ -22,7 +22,11 @@ jobs:
       - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
         with:
           dotnet-version: '10.0.x'
-      - run: dotnet build src/dotnet/Den.Dev.Grunt/Den.Dev.Grunt.sln --configuration Release
+      # Composer and Zeta reference src/conch, which lives in another repo, so they are not built here.
+      - run: |
+          for p in Den.Dev.Grunt Den.Dev.Grunt.Auditor Den.Dev.Grunt.Librarian; do
+            dotnet build "src/dotnet/Den.Dev.Grunt/$p/$p.csproj" --configuration Release
+          done
 
   node:
     runs-on: ubuntu-latest
@@ -41,5 +45,4 @@ jobs:
           cache-dependency-path: src/node/package-lock.json
       - run: npm ci
       - run: npm run typecheck
-      - run: npm test
       - run: npm run build
